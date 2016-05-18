@@ -17,10 +17,13 @@ public class Planet extends Unit {
         super();
     }
 
-    public void initialize( Vector2 pos, float orbitRadius, float planetRadius ){
+    public void initialize( Vector2 pos, float orbitRadius, float planetRadius, Vector2 spriteDimensions, int spriteId, String texturePath ){
         this.orbitRadius = orbitRadius;
         this.planetRadius = planetRadius;
         this.hitbox = new Circle(pos.x,pos.y,planetRadius);
+
+        initializePositions(position);
+        initializeTexture(spriteDimensions, spriteId, texturePath);
     }
 
     @Override
