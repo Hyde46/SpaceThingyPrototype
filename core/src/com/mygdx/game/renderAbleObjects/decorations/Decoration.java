@@ -13,6 +13,6 @@ public abstract class Decoration extends ARenderAbleObject {
      *
      */
     public Decoration(Vector2 pos, Vector2 spriteDimension, int spriteID ){
-        super(pos,spriteDimension,spriteID);
+        super();
     }
 }

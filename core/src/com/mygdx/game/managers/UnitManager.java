@@ -16,7 +16,7 @@ public class UnitManager {
         units = new Array<Unit>();
     }
 
-    public void addUnit(MoveableUnit u){
+    public void addUnit(Unit u){
         units.add(u);
     }
 

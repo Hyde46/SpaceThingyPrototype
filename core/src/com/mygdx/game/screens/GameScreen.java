@@ -9,12 +9,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.managers.UnitManager;
 
-import com.mygdx.game.renderAbleObjects.units.Planet;
-import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.utils.SpacePhysiX;
 
 public class GameScreen implements Screen {
