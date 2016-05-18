@@ -32,7 +32,7 @@ public class MainMenuScreen implements Screen {
         cam.update();
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
-        game.font.draw(game.batch, "Some Overworld", 620, 920);
+        game.font.draw(game.batch, "Some Overworld for you Valli :*", 320, 920);
         game.batch.end();
 
         if (Gdx.input.isTouched()) {

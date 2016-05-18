@@ -1,54 +1,66 @@
 package com.mygdx.game.renderAbleObjects.units;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.renderAbleObjects.RenderAbleObject;
+import com.mygdx.game.renderAbleObjects.AUpdateableObject;
 
 /**
  * Created by denis on 5/13/16.
  */
-public abstract class Unit extends RenderAbleObject {
+public abstract class Unit extends AUpdateableObject {
 
     private static int UID = 0;
 
-    protected boolean isRendered;
-    protected boolean isDeletable;
-    protected Circle hitbox;
+    protected int unitType;
+    /*
+    0 - SpaceShip
+    1 - Planet
+    2 -
+    3 -
+    4 -
+     */
 
     private int unitID;
+    protected Vector2 deltaMovement;
+    protected Vector2 targetPosition;
+    protected Vector2 prevPosition;
 
-    protected Unit(Vector2 pos,Vector2 spriteDimension, int spriteID){
-        super(pos,spriteDimension,spriteID);
-        isRendered = false;
-        isDeletable = false;
+    protected Unit(){
+        super();
         unitID = UID++;
-
+        deltaMovement = new Vector2();
+        targetPosition = new Vector2();
+        prevPosition = new Vector2();
     }
 
-    public abstract void update(float delta);
+    protected void initializePositions(Vector2 position){
+
+        this.position = position.cpy();
+        prevPosition.set(position);
+        this.deltaMovement.set(0,0);
+    }
+
+    protected void initializeTexture(Vector2 spriteDimensions, int spriteId, String texturePath){
+        this.spriteDimension.set(spriteDimensions);
+        this.spriteID = spriteId;
+    }
 
     public void render(SpriteBatch g){
-        if(!isRendered || isDeletable){
+        if(!isActive){
             return;
         }
-        //g.draw(whatever)
+        g.draw(sprite,position.x,position.y);
     }
 
+    public abstract void moveUnit();
 
-    public void setRendered(boolean b){
-        this.isRendered = b;
-    }
-    public boolean getIsDeleteable(){
-        return isDeletable;
-    }
     public Shape2D getHitbox(){
         return hitbox;
     }
     public int getUnitID(){
         return unitID;
     }
+    public int getUnitType(){ return unitType; }
 }

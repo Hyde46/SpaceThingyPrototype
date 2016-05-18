@@ -26,9 +26,7 @@ public class GameScreen implements Screen {
     UnitManager uM;
     SpacePhysiX spX;
 
-    //temporär
-    SpaceShip player;
-    Vector3 touchPos;
+    //InputManager iM;
 
     public GameScreen(final MyGdxGame gam) {
         this.game = gam;
@@ -41,17 +39,7 @@ public class GameScreen implements Screen {
 
         uM = new UnitManager();
 
-        Planet p = new Planet(new Vector2(400,500),new Vector2(50,50),1,250,15);
-        Planet p2 = new Planet(new Vector2(760,1500),new Vector2(50,50),1,300,25);
-        player = new SpaceShip(new Vector2(p.getPosition().x+p.getOrbitRadius(),p.getPosition().y), new Vector2(10,10),
-                                        p.getPlanetId(), 250, p.getPosition());
-        uM.addUnit(p);
-        uM.addUnit(p2);
-        uM.addUnit(player);
-
-        spX = new SpacePhysiX(uM.getUnits(),player.getUnitID());
-
-        touchPos = new Vector3();
+        spX = new SpacePhysiX(uM.getUnits());
 
     }
 
@@ -75,36 +63,21 @@ public class GameScreen implements Screen {
         // all drops
         game.batch.begin();
         uM.render(game.batch);
-        game.font.draw(game.batch, "Prototype v0.0.3", 5 , 30);
+        game.font.draw(game.batch, "Prototype v0.0.4", 5 , 30);
         game.batch.end();
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         game.shapeRenderer.setColor(1, 1, 0, 1);
         Gdx.gl20.glLineWidth(3 / camera.zoom);
         uM.renderHitboxes(game.shapeRenderer);
         game.shapeRenderer.end();
-        // process user input
-        if (Gdx.input.isTouched()) {
-            Vector3 touchPos = new Vector3();
-            touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-            camera.unproject(touchPos);
-        }
+
         update(delta);
     }
 
     public void update(float delta)
     {
-        handleInput(delta);
+        //iM.update(delta);
         spX.update(delta);
-    }
-
-    private void handleInput(float delta){
-        if(Gdx.input.isTouched()){
-            touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-            camera.unproject(touchPos);
-
-            player.launch();
-
-        }
     }
 
     @Override

@@ -9,78 +9,63 @@ import com.mygdx.game.utils.SpaceMath;
 /**
  * Created by denis on 5/13/16.
  */
-public class SpaceShip extends MoveableUnit {
-    /*
-    Players space ship for now
-     */
-    private boolean isInOrbit;
+public class SpaceShip extends Unit {
+
     private float currentOrbitRadius;
-    private Vector2 connectedPlanetPos;
+    private Planet connectedPlanet;
 
     private float rotationSpeed;
     private int rotationDirection;
-    /*
-    -1 if not connected
-     */
-    private int connectedPlanetID;
 
-    private Vector2 resetPos;
-    private float resetRadius;
-    private Vector2 resetPlanetPos;
-    private int resetConnectedPlanetID;
+    private Circle targetHitbox;
 
-    public SpaceShip(Vector2 pos, Vector2 spriteDimension, int connectedPlanetID, float currentOrbitRadius, Vector2 connectedPlanetPos){
-        super(pos,spriteDimension,0);
-        this.connectedPlanetID = connectedPlanetID;
-        isInOrbit = true;
-        this.currentOrbitRadius = currentOrbitRadius;
-        this.connectedPlanetPos = new Vector2(connectedPlanetPos.cpy());
-
-        rotationSpeed = 1.5f;
-        rotationDirection = 1;
-
-        hitbox = new Circle(pos.x,pos.y,20f);
-        targetHitbox = new Circle(pos.x,pos.y,20f);
-
-        resetPos = new Vector2(pos.cpy());
-        resetPlanetPos = new Vector2((connectedPlanetPos.cpy()));
-        resetRadius = currentOrbitRadius;
-        resetConnectedPlanetID = connectedPlanetID;
+    public SpaceShip(){
+        super();
 
         deltaMovement = new Vector2();
     }
 
-    public int getConnectedPlanetID(){
-        return connectedPlanetID;
+    public void initialize(Vector2 position,Planet connectedPlanet, float currentOrbitRadius, Vector2 spriteDimensions, String texturePath, int spriteId){
+        unitType = 0;
+        this.connectedPlanet = connectedPlanet;
+        this.currentOrbitRadius = currentOrbitRadius;
+
+        rotationSpeed = 1.5f;
+        rotationDirection = 1;
+
+        hitbox = new Circle(position.x,position.y,20f);
+        targetHitbox = new Circle(position.x,position.y,20f);
+
+        initializePositions(position);
+        initializeTexture(spriteDimensions, spriteId, texturePath);
+
     }
 
     public void launch(){
-        if(!isInOrbit){
+        if(!isInOrbit()){
             return;
         }
         currentOrbitRadius = 0f;
 
         Vector2 b = position.cpy();
-        Vector2 vecToPlanet = b.sub(connectedPlanetPos);
+        Vector2 vecToPlanet = b.sub(connectedPlanet.getPosition());
         vecToPlanet = vecToPlanet.nor();
         deltaMovement = vecToPlanet.cpy();
         deltaMovement.scl(7f);
         deltaMovement.set(-deltaMovement.y,deltaMovement.x);
         deltaMovement.scl(rotationDirection);
-        isInOrbit = false;
-
+        connectedPlanet = null;
     }
 
-    public void enterOrbit(int connectedPlanetID, float connectedPlanetRadius, Vector2 connectedPlanetPos){
-        if(isInOrbit || connectedPlanetID == this.connectedPlanetID){
+    public void enterOrbit(Planet connectedPlanet, float orbitRadius){
+        //TODO: dont connect to the last connected planet. may lead to problems
+        if(isInOrbit()){
             return;
         }
-        this.connectedPlanetID = connectedPlanetID;
-        this.currentOrbitRadius = connectedPlanetRadius;
-        this.connectedPlanetPos.set(connectedPlanetPos);
-        isInOrbit = true;
+        this.connectedPlanet = connectedPlanet;
+        this.currentOrbitRadius = orbitRadius;
 
-        int i = connectedPlanetPos.y > position.y ? 1:-1;
+        int i = connectedPlanet.getPosition().y > position.y ? 1:-1;
 
         if(position.x > prevPosition.x )
             rotationDirection = i * 1;
@@ -90,11 +75,11 @@ public class SpaceShip extends MoveableUnit {
     }
 
     public void update(float delta){
-        if(!isInOrbit) {
+        if(connectedPlanet == null) {
             targetPosition.add(deltaMovement);
             targetHitbox.set(targetPosition,20f);
         }else{
-            targetPosition = SpaceMath.rotatePoint(position,connectedPlanetPos,rotationSpeed,rotationDirection);
+            targetPosition = SpaceMath.rotatePoint(position,connectedPlanet.getPosition(),rotationSpeed,rotationDirection);
             targetHitbox.set(targetPosition,20f);
         }
 
@@ -104,22 +89,16 @@ public class SpaceShip extends MoveableUnit {
         sr.circle(position.x,position.y,20f);
     }
 
-    //for now
-    @Override
-    public void reset(){
+    public boolean isInOrbit(){ return connectedPlanet != null; }
 
-        this.position.set(resetPos.cpy());
-        this.connectedPlanetPos.set(resetPlanetPos);
-        this.connectedPlanetID = resetConnectedPlanetID;
-        this.currentOrbitRadius = resetRadius;
-        isCollided = false;
-        isInOrbit = true;
+    public Planet getConnectedPlanet(){
+        return connectedPlanet;
     }
 
-    //@Override
-    public int getOrbitRadius(){return 0;}
     @Override
-    public int getPlanetId(){ return 0; }
+    public void moveUnit(){
+        position.set(targetPosition);
+        ((Circle)hitbox).set(targetHitbox);
+    }
 
-    public boolean isInOrbit(){ return isInOrbit; }
 }

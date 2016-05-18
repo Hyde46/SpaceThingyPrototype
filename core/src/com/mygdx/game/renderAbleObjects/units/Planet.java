@@ -8,31 +8,29 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * Created by denis on 5/13/16.
  */
-public class Planet extends MoveableUnit {
+public class Planet extends Unit {
 
-    //TODO higher abstraction level from planet downwards !
+    private float orbitRadius;
+    private float planetRadius;
 
-    private static int PLANETIDS = 0;
-    /*
-    PlanetSystem class ?
-     */
-    private int orbitRadius;
-    private int planetRadius;
-    private int planetId;
+    public Planet(){
+        super();
+    }
 
-    public Planet(Vector2 pos, Vector2 spriteDimension, int spriteID,
-                  int orbitRadius, int planetRadius){
-        super(pos,spriteDimension,spriteID);
+    public void initialize( Vector2 pos, float orbitRadius, float planetRadius ){
         this.orbitRadius = orbitRadius;
         this.planetRadius = planetRadius;
         this.hitbox = new Circle(pos.x,pos.y,planetRadius);
-        this.targetHitbox = new Circle(pos.x,pos.y,planetRadius);
-        this.planetId = PLANETIDS++;
+    }
+
+    @Override
+    public void moveUnit(){
+        this.position.set(this.targetPosition);
     }
 
     @Override
     public void renderHitboxes(ShapeRenderer d){
-        if(!isRendered || isDeletable){
+        if(!isActive){
             return;
         }
         d.circle(this.position.x,this.position.y,planetRadius);
@@ -44,19 +42,13 @@ public class Planet extends MoveableUnit {
 
     }
 
-    public int getOrbitRadius(){
+    public float getOrbitRadius(){
         return orbitRadius;
     }
 
-    public int getPlanetRadius(){
+    public float getPlanetRadius(){
         return planetRadius;
     }
 
-    @Override
-    public int getPlanetId(){
-        return planetId;
-    }
-
-    public void reset(){}
 
 }
