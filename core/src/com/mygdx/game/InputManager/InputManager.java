@@ -1,6 +1,3 @@
-package com.mygdx.game.InputManager;
-
-import com.badlogic.gdx.Gdx;
 /*
     - Register objs with the IInputHandler attached to them in the ObjectHolder
     (dont forget to delete them after use)
@@ -10,8 +7,13 @@ import com.badlogic.gdx.Gdx;
     - The InputManager needs a tick to update the hold button times
 */
 
+package com.mygdx.game.InputManager;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.renderAbleObjects.ARenderAbleObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -34,6 +36,7 @@ public class InputManager implements InputProcessor
     {
         // this is an input processor that gets registered at the main input
         Gdx.input.setInputProcessor(this);
+        objectHolder = new ObjectHolder<ARenderAbleObject>();
     }
 
     public void Tick(float deltaTime)
@@ -46,21 +49,25 @@ public class InputManager implements InputProcessor
     }
 
     /* Touch related */
-    public ObjectHolder<Integer> objectHolder;
+    public ObjectHolder<ARenderAbleObject> objectHolder;
 
     HashMap<Integer, TouchData> touchData = new HashMap<Integer, TouchData>();
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
-        // get objs list from oh
-/*        for(int i = 0; i < objs.size(); i++)
+        ArrayList<ARenderAbleObject> objs = objectHolder.getObjects();
+        for(int i = 0; i < objs.size(); i++)
         {
-            if(IInputHandler.class.isInstance(new Integer(3)))
+            if(objs.get(i).getHitbox().contains(screenX, screenY))
             {
-                touchData.get(pointer).getObjsOrigin().add((IInputHandler)new ObjectHolder<Integer>());
+                if(IInputHandler.class.isInstance(new Integer(3)))
+                {
+                    touchData.get(pointer).getObjsOrigin().add((IInputHandler)new ObjectHolder<Integer>());
+                }
             }
-        }*/
+        }
+        if(touchData.get(pointer).getObjsOrigin().size() == 0) return true; // there is no interesting object touched
 
         TouchData td = new TouchData();
         td.setPosOrigin(new Vector2(screenX, screenY));
