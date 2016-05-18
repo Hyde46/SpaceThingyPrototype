@@ -107,6 +107,7 @@ public class SpaceShip extends MoveableUnit {
     //for now
     @Override
     public void reset(){
+
         this.position.set(resetPos.cpy());
         this.connectedPlanetPos.set(resetPlanetPos);
         this.connectedPlanetID = resetConnectedPlanetID;
