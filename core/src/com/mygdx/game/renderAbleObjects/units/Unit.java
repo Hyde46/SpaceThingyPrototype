@@ -63,4 +63,8 @@ public abstract class Unit extends AUpdateableObject {
         return unitID;
     }
     public int getUnitType(){ return unitType; }
+
+    public Vector2 getDeltaMovement(){
+        return deltaMovement;
+    }
 }

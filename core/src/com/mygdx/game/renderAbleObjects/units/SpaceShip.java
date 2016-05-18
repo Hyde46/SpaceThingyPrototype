@@ -19,6 +19,8 @@ public class SpaceShip extends Unit {
 
     private Circle targetHitbox;
 
+    private boolean isCollided;
+
     public SpaceShip(){
         super();
 
@@ -27,6 +29,7 @@ public class SpaceShip extends Unit {
 
     public void initialize(Vector2 position,Planet connectedPlanet, float currentOrbitRadius, Vector2 spriteDimensions, String texturePath, int spriteId){
         unitType = 0;
+        isCollided = false;
         this.connectedPlanet = connectedPlanet;
         this.currentOrbitRadius = currentOrbitRadius;
 
@@ -99,8 +102,22 @@ public class SpaceShip extends Unit {
 
     @Override
     public void moveUnit(){
+        if(isCollided)
+            return;
         position.set(targetPosition);
         ((Circle)hitbox).set(targetHitbox);
+    }
+
+    public Circle getTargetHitbox(){
+        return targetHitbox;
+    }
+
+    public void collide(){
+        this.isCollided = true;
+    }
+
+    public boolean isCollided(){
+        return isCollided;
     }
 
 }

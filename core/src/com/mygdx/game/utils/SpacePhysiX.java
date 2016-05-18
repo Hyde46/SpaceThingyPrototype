@@ -1,6 +1,10 @@
 package com.mygdx.game.utils;
 
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.renderAbleObjects.units.Planet;
+import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
 
 /**
@@ -9,9 +13,14 @@ import com.mygdx.game.renderAbleObjects.units.Unit;
 public class SpacePhysiX {
 
     private Array<Unit> units;
+    private SpaceShip playerShip;
 
     public SpacePhysiX(Array<Unit> units){
         this.units = units;
+        for(Unit u : units){
+            if(u.getUnitType() == 0)
+                playerShip = (SpaceShip)u;
+        }
     }
 
     public void update(float delta) {
@@ -21,45 +30,37 @@ public class SpacePhysiX {
         }
         //resolve all collisions
         for(Unit u : units){
-            /*
-            if(u.getUnitID() != playerID){
+            if(u.getUnitType() != 0){ //0 = playership
                 //player crashes into planet
-                if(u.getTargetHitbox().overlaps(player.getTargetHitbox())){
-                    player.collide();
+                if(((Circle)u.getHitbox()).overlaps(playerShip.getTargetHitbox())){
+                    playerShip.collide();
                 }
             }
-            */
         }
         //check if playership docs to some orbit
-        /*
-        if(!player.isInOrbit() && !player.isCollided())
-            for(MoveableUnit u : units) {
-                if (u.getUnitID() != playerID) {
+        if(!playerShip.isInOrbit() && !playerShip.isCollided())
+            for(Unit u : units) {
+                if (u.getUnitType() != 0) {
 
                     //if player is in range, check if he should dock
-                    if(player.getPosition().cpy().sub(u.getPosition()).len() <= ((Planet)u).getOrbitRadius()){ // u = moveableobject
+                    if(playerShip.getPosition().cpy().sub(u.getPosition()).len() <= ((Planet)u).getOrbitRadius()){ // u = moveableobject
                         Vector2 v = u.getPosition().cpy();
-                        Vector2 vecToShip = player.getPosition().cpy();
+                        Vector2 vecToShip = playerShip.getPosition().cpy();
                         vecToShip.sub(v);
-                        System.out.println(vecToShip.dot(player.getDeltaMovement())+"   "+vecToShip.dot(player.getDeltaMovement()));
-                        if(vecToShip.dot(player.getDeltaMovement()) <= 30 &&  vecToShip.dot(player.getDeltaMovement()) >= -30){
-                            player.enterOrbit(u.getPlanetId(),vecToShip.len(), v);
+                        System.out.println(vecToShip.dot(playerShip.getDeltaMovement())+"   "+vecToShip.dot(playerShip.getDeltaMovement()));
+                        if(vecToShip.dot(playerShip.getDeltaMovement()) <= 30 &&  vecToShip.dot(playerShip.getDeltaMovement()) >= -30){
+                            playerShip.enterOrbit((Planet)u, vecToShip.len());
 
                         }
                     }
 
                 }
             }
-        */
+
         //move non collided units
-        /*
-        for(Unit u : units){
-            if(!u.isCollided()) {
-                u.moveUnit();
-            }else {
-                u.reset();
-            }
+
+        for(Unit u : units) {
+            u.moveUnit();
         }
-        */
     }
 }
