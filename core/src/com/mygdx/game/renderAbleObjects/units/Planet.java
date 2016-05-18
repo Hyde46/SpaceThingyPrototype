@@ -23,7 +23,7 @@ public class Planet extends Unit {
         this.planetRadius = planetRadius;
         this.hitbox = new Circle(pos.x,pos.y,planetRadius);
 
-        initializePositions(position);
+        initializePositions(pos,new Vector2(0,0));
         initializeTexture(spriteDimensions, spriteId, texturePath);
     }
 
@@ -34,9 +34,10 @@ public class Planet extends Unit {
 
     @Override
     public void renderHitboxes(ShapeRenderer d){
-        if(!isActive){
+        if(!isDebug){
             return;
         }
+        System.out.println(position+"   "+planetRadius+"  "+orbitRadius);
         d.circle(this.position.x,this.position.y,planetRadius);
         d.circle(this.position.x,this.position.y,orbitRadius);
     }

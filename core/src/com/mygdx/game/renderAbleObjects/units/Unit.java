@@ -34,11 +34,13 @@ public abstract class Unit extends AUpdateableObject {
         prevPosition = new Vector2();
     }
 
-    protected void initializePositions(Vector2 position){
+    protected void initializePositions(Vector2 position,Vector2 deltaMovement){
 
         this.position = position.cpy();
+        targetPosition = position.cpy();
         prevPosition.set(position);
         this.deltaMovement.set(0,0);
+        this.deltaMovement = deltaMovement.cpy();
     }
 
     protected void initializeTexture(Vector2 spriteDimensions, int spriteId, String texturePath){

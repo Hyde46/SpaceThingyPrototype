@@ -9,8 +9,15 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.managers.UnitManager;
 
+import com.mygdx.game.managers.levels.Level;
+import com.mygdx.game.managers.levels.LevelFactory;
+import com.mygdx.game.renderAbleObjects.units.Planet;
+import com.mygdx.game.renderAbleObjects.units.SpaceShip;
+import com.mygdx.game.renderAbleObjects.units.Unit;
 import com.mygdx.game.utils.SpacePhysiX;
 
 public class GameScreen implements Screen {
@@ -23,7 +30,7 @@ public class GameScreen implements Screen {
     SpacePhysiX spX;
 
     //InputManager iM;
-
+    private LevelFactory levelFactory;
 
     public GameScreen(final MyGdxGame gam) {
         this.game = gam;
@@ -38,26 +45,19 @@ public class GameScreen implements Screen {
 
         spX = new SpacePhysiX(uM.getUnits());
 
+        setLevel(0);
     }
 
     @Override
     public void render(float delta) {
-        // clear the screen with a dark blue color. The
-        // arguments to glClearColor are the red, green
-        // blue and alpha component in the range [0,1]
-        // of the color to be used to clear the screen.
+
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        // tell the camera to update its matrices.
         camera.update();
 
-        // tell the SpriteBatch to render in the
-        // coordinate system specified by the camera.
         game.batch.setProjectionMatrix(camera.combined);
 
-        // begin a new batch and draw the bucket and
-        // all drops
         game.batch.begin();
         uM.render(game.batch);
         game.font.draw(game.batch, "Prototype v0.0.4", 5 , 30);
@@ -75,6 +75,38 @@ public class GameScreen implements Screen {
     {
         //iM.update(delta);
         spX.update(delta);
+    }
+
+    /*
+    Call this Method from MainMenuScreen to load the appropriate level
+    int levelId     The Id of the level which should be loaded ;)
+     */
+    public void setLevel(int levelId){
+
+        //for now
+        levelId = 1;
+        Level l = LevelFactory.loadLevel(levelId);
+        initPrototypeLevel();
+
+        //TODO also very important:)
+        //we dont have any sort of level loading mechanism at the moment.
+        //to remove the hardcoding of the level in the gamescreen which is not optimal
+        //initLevel();
+    }
+
+    //just for the prototype !!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    private void initPrototypeLevel(){
+        Unit playerShip = new SpaceShip();
+        Unit p1 = new Planet();
+        Unit p2 = new Planet();
+        Unit p3 = new Planet();
+
+        ((SpaceShip)playerShip).initialize(new Vector2(350,350),new Vector2(0,20),null,0,new Vector2(10,10),"./player.png",0);
+        ((Planet)p1).initialize(new Vector2(200,670),140,15,new Vector2(20,20),1,"./planet1.png");
+        uM.addUnit(playerShip);
+        uM.addUnit(p1);
+
     }
 
     @Override

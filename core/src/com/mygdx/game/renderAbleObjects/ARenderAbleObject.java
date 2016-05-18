@@ -16,6 +16,7 @@ public abstract class ARenderAbleObject {
     protected int spriteID;
     protected Shape2D hitbox;
     protected boolean isActive;
+    protected boolean isDebug;
 
     //temporary
     protected Texture sprite;
@@ -24,6 +25,8 @@ public abstract class ARenderAbleObject {
         position = new Vector2();
         spriteDimension  = new Vector2();
         sprite = null;
+        isActive = false;
+        isDebug = true;
     }
 
     //lots of initialize methods will have a different header?
