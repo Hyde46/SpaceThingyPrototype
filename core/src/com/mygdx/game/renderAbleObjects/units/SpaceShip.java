@@ -65,6 +65,8 @@ public class SpaceShip extends Unit {
         this.connectedPlanet = connectedPlanet;
         this.currentOrbitRadius = orbitRadius;
 
+        connectedPlanet.connectSpaceShip(this);
+
         int i = connectedPlanet.getPosition().y > position.y ? 1:-1;
 
         if(position.x > prevPosition.x )

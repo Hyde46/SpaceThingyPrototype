@@ -13,6 +13,8 @@ public class Planet extends Unit {
     private float orbitRadius;
     private float planetRadius;
 
+    private SpaceShip connectedSpaceShip;
+
     public Planet(){
         super();
     }
@@ -51,6 +53,15 @@ public class Planet extends Unit {
 
     public float getPlanetRadius(){
         return planetRadius;
+    }
+
+    public void connectSpaceShip(SpaceShip ss){
+        this.connectedSpaceShip = ss;
+    }
+
+    public void launchSpaceShip(){
+        connectedSpaceShip.launch();
+        connectedSpaceShip = null;
     }
 
 
