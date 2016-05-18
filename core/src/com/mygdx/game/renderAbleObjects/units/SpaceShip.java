@@ -32,7 +32,7 @@ public class SpaceShip extends Unit {
         this.connectedPlanet = connectedPlanet;
         this.currentOrbitRadius = currentOrbitRadius;
 
-        rotationSpeed = 1.5f;
+        rotationSpeed = 60.5f;
         rotationDirection = 1;
 
         hitbox = new Circle(position.x,position.y,20f);
@@ -61,6 +61,7 @@ public class SpaceShip extends Unit {
 
     public void enterOrbit(Planet connectedPlanet, float orbitRadius){
         //TODO: dont connect to the last connected planet. may lead to problems
+        //TODO: calculate new rotation Speed !
         if(isInOrbit()){
             return;
         }

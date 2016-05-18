@@ -15,7 +15,10 @@ public class SpacePhysiX {
     private Array<Unit> units;
     private SpaceShip playerShip;
 
-    public SpacePhysiX(Array<Unit> units){
+    public SpacePhysiX(){
+    }
+
+    public void initializePhysics(Array<Unit> units){
         this.units = units;
         for(Unit u : units){
             if(u.getUnitType() == 0)
@@ -38,26 +41,26 @@ public class SpacePhysiX {
             }
         }
         //check if playership docs to some orbit
-        if(playerShip != null)
-        if(!playerShip.isInOrbit() && !playerShip.isCollided())
-            for(Unit u : units) {
-                if (u.getUnitType() != 0) {
+        if(playerShip != null) {
+            if (!playerShip.isInOrbit() && !playerShip.isCollided()) {
+                for (Unit u : units) {
+                    if (u.getUnitType() != 0) {
+                        //if player is in range, check if he should dock
+                        if (playerShip.getPosition().cpy().sub(u.getPosition()).len() <= ((Planet) u).getOrbitRadius()) { // u = moveableobject
+                            Vector2 v = u.getPosition().cpy();
+                            Vector2 vecToShip = playerShip.getPosition().cpy();
+                            vecToShip.sub(v);
+                            System.out.println(vecToShip.dot(playerShip.getDeltaMovement()) + "   " + vecToShip.dot(playerShip.getDeltaMovement()));
+                            if (vecToShip.dot(playerShip.getDeltaMovement()) <= 100 && vecToShip.dot(playerShip.getDeltaMovement()) >= -100) {
+                                playerShip.enterOrbit((Planet) u, vecToShip.len());
 
-                    //if player is in range, check if he should dock
-                    if(playerShip.getPosition().cpy().sub(u.getPosition()).len() <= ((Planet)u).getOrbitRadius()){ // u = moveableobject
-                        Vector2 v = u.getPosition().cpy();
-                        Vector2 vecToShip = playerShip.getPosition().cpy();
-                        vecToShip.sub(v);
-                        System.out.println(vecToShip.dot(playerShip.getDeltaMovement())+"   "+vecToShip.dot(playerShip.getDeltaMovement()));
-                        if(vecToShip.dot(playerShip.getDeltaMovement()) <= 30 &&  vecToShip.dot(playerShip.getDeltaMovement()) >= -30){
-                            playerShip.enterOrbit((Planet)u, vecToShip.len());
-
+                            }
                         }
-                    }
 
+                    }
                 }
             }
-
+        }
         //move non collided units
 
         for(Unit u : units) {

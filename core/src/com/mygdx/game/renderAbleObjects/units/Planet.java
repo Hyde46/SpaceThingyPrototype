@@ -18,7 +18,8 @@ public class Planet extends Unit {
         super();
     }
 
-    public void initialize( Vector2 pos, float orbitRadius, float planetRadius, Vector2 spriteDimensions, int spriteId, String texturePath ){
+    public void initialize( Vector2 pos, float orbitRadius, float planetRadius, Vector2 spriteDimensions, String texturePath , int spriteId){
+        unitType = 1;
         this.orbitRadius = orbitRadius;
         this.planetRadius = planetRadius;
         this.hitbox = new Circle(pos.x,pos.y,planetRadius);
@@ -37,7 +38,6 @@ public class Planet extends Unit {
         if(!isDebug){
             return;
         }
-        System.out.println(position+"   "+planetRadius+"  "+orbitRadius);
         d.circle(this.position.x,this.position.y,planetRadius);
         d.circle(this.position.x,this.position.y,orbitRadius);
     }

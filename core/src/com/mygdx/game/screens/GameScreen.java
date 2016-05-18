@@ -43,7 +43,7 @@ public class GameScreen implements Screen {
 
         uM = new UnitManager();
 
-        spX = new SpacePhysiX(uM.getUnits());
+        spX = new SpacePhysiX();
 
         setLevel(0);
     }
@@ -92,6 +92,7 @@ public class GameScreen implements Screen {
         //we dont have any sort of level loading mechanism at the moment.
         //to remove the hardcoding of the level in the gamescreen which is not optimal
         //initLevel();
+        spX.initializePhysics(uM.getUnits());
     }
 
     //just for the prototype !!!!!!!
@@ -102,8 +103,8 @@ public class GameScreen implements Screen {
         Unit p2 = new Planet();
         Unit p3 = new Planet();
 
-        ((SpaceShip)playerShip).initialize(new Vector2(350,350),new Vector2(0,20),null,0,new Vector2(10,10),"./player.png",0);
-        ((Planet)p1).initialize(new Vector2(200,670),140,15,new Vector2(20,20),1,"./planet1.png");
+        ((SpaceShip)playerShip).initialize(new Vector2(350,350),new Vector2(5,160),null,0,new Vector2(10,10),"./player.png",0);
+        ((Planet)p1).initialize(new Vector2(200,670),240,15,new Vector2(20,20),"./planet1.png",1);
         uM.addUnit(playerShip);
         uM.addUnit(p1);
 
