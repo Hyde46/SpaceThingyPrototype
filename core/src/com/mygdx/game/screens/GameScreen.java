@@ -24,6 +24,7 @@ public class GameScreen implements Screen {
 
     //InputManager iM;
 
+
     public GameScreen(final MyGdxGame gam) {
         this.game = gam;
 

@@ -38,6 +38,7 @@ public class SpacePhysiX {
             }
         }
         //check if playership docs to some orbit
+        if(playerShip != null)
         if(!playerShip.isInOrbit() && !playerShip.isCollided())
             for(Unit u : units) {
                 if (u.getUnitType() != 0) {
