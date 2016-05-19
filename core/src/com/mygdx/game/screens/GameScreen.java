@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.managers.UnitManager;
 
 import com.mygdx.game.managers.levels.Level;
@@ -38,9 +37,7 @@ public class GameScreen implements Screen {
         // create the camera and the SpriteBatch
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1080, 1920);
-
-        game.shapeRenderer.setProjectionMatrix(camera.combined);
-
+        game.shapeRenderer.setColor(1, 1, 0, 1);
         uM = new UnitManager();
 
         spX = new SpacePhysiX();
@@ -51,7 +48,7 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+        Gdx.gl.glClearColor(33.0f/255.0f, 49.0f/255.0f, 41.0f/255.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         camera.update();
@@ -60,14 +57,13 @@ public class GameScreen implements Screen {
 
         game.batch.begin();
         uM.render(game.batch);
-        game.font.draw(game.batch, "Prototype v0.0.4", 5 , 30);
+        game.font.draw(game.batch, "Prototype v0.0.5", 5 , 30);
         game.batch.end();
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        game.shapeRenderer.setColor(1, 1, 0, 1);
+        game.shapeRenderer.setProjectionMatrix(camera.combined);
         Gdx.gl20.glLineWidth(3 / camera.zoom);
         uM.renderHitboxes(game.shapeRenderer);
         game.shapeRenderer.end();
-
         update(delta);
     }
 
@@ -75,6 +71,7 @@ public class GameScreen implements Screen {
     {
         //iM.update(delta);
         spX.update(delta);
+        game.fpsLimit.delay();
     }
 
     /*
@@ -102,11 +99,14 @@ public class GameScreen implements Screen {
         Unit p1 = new Planet();
         Unit p2 = new Planet();
         Unit p3 = new Planet();
-
-        ((SpaceShip)playerShip).initialize(new Vector2(350,350),new Vector2(5,160),null,0,new Vector2(10,10),null,0);
-        ((Planet)p1).initialize(new Vector2(200,670),240,30,"planet1.png",1);
+        System.out.println("Loading resources...");
+        ((SpaceShip)playerShip).initialize(new Vector2(350,550),new Vector2(5,160),null,0,new Vector2(10,10),null,0);
+        ((Planet)p1).initialize(new Vector2(200,670),240,36,"planet1.png",1);
+        ((Planet)p2).initialize(new Vector2(600,1320),320,50,"planet3.png",2);
         uM.addUnit(playerShip);
         uM.addUnit(p1);
+        uM.addUnit(p2);
+        System.out.println("Done!");
 
     }
 
