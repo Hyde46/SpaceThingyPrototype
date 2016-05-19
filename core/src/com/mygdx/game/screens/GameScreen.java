@@ -37,9 +37,7 @@ public class GameScreen implements Screen {
         // create the camera and the SpriteBatch
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1080, 1920);
-
-        game.shapeRenderer.setProjectionMatrix(camera.combined);
-
+        game.shapeRenderer.setColor(1, 1, 0, 1);
         uM = new UnitManager();
 
         spX = new SpacePhysiX();
@@ -62,11 +60,10 @@ public class GameScreen implements Screen {
         game.font.draw(game.batch, "Prototype v0.0.5", 5 , 30);
         game.batch.end();
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        game.shapeRenderer.setColor(1, 1, 0, 1);
+        game.shapeRenderer.setProjectionMatrix(camera.combined);
         Gdx.gl20.glLineWidth(3 / camera.zoom);
         uM.renderHitboxes(game.shapeRenderer);
         game.shapeRenderer.end();
-
         update(delta);
     }
 
@@ -74,6 +71,7 @@ public class GameScreen implements Screen {
     {
         //iM.update(delta);
         spX.update(delta);
+        game.fpsLimit.delay();
     }
 
     /*
