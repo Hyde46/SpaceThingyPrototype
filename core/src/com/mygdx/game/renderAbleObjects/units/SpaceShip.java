@@ -87,7 +87,6 @@ public class SpaceShip extends Unit {
             targetPosition = SpaceMath.rotatePoint(position,connectedPlanet.getPosition(),rotationSpeed*delta,rotationDirection);
             targetHitbox.set(targetPosition,20f);
         }
-
     }
 
     @Override
