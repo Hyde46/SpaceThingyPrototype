@@ -17,6 +17,7 @@ public class LevelBeacon {
     protected Shape2D hitBox;
     protected int height, width;
     protected Vector2 position;
+    protected Vector2 positionCenter;
     //array that holds the levels that are connected to this on (to implement graph structure)
     private Array<LevelBeacon> connectedBeacons;
 
@@ -38,6 +39,8 @@ public class LevelBeacon {
         this.height = height;
         this.width = width;
         this.levelId = levelId;
+        //compute position of the center of the rectangle
+        positionCenter = new Vector2(position.x + width / 2, position.y + height / 2);
     }
 
     /**
@@ -57,5 +60,28 @@ public class LevelBeacon {
         return position;
     }
 
+    /**
+     * getter for position of center of beacon
+     * @return positionCenter
+     */
+    public Vector2 getPositionCenter(){
+        return positionCenter;
+    }
+
+    /**
+     * getter for hit box
+     * @return hitBox
+     */
+    public Shape2D getHitBox(){
+        return hitBox;
+    }
+
+    /**
+     * getter for level id
+     * @return levelId
+     */
+    public int getLevelId(){
+        return levelId;
+    }
 
 }

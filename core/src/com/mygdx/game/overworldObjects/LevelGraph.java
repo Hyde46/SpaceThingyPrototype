@@ -28,7 +28,7 @@ public class LevelGraph {
         levelBeacon2.initialize(new Vector2(700, 700), 300, 200, 2);
         addBeacon(levelBeacon1);
         addBeacon(levelBeacon2);
-        currentLevel = levelBeacon1;
+        setCurrentLevel(levelBeacon1);
     }
     /**
      * function to add level beacon to the already existing list
@@ -39,6 +39,13 @@ public class LevelGraph {
     }
 
     /**
+     * function to set the current level
+     * @param beacon
+     */
+    public void setCurrentLevel(LevelBeacon beacon){
+        currentLevel = beacon;
+    }
+    /**
      * Render every beacon
      * @param shapeRenderer
      */
@@ -48,7 +55,19 @@ public class LevelGraph {
         }
     }
 
+    /**
+     * getter for current level
+     * @return currentLevel
+     */
     public LevelBeacon getCurrentLevel(){
         return currentLevel;
+    }
+
+    /**
+     * getter for array of level beacons
+     * @return levelBeacons
+     */
+    public Array<LevelBeacon> getLevelBeaconArray(){
+        return levelBeacons;
     }
 }
