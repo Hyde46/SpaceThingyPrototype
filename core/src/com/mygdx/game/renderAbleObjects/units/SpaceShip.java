@@ -26,19 +26,19 @@ public class SpaceShip extends Unit {
         deltaMovement = new Vector2();
     }
 
-    public void initialize(Vector2 position,Planet connectedPlanet, float currentOrbitRadius, Vector2 spriteDimensions, String texturePath, int spriteId){
+    public void initialize(Vector2 position,Vector2 deltaMovement,Planet connectedPlanet, float currentOrbitRadius, Vector2 spriteDimensions, String texturePath, int spriteId){
         unitType = 0;
         isCollided = false;
         this.connectedPlanet = connectedPlanet;
         this.currentOrbitRadius = currentOrbitRadius;
 
-        rotationSpeed = 1.5f;
+        rotationSpeed = 60.5f;
         rotationDirection = 1;
 
         hitbox = new Circle(position.x,position.y,20f);
         targetHitbox = new Circle(position.x,position.y,20f);
 
-        initializePositions(position);
+        initializePositions(position,deltaMovement);
         initializeTexture(spriteDimensions, spriteId, texturePath);
 
     }
@@ -61,6 +61,7 @@ public class SpaceShip extends Unit {
 
     public void enterOrbit(Planet connectedPlanet, float orbitRadius){
         //TODO: dont connect to the last connected planet. may lead to problems
+        //TODO: calculate new rotation Speed !
         if(isInOrbit()){
             return;
         }
@@ -80,16 +81,19 @@ public class SpaceShip extends Unit {
 
     public void update(float delta){
         if(connectedPlanet == null) {
-            targetPosition.add(deltaMovement);
+            targetPosition.add(deltaMovement.cpy().scl(delta));
             targetHitbox.set(targetPosition,20f);
         }else{
-            targetPosition = SpaceMath.rotatePoint(position,connectedPlanet.getPosition(),rotationSpeed,rotationDirection);
+            targetPosition = SpaceMath.rotatePoint(position,connectedPlanet.getPosition(),rotationSpeed*delta,rotationDirection);
             targetHitbox.set(targetPosition,20f);
         }
 
     }
 
+    @Override
     public void renderHitboxes(ShapeRenderer sr){
+        if(!isDebug)
+            return;
         sr.circle(position.x,position.y,20f);
     }
 

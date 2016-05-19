@@ -18,13 +18,14 @@ public class Planet extends Unit {
         super();
     }
 
-    public void initialize( Vector2 pos, float orbitRadius, float planetRadius, Vector2 spriteDimensions, int spriteId, String texturePath ){
+    public void initialize( Vector2 pos, float orbitRadius, float planetRadius, String texturePath , int spriteId){
+        unitType = 1;
         this.orbitRadius = orbitRadius;
         this.planetRadius = planetRadius;
         this.hitbox = new Circle(pos.x,pos.y,planetRadius);
 
-        initializePositions(position);
-        initializeTexture(spriteDimensions, spriteId, texturePath);
+        initializePositions(pos,new Vector2(0,0));
+        initializeTexture(new Vector2(planetRadius*2,planetRadius*2), spriteId, texturePath);
     }
 
     @Override
@@ -34,7 +35,7 @@ public class Planet extends Unit {
 
     @Override
     public void renderHitboxes(ShapeRenderer d){
-        if(!isActive){
+        if(!isDebug){
             return;
         }
         d.circle(this.position.x,this.position.y,planetRadius);

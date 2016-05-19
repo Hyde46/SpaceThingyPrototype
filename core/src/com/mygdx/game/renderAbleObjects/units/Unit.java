@@ -1,5 +1,7 @@
 package com.mygdx.game.renderAbleObjects.units;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
@@ -34,23 +36,30 @@ public abstract class Unit extends AUpdateableObject {
         prevPosition = new Vector2();
     }
 
-    protected void initializePositions(Vector2 position){
+    protected void initializePositions(Vector2 position,Vector2 deltaMovement){
 
         this.position = position.cpy();
+        targetPosition = position.cpy();
         prevPosition.set(position);
         this.deltaMovement.set(0,0);
+        this.deltaMovement = deltaMovement.cpy();
     }
 
     protected void initializeTexture(Vector2 spriteDimensions, int spriteId, String texturePath){
-        this.spriteDimension.set(spriteDimensions);
+
         this.spriteID = spriteId;
+        if(texturePath != null) {
+            sprite = new Texture(Gdx.files.internal(texturePath));
+            isActive = true;
+            this.spriteDimension.set(spriteDimensions);
+        }
     }
 
     public void render(SpriteBatch g){
-        if(!isActive){
+        if(!isActive || sprite==null){
             return;
         }
-        g.draw(sprite,position.x,position.y);
+        g.draw(sprite,position.x-spriteDimension.x/2,position.y-spriteDimension.y/2,spriteDimension.x,spriteDimension.y);
     }
 
     public abstract void moveUnit();
