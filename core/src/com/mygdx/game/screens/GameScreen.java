@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.managers.UnitManager;
 
 import com.mygdx.game.managers.levels.Level;
@@ -60,7 +59,7 @@ public class GameScreen implements Screen {
 
         game.batch.begin();
         uM.render(game.batch);
-        game.font.draw(game.batch, "Prototype v0.0.4", 5 , 30);
+        game.font.draw(game.batch, "Prototype v0.0.5", 5 , 30);
         game.batch.end();
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         game.shapeRenderer.setColor(1, 1, 0, 1);
@@ -102,11 +101,14 @@ public class GameScreen implements Screen {
         Unit p1 = new Planet();
         Unit p2 = new Planet();
         Unit p3 = new Planet();
-
-        ((SpaceShip)playerShip).initialize(new Vector2(350,350),new Vector2(5,160),null,0,new Vector2(10,10),null,0);
-        ((Planet)p1).initialize(new Vector2(200,670),240,30,"planet1.png",1);
+        System.out.println("Loading resources...");
+        ((SpaceShip)playerShip).initialize(new Vector2(650,550),new Vector2(5,160),null,0,new Vector2(10,10),null,0);
+        ((Planet)p1).initialize(new Vector2(200,670),240,36,"planet1.png",1);
+        ((Planet)p2).initialize(new Vector2(600,1320),320,50,"planet3.png",2);
         uM.addUnit(playerShip);
         uM.addUnit(p1);
+        uM.addUnit(p2);
+        System.out.println("Done!");
 
     }
 
