@@ -50,7 +50,7 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+        Gdx.gl.glClearColor(33.0f/255.0f, 49.0f/255.0f, 41.0f/255.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         camera.update();
@@ -102,7 +102,7 @@ public class GameScreen implements Screen {
         Unit p2 = new Planet();
         Unit p3 = new Planet();
         System.out.println("Loading resources...");
-        ((SpaceShip)playerShip).initialize(new Vector2(650,550),new Vector2(5,160),null,0,new Vector2(10,10),null,0);
+        ((SpaceShip)playerShip).initialize(new Vector2(350,550),new Vector2(5,160),null,0,new Vector2(10,10),null,0);
         ((Planet)p1).initialize(new Vector2(200,670),240,36,"planet1.png",1);
         ((Planet)p2).initialize(new Vector2(600,1320),320,50,"planet3.png",2);
         uM.addUnit(playerShip);

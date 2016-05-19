@@ -50,8 +50,8 @@ public class SpacePhysiX {
                             Vector2 v = u.getPosition().cpy();
                             Vector2 vecToShip = playerShip.getPosition().cpy();
                             vecToShip.sub(v);
-                            System.out.println(vecToShip.dot(playerShip.getDeltaMovement()) + "   " + vecToShip.dot(playerShip.getDeltaMovement()));
-                            if (vecToShip.dot(playerShip.getDeltaMovement()) <= 100 && vecToShip.dot(playerShip.getDeltaMovement()) >= -100) {
+                            System.out.println(vecToShip.dot(playerShip.getDeltaMovement().cpy().scl(0.1f)) + "   " + vecToShip.dot(playerShip.getDeltaMovement().cpy().scl(0.1f)));
+                            if (vecToShip.dot(playerShip.getDeltaMovement().cpy().scl(0.1f)) <= 100 && vecToShip.dot(playerShip.getDeltaMovement().cpy().scl(0.1f)) >= -100) {
                                 playerShip.enterOrbit((Planet) u, vecToShip.len());
 
                             }
