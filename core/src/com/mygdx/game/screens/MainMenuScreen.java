@@ -56,7 +56,7 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
        // game.font.draw(game.batch, "Some Overworld for you Valli :*", 320, 920);
-        game.font.draw(game.batch, "Prototype v0.0.4", 5 , 30);
+        game.font.draw(game.batch, game.currentVersion, 5 , 30);
         game.batch.end();
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         //render LevelGraph, which in turn renders LevelBeacons

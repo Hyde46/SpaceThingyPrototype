@@ -58,7 +58,7 @@ public class GameScreen implements Screen {
 
         game.batch.begin();
         uM.render(game.batch);
-        game.font.draw(game.batch, "Prototype v0.0.6", 5 , 30);
+        game.font.draw(game.batch, game.currentVersion, 5 , 30);
         game.batch.end();
 
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);

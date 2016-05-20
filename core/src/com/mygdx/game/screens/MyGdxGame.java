@@ -15,6 +15,8 @@ public class MyGdxGame extends Game {
 
 	public FPSLimiter fpsLimit;
 
+	public String currentVersion;
+
 	public void create() {
 		batch = new SpriteBatch();
 		//Use LibGDX's default Arial font.
@@ -22,6 +24,7 @@ public class MyGdxGame extends Game {
 		font.getData().scale(1.0f);
 		shapeRenderer = new ShapeRenderer();
 		fpsLimit = new FPSLimiter(60);
+		currentVersion = "Prototype v0.0.6";
 		this.setScreen(new MainMenuScreen(this));
 	}
 
