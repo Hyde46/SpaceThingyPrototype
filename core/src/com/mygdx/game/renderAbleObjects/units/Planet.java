@@ -13,17 +13,18 @@ public class Planet extends Unit implements IInputHandler{
 
     private float orbitRadius;
     private float planetRadius;
-
+    private boolean isGoalPlanet;
     private SpaceShip connectedSpaceShip;
 
     public Planet(){
         super();
     }
 
-    public void initialize( Vector2 pos, float orbitRadius, float planetRadius, String texturePath , int spriteId){
+    public void initialize( Vector2 pos, float orbitRadius, float planetRadius, boolean isGoalPlanet, String texturePath , int spriteId){
         unitType = 1;
         this.orbitRadius = orbitRadius;
         this.planetRadius = planetRadius;
+        this.isGoalPlanet = isGoalPlanet;
         this.collisionHitbox = new Circle(pos.x,pos.y,planetRadius);
         touchHitbox = new Circle(pos.x,pos.y,orbitRadius);
         initializePositions(pos,new Vector2(0,0));
@@ -59,6 +60,8 @@ public class Planet extends Unit implements IInputHandler{
 
     public void connectSpaceShip(SpaceShip ss){
         this.connectedSpaceShip = ss;
+        if(isGoalPlanet)
+            connectedSpaceShip.reachGoal();
     }
 
     private void launchSpaceShip(){

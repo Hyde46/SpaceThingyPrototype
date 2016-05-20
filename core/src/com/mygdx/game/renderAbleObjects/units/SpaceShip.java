@@ -20,6 +20,8 @@ public class SpaceShip extends Unit {
 
     private boolean isCollided;
 
+    private boolean hasReachedGoal;
+
     public SpaceShip(){
         super();
 
@@ -29,6 +31,7 @@ public class SpaceShip extends Unit {
     public void initialize(Vector2 position,Vector2 deltaMovement,Planet connectedPlanet, float currentOrbitRadius, Vector2 spriteDimensions, String texturePath, int spriteId){
         unitType = 0;
         isCollided = false;
+        hasReachedGoal = false;
         this.connectedPlanet = connectedPlanet;
         this.currentOrbitRadius = currentOrbitRadius;
 
@@ -121,5 +124,9 @@ public class SpaceShip extends Unit {
     public boolean isCollided(){
         return isCollided;
     }
+
+    public void reachGoal(){ this.hasReachedGoal = true; }
+
+    public boolean isHasReachedGoal(){ return hasReachedGoal; }
 
 }

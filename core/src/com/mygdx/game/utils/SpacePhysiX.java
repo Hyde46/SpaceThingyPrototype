@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.renderAbleObjects.units.Planet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
+import com.mygdx.game.screens.GameScreen;
 
 /**
  * Created by denis on 5/17/16.
@@ -15,10 +16,13 @@ public class SpacePhysiX {
     private Array<Unit> units;
     private SpaceShip playerShip;
 
+    private GameScreen gs;
+
     public SpacePhysiX(){
     }
 
-    public void initializePhysics(Array<Unit> units){
+    public void initializePhysics(Array<Unit> units, GameScreen gs){
+        this.gs = gs;
         this.units = units;
         for(Unit u : units){
             if(u.getUnitType() == 0)
@@ -62,6 +66,10 @@ public class SpacePhysiX {
         }
         for(Unit u : units) {
             u.moveUnit();
+        }
+        //check if player has reached some goal planet
+        if(playerShip.isHasReachedGoal()){
+            gs.finishLevel();
         }
     }
 }
