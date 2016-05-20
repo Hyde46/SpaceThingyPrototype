@@ -35,7 +35,7 @@ public class SpaceShip extends Unit {
         rotationSpeed = 60.5f;
         rotationDirection = 1;
 
-        hitbox = new Circle(position.x,position.y,20f);
+        collisionHitbox = new Circle(position.x,position.y,20f);
         targetHitbox = new Circle(position.x,position.y,20f);
 
         initializePositions(position,deltaMovement);
@@ -107,7 +107,7 @@ public class SpaceShip extends Unit {
         if(isCollided)
             return;
         position.set(targetPosition);
-        ((Circle)hitbox).set(targetHitbox);
+        ((Circle)collisionHitbox).set(targetHitbox);
     }
 
     public Circle getTargetHitbox(){

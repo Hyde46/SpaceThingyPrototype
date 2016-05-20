@@ -14,7 +14,8 @@ public abstract class ARenderAbleObject {
     protected Vector2 position;
     protected Vector2 spriteDimension;
     protected int spriteID;
-    protected Shape2D hitbox;
+    protected Shape2D collisionHitbox;
+    protected Shape2D touchHitbox;
     protected boolean isActive;
     protected boolean isDebug;
 
@@ -47,7 +48,9 @@ public abstract class ARenderAbleObject {
 
     public boolean isActive(){ return isActive; }
 
-    public Shape2D getHitbox(){ return hitbox; }
+    public Shape2D getHitbox(){ return touchHitbox; }
+
+    public Shape2D getCollisionHitbox(){return collisionHitbox; }
 
     public void setRendered(boolean b){
         this.isActive = b;

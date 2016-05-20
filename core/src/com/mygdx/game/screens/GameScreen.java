@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.managers.UnitManager;
 
 import com.mygdx.game.managers.levels.Level;
@@ -57,13 +58,15 @@ public class GameScreen implements Screen {
 
         game.batch.begin();
         uM.render(game.batch);
-        game.font.draw(game.batch, "Prototype v0.0.5", 5 , 30);
+        game.font.draw(game.batch, "Prototype v0.0.6", 5 , 30);
         game.batch.end();
+
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         game.shapeRenderer.setProjectionMatrix(camera.combined);
         Gdx.gl20.glLineWidth(3 / camera.zoom);
         uM.renderHitboxes(game.shapeRenderer);
         game.shapeRenderer.end();
+
         update(delta);
     }
 
@@ -71,6 +74,7 @@ public class GameScreen implements Screen {
     {
         //iM.update(delta);
         spX.update(delta);
+        InputManager.get().Tick(delta);
         game.fpsLimit.delay();
     }
 
@@ -105,9 +109,10 @@ public class GameScreen implements Screen {
         ((Planet)p2).initialize(new Vector2(600,1320),320,50,"planet3.png",2);
         uM.addUnit(playerShip);
         uM.addUnit(p1);
+        InputManager.get().objectHolder.Register(p1);
         uM.addUnit(p2);
+        InputManager.get().objectHolder.Register(p2);
         System.out.println("Done!");
-
     }
 
     @Override
