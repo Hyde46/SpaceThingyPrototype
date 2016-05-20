@@ -2,7 +2,10 @@ package com.mygdx.game.overworldObjects;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.utils.SpaceMath;
+
+import sun.rmi.runtime.Log;
 
 /**
  * Created by Vali on 18.05.2016.
@@ -14,6 +17,8 @@ public class Ship {
     private float rotationSpeed;
     private int rotationDirection;
     private boolean isInOrbit;
+    private boolean travelsRoute;
+    private Array<LevelBeacon> currentRoute;
     private Vector2 vectorToBeacon;
 
     public Ship(){
@@ -30,6 +35,7 @@ public class Ship {
         rotationSpeed = 60.5f;
         rotationDirection = 1;     //clockwise or counterclockwise
         isInOrbit = true;
+        travelsRoute = false;
     }
 
     /**
@@ -52,19 +58,31 @@ public class Ship {
         }else{
             //set new position in direction to the new beacon
             position.add(vectorToBeacon.cpy().scl(delta));
-            //if ship is inside of the new beacon it should start rotating again
+            //if ship is inside of the goal beacon it should start rotating again
             if(currentLevel.getHitBox().contains(position)){
                 isInOrbit = true;
+                travelsRoute = false;
+            }else if(travelsRoute && currentRoute.peek().getHitBox().contains(position)){  //second case: ship has reached next beacon on route
+                //in this case we tell the ship to fly to the next beacon in the route
+                currentRoute.pop(); //pop (delete) the reached beachon
+                flyToBeacon(currentRoute.peek());
             }
         }
     }
 
     /**
+     * start the route after it has been set and this function has been called by PathNavigationManager
+     */
+    public void startRoute(){
+        System.out.println("size of route: " + currentRoute.size);
+        flyToBeacon(currentRoute.peek()); //peek returns the last item (without deleting)
+    }
+    /**
      * fly to the given level beacon
      * @param beacon given by PathNavigationManager
      */
     public void flyToBeacon(LevelBeacon beacon){
-        vectorToBeacon = beacon.getPosition().cpy().sub(position.cpy());
+        vectorToBeacon = beacon.getPositionCenter().cpy().sub(position.cpy());
     }
     /**
      * set current level
@@ -81,4 +99,33 @@ public class Ship {
     public void setInOrbit(boolean isInOrbit){
         this.isInOrbit = isInOrbit;
     }
+
+    /**
+     * set, if ship travels a route right now
+     * @param travelsRoute
+     */
+    public void setTravelsRoute(boolean travelsRoute){
+        this.travelsRoute = travelsRoute;
+    }
+
+    /**
+     * set the route, that the ship is currently on
+     * @param currentRoute
+     */
+    public void setCurrentRoute(Array<LevelBeacon> currentRoute){
+        this.currentRoute = currentRoute;
+    }
+
+    /**
+     * getter for boolean, if ship is in orbit
+     * @return
+     */
+    public boolean getInOrbit(){
+        return isInOrbit;
+    }
+
+    public boolean getTravelsRoute(){
+        return travelsRoute;
+    }
 }
+

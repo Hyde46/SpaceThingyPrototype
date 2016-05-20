@@ -1,7 +1,5 @@
 package com.mygdx.game.overworldObjects;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Shape2D;
@@ -33,7 +31,7 @@ public class LevelBeacon {
      * @param height
      * @param width
      */
-    protected void initialize(Vector2 position, int height, int width, int levelId){
+    protected void initialize(Vector2 position, int height, int width, int levelId, Array<LevelBeacon> connectedBeacons){
         this.position = position.cpy();
         this.hitBox = new Rectangle(position.x, position.y, width, height);
         this.height = height;
@@ -41,6 +39,7 @@ public class LevelBeacon {
         this.levelId = levelId;
         //compute position of the center of the rectangle
         positionCenter = new Vector2(position.x + width / 2, position.y + height / 2);
+        this.connectedBeacons = connectedBeacons;
     }
 
     /**
@@ -50,6 +49,11 @@ public class LevelBeacon {
     public void render(ShapeRenderer shapeRenderer){
         shapeRenderer.setColor(0.8f, 0.1f, 0.8f, 1);
         shapeRenderer.rect(position.x, position.y, width, height);
+        //render edges between beacons
+        shapeRenderer.setColor(1, 1, 1, 1);
+        for(LevelBeacon connectedBeacon : connectedBeacons){
+            shapeRenderer.line(positionCenter, connectedBeacon.getPositionCenter());
+        }
     }
 
     /**
@@ -84,4 +88,11 @@ public class LevelBeacon {
         return levelId;
     }
 
+    /**
+     * getter for connected beacons of this level
+     * @return connectedBeacons
+     */
+    public Array<LevelBeacon> getConnectedBeacons(){
+        return connectedBeacons;
+    }
 }

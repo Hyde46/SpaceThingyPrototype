@@ -24,12 +24,30 @@ public class LevelGraph {
     public void initializeGraph(){
         LevelBeacon levelBeacon1 = new LevelBeacon();
         LevelBeacon levelBeacon2 = new LevelBeacon();
-        levelBeacon1.initialize(new Vector2(300, 300), 200, 300, 1);
-        levelBeacon2.initialize(new Vector2(700, 700), 300, 200, 2);
+        LevelBeacon levelBeacon3 = new LevelBeacon();
+        LevelBeacon levelBeacon4 = new LevelBeacon();
+        //create arrays for the connected beacons and add the corresponding beacons -> the arrays are passed to the initialize method of LevelBeacon
+        Array<LevelBeacon> array1 = new Array<LevelBeacon>();
+        array1.add(levelBeacon2);
+        Array<LevelBeacon> array2 = new Array<LevelBeacon>();
+        array2.addAll(levelBeacon1, levelBeacon3, levelBeacon4);
+        Array<LevelBeacon> array3 = new Array<LevelBeacon>();
+        array3.add(levelBeacon2);
+        Array<LevelBeacon> array4 = new Array<LevelBeacon>();
+        array4.add(levelBeacon2);
+        //initialize beacons: position, size, id, array of connected beacons
+        levelBeacon1.initialize(new Vector2(300, 300), 200, 200, 1, array1);
+        levelBeacon2.initialize(new Vector2(700, 700), 200, 200, 2, array2);
+        levelBeacon3.initialize(new Vector2(300, 1000), 200, 200, 3, array3);
+        levelBeacon4.initialize(new Vector2(800, 1200), 200, 200, 4, array4);
+        //add beacons to array of this LevelGraph object
         addBeacon(levelBeacon1);
         addBeacon(levelBeacon2);
+        addBeacon(levelBeacon3);
+        addBeacon(levelBeacon4);
         setCurrentLevel(levelBeacon1);
     }
+
     /**
      * function to add level beacon to the already existing list
      * @param beacon

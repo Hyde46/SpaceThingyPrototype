@@ -70,20 +70,20 @@ public class MainMenuScreen implements Screen {
             touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             cam.unproject(touchPos);
             for(LevelBeacon levelBeacon : levelGraph.getLevelBeaconArray()){
-                //check if touch was inside the level
+                //check if touch was inside the level beacon
                 if(levelBeacon.getHitBox().contains(touchPos.x, touchPos.y)){
-                    //check if touched level is current level
-                    if(levelBeacon.getLevelId() == levelGraph.getCurrentLevel().getLevelId()){
+                    //check if touched level is current level and if ship is still in orbit
+                    if(levelBeacon.getLevelId() == levelGraph.getCurrentLevel().getLevelId() && ship.getInOrbit()){
                         game.setScreen(new GameScreen(game));
                         dispose();
                     }else{  //touched level is different from current level
-                        //tell PathNavigationManager to navigate to this level
-                        pathNavigationManager.navigateToBeacon(levelBeacon);
+                        if(!ship.getTravelsRoute()){      //only call navigate function, if the ship is not already on route
+                            //tell PathNavigationManager to navigate to this level
+                            pathNavigationManager.navigateToBeacon(levelBeacon);
+                        }
                     }
                 }
             }
-         //   game.setScreen(new GameScreen(game));
-          //  dispose();
         }
     }
 
