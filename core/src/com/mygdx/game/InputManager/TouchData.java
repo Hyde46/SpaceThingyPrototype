@@ -1,6 +1,7 @@
 package com.mygdx.game.InputManager;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 
 import java.util.ArrayList;
 
@@ -8,7 +9,7 @@ public class TouchData
 {
     public enum DirSwipe { RIGHT, LEFT , UP, DOWN }
 
-    ArrayList<IInputHandler> objsOrigin;
+    Array<IInputHandler> objsOrigin;
 
     Vector2
         posOrigin,
@@ -22,9 +23,9 @@ public class TouchData
     float lengthSwipe;
     float secPressed;
 
-    public TouchData(){}
+    public TouchData(){objsOrigin = new Array<IInputHandler>(); }
 
-    public ArrayList<IInputHandler> getObjsOrigin() {
+    public Array<IInputHandler> getObjsOrigin() {
         return objsOrigin;
     }
 

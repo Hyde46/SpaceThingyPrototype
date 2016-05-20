@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * Created by denis on 5/13/16.
  */
-public abstract class ARenderAbleObject {
+public abstract class ARenderableObject {
 
     protected Vector2 position;
     protected Vector2 spriteDimension;
@@ -22,7 +22,7 @@ public abstract class ARenderAbleObject {
     //temporary
     protected Texture sprite;
 
-    protected ARenderAbleObject(){
+    protected ARenderableObject(){
         position = new Vector2();
         spriteDimension  = new Vector2();
         sprite = null;

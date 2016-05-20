@@ -12,7 +12,8 @@ package com.mygdx.game.InputManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.renderAbleObjects.ARenderAbleObject;
+import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.renderAbleObjects.ARenderableObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,7 +37,7 @@ public class InputManager implements InputProcessor
     {
         // this is an input processor that gets registered at the main input
         Gdx.input.setInputProcessor(this);
-        objectHolder = new ObjectHolder<ARenderAbleObject>();
+        objectHolder = new ObjectHolder<ARenderableObject>();
     }
 
     public void Tick(float deltaTime)
@@ -49,25 +50,27 @@ public class InputManager implements InputProcessor
     }
 
     /* Touch related */
-    public ObjectHolder<ARenderAbleObject> objectHolder;
+    public ObjectHolder<ARenderableObject> objectHolder;
 
     HashMap<Integer, TouchData> touchData = new HashMap<Integer, TouchData>();
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
-        ArrayList<ARenderAbleObject> objs = objectHolder.getObjects();
-        for(int i = 0; i < objs.size(); i++)
+        Array<ARenderableObject> objs = objectHolder.getObjects();
+        for(int i = 0; i < objs.size; i++)
         {
+            if(objs.get(i).getHitbox()!=null)
             if(objs.get(i).getHitbox().contains(screenX, screenY))
             {
                 if(IInputHandler.class.isInstance(new Integer(3)))
                 {
-                    touchData.get(pointer).getObjsOrigin().add((IInputHandler)new ObjectHolder<Integer>());
+                    // hier separate liste erstellen dann ggf neues touch data in map eintragen
+                    touchData.get(pointer).getObjsOrigin().add((IInputHandler)objs.get(i));
                 }
             }
         }
-        if(touchData.get(pointer).getObjsOrigin().size() == 0) return true; // there is no interesting object touched
+        if(touchData.get(pointer).getObjsOrigin().size == 0) return true; // there is no interesting object touched
 
         TouchData td = new TouchData();
         td.setPosOrigin(new Vector2(screenX, screenY));
@@ -137,46 +140,46 @@ public class InputManager implements InputProcessor
 
     void notifyObjectsTouch(TouchData td)
     {
-        ArrayList<IInputHandler> objsOrigin = td.getObjsOrigin();
-        for(int i = 0; i < objsOrigin.size(); i++)
+        Array<ARenderableObject> objsOrigin = objectHolder.getObjects();
+        for(int i = 0; i < objsOrigin.size; i++)
         {
-            objsOrigin.get(i).OnTouch(td);
+            ((IInputHandler)objsOrigin.get(i)).OnTouch(td);
         }
     }
 
     void notifyObjectsRelease(TouchData td)
     {
-        ArrayList<IInputHandler> objsOrigin = td.getObjsOrigin();
-        for(int i = 0; i < objsOrigin.size(); i++)
+        Array<ARenderableObject> objsOrigin = objectHolder.getObjects();
+        for(int i = 0; i < objsOrigin.size; i++)
         {
-            objsOrigin.get(i).OnRelease(td);
+            ((IInputHandler)objsOrigin.get(i)).OnRelease(td);
         }
     }
 
     void notifyObjectsDrag(TouchData td)
     {
-        ArrayList<IInputHandler> objsOrigin = td.getObjsOrigin();
-        for(int i = 0; i < objsOrigin.size(); i++)
+        Array<ARenderableObject> objsOrigin = objectHolder.getObjects();
+        for(int i = 0; i < objsOrigin.size; i++)
         {
-            objsOrigin.get(i).OnDrag(td);
+            ((IInputHandler)objsOrigin.get(i)).OnDrag(td);
         }
     }
 
     void notifyObjectsHold(TouchData td)
     {
-        ArrayList<IInputHandler> objsOrigin = td.getObjsOrigin();
-        for(int i = 0; i < objsOrigin.size(); i++)
+        Array<ARenderableObject> objsOrigin = objectHolder.getObjects();
+        for(int i = 0; i < objsOrigin.size; i++)
         {
-            objsOrigin.get(i).OnHold(td);
+            ((IInputHandler)objsOrigin.get(i)).OnHold(td);
         }
     }
 
     void notifyObjectsSwipe(TouchData td)
     {
-        ArrayList<IInputHandler> objsOrigin = td.getObjsOrigin();
-        for(int i = 0; i < objsOrigin.size(); i++)
+        Array<ARenderableObject> objsOrigin = objectHolder.getObjects();
+        for(int i = 0; i < objsOrigin.size; i++)
         {
-            objsOrigin.get(i).OnSwipe(td);
+            ((IInputHandler)objsOrigin.get(i)).OnSwipe(td);
         }
     }
 

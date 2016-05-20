@@ -113,7 +113,12 @@ public class GameScreen implements Screen {
         //InputManager.get().objectHolder.Register(p1);
         uM.addUnit(p2);
         spX.initializePhysics(uM.getUnits(),this);
-        //InputManager.get().objectHolder.Register(p2);
+
+        //InputManager.get().objectHolder.Register(playerShip);
+        InputManager.get().objectHolder.Register(p1);
+        InputManager.get().objectHolder.Register(p2);
+        InputManager.get().objectHolder.Register(p3);
+
         System.out.println("Done!");
     }
 

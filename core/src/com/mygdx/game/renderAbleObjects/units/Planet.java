@@ -70,7 +70,7 @@ public class Planet extends Unit implements IInputHandler{
     }
 
     public void OnTouch(TouchData td){
-        System.out.println("planet "+getUnitID()+" getouched");
+        System.out.println("planet "+getUnitID()+" getouched at" + td.getPosCurrent().x);
     }
     public void OnRelease(TouchData td){}
     public void OnDrag(TouchData td){}
