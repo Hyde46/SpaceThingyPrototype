@@ -9,73 +9,83 @@ import com.mygdx.game.InputManager.TouchData;
 /**
  * Created by denis on 5/13/16.
  */
-public class Planet extends Unit implements IInputHandler{
+public class Planet extends Unit implements IInputHandler {
 
     private float orbitRadius;
     private float planetRadius;
     private boolean isGoalPlanet;
     private SpaceShip connectedSpaceShip;
 
-    public Planet(){
+    public Planet() {
         super();
     }
 
-    public void initialize( Vector2 pos, float orbitRadius, float planetRadius, boolean isGoalPlanet, String texturePath , int spriteId){
+    public void initialize(Vector2 pos, float orbitRadius, float planetRadius, boolean isGoalPlanet, String texturePath, int spriteId) {
         unitType = 1;
         this.orbitRadius = orbitRadius;
         this.planetRadius = planetRadius;
         this.isGoalPlanet = isGoalPlanet;
-        this.collisionHitbox = new Circle(pos.x,pos.y,planetRadius);
-        touchHitbox = new Circle(pos.x,pos.y,orbitRadius);
-        initializePositions(pos,new Vector2(0,0));
-        initializeTexture(new Vector2(planetRadius*2,planetRadius*2), spriteId, texturePath);
+        this.collisionHitbox = new Circle(pos.x, pos.y, planetRadius);
+        touchHitbox = new Circle(pos.x, pos.y, orbitRadius);
+        initializePositions(pos, new Vector2(0, 0));
+        initializeTexture(new Vector2(planetRadius * 2, planetRadius * 2), spriteId, texturePath);
     }
 
     @Override
-    public void moveUnit(){
+    public void moveUnit() {
         this.position.set(this.targetPosition);
     }
 
     @Override
-    public void renderHitboxes(ShapeRenderer d){
-        if(!isDebug){
+    public void renderHitboxes(ShapeRenderer d) {
+        if (!isDebug) {
             return;
         }
-        d.circle(this.position.x,this.position.y,planetRadius);
-        d.circle(this.position.x,this.position.y,orbitRadius);
+        d.circle(this.position.x, this.position.y, planetRadius);
+        d.circle(this.position.x, this.position.y, orbitRadius);
     }
 
     @Override
-    public void update(float delta){
+    public void update(float delta) {
 
     }
 
-    public float getOrbitRadius(){
+    public float getOrbitRadius() {
         return orbitRadius;
     }
 
-    public float getPlanetRadius(){
+    public float getPlanetRadius() {
         return planetRadius;
     }
 
-    public void connectSpaceShip(SpaceShip ss){
+    public void connectSpaceShip(SpaceShip ss) {
         this.connectedSpaceShip = ss;
-        if(isGoalPlanet)
+        if (isGoalPlanet)
             connectedSpaceShip.reachGoal();
     }
 
-    private void launchSpaceShip(){
+    private void launchSpaceShip() {
         connectedSpaceShip.launch();
         connectedSpaceShip = null;
     }
 
-    public void OnTouch(TouchData td){
-        System.out.println("planet "+getUnitID()+" getouched at" + td.getPosCurrent().x);
+    public void OnTouch(TouchData td) {
+        System.out.println("planet " + getUnitID() + " touched at (" + td.getPosCurrent().x + ", " + td.getPosCurrent().x + ")");
     }
-    public void OnRelease(TouchData td){}
-    public void OnDrag(TouchData td){}
-    public void OnHold(TouchData td){}
-    public void OnSwipe(TouchData td){}
 
+    public void OnRelease(TouchData td) {
+        System.out.println("planet " + getUnitID() + " released at (" + td.getPosCurrent().x + ", " + td.getPosCurrent().x + ")");
+    }
 
+    public void OnDrag(TouchData td) {
+        System.out.println("planet " + getUnitID() + " dragged at (" + td.getPosCurrent().x + ", " + td.getPosCurrent().x + ")");
+    }
+
+    public void OnHold(TouchData td) {
+
+    }
+
+    public void OnSwipe(TouchData td) {
+        System.out.println("planet " + getUnitID() + " swiped to dir: " + td.getDirSwipePrev().toString());
+    }
 }

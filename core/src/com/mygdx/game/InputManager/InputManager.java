@@ -58,21 +58,24 @@ public class InputManager implements InputProcessor
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
         Array<ARenderableObject> objs = objectHolder.getObjects();
+        Array<IInputHandler> objsHit = new Array<IInputHandler>();
         for(int i = 0; i < objs.size; i++)
         {
-            if(objs.get(i).getHitbox()!=null)
-            if(objs.get(i).getHitbox().contains(screenX, screenY))
+            ARenderableObject obj = objs.get(i);
+            if (obj instanceof IInputHandler)
             {
-                if(IInputHandler.class.isInstance(new Integer(3)))
-                {
-                    // hier separate liste erstellen dann ggf neues touch data in map eintragen
-                    touchData.get(pointer).getObjsOrigin().add((IInputHandler)objs.get(i));
-                }
+                // TODO Abfrage hitbox funktioniert nicht? hier jedes objekt getroffen
+                objsHit.add((IInputHandler) obj);
             }
         }
-        if(touchData.get(pointer).getObjsOrigin().size == 0) return true; // there is no interesting object touched
+
+        if(objsHit.size == 0)
+        {
+            return true; // there is no interesting object touched
+        }
 
         TouchData td = new TouchData();
+        td.setObjsOrigin(objsHit);
         td.setPosOrigin(new Vector2(screenX, screenY));
         td.setPosCurrent(td.getPosOrigin());
         td.setPosPrev(td.getPosOrigin());
@@ -89,52 +92,59 @@ public class InputManager implements InputProcessor
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button)
     {
-        notifyObjectsRelease(touchData.get(pointer));
-        if(touchData.containsKey(pointer)) touchData.remove(touchData.get(pointer));
+        if(touchData.containsKey(pointer))
+        {
+            notifyObjectsRelease(touchData.get(pointer));
+            if(touchData.containsKey(pointer)) touchData.remove(pointer);
+        }
         return true;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer)
     {
-        TouchData td = touchData.get(pointer);
-        td.setPosPrev(td.getPosCurrent());
-        td.setPosCurrent(new Vector2(screenX, screenY));
-        td.setDeltaFrame(new Vector2(td.getPosCurrent().x - td.getPosPrev().x, td.getPosCurrent().y - td.getPosPrev().y));
-        td.setDeltaSwipe(new Vector2(td.getDeltaSwipe().x + td.getDeltaFrame().x, td.getDeltaSwipe().y + td.getDeltaFrame().y));
-        float lengthSwipe = Vector2.dst(td.getPosCurrent().x, td.getPosCurrent().y, td.getPosPrev().x, td.getPosPrev().y);
-        td.setLengthSwipe(td.getLengthSwipe() + lengthSwipe);
-
-        notifyObjectsDrag(td);
-
-        if(td.getLengthSwipe() >= SWIPE_REC_LENGTH)
+        if(touchData.containsKey(pointer))
         {
-            Vector2 sDelta = td.getDeltaSwipe();
-            td.setDeltaSwipe(Vector2.Zero);
-            if(Math.abs(sDelta.x) < Math.abs(sDelta.y))
+            TouchData td = touchData.get(pointer);
+            td.setPosPrev(td.getPosCurrent());
+            td.setPosCurrent(new Vector2(screenX, screenY));
+            td.setDeltaFrame(new Vector2(td.getPosCurrent().x - td.getPosPrev().x, td.getPosCurrent().y - td.getPosPrev().y));
+            td.setDeltaSwipe(new Vector2(td.getDeltaSwipe().x + td.getDeltaFrame().x, td.getDeltaSwipe().y + td.getDeltaFrame().y));
+            float lengthSwipe = Vector2.dst(td.getPosCurrent().x, td.getPosCurrent().y, td.getPosPrev().x, td.getPosPrev().y);
+            td.setLengthSwipe(td.getLengthSwipe() + lengthSwipe);
+
+            notifyObjectsDrag(td);
+
+            if(td.getLengthSwipe() >= SWIPE_REC_LENGTH)
             {
-                if(sDelta.y > 0) // up
+                Vector2 sDelta = td.getDeltaSwipe();
+                td.setDeltaSwipe(Vector2.Zero);
+                if(Math.abs(sDelta.x) < Math.abs(sDelta.y))
                 {
-                    td.setDirSwipePrev(TouchData.DirSwipe.UP);
+                    if(sDelta.y > 0) // up
+                    {
+                        td.setDirSwipePrev(TouchData.DirSwipe.DOWN);
+                    }
+                    else // down
+                    {
+                        td.setDirSwipePrev(TouchData.DirSwipe.UP);
+                    }
                 }
-                else // down
+                else
                 {
-                    td.setDirSwipePrev(TouchData.DirSwipe.DOWN);
+                    if(sDelta.x < 0) // right
+                    {
+                        td.setDirSwipePrev(TouchData.DirSwipe.LEFT);
+                    }
+                    else // left
+                    {
+                        td.setDirSwipePrev(TouchData.DirSwipe.RIGHT);
+                    }
                 }
             }
-            else
-            {
-                if(sDelta.x < 0) // right
-                {
-                    td.setDirSwipePrev(TouchData.DirSwipe.RIGHT);
-                }
-                else // left
-                {
-                    td.setDirSwipePrev(TouchData.DirSwipe.LEFT);
-                }
-            }
+            notifyObjectsSwipe(td);
         }
-        notifyObjectsSwipe(td);
+
         return true;
     }
 
