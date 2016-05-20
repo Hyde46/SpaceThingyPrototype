@@ -64,9 +64,6 @@ public abstract class Unit extends AUpdateableObject {
 
     public abstract void moveUnit();
 
-    public Shape2D getHitbox(){
-        return hitbox;
-    }
     public int getUnitID(){
         return unitID;
     }

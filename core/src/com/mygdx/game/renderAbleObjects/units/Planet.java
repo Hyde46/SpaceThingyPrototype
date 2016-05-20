@@ -3,11 +3,13 @@ package com.mygdx.game.renderAbleObjects.units;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.InputManager.IInputHandler;
+import com.mygdx.game.InputManager.TouchData;
 
 /**
  * Created by denis on 5/13/16.
  */
-public class Planet extends Unit {
+public class Planet extends Unit implements IInputHandler{
 
     private float orbitRadius;
     private float planetRadius;
@@ -22,8 +24,8 @@ public class Planet extends Unit {
         unitType = 1;
         this.orbitRadius = orbitRadius;
         this.planetRadius = planetRadius;
-        this.hitbox = new Circle(pos.x,pos.y,planetRadius);
-
+        this.collisionHitbox = new Circle(pos.x,pos.y,planetRadius);
+        touchHitbox = new Circle(pos.x,pos.y,orbitRadius);
         initializePositions(pos,new Vector2(0,0));
         initializeTexture(new Vector2(planetRadius*2,planetRadius*2), spriteId, texturePath);
     }
@@ -59,10 +61,18 @@ public class Planet extends Unit {
         this.connectedSpaceShip = ss;
     }
 
-    public void launchSpaceShip(){
+    private void launchSpaceShip(){
         connectedSpaceShip.launch();
         connectedSpaceShip = null;
     }
+
+    public void OnTouch(TouchData td){
+        System.out.println("planet "+getUnitID()+" getouched");
+    }
+    public void OnRelease(TouchData td){}
+    public void OnDrag(TouchData td){}
+    public void OnHold(TouchData td){}
+    public void OnSwipe(TouchData td){}
 
 
 }
