@@ -72,4 +72,9 @@ public class SpacePhysiX {
             gs.finishLevel();
         }
     }
+
+    public void reset(){
+        units = null;
+        playerShip = null;
+    }
 }

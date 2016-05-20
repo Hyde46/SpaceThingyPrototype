@@ -33,6 +33,7 @@ public class UnitManager {
     }
 
     public void resetUnits(){
+        units.clear();
         //TODO
     }
 

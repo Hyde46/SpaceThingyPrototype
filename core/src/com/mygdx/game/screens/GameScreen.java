@@ -93,30 +93,33 @@ public class GameScreen implements Screen {
         //we dont have any sort of level loading mechanism at the moment.
         //to remove the hardcoding of the level in the gamescreen which is not optimal
         //initLevel();
-        spX.initializePhysics(uM.getUnits(),this);
+
     }
 
     //just for the prototype !!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     private void initPrototypeLevel(){
+        uM.resetUnits();
         Unit playerShip = new SpaceShip();
         Unit p1 = new Planet();
         Unit p2 = new Planet();
         Unit p3 = new Planet();
         System.out.println("Loading resources...");
-        ((SpaceShip)playerShip).initialize(new Vector2(660,550),new Vector2(5,160),null,0,new Vector2(10,10),null,0);
+        ((SpaceShip)playerShip).initialize(new Vector2(260,550),new Vector2(5,160),null,0,new Vector2(10,10),null,0);
         ((Planet)p1).initialize(new Vector2(200,670),240,36,false,"planet1.png",1);
         ((Planet)p2).initialize(new Vector2(600,1320),320,50,true,"planet3.png",2);
         uM.addUnit(playerShip);
         uM.addUnit(p1);
         //InputManager.get().objectHolder.Register(p1);
         uM.addUnit(p2);
+        spX.initializePhysics(uM.getUnits(),this);
         //InputManager.get().objectHolder.Register(p2);
         System.out.println("Done!");
     }
 
     public void finishLevel(){
         System.out.println("Reached goal planet!");
+        game.setScreen(new MainMenuScreen(game));
     }
 
     @Override
