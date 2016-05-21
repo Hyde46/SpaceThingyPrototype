@@ -104,7 +104,7 @@ public class GameScreen implements Screen {
         Unit p1 = new Planet();
         Unit p2 = new Planet();
         System.out.println("Loading resources...");
-        ((SpaceShip)playerShip).initialize(new Vector2(60,550),new Vector2(5,160),null,0,new Vector2(10,10),null,0);
+        ((SpaceShip)playerShip).initialize(new Vector2(260,550),new Vector2(5,160),null,0,new Vector2(10,10),null,0);
         ((Planet)p1).initialize(new Vector2(200,670),240,36,false,"planet1.png",1);
         ((Planet)p2).initialize(new Vector2(600,1320),320,50,false,"planet3.png",2);
         uM.addUnit(playerShip);

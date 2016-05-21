@@ -117,6 +117,7 @@ public class SpaceShip extends Unit {
     public void moveUnit(){
         if(isCollided)
             return;
+        prevPosition.set(position);
         position.set(targetPosition);
         ((Circle)collisionHitbox).set(targetHitbox);
     }
