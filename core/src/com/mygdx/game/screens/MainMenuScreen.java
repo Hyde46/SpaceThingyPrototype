@@ -65,10 +65,13 @@ public class MainMenuScreen implements Screen {
         game.shapeRenderer.end();
         //process ship's movement
         ship.update(delta);
+
+
         if (Gdx.input.isTouched()) {
             Vector3 touchPos = new Vector3();
             touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             cam.unproject(touchPos);
+
             for(LevelBeacon levelBeacon : levelGraph.getLevelBeaconArray()){
                 //check if touch was inside the level beacon
                 if(levelBeacon.getHitBox().contains(touchPos.x, touchPos.y)){
