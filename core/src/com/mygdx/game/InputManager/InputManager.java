@@ -78,6 +78,9 @@ public class InputManager implements InputProcessor
                 // TODO Abfrage hitbox funktioniert nicht? hier jedes objekt getroffen
                 if((obj.getHitbox().contains(touchPos.x,touchPos.y)))
                     objsHit.add((IInputHandler) obj);
+                //TODO du addest alle getroffenen objekte hier rein, aber später bei
+                //notifyObjectsTouch(td); werden alle objekte mit dem touch notified.
+                //da muss das array mit rein und geprüft werden
             }
         }
 
