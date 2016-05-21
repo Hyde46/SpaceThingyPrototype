@@ -12,6 +12,7 @@ public class SpaceShip extends Unit {
 
     private float currentOrbitRadius;
     private Planet connectedPlanet;
+    private int lastConnectedPlanetId;
 
     private float rotationSpeed;
     private int rotationDirection;
@@ -35,6 +36,12 @@ public class SpaceShip extends Unit {
         this.connectedPlanet = connectedPlanet;
         this.currentOrbitRadius = currentOrbitRadius;
 
+        if(connectedPlanet != null){
+            lastConnectedPlanetId = connectedPlanet.getUnitID();
+        }else{
+            lastConnectedPlanetId = -1;
+        }
+
         rotationSpeed = 60.5f;
         rotationDirection = 1;
 
@@ -56,16 +63,17 @@ public class SpaceShip extends Unit {
         Vector2 vecToPlanet = b.sub(connectedPlanet.getPosition());
         vecToPlanet = vecToPlanet.nor();
         deltaMovement = vecToPlanet.cpy();
-        deltaMovement.scl(7f);
+        deltaMovement.scl(140f);
         deltaMovement.set(-deltaMovement.y,deltaMovement.x);
         deltaMovement.scl(rotationDirection);
+        lastConnectedPlanetId = connectedPlanet.getUnitID();
         connectedPlanet = null;
     }
 
     public void enterOrbit(Planet connectedPlanet, float orbitRadius){
         //TODO: dont connect to the last connected planet. may lead to problems
         //TODO: calculate new rotation Speed !
-        if(isInOrbit()){
+        if(isInOrbit() || lastConnectedPlanetId == connectedPlanet.getUnitID()){
             return;
         }
         this.connectedPlanet = connectedPlanet;

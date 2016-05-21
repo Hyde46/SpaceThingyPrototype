@@ -43,6 +43,7 @@ public class GameScreen implements Screen {
 
         spX = new SpacePhysiX();
 
+        InputManager.get().setCam(camera);
         setLevel(0);
     }
 
@@ -72,9 +73,8 @@ public class GameScreen implements Screen {
 
     public void update(float delta)
     {
-        //iM.update(delta);
         spX.update(delta);
-        //InputManager.get().Tick(delta);
+        InputManager.get().Tick(delta);
         game.fpsLimit.delay();
     }
 
@@ -103,21 +103,17 @@ public class GameScreen implements Screen {
         Unit playerShip = new SpaceShip();
         Unit p1 = new Planet();
         Unit p2 = new Planet();
-        Unit p3 = new Planet();
         System.out.println("Loading resources...");
-        ((SpaceShip)playerShip).initialize(new Vector2(260,550),new Vector2(5,160),null,0,new Vector2(10,10),null,0);
+        ((SpaceShip)playerShip).initialize(new Vector2(60,550),new Vector2(5,160),null,0,new Vector2(10,10),null,0);
         ((Planet)p1).initialize(new Vector2(200,670),240,36,false,"planet1.png",1);
-        ((Planet)p2).initialize(new Vector2(600,1320),320,50,true,"planet3.png",2);
+        ((Planet)p2).initialize(new Vector2(600,1320),320,50,false,"planet3.png",2);
         uM.addUnit(playerShip);
         uM.addUnit(p1);
-        //InputManager.get().objectHolder.Register(p1);
         uM.addUnit(p2);
         spX.initializePhysics(uM.getUnits(),this);
 
-        //InputManager.get().objectHolder.Register(playerShip);
         InputManager.get().objectHolder.Register(p1);
         InputManager.get().objectHolder.Register(p2);
-        InputManager.get().objectHolder.Register(p3);
 
         System.out.println("Done!");
     }

@@ -11,7 +11,10 @@ package com.mygdx.game.InputManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
 
@@ -23,6 +26,7 @@ public class InputManager implements InputProcessor
     public final float SWIPE_REC_LENGTH = 20f;
     public enum TypeInput { TOUCH, RELEASE, DRAG, HOLD, SWIPE}
 
+    private Camera cam;
     /* Singleton */
     static InputManager instance;
 
@@ -30,6 +34,10 @@ public class InputManager implements InputProcessor
     {
         if(instance == null) instance = new InputManager();
         return instance;
+    }
+
+    public void setCam(Camera c){
+        cam = c;
     }
 
     /* Basic */
@@ -57,6 +65,9 @@ public class InputManager implements InputProcessor
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
+        Vector3 touchPos = new Vector3(screenX,screenY,0);
+        cam.unproject(touchPos);
+
         Array<ARenderableObject> objs = objectHolder.getObjects();
         Array<IInputHandler> objsHit = new Array<IInputHandler>();
         for(int i = 0; i < objs.size; i++)
@@ -65,7 +76,8 @@ public class InputManager implements InputProcessor
             if (obj instanceof IInputHandler)
             {
                 // TODO Abfrage hitbox funktioniert nicht? hier jedes objekt getroffen
-                objsHit.add((IInputHandler) obj);
+                if((obj.getHitbox().contains(touchPos.x,touchPos.y)))
+                    objsHit.add((IInputHandler) obj);
             }
         }
 
@@ -76,7 +88,7 @@ public class InputManager implements InputProcessor
 
         TouchData td = new TouchData();
         td.setObjsOrigin(objsHit);
-        td.setPosOrigin(new Vector2(screenX, screenY));
+        td.setPosOrigin(new Vector2(touchPos.x, touchPos.y));
         td.setPosCurrent(td.getPosOrigin());
         td.setPosPrev(td.getPosOrigin());
         td.setDeltaFrame(Vector2.Zero);

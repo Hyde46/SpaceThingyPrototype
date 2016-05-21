@@ -71,6 +71,10 @@ public class Planet extends Unit implements IInputHandler {
 
     public void OnTouch(TouchData td) {
         System.out.println("planet " + getUnitID() + " touched at (" + td.getPosCurrent().x + ", " + td.getPosCurrent().x + ")");
+        if(connectedSpaceShip != null){
+            connectedSpaceShip.launch();
+            connectedSpaceShip = null;
+        }
     }
 
     public void OnRelease(TouchData td) {
