@@ -12,7 +12,7 @@ public abstract class Decoration extends ARenderableObject {
      * Buttons und sowas hier branchen lassen?
      *
      */
-    public Decoration(Vector2 pos, Vector2 spriteDimension, int spriteID ){
+    public Decoration(){
         super();
     }
 }

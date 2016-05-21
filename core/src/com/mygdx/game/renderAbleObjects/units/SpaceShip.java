@@ -51,6 +51,7 @@ public class SpaceShip extends Unit {
         initializePositions(position,deltaMovement);
         initializeTexture(spriteDimensions, spriteId, texturePath);
 
+
     }
 
     public void launch(){
@@ -96,6 +97,16 @@ public class SpaceShip extends Unit {
             targetHitbox.set(targetPosition,20f);
         }else{
             targetPosition = SpaceMath.rotatePoint(position,connectedPlanet.getPosition(),rotationSpeed*delta,rotationDirection);
+
+            currentRotDrawingAngle += rotationDirection * rotationSpeed * delta;
+
+            if(currentRotDrawingAngle > 360)
+                currentRotDrawingAngle -= 360;
+            if(currentRotDrawingAngle < 0)
+                currentRotDrawingAngle += 360;
+
+            sprite.rotate(rotationSpeed*delta*rotationDirection);
+
             targetHitbox.set(targetPosition,20f);
         }
     }
@@ -120,6 +131,8 @@ public class SpaceShip extends Unit {
         prevPosition.set(position);
         position.set(targetPosition);
         ((Circle)collisionHitbox).set(targetHitbox);
+        sprite.setX(position.x-spriteDimension.x/2);
+        sprite.setY(position.y-spriteDimension.y/2);
     }
 
     public Circle getTargetHitbox(){

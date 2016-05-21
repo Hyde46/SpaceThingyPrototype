@@ -1,6 +1,8 @@
 package com.mygdx.game.renderAbleObjects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Shape2D;
@@ -19,21 +21,25 @@ public abstract class ARenderableObject {
     protected boolean isActive;
     protected boolean isDebug;
 
+    protected float currentRotDrawingAngle;
+
     //temporary
-    protected Texture sprite;
+    protected Texture tex;
+    protected Sprite sprite;
+
 
     protected ARenderableObject(){
         position = new Vector2();
         spriteDimension  = new Vector2();
-        sprite = null;
+        tex = null;
         isActive = false;
         isDebug = true;
+        currentRotDrawingAngle = 0;
     }
 
     //lots of initialize methods will have a different header?
     //public abstract void initialize();
 
-    public abstract void render(SpriteBatch g);
     public abstract void renderHitboxes(ShapeRenderer d);
 
     public Vector2 getPosition() {
@@ -44,7 +50,7 @@ public abstract class ARenderableObject {
         return spriteDimension;
     }
 
-    public Texture getSprite(){ return sprite; }
+    public Texture getTex(){ return tex; }
 
     public boolean isActive(){ return isActive; }
 
@@ -55,6 +61,34 @@ public abstract class ARenderableObject {
     public void setRendered(boolean b){
         this.isActive = b;
     }
+
+    public float getCurrentRotDrawingAngle(){ return currentRotDrawingAngle;}
+
+    public void render(SpriteBatch g){
+        if(!isActive || tex ==null){
+            return;
+        }
+        sprite.draw(g);
+        //g.draw(tex,position.x-spriteDimension.x/2,position.y-spriteDimension.y/2,spriteDimension.x,spriteDimension.y);
+    }
+
+    protected void initializeTexture(Vector2 spriteDimensions, int spriteId, String texturePath){
+
+        this.spriteID = spriteId;
+        if(texturePath != null) {
+            tex = new Texture(Gdx.files.internal(texturePath));
+            sprite = new Sprite(tex,(int)spriteDimensions.x,(int)spriteDimensions.y);
+            sprite.setX(position.x);
+            sprite.setY(position.y);
+            isActive = true;
+            this.spriteDimension.set(spriteDimensions);
+        }
+    }
+
+    protected void initializePositions(Vector2 position){
+        this.position = position.cpy();
+    }
+
 
 
 }

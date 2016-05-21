@@ -15,6 +15,8 @@ import com.mygdx.game.managers.UnitManager;
 
 import com.mygdx.game.managers.levels.Level;
 import com.mygdx.game.managers.levels.LevelFactory;
+import com.mygdx.game.renderAbleObjects.decorations.BackGround;
+import com.mygdx.game.renderAbleObjects.decorations.Decoration;
 import com.mygdx.game.renderAbleObjects.units.Planet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
@@ -31,6 +33,10 @@ public class GameScreen implements Screen {
 
     //InputManager iM;
     private LevelFactory levelFactory;
+
+    //Prototype only stuff
+    private int finishCounter;
+    private boolean hasFinishedLevel;
 
     public GameScreen(final MyGdxGame gam) {
         this.game = gam;
@@ -60,12 +66,14 @@ public class GameScreen implements Screen {
         game.batch.begin();
         uM.render(game.batch);
         game.font.draw(game.batch, game.currentVersion, 5 , 30);
+        if(hasFinishedLevel)
+            game.font.draw(game.batch, "Finished Level !" , 200 , 1000);
         game.batch.end();
 
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         game.shapeRenderer.setProjectionMatrix(camera.combined);
         Gdx.gl20.glLineWidth(3 / camera.zoom);
-        uM.renderHitboxes(game.shapeRenderer);
+        //uM.renderHitboxes(game.shapeRenderer);
         game.shapeRenderer.end();
 
         update(delta);
@@ -76,6 +84,11 @@ public class GameScreen implements Screen {
         spX.update(delta);
         InputManager.get().Tick(delta);
         game.fpsLimit.delay();
+
+
+        //temporary
+        if(hasFinishedLevel)
+            finishCounter--;
     }
 
     /*
@@ -100,27 +113,39 @@ public class GameScreen implements Screen {
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     private void initPrototypeLevel(){
         uM.resetUnits();
+        finishCounter = 500;
+        hasFinishedLevel = false;
+
+        //Units init
         Unit playerShip = new SpaceShip();
         Unit p1 = new Planet();
         Unit p2 = new Planet();
         System.out.println("Loading resources...");
-        ((SpaceShip)playerShip).initialize(new Vector2(260,550),new Vector2(5,160),null,0,new Vector2(10,10),null,0);
-        ((Planet)p1).initialize(new Vector2(200,670),240,36,false,"planet1.png",1);
-        ((Planet)p2).initialize(new Vector2(600,1320),320,50,false,"planet3.png",2);
-        uM.addUnit(playerShip);
+        ((SpaceShip)playerShip).initialize(new Vector2(260,550),new Vector2(5,160),null,0,new Vector2(40,40),"ship1_40x40.png",0);
+        ((Planet)p1).initialize(new Vector2(200,670),240,36,false,"planet1_72x72.png",1,0);
+        ((Planet)p2).initialize(new Vector2(600,1320),320,50,true,"planet2_100x100.png",2,40);
         uM.addUnit(p1);
         uM.addUnit(p2);
+        uM.addUnit(playerShip);
         spX.initializePhysics(uM.getUnits(),this);
-
         InputManager.get().objectHolder.Register(p1);
         InputManager.get().objectHolder.Register(p2);
+
+        //UI init
+        Decoration bg = new BackGround();
+        Decoration hex = new BackGround();
+        ((BackGround)bg).initialize(new Vector2(0,0),new Vector2(1080,1920),3,"bg_stars.png");
+        ((BackGround)hex).initialize(new Vector2(0,0),new Vector2(1080,1920),3,"bg_hex.png");
+        uM.addDeco(bg);
+        uM.addDeco(hex);
 
         System.out.println("Done!");
     }
 
     public void finishLevel(){
-        System.out.println("Reached goal planet!");
-        game.setScreen(new MainMenuScreen(game));
+        hasFinishedLevel = true;
+        if(finishCounter <= 0)
+            game.setScreen(new MainMenuScreen(game));
     }
 
     @Override
