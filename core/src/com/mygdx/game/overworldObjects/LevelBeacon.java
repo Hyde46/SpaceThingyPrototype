@@ -1,3 +1,8 @@
+/*
+    - Render über ARenderable render Methode besser?
+
+ */
+
 package com.mygdx.game.overworldObjects;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -5,11 +10,18 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.InputManager.IInputHandler;
+import com.mygdx.game.InputManager.TouchData;
+import com.mygdx.game.managers.PathNavigationManager;
+import com.mygdx.game.renderAbleObjects.ARenderableObject;
+import com.mygdx.game.screens.GameScreen;
+import com.mygdx.game.screens.MainMenuScreen;
+import com.mygdx.game.screens.MyGdxGame;
 
 /**
  * Created by Vali on 18.05.2016.
  */
-public class LevelBeacon {
+public class LevelBeacon extends ARenderableObject implements IInputHandler{
 
     private int levelId;
     protected Shape2D hitBox;
@@ -23,6 +35,11 @@ public class LevelBeacon {
      * Constructor for this class
      */
     public LevelBeacon(){
+    }
+
+    @Override
+    public void renderHitboxes(ShapeRenderer d) {
+
     }
 
     /**
@@ -94,5 +111,43 @@ public class LevelBeacon {
      */
     public Array<LevelBeacon> getConnectedBeacons(){
         return connectedBeacons;
+    }
+
+    @Override
+    public void OnTouch(TouchData td)
+    {
+        MyGdxGame game = MyGdxGame.game;
+        LevelGraph lg = ((MainMenuScreen)MyGdxGame.game.current).getLevelGraph();
+        Ship sh = ((MainMenuScreen)MyGdxGame.game.current).getShip();
+        PathNavigationManager pnm = ((MainMenuScreen)MyGdxGame.game.current).getPathNavigationManager();
+
+        if(levelId == lg.getCurrentLevel().getLevelId() && sh.getInOrbit()){
+            game.openScreen(new GameScreen());
+        }else{  //touched level is different from current level
+            if(!sh.getTravelsRoute()){      //only call navigate function, if the ship is not already on route
+                //tell PathNavigationManager to navigate to this level
+                pnm.navigateToBeacon(this);
+            }
+        }
+    }
+
+    @Override
+    public void OnRelease(TouchData td) {
+
+    }
+
+    @Override
+    public void OnDrag(TouchData td) {
+
+    }
+
+    @Override
+    public void OnHold(TouchData td) {
+
+    }
+
+    @Override
+    public void OnSwipe(TouchData td) {
+
     }
 }

@@ -24,7 +24,7 @@ import com.mygdx.game.utils.SpacePhysiX;
 
 public class GameScreen implements Screen {
 
-    final MyGdxGame game;
+//    final MyGdxGame game;
 
     OrthographicCamera camera;
 
@@ -38,13 +38,13 @@ public class GameScreen implements Screen {
     private int finishCounter;
     private boolean hasFinishedLevel;
 
-    public GameScreen(final MyGdxGame gam) {
-        this.game = gam;
+    public GameScreen() {
+ //       this.game = gam;
 
         // create the camera and the SpriteBatch
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1080, 1920);
-        game.shapeRenderer.setColor(1, 1, 0, 1);
+        MyGdxGame.game.shapeRenderer.setColor(1, 1, 0, 1);
         uM = new UnitManager();
 
         spX = new SpacePhysiX();
@@ -55,6 +55,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        MyGdxGame game = MyGdxGame.game;
 
         Gdx.gl.glClearColor(33.0f/255.0f, 49.0f/255.0f, 41.0f/255.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -83,7 +84,7 @@ public class GameScreen implements Screen {
     {
         spX.update(delta);
         InputManager.get().Tick(delta);
-        game.fpsLimit.delay();
+        MyGdxGame.game.fpsLimit.delay();
 
 
         //temporary
@@ -145,7 +146,7 @@ public class GameScreen implements Screen {
     public void finishLevel(){
         hasFinishedLevel = true;
         if(finishCounter <= 0)
-            game.setScreen(new MainMenuScreen(game));
+            MyGdxGame.game.setScreen(new MainMenuScreen());
     }
 
     @Override
