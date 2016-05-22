@@ -42,7 +42,7 @@ public class CameraManager {
         cam.translate(player.getPosition().x-screenCenter.x/2,player.getPosition().y-screenCenter.y/2);
         translation.set(player.getPosition().x-screenCenter.x/2,player.getPosition().y-screenCenter.y/2,0);
 
-        deltaTranslationSpeed = 20.0f;
+        deltaTranslationSpeed = 50.0f;
     }
 
     public void addTranslation(Vector2 translate){

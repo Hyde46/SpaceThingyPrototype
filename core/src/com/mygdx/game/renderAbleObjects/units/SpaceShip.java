@@ -42,7 +42,7 @@ public class SpaceShip extends Unit {
             lastConnectedPlanetId = -1;
         }
 
-        rotationSpeed = 60.5f;
+        rotationSpeed = 80.5f;
         rotationDirection = 1;
 
         collisionHitbox = new Circle(position.x,position.y,20f);
@@ -64,7 +64,7 @@ public class SpaceShip extends Unit {
         Vector2 vecToPlanet = b.sub(connectedPlanet.getPosition());
         vecToPlanet = vecToPlanet.nor();
         deltaMovement = vecToPlanet.cpy();
-        deltaMovement.scl(140f);
+        deltaMovement.scl(270f);
         deltaMovement.set(-deltaMovement.y,deltaMovement.x);
         deltaMovement.scl(rotationDirection);
         lastConnectedPlanetId = connectedPlanet.getUnitID();
