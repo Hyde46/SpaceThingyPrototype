@@ -75,14 +75,8 @@ public class InputManager implements InputProcessor
             ARenderableObject obj = objs.get(i);
             if (obj instanceof IInputHandler)
             {
-                // TODO Abfrage hitbox funktioniert nicht? hier jedes objekt getroffen
                 if((obj.getHitbox().contains(touchPos.x,touchPos.y)))
                     objsHit.add((IInputHandler) obj);
-                //TODO du addest alle getroffenen objekte hier rein, aber später bei
-                //notifyObjectsTouch(td); werden alle objekte mit dem touch notified.
-                //da muss das array mit rein und geprüft werden
-
-                // Ja ich habe das absichtlich so gemacht, dass ich alle treffe, weil die hitboxen nicht richtig funktioniert haben
             }
         }
 

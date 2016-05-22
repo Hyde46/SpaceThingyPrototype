@@ -9,6 +9,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.managers.UnitManager;
@@ -65,13 +66,14 @@ public class GameScreen implements Screen {
 
         cM.update(delta);
         game.batch.setProjectionMatrix(cM.getCam().combined);
-
         game.batch.begin();
         uM.render(game.batch);
-        game.font.draw(game.batch, game.currentVersion, 5 , 30);
-        if(hasFinishedLevel)
-            game.font.draw(game.batch, "Finished Level !" , 200 , 1000);
         game.batch.end();
+        game.uiBatch.begin();
+        game.font.draw(game.uiBatch, game.currentVersion, 5 , 30);
+        if(hasFinishedLevel)
+            game.font.draw(game.uiBatch, "Finished Level !" , 200 , 1000);
+        game.uiBatch.end();
 
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         game.shapeRenderer.setProjectionMatrix(cM.getCam().combined);
@@ -141,7 +143,7 @@ public class GameScreen implements Screen {
         ((BackGround)hex).initialize(new Vector2(0,0),new Vector2(1080,1920),3,"bg_hex.png");
         uM.addDeco(bg);
         uM.addDeco(hex);
-        cM.initializeCamera((SpaceShip)playerShip);
+        cM.initializeCamera((SpaceShip)playerShip,new Vector2(1080,1920));
         System.out.println("Done!");
     }
 

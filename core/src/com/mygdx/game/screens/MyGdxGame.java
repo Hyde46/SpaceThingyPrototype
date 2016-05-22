@@ -13,6 +13,7 @@ public class MyGdxGame extends Game {
 
 
 	public SpriteBatch batch;
+	public SpriteBatch uiBatch;
 	public BitmapFont font;
 	public ShapeRenderer shapeRenderer;
 	public FPSLimiter fpsLimit;
@@ -23,12 +24,13 @@ public class MyGdxGame extends Game {
 	public void create() {
 		game = this;
 		batch = new SpriteBatch();
+		uiBatch = new SpriteBatch();
 		//Use LibGDX's default Arial font.
 		font = new BitmapFont();
 		font.getData().scale(1.0f);
 		shapeRenderer = new ShapeRenderer();
 		fpsLimit = new FPSLimiter(60);
-		currentVersion = "Prototype v0.0.8";
+		currentVersion = "Prototype v0.0.9";
 		openScreen(new MainMenuScreen());
 	}
 
