@@ -1,7 +1,7 @@
 package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.FPSLogger;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -9,15 +9,19 @@ import com.mygdx.game.utils.FPSLimiter;
 
 public class MyGdxGame extends Game {
 
+	public static MyGdxGame game;
+
+
 	public SpriteBatch batch;
 	public BitmapFont font;
 	public ShapeRenderer shapeRenderer;
-
 	public FPSLimiter fpsLimit;
-
 	public String currentVersion;
 
+	public Screen current;
+
 	public void create() {
+		game = this;
 		batch = new SpriteBatch();
 		//Use LibGDX's default Arial font.
 		font = new BitmapFont();
@@ -25,7 +29,13 @@ public class MyGdxGame extends Game {
 		shapeRenderer = new ShapeRenderer();
 		fpsLimit = new FPSLimiter(60);
 		currentVersion = "Prototype v0.0.8";
-		this.setScreen(new MainMenuScreen(this));
+		openScreen(new MainMenuScreen());
+	}
+
+	public void openScreen(Screen screen)
+	{
+		current = screen;
+		setScreen(screen);
 	}
 
 	public void render() {

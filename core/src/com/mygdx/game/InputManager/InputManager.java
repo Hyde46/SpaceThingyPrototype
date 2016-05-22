@@ -81,6 +81,8 @@ public class InputManager implements InputProcessor
                 //TODO du addest alle getroffenen objekte hier rein, aber später bei
                 //notifyObjectsTouch(td); werden alle objekte mit dem touch notified.
                 //da muss das array mit rein und geprüft werden
+
+                // Ja ich habe das absichtlich so gemacht, dass ich alle treffe, weil die hitboxen nicht richtig funktioniert haben
             }
         }
 
@@ -165,46 +167,46 @@ public class InputManager implements InputProcessor
 
     void notifyObjectsTouch(TouchData td)
     {
-        Array<ARenderableObject> objsOrigin = objectHolder.getObjects();
+        Array<IInputHandler> objsOrigin = td.getObjsOrigin();
         for(int i = 0; i < objsOrigin.size; i++)
         {
-            ((IInputHandler)objsOrigin.get(i)).OnTouch(td);
+            objsOrigin.get(i).OnTouch(td);
         }
     }
 
     void notifyObjectsRelease(TouchData td)
     {
-        Array<ARenderableObject> objsOrigin = objectHolder.getObjects();
+        Array<IInputHandler> objsOrigin = td.getObjsOrigin();
         for(int i = 0; i < objsOrigin.size; i++)
         {
-            ((IInputHandler)objsOrigin.get(i)).OnRelease(td);
+            objsOrigin.get(i).OnRelease(td);
         }
     }
 
     void notifyObjectsDrag(TouchData td)
     {
-        Array<ARenderableObject> objsOrigin = objectHolder.getObjects();
+        Array<IInputHandler> objsOrigin = td.getObjsOrigin();
         for(int i = 0; i < objsOrigin.size; i++)
         {
-            ((IInputHandler)objsOrigin.get(i)).OnDrag(td);
+            objsOrigin.get(i).OnDrag(td);
         }
     }
 
     void notifyObjectsHold(TouchData td)
     {
-        Array<ARenderableObject> objsOrigin = objectHolder.getObjects();
+        Array<IInputHandler> objsOrigin = td.getObjsOrigin();
         for(int i = 0; i < objsOrigin.size; i++)
         {
-            ((IInputHandler)objsOrigin.get(i)).OnHold(td);
+            objsOrigin.get(i).OnHold(td);
         }
     }
 
     void notifyObjectsSwipe(TouchData td)
     {
-        Array<ARenderableObject> objsOrigin = objectHolder.getObjects();
+        Array<IInputHandler> objsOrigin = td.getObjsOrigin();
         for(int i = 0; i < objsOrigin.size; i++)
         {
-            ((IInputHandler)objsOrigin.get(i)).OnSwipe(td);
+            objsOrigin.get(i).OnSwipe(td);
         }
     }
 
