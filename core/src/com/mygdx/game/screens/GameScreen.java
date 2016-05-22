@@ -42,6 +42,7 @@ public class GameScreen implements Screen{
     //Prototype only stuff
     private int finishCounter;
     private boolean hasFinishedLevel;
+    private boolean hasWonLevel;
 
     public GameScreen() {
  //       this.game = gam;
@@ -77,8 +78,13 @@ public class GameScreen implements Screen{
         game.batch.end();
         game.uiBatch.begin();
         game.font.draw(game.uiBatch, game.currentVersion, 5 , 30);
-        if(hasFinishedLevel)
-            game.font.draw(game.uiBatch, "Finished Level !" , 200 , 1000);
+        if(hasFinishedLevel) {
+            if(hasWonLevel)
+                game.font.draw(game.uiBatch, "Finished Level !", 200, 1000);
+            else
+                game.font.draw(game.uiBatch, "You crashed your ship! Q_Q" , 200 , 1000);
+
+        }
         game.uiBatch.end();
 
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -126,17 +132,28 @@ public class GameScreen implements Screen{
         uM.resetUnits();
         finishCounter = 500;
         hasFinishedLevel = false;
+        hasWonLevel = false;
 
         //Units init
         Unit playerShip = new SpaceShip();
         Unit p1 = new Planet();
         Unit p2 = new Planet();
+        Unit p3 = new Planet();
         System.out.println("Loading resources...");
         ((SpaceShip)playerShip).initialize(new Vector2(260,550),new Vector2(5,160),null,0,new Vector2(40,40),"ship1_40x40.png",0);
         ((Planet)p1).initialize(new Vector2(200,670),240,36,false,"planet1_72x72.png",1,0);
+        ((Planet)p2).initialize(new Vector2(700,1620),320,50,false,"planet2_100x100.png",2,40);
+        ((Planet)p3).initialize(new Vector2(-300,1400),240,36,false,"planet1_72x72.png",1,0);
+        /*
+        ((Planet)p2).initialize(new Vector2(600,1320),240,50,true,"planet2_100x100.png",2,40);
+        ((Planet)p1).initialize(new Vector2(200,670),240,36,false,"planet1_72x72.png",1,0);
+        ((Planet)p2).initialize(new Vector2(600,1320),240,50,true,"planet2_100x100.png",2,40);
+        ((Planet)p1).initialize(new Vector2(200,670),240,36,false,"planet1_72x72.png",1,0);
         ((Planet)p2).initialize(new Vector2(600,1320),320,50,true,"planet2_100x100.png",2,40);
+        */
         uM.addUnit(p1);
         uM.addUnit(p2);
+        uM.addUnit(p3);
         uM.addUnit(playerShip);
         spX.initializePhysics(uM.getUnits(),this);
         InputManager.get().objectHolder.Register(p1);
@@ -153,8 +170,9 @@ public class GameScreen implements Screen{
         System.out.println("Done!");
     }
 
-    public void finishLevel(){
+    public void finishLevel(boolean b){
         hasFinishedLevel = true;
+        hasWonLevel = b;
         if(finishCounter <= 0)
             MyGdxGame.game.setScreen(new MainMenuScreen());
     }

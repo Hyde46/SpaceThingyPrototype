@@ -69,7 +69,9 @@ public class SpacePhysiX {
         }
         //check if player has reached some goal planet
         if(playerShip.isHasReachedGoal()){
-            gs.finishLevel();
+            gs.finishLevel(true);
+        }else if(playerShip.isCollided()){
+            gs.finishLevel(false);
         }
     }
 
