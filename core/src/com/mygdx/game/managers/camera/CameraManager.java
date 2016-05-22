@@ -18,7 +18,7 @@ public class CameraManager {
     private Vector3 screenCenter;
     private Vector3 translation;
 
-    private Vector3 deltaTranslationSpeed;
+    private float deltaTranslationSpeed;
 
     private final float maxSpeed = 100.0f;
 
@@ -30,10 +30,7 @@ public class CameraManager {
     public CameraManager(){
         screenDim = new Vector2();
         translation = new Vector3(0,0,0);
-        deltaTranslationSpeed = new Vector3();
         screenCenter = new Vector3();
-
-
         trans = new Vector2();
     }
 
@@ -44,6 +41,13 @@ public class CameraManager {
         cam.unproject(screenCenter);
         cam.translate(player.getPosition().x-screenCenter.x/2,player.getPosition().y-screenCenter.y/2);
         translation.set(player.getPosition().x-screenCenter.x/2,player.getPosition().y-screenCenter.y/2,0);
+
+        deltaTranslationSpeed = 20.0f;
+    }
+
+    public void addTranslation(Vector2 translate){
+        translation.sub(translate.x,translate.y,0);
+        cam.translate(translate);
     }
 
     public void setCam(OrthographicCamera cam){
@@ -57,11 +61,15 @@ public class CameraManager {
         return cam;
     }
 
+    public SpaceShip getPlayer() { return player; }
+
     public void update(float delta){
 
-        //cam.unproject(screenCenter);
         if(!player.isInOrbit()) {
             trans = player.getPosition().cpy().add(translation.x - screenCenter.x, translation.y - screenCenter.y).scl(1.0f);
+            if(trans.cpy().sub(translation.x,translation.y).len() >= 10){
+                trans.scl(1.0f/deltaTranslationSpeed);
+            }
             cam.translate(trans);
             translation.sub(trans.x, trans.y, 0);
         }

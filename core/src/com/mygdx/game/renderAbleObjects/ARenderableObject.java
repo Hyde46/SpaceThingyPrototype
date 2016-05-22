@@ -23,6 +23,8 @@ public abstract class ARenderableObject {
 
     protected float currentRotDrawingAngle;
 
+    protected boolean isUI;
+
     //temporary
     protected Texture tex;
     protected Sprite sprite;
@@ -35,6 +37,7 @@ public abstract class ARenderableObject {
         isActive = false;
         isDebug = true;
         currentRotDrawingAngle = 0;
+        isUI = false;
     }
 
     //lots of initialize methods will have a different header?
@@ -89,6 +92,8 @@ public abstract class ARenderableObject {
         this.position = position.cpy();
     }
 
-
+    public boolean isUI(){
+        return isUI;
+    }
 
 }

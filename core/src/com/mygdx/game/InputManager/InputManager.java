@@ -65,7 +65,10 @@ public class InputManager implements InputProcessor
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
+        //TODO , hier das meinte ich mit unpojectedPos :)
+        // das brauchen wir für UI elemente, auch mit swipe, so wies aussieht
         Vector3 touchPos = new Vector3(screenX,screenY,0);
+        Vector3 unProjectedTouchPos = touchPos.cpy();
         cam.unproject(touchPos);
 
         Array<ARenderableObject> objs = objectHolder.getObjects();
@@ -75,7 +78,8 @@ public class InputManager implements InputProcessor
             ARenderableObject obj = objs.get(i);
             if (obj instanceof IInputHandler)
             {
-                if((obj.getHitbox().contains(touchPos.x,touchPos.y)))
+                if( (!obj.isUI() && (obj.getHitbox().contains(touchPos.x,touchPos.y)))
+                        || (obj.isUI() &&(obj.getHitbox().contains(unProjectedTouchPos.x,unProjectedTouchPos.y))))
                     objsHit.add((IInputHandler) obj);
             }
         }

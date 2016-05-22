@@ -9,6 +9,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.InputManager;
@@ -17,6 +18,7 @@ import com.mygdx.game.managers.UnitManager;
 import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.managers.levels.Level;
 import com.mygdx.game.managers.levels.LevelFactory;
+import com.mygdx.game.prototypeUtils.CameraHelper;
 import com.mygdx.game.renderAbleObjects.decorations.BackGround;
 import com.mygdx.game.renderAbleObjects.decorations.Decoration;
 import com.mygdx.game.renderAbleObjects.units.Planet;
@@ -24,11 +26,12 @@ import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
 import com.mygdx.game.utils.SpacePhysiX;
 
-public class GameScreen implements Screen {
+public class GameScreen implements Screen{
 
 //    final MyGdxGame game;
 
     CameraManager cM;
+    CameraHelper cH;
 
     UnitManager uM;
     SpacePhysiX spX;
@@ -47,7 +50,10 @@ public class GameScreen implements Screen {
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, 1080, 1920);
         cM = new CameraManager();
+        cH = new CameraHelper();
         cM.setCam(camera);
+        cH.setCameraManager(cM);
+        InputManager.get().objectHolder.Register(cH);
         MyGdxGame.game.shapeRenderer.setColor(1, 1, 0, 1);
         uM = new UnitManager();
 
