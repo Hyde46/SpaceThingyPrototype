@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.managers.UnitManager;
 
+import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.managers.levels.Level;
 import com.mygdx.game.managers.levels.LevelFactory;
 import com.mygdx.game.renderAbleObjects.decorations.BackGround;
@@ -26,7 +27,7 @@ public class GameScreen implements Screen {
 
     final MyGdxGame game;
 
-    OrthographicCamera camera;
+    CameraManager cM;
 
     UnitManager uM;
     SpacePhysiX spX;
@@ -42,8 +43,10 @@ public class GameScreen implements Screen {
         this.game = gam;
 
         // create the camera and the SpriteBatch
-        camera = new OrthographicCamera();
+        OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, 1080, 1920);
+        cM = new CameraManager();
+        cM.setCam(camera);
         game.shapeRenderer.setColor(1, 1, 0, 1);
         uM = new UnitManager();
 
@@ -59,9 +62,8 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(33.0f/255.0f, 49.0f/255.0f, 41.0f/255.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        camera.update();
-
-        game.batch.setProjectionMatrix(camera.combined);
+        cM.update(delta);
+        game.batch.setProjectionMatrix(cM.getCam().combined);
 
         game.batch.begin();
         uM.render(game.batch);
@@ -71,8 +73,8 @@ public class GameScreen implements Screen {
         game.batch.end();
 
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        game.shapeRenderer.setProjectionMatrix(camera.combined);
-        Gdx.gl20.glLineWidth(3 / camera.zoom);
+        game.shapeRenderer.setProjectionMatrix(cM.getCam().combined);
+        Gdx.gl20.glLineWidth(3 / cM.getCam().zoom);
         //uM.renderHitboxes(game.shapeRenderer);
         game.shapeRenderer.end();
 
@@ -138,7 +140,7 @@ public class GameScreen implements Screen {
         ((BackGround)hex).initialize(new Vector2(0,0),new Vector2(1080,1920),3,"bg_hex.png");
         uM.addDeco(bg);
         uM.addDeco(hex);
-
+        cM.initializeCamera((SpaceShip)playerShip);
         System.out.println("Done!");
     }
 
