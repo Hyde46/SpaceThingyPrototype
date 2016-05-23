@@ -42,7 +42,7 @@ public class GameScreen implements Screen{
     private boolean hasFinishedLevel;
     private boolean hasWonLevel;
 
-    public GameScreen() {
+    public GameScreen(int levelToStart) {
  //       this.game = gam;
 
         // create the camera and the SpriteBatch
@@ -64,7 +64,7 @@ public class GameScreen implements Screen{
         spX = new SpacePhysiX();
 
 
-        setLevel(0);
+        setLevel(levelToStart);
     }
 
     @Override
@@ -116,16 +116,17 @@ public class GameScreen implements Screen{
      */
     public void setLevel(int levelId){
 
+        // Level l = LevelFactory.loadLevel(levelId);
         //for now
-        levelId = 1;
-        Level l = LevelFactory.loadLevel(levelId);
-        initPrototypeLevel();
-
-        //TODO also very important:)
-        //we dont have any sort of level loading mechanism at the moment.
-        //to remove the hardcoding of the level in the gamescreen which is not optimal
-        //initLevel();
-
+        switch(levelId) {
+            case 1:
+                initPrototypeLevel();
+                break;
+            case 2:
+                initPrototypeLevelTwo();
+                break;
+            default:
+        }
     }
 
     //just for the prototype !!!!!!!
@@ -141,25 +142,35 @@ public class GameScreen implements Screen{
         Unit p1 = new Planet();
         Unit p2 = new Planet();
         Unit p3 = new Planet();
+        Unit p4 = new Planet();
+        Unit p5 = new Planet();
+        Unit p6 = new Planet();
         System.out.println("Loading resources...");
         ((SpaceShip)playerShip).initialize(new Vector2(260,550),new Vector2(5,160),null,0,new Vector2(40,40),"ship1_40x40.png",0);
         ((Planet)p1).initialize(new Vector2(200,670),240,36,false,"planet1_72x72.png",1,0);
-        ((Planet)p2).initialize(new Vector2(700,1620),320,50,false,"planet2_100x100.png",2,40);
-        ((Planet)p3).initialize(new Vector2(-300,1400),240,36,false,"planet1_72x72.png",1,0);
+        ((Planet)p2).initialize(new Vector2(800,1720),320,50,false,"planet2_100x100.png",2,40);
+        ((Planet)p3).initialize(new Vector2(-300,1400),240,36,false,"planet1_72x72.png",1,30);
+        ((Planet)p4).initialize(new Vector2(-500,800),240,50,false,"planet2_100x100.png",2,90);
+        ((Planet)p5).initialize(new Vector2(500,1500),320,36,false,"planet1_72x72.png",1,120);
+        ((Planet)p6).initialize(new Vector2(10,2700),240,50,true,"planet2_100x100.png",2,10);
         /*
-        ((Planet)p2).initialize(new Vector2(600,1320),240,50,true,"planet2_100x100.png",2,40);
-        ((Planet)p1).initialize(new Vector2(200,670),240,36,false,"planet1_72x72.png",1,0);
-        ((Planet)p2).initialize(new Vector2(600,1320),240,50,true,"planet2_100x100.png",2,40);
         ((Planet)p1).initialize(new Vector2(200,670),240,36,false,"planet1_72x72.png",1,0);
         ((Planet)p2).initialize(new Vector2(600,1320),320,50,true,"planet2_100x100.png",2,40);
         */
         uM.addUnit(p1);
         uM.addUnit(p2);
         uM.addUnit(p3);
+        uM.addUnit(p4);
+        uM.addUnit(p5);
+        uM.addUnit(p6);
         uM.addUnit(playerShip);
         spX.initializePhysics(uM.getUnits(),this);
         InputManager.instance.objectHolder.Register(p1);
         InputManager.instance.objectHolder.Register(p2);
+        InputManager.instance.objectHolder.Register(p3);
+        InputManager.instance.objectHolder.Register(p4);
+        InputManager.instance.objectHolder.Register(p5);
+        InputManager.instance.objectHolder.Register(p6);
 
         //UI init
         Decoration bg = new BackGround();
@@ -170,6 +181,9 @@ public class GameScreen implements Screen{
         uM.addDeco(hex);
         cM.initializeCamera((SpaceShip)playerShip);
         System.out.println("Done!");
+    }
+    private void initPrototypeLevelTwo(){
+
     }
 
     public void finishLevel(boolean b){

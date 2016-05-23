@@ -61,8 +61,6 @@ public class MainMenuScreen implements Screen {
     @Override
     public void render(float delta) {
 
-
-        MyGdxGame.game.setScreen(new GameScreen());
         MyGdxGame game = MyGdxGame.game;
 
         Gdx.gl.glClearColor(0, 0.2f, 0.2f, 1);
@@ -72,7 +70,6 @@ public class MainMenuScreen implements Screen {
         cam.update();
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
-       // game.font.draw(game.batch, "Some Overworld for you Valli :*", 320, 920);
         game.font.draw(game.batch, game.currentVersion, 5 , 30);
         game.batch.end();
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
