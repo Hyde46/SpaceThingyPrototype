@@ -61,8 +61,6 @@ public class MainMenuScreen implements Screen {
     @Override
     public void render(float delta) {
 
-
-        MyGdxGame.game.setScreen(new GameScreen());
         MyGdxGame game = MyGdxGame.game;
 
         Gdx.gl.glClearColor(0, 0.2f, 0.2f, 1);
