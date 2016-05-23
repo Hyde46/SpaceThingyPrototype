@@ -2,15 +2,16 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.utils.FPSLimiter;
 
 public class MyGdxGame extends Game {
 
 	public static MyGdxGame game;
-
 
 	public SpriteBatch batch;
 	public SpriteBatch uiBatch;
@@ -18,6 +19,11 @@ public class MyGdxGame extends Game {
 	public ShapeRenderer shapeRenderer;
 	public FPSLimiter fpsLimit;
 	public String currentVersion;
+
+	/*
+		cam manager needs to be here to initiate the input manager
+	*/
+	public CameraManager cm;
 
 	public Screen current;
 

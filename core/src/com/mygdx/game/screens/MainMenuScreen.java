@@ -44,7 +44,7 @@ public class MainMenuScreen implements Screen {
 
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080,1920);
-
+        InputManager.setup(cam);
         //create LevelGraph object and initialize it (creating beacons etc)
         this.levelGraph = new LevelGraph();
         levelGraph.initializeGraph();
@@ -78,36 +78,6 @@ public class MainMenuScreen implements Screen {
         game.shapeRenderer.end();
         //process ship's movement
         ship.update(delta);
-
-
-        if (Gdx.input.isTouched()) {
-            Vector3 touchPos = new Vector3();
-            touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-            cam.unproject(touchPos);
-
-            for(LevelBeacon levelBeacon : levelGraph.getLevelBeaconArray()){
-                //check if touch was inside the level beacon
-                if(levelBeacon.getHitBox().contains(touchPos.x, touchPos.y)){
-                    //check if touched level is current level and if ship is still in orbit
-                    if(levelBeacon.getLevelId() == levelGraph.getCurrentLevel().getLevelId() && ship.getInOrbit()){
-                        game.setScreen(new GameScreen());
-                        dispose();
-                        if(levelBeacon.getIsShop()){
-                            game.setScreen(new ShopScreen());
-                            dispose();
-                        }else{
-                            game.setScreen(new GameScreen());
-                            dispose();
-                        }
-                    }else{  //touched level is different from current level
-                        if(!ship.getTravelsRoute()){      //only call navigate function, if the ship is not already on route
-                            //tell PathNavigationManager to navigate to this level
-                            pathNavigationManager.navigateToBeacon(levelBeacon);
-                        }
-                    }
-                }
-            }
-        }
     }
 
     @Override

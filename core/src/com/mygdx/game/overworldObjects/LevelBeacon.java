@@ -17,6 +17,7 @@ import com.mygdx.game.renderAbleObjects.ARenderableObject;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.screens.MainMenuScreen;
 import com.mygdx.game.screens.MyGdxGame;
+import com.mygdx.game.screens.ShopScreen;
 
 /**
  * Created by Vali on 18.05.2016.
@@ -24,7 +25,7 @@ import com.mygdx.game.screens.MyGdxGame;
 public class LevelBeacon extends ARenderableObject implements IInputHandler{
 
     private int levelId;
-    protected Shape2D hitBox;
+//    protected Shape2D hitBox;
     protected int height, width;
     protected Vector2 position;
     protected Vector2 positionCenter;
@@ -51,7 +52,8 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
      */
     protected void initialize(Vector2 position, int height, int width, int levelId, Array<LevelBeacon> connectedBeacons, boolean isShop){
         this.position = position.cpy();
-        this.hitBox = new Rectangle(position.x, position.y, width, height);
+ //       this.hitBox = new Rectangle(position.x, position.y, width, height);
+        this.touchHitbox = new Rectangle(position.x, position.y, width, height);
         this.height = height;
         this.width = width;
         this.levelId = levelId;
@@ -95,9 +97,9 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
      * getter for hit box
      * @return hitBox
      */
-    public Shape2D getHitBox(){
-        return hitBox;
-    }
+//    public Shape2D getHitBox(){
+//        return touchHitbox;
+//    }
 
     /**
      * getter for level id
@@ -123,10 +125,21 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
         Ship sh = ((MainMenuScreen)MyGdxGame.game.current).getShip();
         PathNavigationManager pnm = ((MainMenuScreen)MyGdxGame.game.current).getPathNavigationManager();
 
-        if(levelId == lg.getCurrentLevel().getLevelId() && sh.getInOrbit()){
-            game.openScreen(new GameScreen());
-        }else{  //touched level is different from current level
-            if(!sh.getTravelsRoute()){      //only call navigate function, if the ship is not already on route
+        if(levelId == lg.getCurrentLevel().getLevelId() && sh.getInOrbit())
+        {
+                if(getIsShop())
+                {
+                    game.setScreen(new ShopScreen());
+                }
+                else
+                {
+                    game.setScreen(new GameScreen());
+                }
+        }
+        else
+        {  //touched level is different from current level
+            if(!sh.getTravelsRoute())
+            {      //only call navigate function, if the ship is not already on route
                 //tell PathNavigationManager to navigate to this level
                 pnm.navigateToBeacon(this);
             }

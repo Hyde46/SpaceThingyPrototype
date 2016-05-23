@@ -9,8 +9,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.managers.UnitManager;
@@ -50,17 +48,22 @@ public class GameScreen implements Screen{
         // create the camera and the SpriteBatch
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, 1080, 1920);
+
+        /* Main and Game have different cams,
+        main camera needs to be created in gdxgame and Inputmanger setup there */
+        InputManager.setup(camera);
+
         cM = new CameraManager();
         cH = new CameraHelper();
         cM.setCam(camera);
         cH.setCameraManager(cM);
-        InputManager.get().objectHolder.Register(cH);
+        InputManager.instance.objectHolder.Register(cH);
         MyGdxGame.game.shapeRenderer.setColor(1, 1, 0, 1);
         uM = new UnitManager();
 
         spX = new SpacePhysiX();
 
-        InputManager.get().setCam(camera);
+
         setLevel(0);
     }
 
@@ -99,7 +102,7 @@ public class GameScreen implements Screen{
     public void update(float delta)
     {
         spX.update(delta);
-        InputManager.get().Tick(delta);
+        InputManager.instance.update(delta);
         MyGdxGame.game.fpsLimit.delay();
 
 
@@ -156,8 +159,8 @@ public class GameScreen implements Screen{
         uM.addUnit(p3);
         uM.addUnit(playerShip);
         spX.initializePhysics(uM.getUnits(),this);
-        InputManager.get().objectHolder.Register(p1);
-        InputManager.get().objectHolder.Register(p2);
+        InputManager.instance.objectHolder.Register(p1);
+        InputManager.instance.objectHolder.Register(p2);
 
         //UI init
         Decoration bg = new BackGround();

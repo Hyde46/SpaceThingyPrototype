@@ -59,10 +59,10 @@ public class Ship {
             //set new position in direction to the new beacon
             position.add(vectorToBeacon.cpy().scl(delta));
             //if ship is inside of the goal beacon it should start rotating again
-            if(currentLevel.getHitBox().contains(position)){
+            if(currentLevel.getHitbox().contains(position)){
                 isInOrbit = true;
                 travelsRoute = false;
-            }else if(travelsRoute && currentRoute.peek().getHitBox().contains(position)){  //second case: ship has reached next beacon on route
+            }else if(travelsRoute && currentRoute.peek().getHitbox().contains(position)){  //second case: ship has reached next beacon on route
                 //in this case we tell the ship to fly to the next beacon in the route
                 currentRoute.pop(); //pop (delete) the reached beachon
                 flyToBeacon(currentRoute.peek());

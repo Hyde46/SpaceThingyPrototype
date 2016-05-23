@@ -9,12 +9,13 @@ public class TouchData
 
     Array<IInputHandler> objsOrigin;
 
-    Vector2
-        posOrigin,
-        posCurrent,
-        posPrev,
-        deltaFrame,
-        deltaSwipe;
+    Vector2 posOrigin;
+    Vector2 posOriginUnprojected;
+    Vector2 posCurrent;
+    Vector2 posCurrentUnprojected;
+    Vector2 posPrev;
+    Vector2 deltaFrame;
+    Vector2 deltaSwipe;
 
     DirSwipe dirSwipePrev;
 
@@ -39,12 +40,18 @@ public class TouchData
         this.posOrigin = posOrigin;
     }
 
+    public Vector2 getPosOriginUnprojected() { return posOriginUnprojected; }
+    public void setPosOriginUnprojected(Vector2 posOriginUnprojected) { this.posOriginUnprojected = posOriginUnprojected; }
+
     public Vector2 getPosCurrent() {
         return posCurrent;
     }
     public void setPosCurrent(Vector2 posCurrent) {
         this.posCurrent = posCurrent;
     }
+
+    public Vector2 getPosCurrentUnprojected() { return posCurrentUnprojected; }
+    public void setPosCurrentUnprojected(Vector2 posCurrentUnprojected) { this.posCurrentUnprojected = posCurrentUnprojected; }
 
     public Vector2 getPosPrev() {
         return posPrev;

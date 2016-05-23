@@ -1,44 +1,32 @@
-/*
-    - Register objs with the IInputHandler attached to them in the ObjectHolder
-    (dont forget to delete them after use)
-    - Inside the IInputHandler overridden methods use TouchData to get info over
-    deltas, touch duration and even swipe direction
-
-    - The InputManager needs a tick to update the hold button times
-*/
-
 package com.mygdx.game.InputManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class InputManager implements InputProcessor
 {
-    public final float SWIPE_REC_LENGTH = 20f;
-    public enum TypeInput { TOUCH, RELEASE, DRAG, HOLD, SWIPE}
+    /* static instance */
 
-    private Camera cam;
-    /* Singleton */
-    static InputManager instance;
+    public static InputManager instance;
 
-    public static InputManager get()
+    /* needs to be called before first use */
+    public static void setup(Camera cam)
     {
-        if(instance == null) instance = new InputManager();
-        return instance;
+        instance = new InputManager();
+        instance.cam = cam;
     }
 
-    public void setCam(Camera c){
-        cam = c;
-    }
+    final float SWIPE_REC_LENGTH = 20f;
+//    public enum TypeInput { TOUCH, RELEASE, DRAG, HOLD, SWIPE}
+
+    Camera cam;
 
     /* Basic */
     InputManager()
@@ -48,7 +36,7 @@ public class InputManager implements InputProcessor
         objectHolder = new ObjectHolder<ARenderableObject>();
     }
 
-    public void Tick(float deltaTime)
+    public void update(float deltaTime)
     {
         for (TouchData td : touchData.values())
         {
@@ -67,20 +55,28 @@ public class InputManager implements InputProcessor
     {
         //TODO , hier das meinte ich mit unpojectedPos :)
         // das brauchen wir für UI elemente, auch mit swipe, so wies aussieht
-        Vector3 touchPos = new Vector3(screenX,screenY,0);
-        Vector3 unProjectedTouchPos = touchPos.cpy();
-        cam.unproject(touchPos);
+        Vector3 posTouch = new Vector3(screenX,screenY,0);
+        Vector3 posTouchUnproj = posTouch.cpy();
+        cam.unproject(posTouch);
 
         Array<ARenderableObject> objs = objectHolder.getObjects();
+
+        System.out.println("holder size " + objs.size);
+
         Array<IInputHandler> objsHit = new Array<IInputHandler>();
         for(int i = 0; i < objs.size; i++)
         {
             ARenderableObject obj = objs.get(i);
             if (obj instanceof IInputHandler)
             {
-                if( (!obj.isUI() && (obj.getHitbox().contains(touchPos.x,touchPos.y)))
-                        || (obj.isUI() &&(obj.getHitbox().contains(unProjectedTouchPos.x,unProjectedTouchPos.y))))
+                if
+                (
+                    (!obj.isUI() && (obj.getHitbox().contains(posTouch.x,posTouch.y))) ||
+                    (obj.isUI() &&(obj.getHitbox().contains(posTouchUnproj.x,posTouchUnproj.y)))
+                )
+                {
                     objsHit.add((IInputHandler) obj);
+                }
             }
         }
 
@@ -91,8 +87,10 @@ public class InputManager implements InputProcessor
 
         TouchData td = new TouchData();
         td.setObjsOrigin(objsHit);
-        td.setPosOrigin(new Vector2(touchPos.x, touchPos.y));
+        td.setPosOrigin(new Vector2(posTouch.x, posTouch.y));
+        td.setPosOriginUnprojected(new Vector2(posTouchUnproj.x, posTouchUnproj.y));
         td.setPosCurrent(td.getPosOrigin());
+        td.setPosCurrentUnprojected(new Vector2(posTouchUnproj.x, posTouchUnproj.y));
         td.setPosPrev(td.getPosOrigin());
         td.setDeltaFrame(Vector2.Zero);
         td.setDeltaSwipe(Vector2.Zero);
@@ -120,9 +118,14 @@ public class InputManager implements InputProcessor
     {
         if(touchData.containsKey(pointer))
         {
+            Vector3 vecTouch = new Vector3(screenX, screenY, 0);
+            Vector3 vecUnPro = vecTouch.cpy();
+            cam.unproject(vecUnPro);
+
             TouchData td = touchData.get(pointer);
             td.setPosPrev(td.getPosCurrent());
             td.setPosCurrent(new Vector2(screenX, screenY));
+            td.setPosCurrentUnprojected(new Vector2(vecUnPro.x, vecUnPro.y));
             td.setDeltaFrame(new Vector2(td.getPosCurrent().x - td.getPosPrev().x, td.getPosCurrent().y - td.getPosPrev().y));
             td.setDeltaSwipe(new Vector2(td.getDeltaSwipe().x + td.getDeltaFrame().x, td.getDeltaSwipe().y + td.getDeltaFrame().y));
             float lengthSwipe = Vector2.dst(td.getPosCurrent().x, td.getPosCurrent().y, td.getPosPrev().x, td.getPosPrev().y);

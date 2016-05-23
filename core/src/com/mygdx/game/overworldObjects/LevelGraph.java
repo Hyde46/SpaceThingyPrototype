@@ -30,9 +30,6 @@ public class LevelGraph {
         LevelBeacon levelBeacon4 = new LevelBeacon();
         LevelBeacon levelBeacon5 = new LevelBeacon();
 
-        InputManager.get().objectHolder.Register(levelBeacon1);
-
-
         //create arrays for the connected beacons and add the corresponding beacons -> the arrays are passed to the initialize method of LevelBeacon
         Array<LevelBeacon> array1 = new Array<LevelBeacon>();
         array1.add(levelBeacon2);
@@ -57,6 +54,12 @@ public class LevelGraph {
         addBeacon(levelBeacon4);
         addBeacon(levelBeacon5);
         setCurrentLevel(levelBeacon1);
+
+        InputManager.instance.objectHolder.Register(levelBeacon1);
+        InputManager.instance.objectHolder.Register(levelBeacon2);
+        InputManager.instance.objectHolder.Register(levelBeacon3);
+        InputManager.instance.objectHolder.Register(levelBeacon4);
+        InputManager.instance.objectHolder.Register(levelBeacon5);
     }
 
     /**
