@@ -11,8 +11,12 @@ package com.mygdx.game.InputManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.renderAbleObjects.ARenderAbleObject;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.renderAbleObjects.ARenderableObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +26,7 @@ public class InputManager implements InputProcessor
     public final float SWIPE_REC_LENGTH = 20f;
     public enum TypeInput { TOUCH, RELEASE, DRAG, HOLD, SWIPE}
 
+    private Camera cam;
     /* Singleton */
     static InputManager instance;
 
@@ -31,12 +36,16 @@ public class InputManager implements InputProcessor
         return instance;
     }
 
+    public void setCam(Camera c){
+        cam = c;
+    }
+
     /* Basic */
     InputManager()
     {
         // this is an input processor that gets registered at the main input
         Gdx.input.setInputProcessor(this);
-        objectHolder = new ObjectHolder<ARenderAbleObject>();
+        objectHolder = new ObjectHolder<ARenderableObject>();
     }
 
     public void Tick(float deltaTime)
@@ -49,28 +58,40 @@ public class InputManager implements InputProcessor
     }
 
     /* Touch related */
-    public ObjectHolder<ARenderAbleObject> objectHolder;
+    public ObjectHolder<ARenderableObject> objectHolder;
 
     HashMap<Integer, TouchData> touchData = new HashMap<Integer, TouchData>();
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
-        ArrayList<ARenderAbleObject> objs = objectHolder.getObjects();
-        for(int i = 0; i < objs.size(); i++)
+        //TODO , hier das meinte ich mit unpojectedPos :)
+        // das brauchen wir für UI elemente, auch mit swipe, so wies aussieht
+        Vector3 touchPos = new Vector3(screenX,screenY,0);
+        Vector3 unProjectedTouchPos = touchPos.cpy();
+        cam.unproject(touchPos);
+
+        Array<ARenderableObject> objs = objectHolder.getObjects();
+        Array<IInputHandler> objsHit = new Array<IInputHandler>();
+        for(int i = 0; i < objs.size; i++)
         {
-            if(objs.get(i).getHitbox().contains(screenX, screenY))
+            ARenderableObject obj = objs.get(i);
+            if (obj instanceof IInputHandler)
             {
-                if(IInputHandler.class.isInstance(new Integer(3)))
-                {
-                    touchData.get(pointer).getObjsOrigin().add((IInputHandler)new ObjectHolder<Integer>());
-                }
+                if( (!obj.isUI() && (obj.getHitbox().contains(touchPos.x,touchPos.y)))
+                        || (obj.isUI() &&(obj.getHitbox().contains(unProjectedTouchPos.x,unProjectedTouchPos.y))))
+                    objsHit.add((IInputHandler) obj);
             }
         }
-        if(touchData.get(pointer).getObjsOrigin().size() == 0) return true; // there is no interesting object touched
+
+        if(objsHit.size == 0)
+        {
+            return true; // there is no interesting object touched
+        }
 
         TouchData td = new TouchData();
-        td.setPosOrigin(new Vector2(screenX, screenY));
+        td.setObjsOrigin(objsHit);
+        td.setPosOrigin(new Vector2(touchPos.x, touchPos.y));
         td.setPosCurrent(td.getPosOrigin());
         td.setPosPrev(td.getPosOrigin());
         td.setDeltaFrame(Vector2.Zero);
@@ -86,59 +107,66 @@ public class InputManager implements InputProcessor
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button)
     {
-        notifyObjectsRelease(touchData.get(pointer));
-        if(touchData.containsKey(pointer)) touchData.remove(touchData.get(pointer));
+        if(touchData.containsKey(pointer))
+        {
+            notifyObjectsRelease(touchData.get(pointer));
+            if(touchData.containsKey(pointer)) touchData.remove(pointer);
+        }
         return true;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer)
     {
-        TouchData td = touchData.get(pointer);
-        td.setPosPrev(td.getPosCurrent());
-        td.setPosCurrent(new Vector2(screenX, screenY));
-        td.setDeltaFrame(new Vector2(td.getPosCurrent().x - td.getPosPrev().x, td.getPosCurrent().y - td.getPosPrev().y));
-        td.setDeltaSwipe(new Vector2(td.getDeltaSwipe().x + td.getDeltaFrame().x, td.getDeltaSwipe().y + td.getDeltaFrame().y));
-        float lengthSwipe = Vector2.dst(td.getPosCurrent().x, td.getPosCurrent().y, td.getPosPrev().x, td.getPosPrev().y);
-        td.setLengthSwipe(td.getLengthSwipe() + lengthSwipe);
-
-        notifyObjectsDrag(td);
-
-        if(td.getLengthSwipe() >= SWIPE_REC_LENGTH)
+        if(touchData.containsKey(pointer))
         {
-            Vector2 sDelta = td.getDeltaSwipe();
-            td.setDeltaSwipe(Vector2.Zero);
-            if(Math.abs(sDelta.x) < Math.abs(sDelta.y))
+            TouchData td = touchData.get(pointer);
+            td.setPosPrev(td.getPosCurrent());
+            td.setPosCurrent(new Vector2(screenX, screenY));
+            td.setDeltaFrame(new Vector2(td.getPosCurrent().x - td.getPosPrev().x, td.getPosCurrent().y - td.getPosPrev().y));
+            td.setDeltaSwipe(new Vector2(td.getDeltaSwipe().x + td.getDeltaFrame().x, td.getDeltaSwipe().y + td.getDeltaFrame().y));
+            float lengthSwipe = Vector2.dst(td.getPosCurrent().x, td.getPosCurrent().y, td.getPosPrev().x, td.getPosPrev().y);
+            td.setLengthSwipe(td.getLengthSwipe() + lengthSwipe);
+
+            notifyObjectsDrag(td);
+
+            if(td.getLengthSwipe() >= SWIPE_REC_LENGTH)
             {
-                if(sDelta.y > 0) // up
+                Vector2 sDelta = td.getDeltaSwipe();
+                td.setDeltaSwipe(Vector2.Zero);
+                if(Math.abs(sDelta.x) < Math.abs(sDelta.y))
                 {
-                    td.setDirSwipePrev(TouchData.DirSwipe.UP);
+                    if(sDelta.y > 0) // up
+                    {
+                        td.setDirSwipePrev(TouchData.DirSwipe.DOWN);
+                    }
+                    else // down
+                    {
+                        td.setDirSwipePrev(TouchData.DirSwipe.UP);
+                    }
                 }
-                else // down
+                else
                 {
-                    td.setDirSwipePrev(TouchData.DirSwipe.DOWN);
+                    if(sDelta.x < 0) // right
+                    {
+                        td.setDirSwipePrev(TouchData.DirSwipe.LEFT);
+                    }
+                    else // left
+                    {
+                        td.setDirSwipePrev(TouchData.DirSwipe.RIGHT);
+                    }
                 }
             }
-            else
-            {
-                if(sDelta.x < 0) // right
-                {
-                    td.setDirSwipePrev(TouchData.DirSwipe.RIGHT);
-                }
-                else // left
-                {
-                    td.setDirSwipePrev(TouchData.DirSwipe.LEFT);
-                }
-            }
+            notifyObjectsSwipe(td);
         }
-        notifyObjectsSwipe(td);
+
         return true;
     }
 
     void notifyObjectsTouch(TouchData td)
     {
-        ArrayList<IInputHandler> objsOrigin = td.getObjsOrigin();
-        for(int i = 0; i < objsOrigin.size(); i++)
+        Array<IInputHandler> objsOrigin = td.getObjsOrigin();
+        for(int i = 0; i < objsOrigin.size; i++)
         {
             objsOrigin.get(i).OnTouch(td);
         }
@@ -146,8 +174,8 @@ public class InputManager implements InputProcessor
 
     void notifyObjectsRelease(TouchData td)
     {
-        ArrayList<IInputHandler> objsOrigin = td.getObjsOrigin();
-        for(int i = 0; i < objsOrigin.size(); i++)
+        Array<IInputHandler> objsOrigin = td.getObjsOrigin();
+        for(int i = 0; i < objsOrigin.size; i++)
         {
             objsOrigin.get(i).OnRelease(td);
         }
@@ -155,8 +183,8 @@ public class InputManager implements InputProcessor
 
     void notifyObjectsDrag(TouchData td)
     {
-        ArrayList<IInputHandler> objsOrigin = td.getObjsOrigin();
-        for(int i = 0; i < objsOrigin.size(); i++)
+        Array<IInputHandler> objsOrigin = td.getObjsOrigin();
+        for(int i = 0; i < objsOrigin.size; i++)
         {
             objsOrigin.get(i).OnDrag(td);
         }
@@ -164,8 +192,8 @@ public class InputManager implements InputProcessor
 
     void notifyObjectsHold(TouchData td)
     {
-        ArrayList<IInputHandler> objsOrigin = td.getObjsOrigin();
-        for(int i = 0; i < objsOrigin.size(); i++)
+        Array<IInputHandler> objsOrigin = td.getObjsOrigin();
+        for(int i = 0; i < objsOrigin.size; i++)
         {
             objsOrigin.get(i).OnHold(td);
         }
@@ -173,8 +201,8 @@ public class InputManager implements InputProcessor
 
     void notifyObjectsSwipe(TouchData td)
     {
-        ArrayList<IInputHandler> objsOrigin = td.getObjsOrigin();
-        for(int i = 0; i < objsOrigin.size(); i++)
+        Array<IInputHandler> objsOrigin = td.getObjsOrigin();
+        for(int i = 0; i < objsOrigin.size; i++)
         {
             objsOrigin.get(i).OnSwipe(td);
         }

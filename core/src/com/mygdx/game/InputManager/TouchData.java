@@ -1,14 +1,13 @@
 package com.mygdx.game.InputManager;
 
 import com.badlogic.gdx.math.Vector2;
-
-import java.util.ArrayList;
+import com.badlogic.gdx.utils.Array;
 
 public class TouchData
 {
-    public enum DirSwipe { RIGHT, LEFT , UP, DOWN }
+    public enum DirSwipe { DEFAULT, RIGHT, LEFT , UP, DOWN }
 
-    ArrayList<IInputHandler> objsOrigin;
+    Array<IInputHandler> objsOrigin;
 
     Vector2
         posOrigin,
@@ -17,16 +16,21 @@ public class TouchData
         deltaFrame,
         deltaSwipe;
 
-    DirSwipe dirSwipesPrev;
+    DirSwipe dirSwipePrev;
 
     float lengthSwipe;
     float secPressed;
 
-    public TouchData(){}
+    public TouchData()
+    {
+        objsOrigin = new Array<IInputHandler>();
+        dirSwipePrev = DirSwipe.DEFAULT;
+    }
 
-    public ArrayList<IInputHandler> getObjsOrigin() {
+    public Array<IInputHandler> getObjsOrigin() {
         return objsOrigin;
     }
+    public void setObjsOrigin(Array<IInputHandler> objs) { objsOrigin = objs; }
 
     public Vector2 getPosOrigin() {
         return posOrigin;
@@ -63,11 +67,11 @@ public class TouchData
         this.deltaSwipe = deltaSwipe;
     }
 
-    public DirSwipe getDirSwipesPrev() {
-        return dirSwipesPrev;
+    public DirSwipe getDirSwipePrev() {
+        return dirSwipePrev;
     }
     public void setDirSwipePrev(DirSwipe dirSwipesPrev) {
-        this.dirSwipesPrev = dirSwipesPrev;
+        this.dirSwipePrev = dirSwipesPrev;
     }
 
     public float getLengthSwipe() {

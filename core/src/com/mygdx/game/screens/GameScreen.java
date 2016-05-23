@@ -9,22 +9,29 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.managers.UnitManager;
 
+import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.managers.levels.Level;
 import com.mygdx.game.managers.levels.LevelFactory;
+import com.mygdx.game.prototypeUtils.CameraHelper;
+import com.mygdx.game.renderAbleObjects.decorations.BackGround;
+import com.mygdx.game.renderAbleObjects.decorations.Decoration;
 import com.mygdx.game.renderAbleObjects.units.Planet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
 import com.mygdx.game.utils.SpacePhysiX;
 
-public class GameScreen implements Screen {
+public class GameScreen implements Screen{
 
-    final MyGdxGame game;
+//    final MyGdxGame game;
 
-    OrthographicCamera camera;
+    CameraManager cM;
+    CameraHelper cH;
 
     UnitManager uM;
     SpacePhysiX spX;
@@ -32,39 +39,58 @@ public class GameScreen implements Screen {
     //InputManager iM;
     private LevelFactory levelFactory;
 
-    public GameScreen(final MyGdxGame gam) {
-        this.game = gam;
+    //Prototype only stuff
+    private int finishCounter;
+    private boolean hasFinishedLevel;
+    private boolean hasWonLevel;
+
+    public GameScreen() {
+ //       this.game = gam;
 
         // create the camera and the SpriteBatch
-        camera = new OrthographicCamera();
+        OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, 1080, 1920);
-        game.shapeRenderer.setColor(1, 1, 0, 1);
+        cM = new CameraManager();
+        cH = new CameraHelper();
+        cM.setCam(camera);
+        cH.setCameraManager(cM);
+        InputManager.get().objectHolder.Register(cH);
+        MyGdxGame.game.shapeRenderer.setColor(1, 1, 0, 1);
         uM = new UnitManager();
 
         spX = new SpacePhysiX();
 
+        InputManager.get().setCam(camera);
         setLevel(0);
     }
 
     @Override
     public void render(float delta) {
+        MyGdxGame game = MyGdxGame.game;
 
         Gdx.gl.glClearColor(33.0f/255.0f, 49.0f/255.0f, 41.0f/255.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        camera.update();
-
-        game.batch.setProjectionMatrix(camera.combined);
-
+        cM.update(delta);
+        game.batch.setProjectionMatrix(cM.getCam().combined);
         game.batch.begin();
         uM.render(game.batch);
-        game.font.draw(game.batch, "Prototype v0.0.6", 5 , 30);
         game.batch.end();
+        game.uiBatch.begin();
+        game.font.draw(game.uiBatch, game.currentVersion, 5 , 30);
+        if(hasFinishedLevel) {
+            if(hasWonLevel)
+                game.font.draw(game.uiBatch, "Finished Level !", 200, 1000);
+            else
+                game.font.draw(game.uiBatch, "You crashed your ship! Q_Q" , 200 , 1000);
+
+        }
+        game.uiBatch.end();
 
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        game.shapeRenderer.setProjectionMatrix(camera.combined);
-        Gdx.gl20.glLineWidth(3 / camera.zoom);
-        uM.renderHitboxes(game.shapeRenderer);
+        game.shapeRenderer.setProjectionMatrix(cM.getCam().combined);
+        Gdx.gl20.glLineWidth(3 / cM.getCam().zoom);
+        //uM.renderHitboxes(game.shapeRenderer);
         game.shapeRenderer.end();
 
         update(delta);
@@ -72,10 +98,14 @@ public class GameScreen implements Screen {
 
     public void update(float delta)
     {
-        //iM.update(delta);
         spX.update(delta);
         InputManager.get().Tick(delta);
-        game.fpsLimit.delay();
+        MyGdxGame.game.fpsLimit.delay();
+
+
+        //temporary
+        if(hasFinishedLevel)
+            finishCounter--;
     }
 
     /*
@@ -93,26 +123,58 @@ public class GameScreen implements Screen {
         //we dont have any sort of level loading mechanism at the moment.
         //to remove the hardcoding of the level in the gamescreen which is not optimal
         //initLevel();
-        spX.initializePhysics(uM.getUnits());
+
     }
 
     //just for the prototype !!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     private void initPrototypeLevel(){
+        uM.resetUnits();
+        finishCounter = 500;
+        hasFinishedLevel = false;
+        hasWonLevel = false;
+
+        //Units init
         Unit playerShip = new SpaceShip();
         Unit p1 = new Planet();
         Unit p2 = new Planet();
         Unit p3 = new Planet();
         System.out.println("Loading resources...");
-        ((SpaceShip)playerShip).initialize(new Vector2(350,550),new Vector2(5,160),null,0,new Vector2(10,10),null,0);
-        ((Planet)p1).initialize(new Vector2(200,670),240,36,"planet1.png",1);
-        ((Planet)p2).initialize(new Vector2(600,1320),320,50,"planet3.png",2);
-        uM.addUnit(playerShip);
+        ((SpaceShip)playerShip).initialize(new Vector2(260,550),new Vector2(5,160),null,0,new Vector2(40,40),"ship1_40x40.png",0);
+        ((Planet)p1).initialize(new Vector2(200,670),240,36,false,"planet1_72x72.png",1,0);
+        ((Planet)p2).initialize(new Vector2(700,1620),320,50,false,"planet2_100x100.png",2,40);
+        ((Planet)p3).initialize(new Vector2(-300,1400),240,36,false,"planet1_72x72.png",1,0);
+        /*
+        ((Planet)p2).initialize(new Vector2(600,1320),240,50,true,"planet2_100x100.png",2,40);
+        ((Planet)p1).initialize(new Vector2(200,670),240,36,false,"planet1_72x72.png",1,0);
+        ((Planet)p2).initialize(new Vector2(600,1320),240,50,true,"planet2_100x100.png",2,40);
+        ((Planet)p1).initialize(new Vector2(200,670),240,36,false,"planet1_72x72.png",1,0);
+        ((Planet)p2).initialize(new Vector2(600,1320),320,50,true,"planet2_100x100.png",2,40);
+        */
         uM.addUnit(p1);
-        InputManager.get().objectHolder.Register(p1);
         uM.addUnit(p2);
+        uM.addUnit(p3);
+        uM.addUnit(playerShip);
+        spX.initializePhysics(uM.getUnits(),this);
+        InputManager.get().objectHolder.Register(p1);
         InputManager.get().objectHolder.Register(p2);
+
+        //UI init
+        Decoration bg = new BackGround();
+        Decoration hex = new BackGround();
+        ((BackGround)bg).initialize(new Vector2(0,0),new Vector2(1080,1920),3,"bg_stars.png");
+        ((BackGround)hex).initialize(new Vector2(0,0),new Vector2(1080,1920),3,"bg_hex.png");
+        uM.addDeco(bg);
+        uM.addDeco(hex);
+        cM.initializeCamera((SpaceShip)playerShip,new Vector2(1080,1920));
         System.out.println("Done!");
+    }
+
+    public void finishLevel(boolean b){
+        hasFinishedLevel = true;
+        hasWonLevel = b;
+        if(finishCounter <= 0)
+            MyGdxGame.game.setScreen(new MainMenuScreen());
     }
 
     @Override

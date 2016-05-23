@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.managers.PathNavigationManager;
-import com.mygdx.game.managers.levels.Level;
 import com.mygdx.game.overworldObjects.LevelBeacon;
 import com.mygdx.game.overworldObjects.LevelGraph;
 import com.mygdx.game.overworldObjects.Ship;
@@ -17,9 +16,21 @@ import com.mygdx.game.overworldObjects.Ship;
  */
 public class MainMenuScreen implements Screen {
 
-    final MyGdxGame game;
+//    final MyGdxGame game;
 
     OrthographicCamera cam;
+
+    public LevelGraph getLevelGraph() {
+        return levelGraph;
+    }
+
+    public Ship getShip() {
+        return ship;
+    }
+
+    public PathNavigationManager getPathNavigationManager() {
+        return pathNavigationManager;
+    }
 
     private LevelGraph levelGraph;
 
@@ -27,8 +38,8 @@ public class MainMenuScreen implements Screen {
 
     private PathNavigationManager pathNavigationManager;
 
-    public MainMenuScreen(final MyGdxGame game){
-        this.game = game;
+    public MainMenuScreen(){
+//        this.game = game;
 
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080,1920);
@@ -42,11 +53,12 @@ public class MainMenuScreen implements Screen {
         ship.initialize(levelGraph.getCurrentLevel());
 
         pathNavigationManager = new PathNavigationManager(ship, levelGraph);
-        game.shapeRenderer.setProjectionMatrix(cam.combined);
+        MyGdxGame.game.shapeRenderer.setProjectionMatrix(cam.combined);
     }
 
     @Override
     public void render(float delta) {
+        MyGdxGame game = MyGdxGame.game;
 
         Gdx.gl.glClearColor(0, 0.2f, 0.2f, 1);
 
@@ -56,7 +68,7 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
        // game.font.draw(game.batch, "Some Overworld for you Valli :*", 320, 920);
-        game.font.draw(game.batch, "Prototype v0.0.4", 5 , 30);
+        game.font.draw(game.batch, game.currentVersion, 5 , 30);
         game.batch.end();
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         //render LevelGraph, which in turn renders LevelBeacons
@@ -65,15 +77,20 @@ public class MainMenuScreen implements Screen {
         game.shapeRenderer.end();
         //process ship's movement
         ship.update(delta);
+
+
         if (Gdx.input.isTouched()) {
             Vector3 touchPos = new Vector3();
             touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             cam.unproject(touchPos);
+
             for(LevelBeacon levelBeacon : levelGraph.getLevelBeaconArray()){
                 //check if touch was inside the level beacon
                 if(levelBeacon.getHitBox().contains(touchPos.x, touchPos.y)){
                     //check if touched level is current level and if ship is still in orbit
                     if(levelBeacon.getLevelId() == levelGraph.getCurrentLevel().getLevelId() && ship.getInOrbit()){
+                        game.setScreen(new GameScreen());
+                        dispose();
                         if(levelBeacon.getIsShop()){
                             game.setScreen(new ShopScreen(game));
                             dispose();

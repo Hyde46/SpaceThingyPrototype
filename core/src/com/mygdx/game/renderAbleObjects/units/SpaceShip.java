@@ -12,6 +12,7 @@ public class SpaceShip extends Unit {
 
     private float currentOrbitRadius;
     private Planet connectedPlanet;
+    private int lastConnectedPlanetId;
 
     private float rotationSpeed;
     private int rotationDirection;
@@ -19,6 +20,8 @@ public class SpaceShip extends Unit {
     private Circle targetHitbox;
 
     private boolean isCollided;
+
+    private boolean hasReachedGoal;
 
     public SpaceShip(){
         super();
@@ -29,10 +32,17 @@ public class SpaceShip extends Unit {
     public void initialize(Vector2 position,Vector2 deltaMovement,Planet connectedPlanet, float currentOrbitRadius, Vector2 spriteDimensions, String texturePath, int spriteId){
         unitType = 0;
         isCollided = false;
+        hasReachedGoal = false;
         this.connectedPlanet = connectedPlanet;
         this.currentOrbitRadius = currentOrbitRadius;
 
-        rotationSpeed = 60.5f;
+        if(connectedPlanet != null){
+            lastConnectedPlanetId = connectedPlanet.getUnitID();
+        }else{
+            lastConnectedPlanetId = -1;
+        }
+
+        rotationSpeed = 80.5f;
         rotationDirection = 1;
 
         collisionHitbox = new Circle(position.x,position.y,20f);
@@ -40,6 +50,7 @@ public class SpaceShip extends Unit {
 
         initializePositions(position,deltaMovement);
         initializeTexture(spriteDimensions, spriteId, texturePath);
+
 
     }
 
@@ -53,16 +64,17 @@ public class SpaceShip extends Unit {
         Vector2 vecToPlanet = b.sub(connectedPlanet.getPosition());
         vecToPlanet = vecToPlanet.nor();
         deltaMovement = vecToPlanet.cpy();
-        deltaMovement.scl(7f);
+        deltaMovement.scl(270f);
         deltaMovement.set(-deltaMovement.y,deltaMovement.x);
         deltaMovement.scl(rotationDirection);
+        lastConnectedPlanetId = connectedPlanet.getUnitID();
         connectedPlanet = null;
     }
 
     public void enterOrbit(Planet connectedPlanet, float orbitRadius){
         //TODO: dont connect to the last connected planet. may lead to problems
         //TODO: calculate new rotation Speed !
-        if(isInOrbit()){
+        if(isInOrbit() || lastConnectedPlanetId == connectedPlanet.getUnitID()){
             return;
         }
         this.connectedPlanet = connectedPlanet;
@@ -85,6 +97,16 @@ public class SpaceShip extends Unit {
             targetHitbox.set(targetPosition,20f);
         }else{
             targetPosition = SpaceMath.rotatePoint(position,connectedPlanet.getPosition(),rotationSpeed*delta,rotationDirection);
+
+            currentRotDrawingAngle += rotationDirection * rotationSpeed * delta;
+
+            if(currentRotDrawingAngle > 360)
+                currentRotDrawingAngle -= 360;
+            if(currentRotDrawingAngle < 0)
+                currentRotDrawingAngle += 360;
+
+            sprite.rotate(rotationSpeed*delta*rotationDirection);
+
             targetHitbox.set(targetPosition,20f);
         }
     }
@@ -106,8 +128,11 @@ public class SpaceShip extends Unit {
     public void moveUnit(){
         if(isCollided)
             return;
+        prevPosition.set(position);
         position.set(targetPosition);
         ((Circle)collisionHitbox).set(targetHitbox);
+        sprite.setX(position.x-spriteDimension.x/2);
+        sprite.setY(position.y-spriteDimension.y/2);
     }
 
     public Circle getTargetHitbox(){
@@ -121,5 +146,9 @@ public class SpaceShip extends Unit {
     public boolean isCollided(){
         return isCollided;
     }
+
+    public void reachGoal(){ this.hasReachedGoal = true; }
+
+    public boolean isHasReachedGoal(){ return hasReachedGoal; }
 
 }
