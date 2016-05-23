@@ -34,9 +34,9 @@ public class CameraManager {
         trans = new Vector2();
     }
 
-    public void initializeCamera(SpaceShip player, Vector2 screenDim){
+    public void initializeCamera(SpaceShip player){
         this.player = player;
-        this.screenDim.set(screenDim);
+        this.screenDim.set(new Vector2(cam.viewportWidth,cam.viewportHeight));
         screenCenter.set(screenDim.x/2,screenDim.y/2,0);
         cam.unproject(screenCenter);
         cam.translate(player.getPosition().x-screenCenter.x/2,player.getPosition().y-screenCenter.y/2);
@@ -48,6 +48,7 @@ public class CameraManager {
     public void addTranslation(Vector2 translate){
         translation.sub(translate.x,translate.y,0);
         cam.translate(translate);
+        cam.update();
     }
 
     public void setCam(OrthographicCamera cam){

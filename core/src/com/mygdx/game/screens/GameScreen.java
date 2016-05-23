@@ -169,7 +169,7 @@ public class GameScreen implements Screen{
         ((BackGround)hex).initialize(new Vector2(0,0),new Vector2(1080,1920),3,"bg_hex.png");
         uM.addDeco(bg);
         uM.addDeco(hex);
-        cM.initializeCamera((SpaceShip)playerShip,new Vector2(1080,1920));
+        cM.initializeCamera((SpaceShip)playerShip);
         System.out.println("Done!");
     }
 

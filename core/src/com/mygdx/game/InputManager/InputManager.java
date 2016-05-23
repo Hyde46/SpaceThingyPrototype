@@ -53,11 +53,13 @@ public class InputManager implements InputProcessor
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
+
         //TODO , hier das meinte ich mit unpojectedPos :)
         // das brauchen wir für UI elemente, auch mit swipe, so wies aussieht
         Vector3 posTouch = new Vector3(screenX,screenY,0);
-        Vector3 posTouchUnproj = posTouch.cpy();
-        cam.unproject(posTouch);
+        //screenY = ((int)cam.viewportHeight) -screenY;
+        Vector3 posTouchUnproj = new Vector3(screenX,screenY,0);
+        //cam.unproject(posTouch);
 
         Array<ARenderableObject> objs = objectHolder.getObjects();
 
@@ -69,14 +71,17 @@ public class InputManager implements InputProcessor
             ARenderableObject obj = objs.get(i);
             if (obj instanceof IInputHandler)
             {
+                cam.unproject(posTouch);
                 if
                 (
+
                     (!obj.isUI() && (obj.getHitbox().contains(posTouch.x,posTouch.y))) ||
                     (obj.isUI() &&(obj.getHitbox().contains(posTouchUnproj.x,posTouchUnproj.y)))
                 )
                 {
                     objsHit.add((IInputHandler) obj);
                 }
+                posTouch.set(posTouchUnproj);
             }
         }
 
@@ -99,6 +104,7 @@ public class InputManager implements InputProcessor
 
         touchData.put(pointer, td);
         notifyObjectsTouch(td);
+
         return true;
     }
 
@@ -116,11 +122,13 @@ public class InputManager implements InputProcessor
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer)
     {
+
         if(touchData.containsKey(pointer))
         {
             Vector3 vecTouch = new Vector3(screenX, screenY, 0);
-            Vector3 vecUnPro = vecTouch.cpy();
-            cam.unproject(vecUnPro);
+           // screenY = ((int)cam.viewportHeight) - screenY;
+            Vector3 vecUnPro = new Vector3(screenX, screenY, 0);
+            cam.unproject(vecTouch);
 
             TouchData td = touchData.get(pointer);
             td.setPosPrev(td.getPosCurrent());
