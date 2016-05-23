@@ -64,10 +64,14 @@ public class SOverWorld implements Screen {
 
         pathNavigationManager = new PathNavigationManager(ship, levelGraph);
         MyGdxGame.game.shapeRenderer.setProjectionMatrix(cam.combined);
+
     }
 
     @Override
     public void render(float delta) {
+
+
+        MyGdxGame.game.setScreen(new GameScreen());
         MyGdxGame game = MyGdxGame.game;
 
         Gdx.gl.glClearColor(0, 0.2f, 0.2f, 1);

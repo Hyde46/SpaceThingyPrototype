@@ -23,6 +23,7 @@ public class CameraHelper extends ARenderableObject implements IInputHandler {
     private Rectangle hitbox;
 
     public CameraHelper(){
+        super();
         touchPos = new Vector2();
         lastUpdatedPos = new Vector2();
         diff = new Vector2();
@@ -44,15 +45,7 @@ public class CameraHelper extends ARenderableObject implements IInputHandler {
     }
 
     public void OnDrag(TouchData td) {
-        /*
-        touchPos.set(td.getPosCurrent());
-        System.out.println(touchPos);
-        if(touchPos.cpy().sub(lastUpdatedPos).len() != 0){
-            diff = touchPos.cpy().sub(lastUpdatedPos);
-            cM.addTranslation(diff);
-            lastUpdatedPos.set(touchPos);
-        }
-        */
+
         if(cM.getPlayer().isInOrbit()) {
             System.out.println(td.getDeltaSwipe());
             cM.addTranslation(new Vector2(-td.getDeltaSwipe().x, td.getDeltaSwipe().y));
