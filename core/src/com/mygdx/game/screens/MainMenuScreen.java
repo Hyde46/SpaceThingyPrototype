@@ -74,8 +74,13 @@ public class MainMenuScreen implements Screen {
                 if(levelBeacon.getHitBox().contains(touchPos.x, touchPos.y)){
                     //check if touched level is current level and if ship is still in orbit
                     if(levelBeacon.getLevelId() == levelGraph.getCurrentLevel().getLevelId() && ship.getInOrbit()){
-                        game.setScreen(new GameScreen(game));
-                        dispose();
+                        if(levelBeacon.getIsShop()){
+                            game.setScreen(new ShopScreen(game));
+                            dispose();
+                        }else{
+                            game.setScreen(new GameScreen(game));
+                            dispose();
+                        }
                     }else{  //touched level is different from current level
                         if(!ship.getTravelsRoute()){      //only call navigate function, if the ship is not already on route
                             //tell PathNavigationManager to navigate to this level

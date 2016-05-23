@@ -18,6 +18,7 @@ public class LevelBeacon {
     protected Vector2 positionCenter;
     //array that holds the levels that are connected to this on (to implement graph structure)
     private Array<LevelBeacon> connectedBeacons;
+    private boolean isShop;
 
     /**
      * Constructor for this class
@@ -31,7 +32,7 @@ public class LevelBeacon {
      * @param height
      * @param width
      */
-    protected void initialize(Vector2 position, int height, int width, int levelId, Array<LevelBeacon> connectedBeacons){
+    protected void initialize(Vector2 position, int height, int width, int levelId, Array<LevelBeacon> connectedBeacons, boolean isShop){
         this.position = position.cpy();
         this.hitBox = new Rectangle(position.x, position.y, width, height);
         this.height = height;
@@ -40,6 +41,7 @@ public class LevelBeacon {
         //compute position of the center of the rectangle
         positionCenter = new Vector2(position.x + width / 2, position.y + height / 2);
         this.connectedBeacons = connectedBeacons;
+        this.isShop = isShop;
     }
 
     /**
@@ -94,5 +96,13 @@ public class LevelBeacon {
      */
     public Array<LevelBeacon> getConnectedBeacons(){
         return connectedBeacons;
+    }
+
+    /**
+     * get, if this beacon leads to a shop or not
+     * @return isShop
+     */
+    public boolean getIsShop(){
+        return isShop;
     }
 }

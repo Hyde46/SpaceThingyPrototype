@@ -3,6 +3,7 @@ package com.mygdx.game.overworldObjects;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.managers.levels.Level;
 
 /**
  * Created by Vali on 18.05.2016.
@@ -26,25 +27,30 @@ public class LevelGraph {
         LevelBeacon levelBeacon2 = new LevelBeacon();
         LevelBeacon levelBeacon3 = new LevelBeacon();
         LevelBeacon levelBeacon4 = new LevelBeacon();
+        LevelBeacon levelBeacon5 = new LevelBeacon();
         //create arrays for the connected beacons and add the corresponding beacons -> the arrays are passed to the initialize method of LevelBeacon
         Array<LevelBeacon> array1 = new Array<LevelBeacon>();
         array1.add(levelBeacon2);
         Array<LevelBeacon> array2 = new Array<LevelBeacon>();
         array2.addAll(levelBeacon1, levelBeacon3, levelBeacon4);
         Array<LevelBeacon> array3 = new Array<LevelBeacon>();
-        array3.add(levelBeacon2);
+        array3.addAll(levelBeacon2, levelBeacon5);
         Array<LevelBeacon> array4 = new Array<LevelBeacon>();
-        array4.add(levelBeacon2);
+        array4.addAll(levelBeacon2, levelBeacon5);
+        Array<LevelBeacon> array5 = new Array<LevelBeacon>();
+        array5.addAll(levelBeacon3, levelBeacon4);
         //initialize beacons: position, size, id, array of connected beacons
-        levelBeacon1.initialize(new Vector2(300, 300), 200, 200, 1, array1);
-        levelBeacon2.initialize(new Vector2(700, 700), 200, 200, 2, array2);
-        levelBeacon3.initialize(new Vector2(300, 1000), 200, 200, 3, array3);
-        levelBeacon4.initialize(new Vector2(800, 1200), 200, 200, 4, array4);
+        levelBeacon1.initialize(new Vector2(300, 300), 200, 200, 1, array1, false);
+        levelBeacon2.initialize(new Vector2(700, 700), 200, 200, 2, array2, false);
+        levelBeacon3.initialize(new Vector2(300, 1000), 200, 200, 3, array3, false);
+        levelBeacon4.initialize(new Vector2(800, 1200), 200, 200, 4, array4, false);
+        levelBeacon5.initialize(new Vector2(500, 1600), 200, 200, 5, array5, true);
         //add beacons to array of this LevelGraph object
         addBeacon(levelBeacon1);
         addBeacon(levelBeacon2);
         addBeacon(levelBeacon3);
         addBeacon(levelBeacon4);
+        addBeacon(levelBeacon5);
         setCurrentLevel(levelBeacon1);
     }
 
