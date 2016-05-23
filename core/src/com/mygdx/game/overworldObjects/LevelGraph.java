@@ -3,6 +3,7 @@ package com.mygdx.game.overworldObjects;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.managers.levels.Level;
 
 /**
@@ -28,6 +29,10 @@ public class LevelGraph {
         LevelBeacon levelBeacon3 = new LevelBeacon();
         LevelBeacon levelBeacon4 = new LevelBeacon();
         LevelBeacon levelBeacon5 = new LevelBeacon();
+
+        InputManager.get().objectHolder.Register(levelBeacon1);
+
+
         //create arrays for the connected beacons and add the corresponding beacons -> the arrays are passed to the initialize method of LevelBeacon
         Array<LevelBeacon> array1 = new Array<LevelBeacon>();
         array1.add(levelBeacon2);

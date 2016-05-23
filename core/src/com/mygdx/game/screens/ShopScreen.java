@@ -10,12 +10,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
  */
 public class ShopScreen implements Screen {
 
-    final MyGdxGame game;
 
     OrthographicCamera cam;
 
-    public ShopScreen(final MyGdxGame game){
-        this.game = game;
+    public ShopScreen(){
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080,1920);
     }
@@ -27,12 +25,12 @@ public class ShopScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         cam.update();
-        game.batch.setProjectionMatrix(cam.combined);
+        MyGdxGame.game.batch.setProjectionMatrix(cam.combined);
         //draw string indicating, that this is a shop (to be removed later)
-        game.batch.begin();
-        game.font.draw(game.batch, "Prototype v0.0.4", 5 , 30);
-        game.font.draw(game.batch, "This is a shop!", 320, 920);
-        game.batch.end();
+        MyGdxGame.game.batch.begin();
+        MyGdxGame.game.font.draw(MyGdxGame.game.batch, "Prototype v0.0.4", 5 , 30);
+        MyGdxGame.game.font.draw(MyGdxGame.game.batch, "This is a shop!", 320, 920);
+        MyGdxGame.game.batch.end();
     }
 
     @Override

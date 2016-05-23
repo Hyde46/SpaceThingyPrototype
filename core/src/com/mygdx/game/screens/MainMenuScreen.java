@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
+import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.managers.PathNavigationManager;
 import com.mygdx.game.overworldObjects.LevelBeacon;
 import com.mygdx.game.overworldObjects.LevelGraph;
@@ -92,10 +93,10 @@ public class MainMenuScreen implements Screen {
                         game.setScreen(new GameScreen());
                         dispose();
                         if(levelBeacon.getIsShop()){
-                            game.setScreen(new ShopScreen(game));
+                            game.setScreen(new ShopScreen());
                             dispose();
                         }else{
-                            game.setScreen(new GameScreen(game));
+                            game.setScreen(new GameScreen());
                             dispose();
                         }
                     }else{  //touched level is different from current level
