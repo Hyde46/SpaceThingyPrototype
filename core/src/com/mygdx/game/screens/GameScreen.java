@@ -152,10 +152,10 @@ public class GameScreen implements Screen{
         ((SpaceShip)playerShip).initialize(new Vector2(260,550),new Vector2(5,160),null,0,new Vector2(40,40),"ship1_40x40.png",0);
         ((Planet)p1).initialize(new Vector2(200,670),240,36,false,"planet1_72x72.png",1,0);
         ((Planet)p2).initialize(new Vector2(800,1720),320,50,false,"planet2_100x100.png",2,40);
-        ((Planet)p3).initialize(new Vector2(-300,1400),240,36,false,"planet1_72x72.png",1,30);
-        ((Planet)p4).initialize(new Vector2(-500,800),240,50,false,"planet2_100x100.png",2,90);
-        ((Planet)p5).initialize(new Vector2(500,1500),320,36,false,"planet1_72x72.png",1,120);
-        ((Planet)p6).initialize(new Vector2(10,2700),240,50,true,"planet2_100x100.png",2,10);
+        ((Planet)p3).initialize(new Vector2(950,900),320,36,false,"planet1_72x72.png",1,30);
+        ((Planet)p4).initialize(new Vector2(-300,1700),320,50,false,"planet2_100x100.png",2,90);
+        ((Planet)p5).initialize(new Vector2(650,2530),240,36,false,"planet1_72x72.png",1,120);
+        ((Planet)p6).initialize(new Vector2(-10,2800),240,50,true,"planet2_100x100.png",2,10);
         /*
         ((Planet)p1).initialize(new Vector2(200,670),240,36,false,"planet1_72x72.png",1,0);
         ((Planet)p2).initialize(new Vector2(600,1320),320,50,true,"planet2_100x100.png",2,40);
