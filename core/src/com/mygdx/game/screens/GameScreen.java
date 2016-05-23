@@ -48,6 +48,7 @@ public class GameScreen implements Screen{
         // create the camera and the SpriteBatch
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, 1080, 1920);
+        //camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         /* Main and Game have different cams,
         main camera needs to be created in gdxgame and Inputmanger setup there */
@@ -78,6 +79,8 @@ public class GameScreen implements Screen{
         game.batch.begin();
         uM.render(game.batch);
         game.batch.end();
+
+        //game.uiBatch.setProjectionMatrix(cM.getCam().combined);
         game.uiBatch.begin();
         game.font.draw(game.uiBatch, game.currentVersion, 5 , 30);
         if(hasFinishedLevel) {
