@@ -40,6 +40,7 @@ public class Planet extends Unit implements IInputHandler {
 
     private void initializeOrbitTex(){
 
+        /* orbit radius kann zwischen vorbestimmten sprite größen sein ... gefährlich */
         Texture t = new Texture(Gdx.files.internal("orbit2_"+(int)(orbitRadius*2)+"x"+(int)(orbitRadius*2)+".png"));
         orbitSprite = new Sprite(t,(int)orbitRadius*2,(int)orbitRadius*2);
         orbitSprite.setCenter(orbitRadius,orbitRadius);

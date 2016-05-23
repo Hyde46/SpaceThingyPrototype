@@ -11,7 +11,9 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * Created by denis on 5/13/16.
  */
-public abstract class ARenderableObject {
+public abstract class ARenderableObject
+{
+
 
     protected Vector2 position;
     protected Vector2 spriteDimension;
@@ -68,7 +70,7 @@ public abstract class ARenderableObject {
     public float getCurrentRotDrawingAngle(){ return currentRotDrawingAngle;}
 
     public void render(SpriteBatch g){
-        if(!isActive || tex ==null){
+        if(!isActive || tex == null){
             return;
         }
         sprite.draw(g);

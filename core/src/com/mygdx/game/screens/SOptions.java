@@ -8,9 +8,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 /**
  * Created by Vali on 23.05.2016.
  */
-public class SOptions implements Screen {
-
-
+public class SOptions implements Screen
+{
     OrthographicCamera cam;
 
     public SOptions(){
@@ -29,7 +28,9 @@ public class SOptions implements Screen {
         //draw string indicating, that this is a shop (to be removed later)
         MyGdxGame.game.batch.begin();
         MyGdxGame.game.font.draw(MyGdxGame.game.batch, "Prototype v0.0.4", 5 , 30);
-        MyGdxGame.game.font.draw(MyGdxGame.game.batch, "This is a shop!", 320, 920);
+        MyGdxGame.game.font.draw(MyGdxGame.game.batch, "OPTIONS", 320, 920);
+        MyGdxGame.game.font.draw(MyGdxGame.game.batch, "1", 320, 920);
+        MyGdxGame.game.font.draw(MyGdxGame.game.batch, "1", 320, 920);
         MyGdxGame.game.batch.end();
     }
 
@@ -57,9 +58,4 @@ public class SOptions implements Screen {
     public void pause()    {
 
     }
-
-
-
-
-
 }

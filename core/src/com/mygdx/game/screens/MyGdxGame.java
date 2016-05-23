@@ -2,7 +2,6 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -37,7 +36,7 @@ public class MyGdxGame extends Game {
 		shapeRenderer = new ShapeRenderer();
 		fpsLimit = new FPSLimiter(60);
 		currentVersion = "Prototype v0.0.9";
-		openScreen(new MainMenuScreen());
+		openScreen(new SOverWorld());
 	}
 
 	public void openScreen(Screen screen)

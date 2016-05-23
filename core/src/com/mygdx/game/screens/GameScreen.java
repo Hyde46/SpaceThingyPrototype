@@ -112,7 +112,7 @@ public class GameScreen implements Screen{
     }
 
     /*
-    Call this Method from MainMenuScreen to load the appropriate level
+    Call this Method from SOverWorld to load the appropriate level
     int levelId     The Id of the level which should be loaded ;)
      */
     public void setLevel(int levelId){
@@ -177,7 +177,7 @@ public class GameScreen implements Screen{
         hasFinishedLevel = true;
         hasWonLevel = b;
         if(finishCounter <= 0)
-            MyGdxGame.game.setScreen(new MainMenuScreen());
+            MyGdxGame.game.setScreen(new SOverWorld());
     }
 
     @Override
