@@ -20,6 +20,7 @@ public class SpaceShip extends Unit {
     private Circle targetHitbox;
 
     private boolean isCollided;
+    private boolean isLost;
 
     private boolean hasReachedGoal;
 
@@ -32,6 +33,7 @@ public class SpaceShip extends Unit {
     public void initialize(Vector2 position,Vector2 deltaMovement,Planet connectedPlanet, float currentOrbitRadius, Vector2 spriteDimensions, String texturePath, int spriteId){
         unitType = 0;
         isCollided = false;
+        isLost = false;
         hasReachedGoal = false;
         this.connectedPlanet = connectedPlanet;
         this.currentOrbitRadius = currentOrbitRadius;
@@ -58,7 +60,6 @@ public class SpaceShip extends Unit {
         if(!isInOrbit()){
             return;
         }
-        currentOrbitRadius = 0f;
 
         Vector2 b = position.cpy();
         Vector2 vecToPlanet = b.sub(connectedPlanet.getPosition());
@@ -66,9 +67,12 @@ public class SpaceShip extends Unit {
         deltaMovement = vecToPlanet.cpy();
         deltaMovement.scl(270f);
         deltaMovement.set(-deltaMovement.y,deltaMovement.x);
-        deltaMovement.scl(rotationDirection);
+        deltaMovement.scl(1.0f/deltaMovement.len());
+        rotationSpeed = rotationSpeed*3.141592653f/180.0f;
+        deltaMovement.scl(rotationDirection * rotationSpeed * currentOrbitRadius);
         lastConnectedPlanetId = connectedPlanet.getUnitID();
         connectedPlanet = null;
+        currentOrbitRadius = 0f;
     }
 
     public void enterOrbit(Planet connectedPlanet, float orbitRadius){
@@ -89,6 +93,11 @@ public class SpaceShip extends Unit {
         else
             rotationDirection = i * -1;
 
+        rotationSpeed = deltaMovement.len() / orbitRadius;
+        rotationSpeed = rotationSpeed*180.0f/3.141592653f;
+        System.out.println(deltaMovement);
+        System.out.println(deltaMovement.len());
+        currentOrbitRadius = orbitRadius;
     }
 
     public void update(float delta){
@@ -147,8 +156,12 @@ public class SpaceShip extends Unit {
         return isCollided;
     }
 
+    public void loseShip(){ isLost = true; }
+
+    public boolean isLost(){ return isLost; }
+
     public void reachGoal(){ this.hasReachedGoal = true; }
 
-    public boolean isHasReachedGoal(){ return hasReachedGoal; }
+    public boolean hasReachedGoal(){ return hasReachedGoal; }
 
 }

@@ -53,8 +53,6 @@ public class InputManager implements InputProcessor
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
-
-        //TODO , hier das meinte ich mit unpojectedPos :)
         // das brauchen wir für UI elemente, auch mit swipe, so wies aussieht
         Vector3 posTouch = new Vector3(screenX,screenY,0);
         //screenY = ((int)cam.viewportHeight) -screenY;
@@ -126,13 +124,14 @@ public class InputManager implements InputProcessor
         if(touchData.containsKey(pointer))
         {
             Vector3 vecTouch = new Vector3(screenX, screenY, 0);
-           // screenY = ((int)cam.viewportHeight) - screenY;
+            //screenY = ((int)cam.viewportHeight) - screenY;
             Vector3 vecUnPro = new Vector3(screenX, screenY, 0);
-            cam.unproject(vecTouch);
+           // cam.unproject(vecTouch);
 
             TouchData td = touchData.get(pointer);
             td.setPosPrev(td.getPosCurrent());
-            td.setPosCurrent(new Vector2(screenX, screenY));
+            //td.setPosCurrent(new Vector2(screenX, screenY));
+            td.setPosCurrent(new Vector2(vecTouch.x, vecTouch.y));
             td.setPosCurrentUnprojected(new Vector2(vecUnPro.x, vecUnPro.y));
             td.setDeltaFrame(new Vector2(td.getPosCurrent().x - td.getPosPrev().x, td.getPosCurrent().y - td.getPosPrev().y));
             td.setDeltaSwipe(new Vector2(td.getDeltaSwipe().x + td.getDeltaFrame().x, td.getDeltaSwipe().y + td.getDeltaFrame().y));

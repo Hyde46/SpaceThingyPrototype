@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.IInputHandler;
+import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.managers.PathNavigationManager;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
@@ -152,7 +153,9 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
                 }
                 else
                 {
-                    game.setScreen(new GameScreen());
+                    InputManager.instance.objectHolder.Clear();
+                    game.setScreen(new GameScreen(levelId));
+
                 }
         }
         else
