@@ -15,7 +15,7 @@ import com.mygdx.game.overworldObjects.Ship;
 /**
  * Created by denis on 5/6/16.
  */
-public class MainMenuScreen implements Screen {
+public class SOverWorld implements Screen {
 
 //    final MyGdxGame game;
 
@@ -39,7 +39,7 @@ public class MainMenuScreen implements Screen {
 
     private PathNavigationManager pathNavigationManager;
 
-    public MainMenuScreen(){
+    public SOverWorld(){
 //        this.game = game;
 
         cam = new OrthographicCamera();
