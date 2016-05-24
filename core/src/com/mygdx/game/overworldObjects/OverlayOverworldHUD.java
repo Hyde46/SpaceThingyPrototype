@@ -19,34 +19,32 @@ public class OverlayOverworldHUD extends ARenderableObject{
     public static final String PATH_BUTTON_OPTIONS = "i-star-200.png";
     public static final String PATH_BUTTON_EXIT = "i-cancel-200.png";
 
-    private MyGdxGame game;
+    MyGdxGame game;
 
-    public OverlayOverworldHUD(){
+    Sprite spriteOptions;
+    Sprite spriteExit;
 
-    }
+    public OverlayOverworldHUD(){}
 
     public void initialize(){
         this.game = MyGdxGame.game;
         this.touchHitbox = new Rectangle(0, 0, game.screenWidth, game.screenHeight);
-    }
 
-    public void render(float delta){
-
-        // tecture -> sprite in ini for more speed
-
-        game.batch.begin();
         Texture texOptions = new Texture(Gdx.files.internal(PATH_BUTTON_OPTIONS));
-        Sprite spriteOptions = new Sprite(texOptions, texOptions.getWidth(), texOptions.getHeight());
-
+        spriteOptions = new Sprite(texOptions, texOptions.getWidth(), texOptions.getHeight());
         spriteOptions.setY(0);
         spriteOptions.setX(0);
-        spriteOptions.draw(game.batch);
 
         Texture texExit = new Texture(Gdx.files.internal(PATH_BUTTON_EXIT));
-        Sprite spriteExit = new Sprite(texExit, texExit.getWidth(), texExit.getHeight());
-
+        spriteExit = new Sprite(texExit, texExit.getWidth(), texExit.getHeight());
         spriteExit.setY(0);
         spriteExit.setX(game.screenWidth - spriteExit.getWidth());
+    }
+
+    public void render(float delta)
+    {
+        game.batch.begin();
+        spriteOptions.draw(game.batch);
         spriteExit.draw(game.batch);
         game.batch.end();
     }
@@ -55,9 +53,4 @@ public class OverlayOverworldHUD extends ARenderableObject{
     public void renderHitboxes(ShapeRenderer shapeRenderer){
 
     }
-
-    /**
-     * getter for boolean, if overlay should be seen
-     * @return showOverlay
-     */
 }
