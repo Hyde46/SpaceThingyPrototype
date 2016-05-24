@@ -81,13 +81,14 @@ public class GameScreen implements Screen{
         Gdx.gl.glClearColor(33.0f/255.0f, 49.0f/255.0f, 41.0f/255.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        //draw parallax background
         game.uiBatch.begin();
         pbM.render(game.uiBatch);
         game.uiBatch.end();
 
         cM.update(delta);
 
-        //draw parallax background
+        //draw units
         game.batch.setProjectionMatrix(cM.getCam().combined);
         game.batch.begin();
         uM.render(game.batch);
@@ -109,7 +110,7 @@ public class GameScreen implements Screen{
         }
         game.uiBatch.end();
 
-        //draw units on top of rest
+        //draw hitboxes
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         game.shapeRenderer.setProjectionMatrix(cM.getCam().combined);
         Gdx.gl20.glLineWidth(3 / cM.getCam().zoom);
