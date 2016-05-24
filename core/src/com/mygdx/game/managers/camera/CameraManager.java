@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 
 /**
@@ -22,6 +23,8 @@ public class CameraManager {
     private final float maxSpeed = 100.0f;
 
     private SpaceShip player;
+
+    private ParallaxBackgroundManager pBM;
 
 
     private Vector2 trans;
@@ -49,6 +52,7 @@ public class CameraManager {
         translation.sub(translate.x,translate.y,0);
         cam.translate(translate);
         cam.update();
+        pBM.noticeTranslation(translate.scl(-1.0f));
     }
 
     public void setCam(OrthographicCamera cam){
@@ -73,8 +77,14 @@ public class CameraManager {
             }
             cam.translate(trans);
             translation.sub(trans.x, trans.y, 0);
+
+            pBM.noticeTranslation(trans.scl(-1.0f));
         }
         cam.update();
 
+    }
+
+    public void addPBM(ParallaxBackgroundManager pbM){
+        this.pBM = pbM;
     }
 }

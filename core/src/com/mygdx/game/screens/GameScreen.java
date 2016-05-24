@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.managers.UnitManager;
 
+import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.managers.levels.Level;
 import com.mygdx.game.managers.levels.LevelFactory;
@@ -35,6 +36,8 @@ public class GameScreen implements Screen{
 
     UnitManager uM;
     SpacePhysiX spX;
+
+    ParallaxBackgroundManager pbM;
 
     //InputManager iM;
     private LevelFactory levelFactory;
@@ -59,6 +62,7 @@ public class GameScreen implements Screen{
 
         cM = new CameraManager();
         cH = new CameraHelper();
+        pbM = new ParallaxBackgroundManager();
         cM.setCam(camera);
         cH.setCameraManager(cM);
         InputManager.instance.objectHolder.Register(cH);
@@ -77,15 +81,21 @@ public class GameScreen implements Screen{
         Gdx.gl.glClearColor(33.0f/255.0f, 49.0f/255.0f, 41.0f/255.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        game.uiBatch.begin();
+        pbM.render(game.uiBatch);
+        game.uiBatch.end();
+
         cM.update(delta);
+
         game.batch.setProjectionMatrix(cM.getCam().combined);
         game.batch.begin();
         uM.render(game.batch);
         game.batch.end();
 
-        //game.uiBatch.setProjectionMatrix(cM.getCam().combined);
+
         game.uiBatch.begin();
         game.font.draw(game.uiBatch, game.currentVersion, 5 , 30);
+
         if(hasFinishedLevel) {
             if(hasWonLevel)
                 game.font.draw(game.uiBatch, "Finished Level !", 200, 1000);
@@ -178,15 +188,12 @@ public class GameScreen implements Screen{
         InputManager.instance.objectHolder.Register(p5);
         InputManager.instance.objectHolder.Register(p6);
 
-        //UI init
-        Decoration bg = new BackGround();
-        Decoration hex = new BackGround();
-        ((BackGround)bg).initialize(new Vector2(0,0),new Vector2(1080,1920),3,"bg_stars.png");
-        ((BackGround)hex).initialize(new Vector2(0,0),new Vector2(1080,1920),3,"bg_hex.png");
-        uM.addDeco(bg);
-        uM.addDeco(hex);
         cM.initializeCamera((SpaceShip)playerShip);
         spX.initWorldBounds(new Rectangle(-700,-100,4000,6000));
+
+        pbM.setLayers(2);
+        cM.addPBM(pbM);
+
         System.out.println("Done!");
     }
     private void initPrototypeLevelTwo(){
@@ -231,12 +238,6 @@ public class GameScreen implements Screen{
         InputManager.instance.objectHolder.Register(p6);
 
         //UI init
-        Decoration bg = new BackGround();
-        Decoration hex = new BackGround();
-        ((BackGround)bg).initialize(new Vector2(0,0),new Vector2(1080,1920),3,"bg_stars.png");
-        ((BackGround)hex).initialize(new Vector2(0,0),new Vector2(1080,1920),3,"bg_hex.png");
-        uM.addDeco(bg);
-        uM.addDeco(hex);
         cM.initializeCamera((SpaceShip)playerShip);
         System.out.println("Done!");
     }

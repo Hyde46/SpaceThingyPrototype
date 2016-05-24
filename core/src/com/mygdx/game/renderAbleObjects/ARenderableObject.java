@@ -98,4 +98,6 @@ public abstract class ARenderableObject
         return isUI;
     }
 
+    public Sprite getSprite(){ return sprite; }
+
 }
