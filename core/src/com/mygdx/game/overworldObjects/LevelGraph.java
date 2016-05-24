@@ -41,12 +41,12 @@ public class LevelGraph {
         array4.addAll(levelBeacon2, levelBeacon5);
         Array<LevelBeacon> array5 = new Array<LevelBeacon>();
         array5.addAll(levelBeacon3, levelBeacon4);
-        //initialize beacons: position, size, id, array of connected beacons
-        levelBeacon1.initialize(new Vector2(300, 300), 200, 200, 1, array1, false);
-        levelBeacon2.initialize(new Vector2(700, 700), 200, 200, 2, array2, false);
-        levelBeacon3.initialize(new Vector2(300, 1000), 200, 200, 3, array3, false);
-        levelBeacon4.initialize(new Vector2(800, 1200), 200, 200, 4, array4, false);
-        levelBeacon5.initialize(new Vector2(500, 1600), 200, 200, 5, array5, true);
+        //initialize beacons: position, size, id, array of connected beacons, is shop, is already activated
+        levelBeacon1.initialize(new Vector2(300, 300), 200, 200, 1, array1, false, true);
+        levelBeacon2.initialize(new Vector2(700, 700), 200, 200, 2, array2, false, true);
+        levelBeacon3.initialize(new Vector2(300, 1000), 200, 200, 3, array3, true, true);
+        levelBeacon4.initialize(new Vector2(800, 1200), 200, 200, 4, array4, false, false);
+        levelBeacon5.initialize(new Vector2(500, 1600), 200, 200, 5, array5, false, false);
         //add beacons to array of this LevelGraph object
         addBeacon(levelBeacon1);
         addBeacon(levelBeacon2);

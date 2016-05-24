@@ -101,18 +101,15 @@ public class Planet extends Unit implements IInputHandler {
     }
 
     public void OnTouch(TouchData td) {
-        System.out.println("planet " + getUnitID() + " touched at (" + td.getPosCurrent().x + ", " + td.getPosCurrent().y + ")");
         if(connectedSpaceShip != null){
             launchSpaceShip();
         }
     }
 
     public void OnRelease(TouchData td) {
-        System.out.println("planet " + getUnitID() + " released at (" + td.getPosCurrent().x + ", " + td.getPosCurrent().y + ")");
     }
 
     public void OnDrag(TouchData td) {
-        System.out.println("planet " + getUnitID() + " dragged at (" + td.getPosCurrent().x + ", " + td.getPosCurrent().y + ")");
     }
 
     public void OnHold(TouchData td) {

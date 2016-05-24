@@ -43,8 +43,10 @@ public class Ship {
      * @param shapeRenderer
      */
     public void render(ShapeRenderer shapeRenderer){
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(0.5f, 0.5f, 0.5f, 1);
         shapeRenderer.circle(position.x, position.y, SHIP_RADIUS);
+        shapeRenderer.end();
     }
 
     /**

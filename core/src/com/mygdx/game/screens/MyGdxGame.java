@@ -19,6 +19,8 @@ public class MyGdxGame extends Game {
 	public ShapeRenderer shapeRenderer;
 	public FPSLimiter fpsLimit;
 	public String currentVersion;
+	public int screenWidth;
+	public int screenHeight;
 
 	/*
 		cam manager needs to be here to initiate the input manager
@@ -29,6 +31,8 @@ public class MyGdxGame extends Game {
 
 	public void create() {
 		game = this;
+		screenWidth = 1080;
+		screenHeight = 1920;
 		batch = new SpriteBatch();
 		uiBatch = new SpriteBatch();
 		//Use LibGDX's default Arial font.

@@ -1,21 +1,25 @@
 package com.mygdx.game.screens;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.managers.PathNavigationManager;
 import com.mygdx.game.overworldObjects.LevelBeacon;
 import com.mygdx.game.overworldObjects.LevelGraph;
+import com.mygdx.game.overworldObjects.Overlay;
 import com.mygdx.game.overworldObjects.Ship;
 
 /**
  * Created by denis on 5/6/16.
  */
-public class SOverWorld implements Screen {
+public class MainMenuScreen implements Screen {
 
 //    final MyGdxGame game;
 
@@ -39,7 +43,9 @@ public class SOverWorld implements Screen {
 
     private PathNavigationManager pathNavigationManager;
 
-    public SOverWorld(){
+    private Overlay overlay;
+
+    public MainMenuScreen(){
 //        this.game = game;
 
         cam = new OrthographicCamera();
@@ -56,10 +62,15 @@ public class SOverWorld implements Screen {
         pathNavigationManager = new PathNavigationManager(ship, levelGraph);
         MyGdxGame.game.shapeRenderer.setProjectionMatrix(cam.combined);
 
+        overlay = new Overlay();
+        overlay.initialize(true);       //true because it should be seen
+        //register overlay to InputManager
+        InputManager.instance.objectHolder.Register(overlay);
     }
 
     @Override
     public void render(float delta) {
+
 
         MyGdxGame game = MyGdxGame.game;
 
@@ -72,11 +83,17 @@ public class SOverWorld implements Screen {
         game.batch.begin();
         game.font.draw(game.batch, game.currentVersion, 5 , 30);
         game.batch.end();
-        game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+
         //render LevelGraph, which in turn renders LevelBeacons
         levelGraph.render(game.shapeRenderer);
+        //render ship
         ship.render(game.shapeRenderer);
-        game.shapeRenderer.end();
+        //render overlay only if it shell be shown
+        if(overlay.getShowOverlay()){
+            overlay.render(delta);
+        }
+
+
         //process ship's movement
         ship.update(delta);
     }

@@ -68,7 +68,8 @@ public class PathNavigationManager {
             }
             //add the connected beacons (if they are not yet visited) to the queue
             for(LevelBeacon connectedNode : node.getConnectedBeacons()){
-                if(!visited.get(connectedNode.getLevelId() - 1)){
+                //only process node if it has not been visited by algorithm and beacon is already activated!
+                if(!visited.get(connectedNode.getLevelId() - 1) && connectedNode.getActivated()){
                     queue.add(connectedNode);
                     visited.set(connectedNode.getLevelId() - 1, true);
                     //set the previous node for this one

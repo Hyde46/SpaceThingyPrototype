@@ -41,6 +41,7 @@ public class GameScreen implements Screen{
     private int finishCounter;
     private boolean hasFinishedLevel;
     private boolean hasWonLevel;
+    private boolean isOutOfBounds;
 
     public GameScreen(int levelToStart) {
  //       this.game = gam;
@@ -86,8 +87,10 @@ public class GameScreen implements Screen{
         if(hasFinishedLevel) {
             if(hasWonLevel)
                 game.font.draw(game.uiBatch, "Finished Level !", 200, 1000);
-            else
+            else if(!isOutOfBounds)
                 game.font.draw(game.uiBatch, "You crashed your ship! Q_Q" , 200 , 1000);
+            else
+                game.font.draw(game.uiBatch, "Your ship got lost! Q_Q", 200, 1000);
 
         }
         game.uiBatch.end();
@@ -114,7 +117,7 @@ public class GameScreen implements Screen{
     }
 
     /*
-    Call this Method from SOverWorld to load the appropriate level
+    Call this Method from MainMenuScreen to load the appropriate level
     int levelId     The Id of the level which should be loaded ;)
      */
     public void setLevel(int levelId){
@@ -185,15 +188,20 @@ public class GameScreen implements Screen{
         cM.initializeCamera((SpaceShip)playerShip);
         System.out.println("Done!");
     }
-    private void initPrototypeLevelTwo(){
 
-    }
-
-    public void finishLevel(boolean b){
+    public void finishLevel(boolean b, boolean isOutOfBounds){
         hasFinishedLevel = true;
         hasWonLevel = b;
-        if(finishCounter <= 0)
-            MyGdxGame.game.setScreen(new SOverWorld());
+        this.isOutOfBounds = isOutOfBounds;
+        if(finishCounter <= 0) {
+            uM.resetUnits();
+            hasFinishedLevel = false;
+            hasWonLevel = false;
+
+            InputManager.instance.objectHolder.Clear();
+            MyGdxGame.game.setScreen(new MainMenuScreen());
+
+        }
     }
 
     @Override

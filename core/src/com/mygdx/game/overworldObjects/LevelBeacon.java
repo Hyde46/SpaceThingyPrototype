@@ -5,11 +5,13 @@
 
 package com.mygdx.game.overworldObjects;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.IInputHandler;
+import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.managers.PathNavigationManager;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
@@ -24,13 +26,14 @@ import com.mygdx.game.screens.ShopScreen;
 public class LevelBeacon extends ARenderableObject implements IInputHandler{
 
     private int levelId;
-//    protected Shape2D hitBox;
     protected int height, width;
     protected Vector2 position;
     protected Vector2 positionCenter;
     //array that holds the levels that are connected to this on (to implement graph structure)
     private Array<LevelBeacon> connectedBeacons;
     private boolean isShop;
+    private boolean activated;
+    private Color beaconColor;
 
     /**
      * Constructor for this class
@@ -49,9 +52,8 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
      * @param height
      * @param width
      */
-    protected void initialize(Vector2 position, int height, int width, int levelId, Array<LevelBeacon> connectedBeacons, boolean isShop){
+    protected void initialize(Vector2 position, int height, int width, int levelId, Array<LevelBeacon> connectedBeacons, boolean isShop, boolean activated){
         this.position = position.cpy();
- //       this.hitBox = new Rectangle(position.x, position.y, width, height);
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
         this.height = height;
         this.width = width;
@@ -60,6 +62,15 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
         positionCenter = new Vector2(position.x + width / 2, position.y + height / 2);
         this.connectedBeacons = connectedBeacons;
         this.isShop = isShop;
+        //color that the object shell have depends on whether it is shop or level
+        if(isShop){
+            beaconColor = new Color(0.3f, 0.6f, 0.8f, 1);
+        }else if(activated){ //normal activated level
+            beaconColor = new Color(0.8f, 0.1f, 0.8f, 1);
+        }else{  //not activated level
+            beaconColor = new Color(0.1f, 0.1f, 0.1f, 0.6f);
+        }
+        this.activated = activated;
     }
 
     /**
@@ -67,13 +78,22 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
      * @param shapeRenderer
      */
     public void render(ShapeRenderer shapeRenderer){
-        shapeRenderer.setColor(0.8f, 0.1f, 0.8f, 1);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(beaconColor);
         shapeRenderer.rect(position.x, position.y, width, height);
-        //render edges between beacons
-        shapeRenderer.setColor(1, 1, 1, 1);
+        //render edges between beacons -> change type from filled to line
+        shapeRenderer.end();
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         for(LevelBeacon connectedBeacon : connectedBeacons){
+            //depending on whether or not the connected beacon is already reachable (and this beacon is reachable as well) the color of the edge is different
+            if(connectedBeacon.getActivated() && this.getActivated()){
+                shapeRenderer.setColor(0, 0.8f, 0, 1);
+            }else{
+                shapeRenderer.setColor(0.5f, 0.5f, 0.5f, 1);
+            }
             shapeRenderer.line(positionCenter, connectedBeacon.getPositionCenter());
         }
+        shapeRenderer.end();
     }
 
     /**
@@ -132,7 +152,9 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
                 }
                 else
                 {
+                    InputManager.instance.objectHolder.Clear();
                     game.setScreen(new GameScreen(levelId));
+
                 }
         }
         else
@@ -140,7 +162,10 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
             if(!sh.getTravelsRoute())
             {      //only call navigate function, if the ship is not already on route
                 //tell PathNavigationManager to navigate to this level
-                pnm.navigateToBeacon(this);
+                //only send ship to beacon if it has been activated
+                if(activated){
+                    pnm.navigateToBeacon(this);
+                }
             }
         }
     }
@@ -171,5 +196,13 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
      */
     public boolean getIsShop(){
         return isShop;
+    }
+
+    /**
+     * get if this beacon has already been activated -> reachable
+     * @return activated
+     */
+    public boolean getActivated(){
+        return activated;
     }
 }
