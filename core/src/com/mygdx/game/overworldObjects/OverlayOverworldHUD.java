@@ -32,6 +32,8 @@ public class OverlayOverworldHUD extends ARenderableObject{
 
     public void render(float delta){
 
+        // tecture -> sprite in ini for more speed
+
         game.batch.begin();
         Texture texOptions = new Texture(Gdx.files.internal(PATH_BUTTON_OPTIONS));
         Sprite spriteOptions = new Sprite(texOptions, texOptions.getWidth(), texOptions.getHeight());

@@ -12,6 +12,12 @@ import java.util.HashMap;
 
 public class InputManager implements InputProcessor
 {
+    /*
+        - make 100% static no more instance
+        objectholder reachable directly over methods in manager
+     */
+
+
     /* static instance */
 
     public static InputManager instance;
