@@ -8,13 +8,16 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.managers.PathNavigationManager;
 import com.mygdx.game.overworldObjects.LevelBeacon;
 import com.mygdx.game.overworldObjects.LevelGraph;
 import com.mygdx.game.overworldObjects.Overlay;
+import com.mygdx.game.overworldObjects.OverlayOverworldHUD;
 import com.mygdx.game.overworldObjects.Ship;
+import com.mygdx.game.renderAbleObjects.decorations.ButtonOptions;
 
 /**
  * Created by denis on 5/6/16.
@@ -45,6 +48,10 @@ public class MainMenuScreen implements Screen {
 
     private Overlay overlay;
 
+    OverlayOverworldHUD overlayHUD;
+
+    ButtonOptions boTest;
+
     public MainMenuScreen(){
 //        this.game = game;
 
@@ -64,13 +71,19 @@ public class MainMenuScreen implements Screen {
 
         overlay = new Overlay();
         overlay.initialize(true);       //true because it should be seen
+
+        overlayHUD = new OverlayOverworldHUD();
+        overlayHUD.initialize();
+
+        boTest = new ButtonOptions();
+        boTest.initialize(new Vector2(200,200), 250, 250);
+
         //register overlay to InputManager
         InputManager.instance.objectHolder.Register(overlay);
     }
 
     @Override
     public void render(float delta) {
-
 
         MyGdxGame game = MyGdxGame.game;
 
@@ -93,6 +106,9 @@ public class MainMenuScreen implements Screen {
             overlay.render(delta);
         }
 
+        overlayHUD.render(delta);
+
+        boTest.render(game.batch);
 
         //process ship's movement
         ship.update(delta);
@@ -122,10 +138,4 @@ public class MainMenuScreen implements Screen {
     public void pause()    {
 
     }
-
-
-
-
-
-
 }
