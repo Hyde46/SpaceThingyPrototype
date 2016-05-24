@@ -111,12 +111,13 @@ public class GameScreen implements Screen{
         game.uiBatch.end();
 
         //draw hitboxes
+        /*
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         game.shapeRenderer.setProjectionMatrix(cM.getCam().combined);
         Gdx.gl20.glLineWidth(3 / cM.getCam().zoom);
-        //uM.renderHitboxes(game.shapeRenderer);
+        uM.renderHitboxes(game.shapeRenderer);
         game.shapeRenderer.end();
-
+        */
         update(delta);
     }
 
