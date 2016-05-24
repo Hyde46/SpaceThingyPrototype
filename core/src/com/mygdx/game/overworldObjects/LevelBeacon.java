@@ -16,7 +16,7 @@ import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.managers.PathNavigationManager;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
 import com.mygdx.game.screens.GameScreen;
-import com.mygdx.game.screens.SOverWorld;
+import com.mygdx.game.screens.MainMenuScreen;
 import com.mygdx.game.screens.MyGdxGame;
 import com.mygdx.game.screens.ShopScreen;
 
@@ -140,9 +140,9 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
     public void OnTouch(TouchData td)
     {
         MyGdxGame game = MyGdxGame.game;
-        LevelGraph lg = ((SOverWorld)MyGdxGame.game.current).getLevelGraph();
-        Ship sh = ((SOverWorld)MyGdxGame.game.current).getShip();
-        PathNavigationManager pnm = ((SOverWorld)MyGdxGame.game.current).getPathNavigationManager();
+        LevelGraph lg = ((MainMenuScreen)MyGdxGame.game.current).getLevelGraph();
+        Ship sh = ((MainMenuScreen)MyGdxGame.game.current).getShip();
+        PathNavigationManager pnm = ((MainMenuScreen)MyGdxGame.game.current).getPathNavigationManager();
 
         if(levelId == lg.getCurrentLevel().getLevelId() && sh.getInOrbit())
         {
