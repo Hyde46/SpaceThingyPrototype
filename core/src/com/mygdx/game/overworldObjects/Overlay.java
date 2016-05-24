@@ -24,6 +24,11 @@ public class Overlay extends ARenderableObject implements IInputHandler {
 
     private MyGdxGame game;
 
+    private Sprite spriteLogo;
+    private Sprite spriteCryptic;
+
+    private Texture textureLogo;
+    private Texture textureCryptic;
     public Overlay(){
 
     }
@@ -32,6 +37,20 @@ public class Overlay extends ARenderableObject implements IInputHandler {
         this.game = MyGdxGame.game;
         this.showOverlay = showOverlay;
         this.touchHitbox = new Rectangle(0, 0, game.screenWidth, game.screenHeight);
+        textureLogo =  new Texture(Gdx.files.internal(PATH_TO_LOGO));
+        spriteLogo = new Sprite(textureLogo, textureLogo.getWidth(), textureLogo.getHeight());
+        float logoPosY = game.screenHeight - textureLogo.getHeight() - 100;
+        //position it 100 pixels under top
+        spriteLogo.setY(logoPosY);
+        //center it horizontally
+        spriteLogo.setX(game.screenWidth / 2 - textureLogo.getWidth() / 2);
+        //add sprite of cryptic text
+        textureCryptic = new Texture(Gdx.files.internal(PATH_TO_CRYPTIC));
+        spriteCryptic = new Sprite(textureCryptic, textureCryptic.getWidth(), textureCryptic.getHeight());
+        //position it a little under the logo
+        spriteCryptic.setY(logoPosY - 500);
+        //and centered horizontally
+        spriteCryptic.setX(game.screenWidth / 2 - textureCryptic.getWidth() / 2);
     }
 
 
@@ -43,24 +62,9 @@ public class Overlay extends ARenderableObject implements IInputHandler {
         game.shapeRenderer.rect(0, 0, game.screenWidth, game.screenHeight);
         game.shapeRenderer.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
-        //render logo
+        //render logo and cryptic text
         game.batch.begin();
-        Texture texture = new Texture(Gdx.files.internal(PATH_TO_LOGO));
-        Sprite sprite = new Sprite(texture, texture.getWidth(), texture.getHeight());
-        //position it 100 pixels under top
-        float logoPosY = game.screenHeight - texture.getHeight() - 100;
-        sprite.setY(logoPosY);
-        //center it horizontally
-        sprite.setX(game.screenWidth / 2 - texture.getWidth() / 2);
-        sprite.draw(game.batch);
-
-        //add sprite of cryptic text
-        Texture textureCryptic = new Texture(Gdx.files.internal(PATH_TO_CRYPTIC));
-        Sprite spriteCryptic = new Sprite(textureCryptic, textureCryptic.getWidth(), textureCryptic.getHeight());
-        //position it a little under the logo
-        spriteCryptic.setY(logoPosY - 500);
-        //and centered horizontally
-        spriteCryptic.setX(game.screenWidth / 2 - textureCryptic.getWidth() / 2);
+        spriteLogo.draw(game.batch);
         spriteCryptic.draw(game.batch);
         game.batch.end();
     }
