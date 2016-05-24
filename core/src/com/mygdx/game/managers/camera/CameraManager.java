@@ -1,12 +1,10 @@
 package com.mygdx.game.managers.camera;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
-import com.sun.org.apache.xpath.internal.operations.Or;
 
 /**
  * Created by denis on 5/22/16.
@@ -19,7 +17,7 @@ public class CameraManager {
     private Vector3 screenCenter;
     private Vector3 translation;
 
-    private float deltaTranslationSpeed;
+    private float translationDamp;
 
     private final float maxSpeed = 100.0f;
 
@@ -44,7 +42,7 @@ public class CameraManager {
         cam.translate(player.getPosition().x-screenCenter.x/2,player.getPosition().y-screenCenter.y/2);
         translation.set(player.getPosition().x-screenCenter.x/2,player.getPosition().y-screenCenter.y/2,0);
 
-        deltaTranslationSpeed = 50.0f;
+        translationDamp = 50.0f;
     }
 
     public void addTranslation(Vector2 translate){
@@ -71,7 +69,7 @@ public class CameraManager {
         if(!player.isInOrbit()) {
             trans = player.getPosition().cpy().add(translation.x - screenCenter.x, translation.y - screenCenter.y).scl(1.0f);
             if(trans.cpy().sub(translation.x,translation.y).len() >= 10){
-                trans.scl(1.0f/deltaTranslationSpeed);
+                trans.scl(1.0f/ translationDamp);
             }
             cam.translate(trans);
             translation.sub(trans.x, trans.y, 0);
