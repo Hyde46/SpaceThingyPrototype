@@ -87,12 +87,14 @@ public class GameScreen implements Screen{
 
         cM.update(delta);
 
+        //draw parallax background
         game.batch.setProjectionMatrix(cM.getCam().combined);
         game.batch.begin();
         uM.render(game.batch);
         game.batch.end();
 
 
+        //draw ui elments which dont get projected by the camera
         game.uiBatch.begin();
         game.font.draw(game.uiBatch, game.currentVersion, 5 , 30);
 
@@ -107,6 +109,7 @@ public class GameScreen implements Screen{
         }
         game.uiBatch.end();
 
+        //draw units on top of rest
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         game.shapeRenderer.setProjectionMatrix(cM.getCam().combined);
         Gdx.gl20.glLineWidth(3 / cM.getCam().zoom);
