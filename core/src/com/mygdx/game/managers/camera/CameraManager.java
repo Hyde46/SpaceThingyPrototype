@@ -1,5 +1,6 @@
 package com.mygdx.game.managers.camera;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
@@ -36,7 +37,8 @@ public class CameraManager {
 
     public void initializeCamera(SpaceShip player){
         this.player = player;
-        this.screenDim.set(new Vector2(cam.viewportWidth,cam.viewportHeight));
+        //this.screenDim.set(new Vector2(cam.viewportWidth,cam.viewportHeight));
+        this.screenDim.set(new Vector2(Gdx.graphics.getWidth(),Gdx.graphics.getHeight()));
         screenCenter.set(screenDim.x/2,screenDim.y/2,0);
         cam.unproject(screenCenter);
         cam.translate(player.getPosition().x-screenCenter.x/2,player.getPosition().y-screenCenter.y/2);

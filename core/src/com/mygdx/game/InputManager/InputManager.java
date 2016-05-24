@@ -53,8 +53,6 @@ public class InputManager implements InputProcessor
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
-
-        //TODO , hier das meinte ich mit unpojectedPos :)
         // das brauchen wir für UI elemente, auch mit swipe, so wies aussieht
         Vector3 posTouch = new Vector3(screenX,screenY,0);
         //screenY = ((int)cam.viewportHeight) -screenY;

@@ -5,23 +5,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.managers.PathNavigationManager;
 import com.mygdx.game.overworldObjects.LevelBeacon;
 import com.mygdx.game.overworldObjects.LevelGraph;
 import com.mygdx.game.overworldObjects.Ship;
-import com.mygdx.game.renderAbleObjects.decorations.ButtonOptions;
 
 /**
  * Created by denis on 5/6/16.
  */
-public class SOverWorld implements Screen {
+public class MainMenuScreen implements Screen {
 
-    /*
-        sollte auch mit unitmanager gerendert werden?
-     */
+//    final MyGdxGame game;
 
     OrthographicCamera cam;
 
@@ -43,9 +39,7 @@ public class SOverWorld implements Screen {
 
     private PathNavigationManager pathNavigationManager;
 
-    ButtonOptions bo;
-
-    public SOverWorld(){
+    public MainMenuScreen(){
 //        this.game = game;
 
         cam = new OrthographicCamera();
@@ -59,9 +53,6 @@ public class SOverWorld implements Screen {
         this.ship = new Ship();
         ship.initialize(levelGraph.getCurrentLevel());
 
-        bo = new ButtonOptions();
-        bo.initialize(new Vector2(500, 500), 400, 400);
-
         pathNavigationManager = new PathNavigationManager(ship, levelGraph);
         MyGdxGame.game.shapeRenderer.setProjectionMatrix(cam.combined);
 
@@ -70,8 +61,6 @@ public class SOverWorld implements Screen {
     @Override
     public void render(float delta) {
 
-
-        MyGdxGame.game.setScreen(new GameScreen());
         MyGdxGame game = MyGdxGame.game;
 
         Gdx.gl.glClearColor(0, 0.2f, 0.2f, 1);
@@ -81,10 +70,6 @@ public class SOverWorld implements Screen {
         cam.update();
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
-       // game.font.draw(game.batch, "Some Overworld for you Valli :*", 320, 920);
-
-        bo.render(game.batch);
-
         game.font.draw(game.batch, game.currentVersion, 5 , 30);
         game.batch.end();
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -120,4 +105,10 @@ public class SOverWorld implements Screen {
     public void pause()    {
 
     }
+
+
+
+
+
+
 }

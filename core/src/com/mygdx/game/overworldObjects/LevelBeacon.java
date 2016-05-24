@@ -132,7 +132,7 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
                 }
                 else
                 {
-                    game.setScreen(new GameScreen());
+                    game.setScreen(new GameScreen(levelId));
                 }
         }
         else
