@@ -98,8 +98,6 @@ public class MainMenuScreen implements Screen {
         ship.update(delta);
     }
 
-
-
     @Override
     public void dispose()    {
 
