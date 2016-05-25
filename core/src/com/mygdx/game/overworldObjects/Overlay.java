@@ -33,6 +33,10 @@ public class Overlay extends ARenderableObject implements IInputHandler {
 
     }
 
+    /**
+     * initialize the overlay: hitbox, textures and sprites
+     * @param showOverlay
+     */
     public void initialize(boolean showOverlay){
         this.game = MyGdxGame.game;
         this.showOverlay = showOverlay;
@@ -58,14 +62,14 @@ public class Overlay extends ARenderableObject implements IInputHandler {
         Gdx.graphics.getGL20().glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        game.shapeRenderer.setColor(new Color(1, 1, 1, 0.7f));
+        game.shapeRenderer.setColor(1, 1, 1, 0.7f);
         game.shapeRenderer.rect(0, 0, game.screenWidth, game.screenHeight);
         game.shapeRenderer.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
         //render logo and cryptic text
         game.batch.begin();
         spriteLogo.draw(game.batch);
-        spriteCryptic.draw(game.batch);
+     //   spriteCryptic.draw(game.batch);
         game.batch.end();
     }
 
