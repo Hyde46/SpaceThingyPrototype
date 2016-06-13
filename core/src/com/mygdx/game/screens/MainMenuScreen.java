@@ -12,6 +12,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.managers.PathNavigationManager;
+import com.mygdx.game.overworldObjects.Dialog.DialogAvatar;
+import com.mygdx.game.overworldObjects.Dialog.DialogManager;
+import com.mygdx.game.overworldObjects.Dialog.DialogTextArea;
 import com.mygdx.game.overworldObjects.LevelBeacon;
 import com.mygdx.game.overworldObjects.LevelGraph;
 import com.mygdx.game.overworldObjects.Overlay;
@@ -52,6 +55,14 @@ public class MainMenuScreen implements Screen {
 
     ButtonOptions boTest;
 
+    private int finishedLevel;
+
+    private DialogManager dialogManager;
+
+    private DialogTextArea dialogBox;
+
+    private DialogAvatar dialogAvatar;
+
     public MainMenuScreen(){
 //        this.game = game;
 
@@ -78,7 +89,16 @@ public class MainMenuScreen implements Screen {
         boTest = new ButtonOptions();
         boTest.initialize(new Vector2(200,200), 250, 250);
 
-        //register overlay to InputManager
+        //set finished level, needs to be changed later...
+        finishedLevel = 0;
+
+        //create the dialog manager and initialize the dialogs
+        dialogManager = new DialogManager();
+        dialogManager.createDialogs();
+        //show the dialog
+        dialogManager.initializeDialog(finishedLevel);
+
+        //register overlay and dialogbox to InputManager
         InputManager.instance.objectHolder.Register(overlay);
     }
 
@@ -104,6 +124,8 @@ public class MainMenuScreen implements Screen {
         //render overlay only if it shell be shown
         if(overlay.getShowOverlay()){
             overlay.render(delta);
+        }else if(dialogManager.getShowDialog()){
+            dialogManager.renderDialog();
         }
 
         overlayHUD.render(delta);

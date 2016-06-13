@@ -1,10 +1,12 @@
 package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.utils.FPSLimiter;
@@ -35,9 +37,14 @@ public class MyGdxGame extends Game {
 		screenHeight = 1920;
 		batch = new SpriteBatch();
 		uiBatch = new SpriteBatch();
-		//Use LibGDX's default Arial font.
-		font = new BitmapFont();
-		font.getData().scale(1.0f);
+		//create font from truetype with help of FreeType extension
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("CubicCoreMono.ttf"));
+		//create the parameter for the generator, so we can change the size of the font
+		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		parameter.size = 90;
+		font = generator.generateFont(parameter);
+		generator.dispose();
+		//font.getData().scale(1.0f);
 		shapeRenderer = new ShapeRenderer();
 		fpsLimit = new FPSLimiter(60);
 		currentVersion = "Prototype v0.0.12";

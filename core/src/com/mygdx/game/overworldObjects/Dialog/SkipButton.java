@@ -1,26 +1,27 @@
 package com.mygdx.game.overworldObjects.Dialog;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.IInputHandler;
+import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.renderAbleObjects.decorations.Decoration;
 
 /**
- * Created by Mechandrius on 24.05.2016.
+ * Created by Vali on 13.06.2016.
  */
-public class DialogAvatar extends Decoration implements IInputHandler
-{
-    public void initialize(Vector2 position, int width, int height, String pathToTexture)
+public class SkipButton extends Decoration implements IInputHandler {
+
+    private DialogManager dialogManager;
+
+    public void initialize(Vector2 position, int width, int height, String pathToTexture, DialogManager dialogManager)
     {
         initializePositions(position);
 
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
         this.spriteDimension = new Vector2(width, height);
+        this.dialogManager = dialogManager;
 
         //initialize texture is method of ARenderableObject
         initializeTexture(spriteDimension, 0, pathToTexture);
@@ -33,12 +34,11 @@ public class DialogAvatar extends Decoration implements IInputHandler
 
     @Override
     public void OnTouch(TouchData td) {
-
+        dialogManager.skipDialog();
     }
 
     @Override
     public void OnRelease(TouchData td) {
-
     }
 
     @Override
@@ -56,3 +56,5 @@ public class DialogAvatar extends Decoration implements IInputHandler
 
     }
 }
+
+
