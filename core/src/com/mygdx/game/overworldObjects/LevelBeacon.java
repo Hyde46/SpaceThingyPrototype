@@ -53,7 +53,7 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
      * @param width
      */
     protected void initialize(Vector2 position, int height, int width, int levelId, Array<LevelBeacon> connectedBeacons, boolean isShop, boolean activated){
-        this.position = position.cpy();
+        initializePositions(position);
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
         this.height = height;
         this.width = width;
@@ -64,26 +64,22 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
         this.isShop = isShop;
         //color that the object shell have depends on whether it is shop or level
         if(isShop){
-            beaconColor = new Color(0.3f, 0.6f, 0.8f, 1);
+            initializeTexture(new Vector2(width, height), 0, "beacon_shop.png");
         }else if(activated){ //normal activated level
-            beaconColor = new Color(0.8f, 0.1f, 0.8f, 1);
+            initializeTexture(new Vector2(width, height), 0, "beacon.png");
         }else{  //not activated level
-            beaconColor = new Color(0.1f, 0.1f, 0.1f, 0.6f);
+            initializeTexture(new Vector2(width, height), 0, "beacon_inactive.png");
         }
         this.activated = activated;
     }
 
+
+
     /**
-     * Renders this LevelBeacon
+     * renders the edges for one level beacon
      * @param shapeRenderer
      */
-    public void render(ShapeRenderer shapeRenderer){
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(beaconColor);
-        shapeRenderer.rect(position.x, position.y, width, height);
-        //render edges between beacons -> change type from filled to line
-        shapeRenderer.end();
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+    public void renderEdges(ShapeRenderer shapeRenderer){
         for(LevelBeacon connectedBeacon : connectedBeacons){
             //depending on whether or not the connected beacon is already reachable (and this beacon is reachable as well) the color of the edge is different
             if(connectedBeacon.getActivated() && this.getActivated()){
@@ -93,16 +89,8 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
             }
             shapeRenderer.line(positionCenter, connectedBeacon.getPositionCenter());
         }
-        shapeRenderer.end();
     }
 
-    /**
-     * getter for position of beacon
-     * @return position
-     */
-    public Vector2 getPosition(){
-        return position;
-    }
 
     /**
      * getter for position of center of beacon

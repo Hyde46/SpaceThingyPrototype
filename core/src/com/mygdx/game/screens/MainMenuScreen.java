@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.managers.PathNavigationManager;
+import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.overworldObjects.Dialog.DialogAvatar;
 import com.mygdx.game.overworldObjects.Dialog.DialogManager;
 import com.mygdx.game.overworldObjects.Dialog.DialogTextArea;
@@ -20,6 +21,7 @@ import com.mygdx.game.overworldObjects.LevelGraph;
 import com.mygdx.game.overworldObjects.Overlay;
 import com.mygdx.game.overworldObjects.OverlayOverworldHUD;
 import com.mygdx.game.overworldObjects.Ship;
+import com.mygdx.game.renderAbleObjects.decorations.BackGround;
 import com.mygdx.game.renderAbleObjects.decorations.ButtonOptions;
 
 /**
@@ -59,10 +61,11 @@ public class MainMenuScreen implements Screen {
 
     private DialogManager dialogManager;
 
-    private DialogTextArea dialogBox;
+    private BackGround backGroundHex;
 
-    private DialogAvatar dialogAvatar;
+    private BackGround backGroundStars;
 
+    private ParallaxBackgroundManager backgroundManager;
     public MainMenuScreen(){
 //        this.game = game;
 
@@ -98,6 +101,16 @@ public class MainMenuScreen implements Screen {
         //show the dialog
         dialogManager.initializeDialog(finishedLevel);
 
+        //add the backgrounds (hex pattern and stars)
+        backGroundHex = new BackGround();
+        backGroundHex.initialize(new Vector2(0,0),new Vector2(1080,1920),3,"bg_hex.png");
+
+        backGroundStars = new BackGround();
+        backGroundStars.initialize(new Vector2(0,0),new Vector2(1080,1920),3,"bg_stars0.png");
+
+        backgroundManager = new ParallaxBackgroundManager();
+        backgroundManager.setLayers(2);
+
         //register overlay and dialogbox to InputManager
         InputManager.instance.objectHolder.Register(overlay);
     }
@@ -114,11 +127,18 @@ public class MainMenuScreen implements Screen {
         cam.update();
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
+        backgroundManager.render(game.batch);
+    //    backGroundHex.render(game.batch);
+    //    backGroundStars.render(game.batch);
         game.font.draw(game.batch, game.currentVersion, 5 , 30);
+        //render LevelGraph, which in turn renders LevelBeacons
+        levelGraph.renderBeacons(game.batch);
         game.batch.end();
 
-        //render LevelGraph, which in turn renders LevelBeacons
-        levelGraph.render(game.shapeRenderer);
+        game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        levelGraph.renderEdges(game.shapeRenderer);
+        game.shapeRenderer.end();
+
         //render ship
         ship.render(game.shapeRenderer);
         //render overlay only if it shell be shown

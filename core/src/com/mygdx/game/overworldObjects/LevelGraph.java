@@ -1,5 +1,6 @@
 package com.mygdx.game.overworldObjects;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -42,11 +43,11 @@ public class LevelGraph {
         Array<LevelBeacon> array5 = new Array<LevelBeacon>();
         array5.addAll(levelBeacon3, levelBeacon4);
         //initialize beacons: position, size, id, array of connected beacons, is shop, is already activated
-        levelBeacon1.initialize(new Vector2(300, 300), 200, 200, 1, array1, false, true);
-        levelBeacon2.initialize(new Vector2(700, 700), 200, 200, 2, array2, false, true);
-        levelBeacon3.initialize(new Vector2(300, 1000), 200, 200, 3, array3, true, true);
-        levelBeacon4.initialize(new Vector2(800, 1200), 200, 200, 4, array4, false, false);
-        levelBeacon5.initialize(new Vector2(500, 1600), 200, 200, 5, array5, false, false);
+        levelBeacon1.initialize(new Vector2(300, 300), 300, 300, 1, array1, false, true);
+        levelBeacon2.initialize(new Vector2(700, 700), 300, 300, 2, array2, false, true);
+        levelBeacon3.initialize(new Vector2(300, 1000), 300, 300, 3, array3, true, true);
+        levelBeacon4.initialize(new Vector2(800, 1200), 300, 300, 4, array4, false, false);
+        levelBeacon5.initialize(new Vector2(500, 1600), 300, 300, 5, array5, false, false);
         //add beacons to array of this LevelGraph object
         addBeacon(levelBeacon1);
         addBeacon(levelBeacon2);
@@ -79,14 +80,23 @@ public class LevelGraph {
     }
     /**
      * Render every beacon
-     * @param shapeRenderer
+     * @param batch
      */
-    public void render(ShapeRenderer shapeRenderer){
+    public void renderBeacons(SpriteBatch batch){
         for(LevelBeacon beacon : levelBeacons){
-            beacon.render(shapeRenderer);
+            beacon.render(batch);
         }
     }
 
+    /**
+     * renders edges for every beacon
+     * @param shapeRenderer
+     */
+    public void renderEdges(ShapeRenderer shapeRenderer){
+        for(LevelBeacon beacon : levelBeacons){
+            beacon.renderEdges(shapeRenderer);
+        }
+    }
     /**
      * getter for current level
      * @return currentLevel
