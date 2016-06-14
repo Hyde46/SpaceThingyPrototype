@@ -69,8 +69,8 @@ public class CameraManager {
     public SpaceShip getPlayer() { return player; }
 
     public void update(float delta){
-
-        if(!player.isInOrbit()) {
+        //player != null, so the camera manager can be used in overworld
+        if(player != null && !player.isInOrbit()) {
             trans = player.getPosition().cpy().add(translation.x - screenCenter.x, translation.y - screenCenter.y).scl(1.0f);
             if(trans.cpy().sub(translation.x,translation.y).len() >= 10){
                 trans.scl(1.0f/ translationDamp);

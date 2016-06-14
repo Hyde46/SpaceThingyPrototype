@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.managers.PathNavigationManager;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
+import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.overworldObjects.Dialog.DialogAvatar;
 import com.mygdx.game.overworldObjects.Dialog.DialogManager;
 import com.mygdx.game.overworldObjects.Dialog.DialogTextArea;
@@ -21,6 +22,7 @@ import com.mygdx.game.overworldObjects.LevelGraph;
 import com.mygdx.game.overworldObjects.Overlay;
 import com.mygdx.game.overworldObjects.OverlayOverworldHUD;
 import com.mygdx.game.overworldObjects.Ship;
+import com.mygdx.game.prototypeUtils.CameraHelper;
 import com.mygdx.game.renderAbleObjects.decorations.BackGround;
 import com.mygdx.game.renderAbleObjects.decorations.ButtonOptions;
 
@@ -32,6 +34,12 @@ public class MainMenuScreen implements Screen {
 //    final MyGdxGame game;
 
     OrthographicCamera cam;
+
+    OrthographicCamera camFixed;
+
+    CameraHelper cameraHelper;
+
+    CameraManager cameraManager;
 
     public LevelGraph getLevelGraph() {
         return levelGraph;
@@ -71,6 +79,8 @@ public class MainMenuScreen implements Screen {
 
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080,1920);
+        camFixed = new OrthographicCamera();
+        camFixed.setToOrtho(false, 1080, 1920);
         InputManager.setup(cam);
         //create LevelGraph object and initialize it (creating beacons etc)
         this.levelGraph = new LevelGraph();
@@ -81,7 +91,6 @@ public class MainMenuScreen implements Screen {
         ship.initialize(levelGraph.getCurrentLevel());
 
         pathNavigationManager = new PathNavigationManager(ship, levelGraph);
-        MyGdxGame.game.shapeRenderer.setProjectionMatrix(cam.combined);
 
         overlay = new Overlay();
         overlay.initialize(true);       //true because it should be seen
@@ -102,17 +111,19 @@ public class MainMenuScreen implements Screen {
         dialogManager.initializeDialog(finishedLevel);
 
         //add the backgrounds (hex pattern and stars)
-        backGroundHex = new BackGround();
-        backGroundHex.initialize(new Vector2(0,0),new Vector2(1080,1920),3,"bg_hex.png");
-
-        backGroundStars = new BackGround();
-        backGroundStars.initialize(new Vector2(0,0),new Vector2(1080,1920),3,"bg_stars0.png");
-
         backgroundManager = new ParallaxBackgroundManager();
         backgroundManager.setLayers(2);
 
-        //register overlay and dialogbox to InputManager
+        cameraManager = new CameraManager();
+        cameraHelper = new CameraHelper();
+        cameraManager.setCam(cam);
+        cameraHelper.setCameraManager(cameraManager);
+        cameraManager.addPBM(backgroundManager);
+
+
+        //register overlay and cameraHelper to InputManager
         InputManager.instance.objectHolder.Register(overlay);
+        InputManager.instance.objectHolder.Register(cameraHelper);
     }
 
     @Override
@@ -125,16 +136,20 @@ public class MainMenuScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         cam.update();
-        game.batch.setProjectionMatrix(cam.combined);
+        game.batch.setProjectionMatrix(camFixed.combined);
         game.batch.begin();
         backgroundManager.render(game.batch);
-    //    backGroundHex.render(game.batch);
-    //    backGroundStars.render(game.batch);
+        game.batch.end();
+
+        game.batch.setProjectionMatrix(cam.combined);
+        game.batch.begin();
+        cameraManager.update(delta);
         game.font.draw(game.batch, game.currentVersion, 5 , 30);
         //render LevelGraph, which in turn renders LevelBeacons
         levelGraph.renderBeacons(game.batch);
         game.batch.end();
 
+        MyGdxGame.game.shapeRenderer.setProjectionMatrix(cam.combined);
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         levelGraph.renderEdges(game.shapeRenderer);
         game.shapeRenderer.end();

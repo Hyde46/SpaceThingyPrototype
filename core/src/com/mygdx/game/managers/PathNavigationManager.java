@@ -27,14 +27,16 @@ public class PathNavigationManager {
     public void navigateToBeacon(LevelBeacon levelBeacon){
         //the compute route function returns an Array with the shortest path to the beacon
         Array<LevelBeacon> path = computeRoute(levelBeacon);
-        //set the current level to the new one
-        levelGraph.setCurrentLevel(levelBeacon);
-        ship.setCurrentLevel(levelBeacon);
-        ship.setInOrbit(false);
-        ship.setTravelsRoute(true);
-        ship.setCurrentRoute(path);
-        //call function in Ship class to start the route; this function in turn calls flyToBeacon(), which computes the vector
-        ship.startRoute();
+        if(path != null){
+            //set the current level to the new one
+            levelGraph.setCurrentLevel(levelBeacon);
+            ship.setCurrentLevel(levelBeacon);
+            ship.setInOrbit(false);
+            ship.setTravelsRoute(true);
+            ship.setCurrentRoute(path);
+            //call function in Ship class to start the route; this function in turn calls flyToBeacon(), which computes the vector
+            ship.startRoute();
+        }
 
     }
 

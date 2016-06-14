@@ -45,8 +45,8 @@ public class CameraHelper extends ARenderableObject implements IInputHandler {
     }
 
     public void OnDrag(TouchData td) {
-
-        if(cM.getPlayer().isInOrbit()) {
+        //player == null so that the helper can be used in in overworld
+        if(cM.getPlayer() == null || cM.getPlayer().isInOrbit()) {
             System.out.println(td.getDeltaSwipe());
             cM.addTranslation(new Vector2(-td.getDeltaSwipe().x, td.getDeltaSwipe().y));
         }
