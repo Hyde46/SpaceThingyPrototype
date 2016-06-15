@@ -52,7 +52,6 @@ public class CameraHelper extends ARenderableObject implements IInputHandler {
         if(cM.getPlayer() == null || cM.getPlayer().isInOrbit()) {
             //check if dialog manager is null (ingame) or if a dialog is shown (overworld) -> no camera movement
             if(dialogManager == null || !dialogManager.getShowDialog()){
-                System.out.println(td.getDeltaSwipe());
                 cM.addTranslation(new Vector2(-td.getDeltaSwipe().x, td.getDeltaSwipe().y));
             }
         }

@@ -7,6 +7,7 @@ package com.mygdx.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -29,8 +30,6 @@ import com.mygdx.game.utils.SpacePhysiX;
 
 public class GameScreen implements Screen{
 
-//    final MyGdxGame game;
-
     CameraManager cM;
     CameraHelper cH;
 
@@ -39,7 +38,6 @@ public class GameScreen implements Screen{
 
     ParallaxBackgroundManager pbM;
 
-    //InputManager iM;
     private LevelFactory levelFactory;
 
     //Prototype only stuff
@@ -49,8 +47,8 @@ public class GameScreen implements Screen{
     private boolean isOutOfBounds;
 
     public GameScreen(int levelToStart) {
-        //       this.game = gam;
 
+        MyGdxGame.game.font.setColor(Color.WHITE);
         // create the camera and the SpriteBatch
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, 1080, 1920);
@@ -66,17 +64,26 @@ public class GameScreen implements Screen{
         cM.setCam(camera);
         cH.setCameraManager(cM, null);
         InputManager.instance.objectHolder.Register(cH);
+
         MyGdxGame.game.shapeRenderer.setColor(1, 1, 0, 1);
+
         uM = new UnitManager();
 
         spX = new SpacePhysiX();
 
-
         setLevel(levelToStart);
+
+        ////////////////////////////////
+        //TODO:
+        //INSERT ITEM MANAGER INIT STUFF HERE
+        // <------
+        // <------
+        ////////////////////////////////
     }
 
     @Override
     public void render(float delta) {
+
         MyGdxGame game = MyGdxGame.game;
         Gdx.gl.glClearColor(33.0f/255.0f, 49.0f/255.0f, 41.0f/255.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -97,17 +104,17 @@ public class GameScreen implements Screen{
 
         //draw ui elments which dont get projected by the camera
         game.uiBatch.begin();
-        game.font.draw(game.uiBatch, game.currentVersion, 5 , 30);
+        game.font.draw(game.uiBatch, game.currentVersion, 5 , 45);
 
-        if(hasFinishedLevel) {
-            if(hasWonLevel)
-                game.font.draw(game.uiBatch, "Finished Level !", 200, 1000);
-            else if(!isOutOfBounds)
-                game.font.draw(game.uiBatch, "You crashed your ship! Q_Q" , 200 , 1000);
-            else
-                game.font.draw(game.uiBatch, "Your ship got lost! Q_Q", 200, 1000);
+        ////////////////////////////////
+        //TODO:
+        //INSERT ITEM MANAGER RENDERING STUFF HERE
+        // <------
+        // <------
+        ////////////////////////////////
 
-        }
+        renderFinishedGameState(game);
+
         game.uiBatch.end();
 
         //draw hitboxes
@@ -121,14 +128,37 @@ public class GameScreen implements Screen{
         update(delta);
     }
 
+    private void renderFinishedGameState(MyGdxGame game) {
+        if(hasFinishedLevel) {
+            if(hasWonLevel) {
+
+                game.font.draw(game.uiBatch, "Finished Level !", 200, 1000);
+
+            }else if(!isOutOfBounds) {
+
+                game.font.draw(game.uiBatch, "You crashed your ship! Q_Q", 200, 1000);
+
+            }else {
+
+                game.font.draw(game.uiBatch, "Your ship got lost! Q_Q", 200, 1000);
+
+            }
+
+        }
+    }
+
     public void update(float delta)
     {
+        ////////////////////////////////
+        //TODO:
+        //INSERT ITEM MANAGER STUFF HERE
+        // <------
+        // <------
+        ////////////////////////////////
         spX.update(delta);
         InputManager.instance.update(delta);
         MyGdxGame.game.fpsLimit.delay();
 
-
-        //temporary
         if(hasFinishedLevel)
             finishCounter--;
     }
@@ -169,6 +199,7 @@ public class GameScreen implements Screen{
         Unit p4 = new Planet();
         Unit p5 = new Planet();
         Unit p6 = new Planet();
+        Unit p7 = new Planet();
         System.out.println("Loading resources...");
         ((SpaceShip)playerShip).initialize(new Vector2(295,300),new Vector2(5,230),null,0,new Vector2(40,40),"ship1_40x40.png",0);
         ((Planet)p1).initialize(new Vector2(200,670),240,36,false,"planet1_72x72.png",1,0);
@@ -178,12 +209,17 @@ public class GameScreen implements Screen{
         ((Planet)p5).initialize(new Vector2(650,2530),240,36,false,"planet1_72x72.png",1,120);
         ((Planet)p6).initialize(new Vector2(-10,2800),240,50,true,"planet2_100x100.png",2,10);
 
+        ((Planet)p7).initialize(new Vector2(450,670),240,36,false,"planet1_72x72.png",1,0);
+        ((Planet)p7).connectToPlanet((Planet)p1);
+        ((Planet)p7).setRotationSpeed(30.0f,1);
+
         uM.addUnit(p1);
         uM.addUnit(p2);
         uM.addUnit(p3);
         uM.addUnit(p4);
         uM.addUnit(p5);
         uM.addUnit(p6);
+        uM.addUnit(p7);
         uM.addUnit(playerShip);
         spX.initializePhysics(uM.getUnits(),this);
         InputManager.instance.objectHolder.Register(p1);
@@ -192,6 +228,7 @@ public class GameScreen implements Screen{
         InputManager.instance.objectHolder.Register(p4);
         InputManager.instance.objectHolder.Register(p5);
         InputManager.instance.objectHolder.Register(p6);
+        InputManager.instance.objectHolder.Register(p7);
 
         cM.initializeCamera((SpaceShip)playerShip);
         spX.initWorldBounds(new Rectangle(-700,-100,4000,6000));

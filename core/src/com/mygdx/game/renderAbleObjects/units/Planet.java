@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.IInputHandler;
 import com.mygdx.game.InputManager.TouchData;
+import com.mygdx.game.utils.SpaceMath;
 
 /**
  * Created by denis on 5/13/16.
@@ -20,6 +21,12 @@ public class Planet extends Unit implements IInputHandler {
     private boolean isGoalPlanet;
     private SpaceShip connectedSpaceShip;
     private Sprite orbitSprite;
+
+    private boolean isMoving;
+    private Planet connectedPlanet;
+    private float rotationSpeed;
+    private int rotationDirection;
+    private Vector2 newPos;
 
     public Planet() {
         super();
@@ -36,6 +43,10 @@ public class Planet extends Unit implements IInputHandler {
         initializeTexture(new Vector2(planetRadius * 2, planetRadius * 2), spriteId, texturePath);
         sprite.rotate(initialRotation);
         initializeOrbitTex();
+        isMoving = false;
+        rotationSpeed = 0.0f;
+        rotationDirection = 0;
+        newPos = new Vector2();
     }
 
     private void initializeOrbitTex(){
@@ -78,7 +89,31 @@ public class Planet extends Unit implements IInputHandler {
 
     @Override
     public void update(float delta) {
+        if(isMoving){
+            //Stuff for moving planet
 
+
+            //Rotation around another planet
+            if(connectedPlanet != null){
+                newPos = (SpaceMath.rotatePoint(position,connectedPlanet.getPosition(),rotationSpeed*delta, rotationDirection));
+                Vector2 translation = new Vector2(newPos.cpy().x-position.cpy().x,newPos.cpy().y-position.cpy().y);
+                orbitSprite.translate(translation.x,translation.y);
+                sprite.translate(translation.x,translation.y);
+                position.add(translation);
+                ((Circle)collisionHitbox).set(position,planetRadius);
+                ((Circle)touchHitbox).set(position,orbitRadius);
+            }
+        }
+    }
+
+    public void connectToPlanet(Planet p){
+        connectedPlanet = p;
+        isMoving = true;
+    }
+
+    public void setRotationSpeed(float rs, int rd){
+        rotationSpeed = rs;
+        rotationDirection = rd;
     }
 
     public float getOrbitRadius() {
