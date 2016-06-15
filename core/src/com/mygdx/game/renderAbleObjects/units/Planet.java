@@ -47,6 +47,7 @@ public class Planet extends Unit implements IInputHandler {
         rotationSpeed = 0.0f;
         rotationDirection = 0;
         newPos = new Vector2();
+        newPos.set(pos.cpy());
     }
 
     private void initializeOrbitTex(){
@@ -99,9 +100,9 @@ public class Planet extends Unit implements IInputHandler {
                 Vector2 translation = new Vector2(newPos.cpy().x-position.cpy().x,newPos.cpy().y-position.cpy().y);
                 orbitSprite.translate(translation.x,translation.y);
                 sprite.translate(translation.x,translation.y);
-                position.add(translation);
-                ((Circle)collisionHitbox).set(position,planetRadius);
-                ((Circle)touchHitbox).set(position,orbitRadius);
+                position.set(newPos.cpy());
+                ((Circle)collisionHitbox).setPosition(newPos);
+                ((Circle)touchHitbox).setPosition(newPos);
             }
         }
     }

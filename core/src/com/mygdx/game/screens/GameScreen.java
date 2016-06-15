@@ -85,7 +85,8 @@ public class GameScreen implements Screen{
     public void render(float delta) {
 
         MyGdxGame game = MyGdxGame.game;
-        Gdx.gl.glClearColor(33.0f/255.0f, 49.0f/255.0f, 41.0f/255.0f, 1);
+        //Gdx.gl.glClearColor(33.0f/255.0f, 49.0f/255.0f, 41.0f/255.0f, 1);  // Blue/green ish background
+        Gdx.gl.glClearColor(63.0f/255.0f, 31.0f/255.0f, 39.0f/255.0f, 1);  // red ish background
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         //draw parallax background
@@ -118,13 +119,13 @@ public class GameScreen implements Screen{
         game.uiBatch.end();
 
         //draw hitboxes
-        /*
+
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         game.shapeRenderer.setProjectionMatrix(cM.getCam().combined);
         Gdx.gl20.glLineWidth(3 / cM.getCam().zoom);
         uM.renderHitboxes(game.shapeRenderer);
         game.shapeRenderer.end();
-        */
+
         update(delta);
     }
 
