@@ -157,6 +157,10 @@ public class DialogManager {
                 return "char1.png";         //e.g. Jason
             case 2:
                 return "char2.png";         //e.g. Harry
+            case 3:
+                return "char3.png";
+            case 4:
+                return "char4.png";
             default:
                 return "";
         }
