@@ -69,11 +69,8 @@ public class MainMenuScreen implements Screen {
 
     private DialogManager dialogManager;
 
-    private BackGround backGroundHex;
-
-    private BackGround backGroundStars;
-
     private ParallaxBackgroundManager backgroundManager;
+
     public MainMenuScreen(){
 //        this.game = game;
 
@@ -117,7 +114,7 @@ public class MainMenuScreen implements Screen {
         cameraManager = new CameraManager();
         cameraHelper = new CameraHelper();
         cameraManager.setCam(cam);
-        cameraHelper.setCameraManager(cameraManager);
+        cameraHelper.setCameraManager(cameraManager, dialogManager);
         cameraManager.addPBM(backgroundManager);
 
 
@@ -135,16 +132,19 @@ public class MainMenuScreen implements Screen {
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        cam.update();
+        //render static (fixed) elements such as background and option buttons
         game.batch.setProjectionMatrix(camFixed.combined);
         game.batch.begin();
         backgroundManager.render(game.batch);
+        overlayHUD.render(game.batch);
+        boTest.render(game.batch);
+        game.font.draw(game.batch, game.currentVersion, 5 , 30);
         game.batch.end();
 
+        //render other elements, which have a specific position in the world (e.g. beacons)
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
         cameraManager.update(delta);
-        game.font.draw(game.batch, game.currentVersion, 5 , 30);
         //render LevelGraph, which in turn renders LevelBeacons
         levelGraph.renderBeacons(game.batch);
         game.batch.end();
@@ -163,9 +163,7 @@ public class MainMenuScreen implements Screen {
             dialogManager.renderDialog();
         }
 
-        overlayHUD.render(delta);
 
-        boTest.render(game.batch);
 
         //process ship's movement
         ship.update(delta);

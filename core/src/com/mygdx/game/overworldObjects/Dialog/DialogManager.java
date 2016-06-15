@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.InputManager;
+import com.mygdx.game.renderAbleObjects.decorations.Decoration;
 import com.mygdx.game.screens.MyGdxGame;
 
 /**
@@ -72,7 +73,7 @@ public class DialogManager {
             dialogAvatar2.initialize(new Vector2(MyGdxGame.game.screenWidth - 300, 400), 300, 400, getAvatarPath(currentDialog.getAvatarArray().get(1)));
 
             skipButton = new SkipButton();
-            skipButton.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 128, 10), 256, 256, "skip_button.png", this);
+            skipButton.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 200, 10), 400, 200, "skip_button.png", this);
 
             //register dialog boxes to InputManager
             InputManager.instance.objectHolder.Register(dialogBox1);

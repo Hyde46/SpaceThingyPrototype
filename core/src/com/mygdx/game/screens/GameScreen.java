@@ -64,7 +64,7 @@ public class GameScreen implements Screen{
         cH = new CameraHelper();
         pbM = new ParallaxBackgroundManager();
         cM.setCam(camera);
-        cH.setCameraManager(cM);
+        cH.setCameraManager(cM, null);
         InputManager.instance.objectHolder.Register(cH);
         MyGdxGame.game.shapeRenderer.setColor(1, 1, 0, 1);
         uM = new UnitManager();

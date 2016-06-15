@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.IInputHandler;
 import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.managers.camera.CameraManager;
+import com.mygdx.game.overworldObjects.Dialog.DialogManager;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
 
 /**
@@ -15,6 +16,7 @@ public class CameraHelper extends ARenderableObject implements IInputHandler {
 
     private CameraManager cM;
 
+    private DialogManager dialogManager;
     private Vector2 touchPos;
     private Vector2 lastUpdatedPos;
     private Vector2 diff;
@@ -30,10 +32,11 @@ public class CameraHelper extends ARenderableObject implements IInputHandler {
         hitbox = new Rectangle();
         isUpdate = false;
     }
-    public void setCameraManager(CameraManager cM){
+    public void setCameraManager(CameraManager cM, DialogManager dialogManager){
         this.cM = cM;
         hitbox.set(0,0,cM.getCam().viewportWidth, cM.getCam().viewportHeight);
         isUI = true;
+        this.dialogManager = dialogManager;
     }
 
     public void OnTouch(TouchData td) {
@@ -47,8 +50,11 @@ public class CameraHelper extends ARenderableObject implements IInputHandler {
     public void OnDrag(TouchData td) {
         //player == null so that the helper can be used in in overworld
         if(cM.getPlayer() == null || cM.getPlayer().isInOrbit()) {
-            System.out.println(td.getDeltaSwipe());
-            cM.addTranslation(new Vector2(-td.getDeltaSwipe().x, td.getDeltaSwipe().y));
+            //check if dialog manager is null (ingame) or if a dialog is shown (overworld) -> no camera movement
+            if(dialogManager == null || !dialogManager.getShowDialog()){
+                System.out.println(td.getDeltaSwipe());
+                cM.addTranslation(new Vector2(-td.getDeltaSwipe().x, td.getDeltaSwipe().y));
+            }
         }
     }
 

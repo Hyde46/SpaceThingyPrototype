@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.InputManager.IInputHandler;
@@ -41,12 +42,10 @@ public class OverlayOverworldHUD extends ARenderableObject{
         spriteExit.setX(game.screenWidth - spriteExit.getWidth());
     }
 
-    public void render(float delta)
+    public void render(SpriteBatch batch)
     {
-        game.batch.begin();
-        spriteOptions.draw(game.batch);
-        spriteExit.draw(game.batch);
-        game.batch.end();
+        spriteOptions.draw(batch);
+        spriteExit.draw(batch);
     }
 
     @Override
