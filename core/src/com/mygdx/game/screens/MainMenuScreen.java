@@ -1,29 +1,21 @@
 package com.mygdx.game.screens;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.managers.PathNavigationManager;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.camera.CameraManager;
-import com.mygdx.game.overworldObjects.Dialog.DialogAvatar;
 import com.mygdx.game.overworldObjects.Dialog.DialogManager;
-import com.mygdx.game.overworldObjects.Dialog.DialogTextArea;
-import com.mygdx.game.overworldObjects.LevelBeacon;
 import com.mygdx.game.overworldObjects.LevelGraph;
 import com.mygdx.game.overworldObjects.Overlay;
 import com.mygdx.game.overworldObjects.OverlayOverworldHUD;
 import com.mygdx.game.overworldObjects.Ship;
 import com.mygdx.game.prototypeUtils.CameraHelper;
-import com.mygdx.game.renderAbleObjects.decorations.BackGround;
 import com.mygdx.game.renderAbleObjects.decorations.ButtonOptions;
 
 /**
@@ -78,7 +70,7 @@ public class MainMenuScreen implements Screen {
         cam.setToOrtho(false, 1080,1920);
         camFixed = new OrthographicCamera();
         camFixed.setToOrtho(false, 1080, 1920);
-        InputManager.setup(cam);
+        InputManager.get.setup(cam);
         //create LevelGraph object and initialize it (creating beacons etc)
         this.levelGraph = new LevelGraph();
         levelGraph.initializeGraph();
@@ -119,8 +111,8 @@ public class MainMenuScreen implements Screen {
 
 
         //register overlay and cameraHelper to InputManager
-        InputManager.instance.objectHolder.Register(overlay);
-        InputManager.instance.objectHolder.Register(cameraHelper);
+        InputManager.get.Register(overlay);
+        InputManager.get.Register(cameraHelper);
     }
 
     @Override

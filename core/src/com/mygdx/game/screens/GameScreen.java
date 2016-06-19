@@ -5,7 +5,6 @@ package com.mygdx.game.screens;
  */
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -18,11 +17,8 @@ import com.mygdx.game.managers.UnitManager;
 
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.camera.CameraManager;
-import com.mygdx.game.managers.levels.Level;
 import com.mygdx.game.managers.levels.LevelFactory;
 import com.mygdx.game.prototypeUtils.CameraHelper;
-import com.mygdx.game.renderAbleObjects.decorations.BackGround;
-import com.mygdx.game.renderAbleObjects.decorations.Decoration;
 import com.mygdx.game.renderAbleObjects.units.Planet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
@@ -56,14 +52,14 @@ public class GameScreen implements Screen{
 
         /* Main and Game have different cams,
         main camera needs to be created in gdxgame and Inputmanger setup there */
-        InputManager.setup(camera);
+        InputManager.get.setup(camera);
 
         cM = new CameraManager();
         cH = new CameraHelper();
         pbM = new ParallaxBackgroundManager();
         cM.setCam(camera);
         cH.setCameraManager(cM, null);
-        InputManager.instance.objectHolder.Register(cH);
+        InputManager.get.Register(cH);
 
         MyGdxGame.game.shapeRenderer.setColor(1, 1, 0, 1);
 
@@ -157,7 +153,7 @@ public class GameScreen implements Screen{
         // <------
         ////////////////////////////////
         spX.update(delta);
-        InputManager.instance.update(delta);
+        InputManager.get.update(delta);
         MyGdxGame.game.fpsLimit.delay();
 
         if(hasFinishedLevel)
@@ -223,13 +219,13 @@ public class GameScreen implements Screen{
         uM.addUnit(p7);
         uM.addUnit(playerShip);
         spX.initializePhysics(uM.getUnits(),this);
-        InputManager.instance.objectHolder.Register(p1);
-        InputManager.instance.objectHolder.Register(p2);
-        InputManager.instance.objectHolder.Register(p3);
-        InputManager.instance.objectHolder.Register(p4);
-        InputManager.instance.objectHolder.Register(p5);
-        InputManager.instance.objectHolder.Register(p6);
-        InputManager.instance.objectHolder.Register(p7);
+        InputManager.get.Register(p1);
+        InputManager.get.Register(p2);
+        InputManager.get.Register(p3);
+        InputManager.get.Register(p4);
+        InputManager.get.Register(p5);
+        InputManager.get.Register(p6);
+        InputManager.get.Register(p7);
 
         cM.initializeCamera((SpaceShip)playerShip);
         spX.initWorldBounds(new Rectangle(-700,-100,4000,6000));
@@ -273,12 +269,12 @@ public class GameScreen implements Screen{
         uM.addUnit(p6);
         uM.addUnit(playerShip);
         spX.initializePhysics(uM.getUnits(),this);
-        InputManager.instance.objectHolder.Register(p1);
-        InputManager.instance.objectHolder.Register(p2);
-        InputManager.instance.objectHolder.Register(p3);
-        InputManager.instance.objectHolder.Register(p4);
-        InputManager.instance.objectHolder.Register(p5);
-        InputManager.instance.objectHolder.Register(p6);
+        InputManager.get.Register(p1);
+        InputManager.get.Register(p2);
+        InputManager.get.Register(p3);
+        InputManager.get.Register(p4);
+        InputManager.get.Register(p5);
+        InputManager.get.Register(p6);
 
         //UI init
         cM.initializeCamera((SpaceShip)playerShip);
@@ -294,7 +290,7 @@ public class GameScreen implements Screen{
             hasFinishedLevel = false;
             hasWonLevel = false;
 
-            InputManager.instance.objectHolder.Clear();
+            InputManager.get.Clear();
             MyGdxGame.game.setScreen(new MainMenuScreen());
 
         }

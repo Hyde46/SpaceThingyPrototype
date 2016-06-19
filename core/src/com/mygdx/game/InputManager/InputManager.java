@@ -3,7 +3,6 @@ package com.mygdx.game.InputManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
@@ -12,35 +11,51 @@ import java.util.HashMap;
 
 public class InputManager implements InputProcessor
 {
-    /*
-        - make 100% static no more instance
-        objectholder reachable directly over methods in manager
-     */
-
-
-    /* static instance */
-
-    public static InputManager instance;
-
-    /* needs to be called before first use */
-    public static void setup(Camera cam)
-    {
-        instance = new InputManager();
-        instance.cam = cam;
-    }
+    public static InputManager get;
 
     final float SWIPE_REC_LENGTH = 20f;
-//    public enum TypeInput { TOUCH, RELEASE, DRAG, HOLD, SWIPE}
-
     Camera cam;
 
-    /* Basic */
+    public static ObjectHolder<ARenderableObject> objectHolder;
+    static HashMap<Integer, TouchData> touchData = new HashMap<Integer, TouchData>();
+
+    /* Setup & Registration of Objects */
+
     InputManager()
     {
-        // this is an input processor that gets registered at the main input
-        Gdx.input.setInputProcessor(this);
+        Gdx.input.setInputProcessor(this); // this is an input processor that gets registered at the main input
         objectHolder = new ObjectHolder<ARenderableObject>();
     }
+
+    public static void setup(Camera cam)
+    {
+        get = new InputManager();
+        get.cam = cam;
+    }
+
+    public void Register(ARenderableObject obj)
+    {
+        if(!objectHolder.objects.contains(obj, false))
+            objectHolder.objects.add(obj);
+    }
+
+    public void Register(Array<ARenderableObject> objs)
+    {
+        for(int i = 0; i < objs.size; i++) Register(objs.get(i));
+    }
+
+    public void UnRegister(ARenderableObject obj)
+    {
+        if(objectHolder.objects.contains(obj,false))
+            objectHolder.objects.removeValue(obj, false);
+    }
+
+    public void Clear()
+    {
+        objectHolder.objects.clear();
+    }
+
+    /* Use update to be able to measure time intervals */
 
     public void update(float deltaTime)
     {
@@ -51,10 +66,7 @@ public class InputManager implements InputProcessor
         }
     }
 
-    /* Touch related */
-    public ObjectHolder<ARenderableObject> objectHolder;
-
-    HashMap<Integer, TouchData> touchData = new HashMap<Integer, TouchData>();
+    /* Handle input events */
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
