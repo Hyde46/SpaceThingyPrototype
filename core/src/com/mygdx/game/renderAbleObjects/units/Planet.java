@@ -26,7 +26,7 @@ public class Planet extends Unit implements IInputHandler {
     private Planet connectedPlanet;
     private float rotationSpeed;
     private int rotationDirection;
-    private Vector2 newPos;
+    private Vector2 translation;
 
     public Planet() {
         super();
@@ -46,8 +46,7 @@ public class Planet extends Unit implements IInputHandler {
         isMoving = false;
         rotationSpeed = 0.0f;
         rotationDirection = 0;
-        newPos = new Vector2();
-        newPos.set(pos.cpy());
+        translation = new Vector2();
     }
 
     private void initializeOrbitTex(){
@@ -76,6 +75,11 @@ public class Planet extends Unit implements IInputHandler {
 
     @Override
     public void moveUnit() {
+        translation = new Vector2(targetPosition.cpy().x-position.cpy().x,targetPosition.cpy().y-position.cpy().y);
+        orbitSprite.translate(translation.x,translation.y);
+        sprite.translate(translation.x,translation.y);
+        ((Circle)collisionHitbox).setPosition(targetPosition);
+        ((Circle)touchHitbox).setPosition(targetPosition);
         this.position.set(this.targetPosition);
     }
 
@@ -96,13 +100,7 @@ public class Planet extends Unit implements IInputHandler {
 
             //Rotation around another planet
             if(connectedPlanet != null){
-                newPos = (SpaceMath.rotatePoint(position,connectedPlanet.getPosition(),rotationSpeed*delta, rotationDirection));
-                Vector2 translation = new Vector2(newPos.cpy().x-position.cpy().x,newPos.cpy().y-position.cpy().y);
-                orbitSprite.translate(translation.x,translation.y);
-                sprite.translate(translation.x,translation.y);
-                position.set(newPos.cpy());
-                ((Circle)collisionHitbox).setPosition(newPos);
-                ((Circle)touchHitbox).setPosition(newPos);
+                targetPosition = (SpaceMath.rotatePoint(position,connectedPlanet.getPosition(),rotationSpeed*delta, rotationDirection));
             }
         }
     }
@@ -116,6 +114,10 @@ public class Planet extends Unit implements IInputHandler {
         rotationSpeed = rs;
         rotationDirection = rd;
     }
+
+    public Vector2 getTranslation(){ return translation; }
+
+    public boolean getIsMoving(){ return isMoving; }
 
     public float getOrbitRadius() {
         return orbitRadius;
