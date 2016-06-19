@@ -140,7 +140,7 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
                 }
                 else
                 {
-                    InputManager.instance.objectHolder.Clear();
+                    InputManager.get.Clear();
                     game.setScreen(new GameScreen(levelId));
 
                 }
