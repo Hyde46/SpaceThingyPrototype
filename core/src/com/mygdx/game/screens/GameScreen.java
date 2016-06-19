@@ -257,10 +257,7 @@ public class GameScreen implements Screen{
         ((Planet)p4).initialize(new Vector2(1100,2150),320,50,false,"planet2_100x100.png",2,40);
         ((Planet)p5).initialize(new Vector2(-300,2400),240,36,false,"planet1_72x72.png",1,120);
         ((Planet)p6).initialize(new Vector2(-10,3000),240,50,true,"planet2_100x100.png",2,10);
-        /*
-        ((Planet)p1).initialize(new Vector2(200,670),240,36,false,"planet1_72x72.png",1,0);
-        ((Planet)p2).initialize(new Vector2(600,1320),320,50,true,"planet2_100x100.png",2,40);
-        */
+
         uM.addUnit(p1);
         uM.addUnit(p2);
         uM.addUnit(p3);
@@ -276,8 +273,12 @@ public class GameScreen implements Screen{
         InputManager.get.Register(p5);
         InputManager.get.Register(p6);
 
-        //UI init
         cM.initializeCamera((SpaceShip)playerShip);
+        spX.initWorldBounds(new Rectangle(-700,-100,4000,6000));
+
+        pbM.setLayers(2);
+        cM.addPBM(pbM);
+
         System.out.println("Done!");
     }
 
