@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.IInputHandler;
 import com.mygdx.game.InputManager.TouchData;
+import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.utils.SpaceMath;
 
 /**
@@ -139,7 +140,7 @@ public class Planet extends Unit implements IInputHandler {
     }
 
     public void OnTouch(TouchData td) {
-        if(connectedSpaceShip != null){
+        if(connectedSpaceShip != null && !GameScreen.hasFinishedLevel){
             launchSpaceShip();
         }
     }

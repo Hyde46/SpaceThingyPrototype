@@ -38,7 +38,7 @@ public class GameScreen implements Screen{
 
     //Prototype only stuff
     private int finishCounter;
-    private boolean hasFinishedLevel;
+    public static boolean hasFinishedLevel;
     private boolean hasWonLevel;
     private boolean isOutOfBounds;
     private float[] levelBGColor;
@@ -151,7 +151,7 @@ public class GameScreen implements Screen{
     {
         ////////////////////////////////
         //TODO:
-        //INSERT ITEM MANAGER STUFF HERE
+        //INSERT ITEM MANAGER update STUFF HERE
         // <------
         // <------
         ////////////////////////////////
@@ -204,7 +204,7 @@ public class GameScreen implements Screen{
         Unit p9 = new Planet();
         Unit p10 = new Planet();
         System.out.println("Loading resources...");
-        ((SpaceShip)playerShip).initialize(new Vector2(295,300),new Vector2(5,230),null,0,new Vector2(40,40),"ship1_40x40.png",0);
+        ((SpaceShip)playerShip).initialize(new Vector2(295,300),new Vector2(5,280),null,0,new Vector2(40,40),"ship1_40x40.png",0);
         ((Planet)p1).initialize(new Vector2(200,670),320,36,false,"planet1_72x72.png",1,0);
         ((Planet)p2).initialize(new Vector2(800,1720),320,50,false,"planet2_100x100.png",2,40);
         ((Planet)p3).initialize(new Vector2(950,900),320,36,false,"planet1_72x72.png",1,30);
@@ -277,7 +277,7 @@ public class GameScreen implements Screen{
         Unit p5 = new Planet();
         Unit p6 = new Planet();
         System.out.println("Loading resources...");
-        ((SpaceShip)playerShip).initialize(new Vector2(320,300),new Vector2(5,280),null,0,new Vector2(40,40),"ship1_40x40.png",0);
+        ((SpaceShip)playerShip).initialize(new Vector2(320,300),new Vector2(5,350),null,0,new Vector2(40,40),"ship1_40x40.png",0);
         ((Planet)p1).initialize(new Vector2(200,670),320,50,false,"planet2_100x100.png",1,0);
         ((Planet)p2).initialize(new Vector2(1000,850),320,50,false,"planet2_100x100.png",2,20);
         ((Planet)p3).initialize(new Vector2(-600,1500),320,36,false,"planet1_72x72.png",1,30);
