@@ -3,6 +3,7 @@ package com.mygdx.game.overworldObjects;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.renderAbleObjects.ARenderableObject;
 import com.mygdx.game.utils.SpaceMath;
 
 import sun.rmi.runtime.Log;
@@ -10,9 +11,7 @@ import sun.rmi.runtime.Log;
 /**
  * Created by Vali on 18.05.2016.
  */
-public class Ship {
-    protected Vector2 position;
-    protected final static float SHIP_RADIUS = 50;
+public class Ship extends ARenderableObject{
     private LevelBeacon currentLevel;
     private float rotationSpeed;
     private int rotationDirection;
@@ -21,42 +20,43 @@ public class Ship {
     private Array<LevelBeacon> currentRoute;
     private Vector2 vectorToBeacon;
 
-    public Ship(){
-        position = new Vector2();
-    }
 
     /**
      * Initializes the ship with a given position
      * @param currentLevel
      */
-    public void initialize(LevelBeacon currentLevel){
-        position = currentLevel.getPosition().cpy();
+    public void initialize(LevelBeacon currentLevel, Vector2 spriteDimensions, String texturePath){
+
+        //the y position is the y position of the beacon + half of its height (ergo 150) so the ship centered vertically
+        initializePositions(new Vector2(currentLevel.getPosition().x, currentLevel.getPosition().y + currentLevel.getHeight() / 2));
         this.currentLevel = currentLevel;
-        rotationSpeed = 60.5f;
-        rotationDirection = 1;     //clockwise or counterclockwise
+        rotationSpeed = 80.5f;
+        rotationDirection = -1;     //clockwise or counterclockwise
         isInOrbit = true;
         travelsRoute = false;
+        this.spriteDimension = spriteDimensions;
+        //sprite id needs to be changed later
+        initializeTexture(spriteDimensions, 0, texturePath);
+        //rotate the sp
     }
 
-    /**
-     * Renders the ship: circle with help of ShapeRenderer
-     * @param shapeRenderer
-     */
-    public void render(ShapeRenderer shapeRenderer){
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(0.5f, 0.5f, 0.5f, 1);
-        shapeRenderer.circle(position.x, position.y, SHIP_RADIUS);
-        shapeRenderer.end();
+    public void renderHitboxes(ShapeRenderer shapeRenderer){
+
     }
 
+
     /**
-     * Updates movement of Ship
+     * updates movement of ship
+     * @param delta
      */
     public void update(float delta){
         //if ship is currently circling around planet the circling movement shell be made
         if(isInOrbit){
             //set new position, which will be rendered in next frame
             position = SpaceMath.rotatePoint(position, currentLevel.getPositionCenter(), rotationSpeed * delta, rotationDirection);
+
+            //rotate the sprite so that it looks like the ship actually circles around beacon (just like ingame)
+            sprite.rotate(rotationSpeed*delta*rotationDirection);
         }else{
             //set new position in direction to the new beacon
             position.add(vectorToBeacon.cpy().scl(delta));
@@ -66,10 +66,13 @@ public class Ship {
                 travelsRoute = false;
             }else if(travelsRoute && currentRoute.peek().getHitbox().contains(position)){  //second case: ship has reached next beacon on route
                 //in this case we tell the ship to fly to the next beacon in the route
-                currentRoute.pop(); //pop (delete) the reached beachon
+                currentRoute.pop(); //pop (delete) the reached beacon
                 flyToBeacon(currentRoute.peek());
             }
         }
+        //set the sprite to the new position, so that the sprite is rendered on the correct new position
+        sprite.setX(position.x-spriteDimension.x/2);
+        sprite.setY(position.y-spriteDimension.y/2);
     }
 
     /**
@@ -85,6 +88,9 @@ public class Ship {
      */
     public void flyToBeacon(LevelBeacon beacon){
         vectorToBeacon = beacon.getPositionCenter().cpy().sub(position.cpy());
+        //rotate the ship so that it aims at the new beacon
+        //therefore we need get the angle of the vector to the beacon
+        sprite.setRotation(vectorToBeacon.angle());
     }
     /**
      * set current level
@@ -129,5 +135,7 @@ public class Ship {
     public boolean getTravelsRoute(){
         return travelsRoute;
     }
+
+
 }
 

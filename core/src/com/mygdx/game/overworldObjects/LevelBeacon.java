@@ -128,31 +128,28 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
     public void OnTouch(TouchData td)
     {
         MyGdxGame game = MyGdxGame.game;
-        LevelGraph lg = ((MainMenuScreen)MyGdxGame.game.current).getLevelGraph();
-        Ship sh = ((MainMenuScreen)MyGdxGame.game.current).getShip();
-        PathNavigationManager pnm = ((MainMenuScreen)MyGdxGame.game.current).getPathNavigationManager();
+        //only process touch data if there is no dialog shown
+        if(!((MainMenuScreen) game.current).getDialogManager().getShowDialog()) {
 
-        if(levelId == lg.getCurrentLevel().getLevelId() && sh.getInOrbit())
-        {
-                if(getIsShop())
-                {
+            LevelGraph lg = ((MainMenuScreen) game.current).getLevelGraph();
+            Ship sh = ((MainMenuScreen) game.current).getShip();
+            PathNavigationManager pnm = ((MainMenuScreen) game.current).getPathNavigationManager();
+
+            if (levelId == lg.getCurrentLevel().getLevelId() && sh.getInOrbit()) {
+                if (getIsShop()) {
                     game.setScreen(new ShopScreen());
-                }
-                else
-                {
+                } else {
                     InputManager.instance.objectHolder.Clear();
                     game.setScreen(new GameScreen(levelId));
 
                 }
-        }
-        else
-        {  //touched level is different from current level
-            if(!sh.getTravelsRoute())
-            {      //only call navigate function, if the ship is not already on route
-                //tell PathNavigationManager to navigate to this level
-                //only send ship to beacon if it has been activated
-                if(activated){
-                    pnm.navigateToBeacon(this);
+            } else {  //touched level is different from current level
+                if (!sh.getTravelsRoute()) {      //only call navigate function, if the ship is not already on route
+                    //tell PathNavigationManager to navigate to this level
+                    //only send ship to beacon if it has been activated
+                    if (activated) {
+                        pnm.navigateToBeacon(this);
+                    }
                 }
             }
         }
@@ -192,5 +189,21 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
      */
     public boolean getActivated(){
         return activated;
+    }
+
+    /**
+     * getter for widht
+     * @return width
+     */
+    public int getWidth() {
+        return width;
+    }
+
+    /**
+     * getter for height
+     * @return height
+     */
+    public int getHeight() {
+        return height;
     }
 }

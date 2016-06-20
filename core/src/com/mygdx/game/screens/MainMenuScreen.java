@@ -1,29 +1,21 @@
 package com.mygdx.game.screens;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.managers.PathNavigationManager;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.camera.CameraManager;
-import com.mygdx.game.overworldObjects.Dialog.DialogAvatar;
 import com.mygdx.game.overworldObjects.Dialog.DialogManager;
-import com.mygdx.game.overworldObjects.Dialog.DialogTextArea;
-import com.mygdx.game.overworldObjects.LevelBeacon;
 import com.mygdx.game.overworldObjects.LevelGraph;
 import com.mygdx.game.overworldObjects.Overlay;
 import com.mygdx.game.overworldObjects.OverlayOverworldHUD;
 import com.mygdx.game.overworldObjects.Ship;
 import com.mygdx.game.prototypeUtils.CameraHelper;
-import com.mygdx.game.renderAbleObjects.decorations.BackGround;
 import com.mygdx.game.renderAbleObjects.decorations.ButtonOptions;
 
 /**
@@ -85,7 +77,7 @@ public class MainMenuScreen implements Screen {
 
         //create ship object and initialize it (connected beacon)
         this.ship = new Ship();
-        ship.initialize(levelGraph.getCurrentLevel());
+        ship.initialize(levelGraph.getCurrentLevel(), new Vector2(40,40),"ship1_40x40.png");
 
         pathNavigationManager = new PathNavigationManager(ship, levelGraph);
 
@@ -147,6 +139,8 @@ public class MainMenuScreen implements Screen {
         cameraManager.update(delta);
         //render LevelGraph, which in turn renders LevelBeacons
         levelGraph.renderBeacons(game.batch);
+        //render ship
+        ship.render(game.batch);
         game.batch.end();
 
         MyGdxGame.game.shapeRenderer.setProjectionMatrix(cam.combined);
@@ -154,8 +148,7 @@ public class MainMenuScreen implements Screen {
         levelGraph.renderEdges(game.shapeRenderer);
         game.shapeRenderer.end();
 
-        //render ship
-        ship.render(game.shapeRenderer);
+
         //render overlay only if it shell be shown
         if(overlay.getShowOverlay()){
             overlay.render(delta);
@@ -163,10 +156,16 @@ public class MainMenuScreen implements Screen {
             dialogManager.renderDialog();
         }
 
-
-
         //process ship's movement
         ship.update(delta);
+    }
+
+    /**
+     * getter for the dialogManager, needed in on touch function of level beacon
+     * @return
+     */
+    public DialogManager getDialogManager(){
+        return dialogManager;
     }
 
     @Override
