@@ -83,7 +83,8 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
         for(LevelBeacon connectedBeacon : connectedBeacons){
             //depending on whether or not the connected beacon is already reachable (and this beacon is reachable as well) the color of the edge is different
             if(connectedBeacon.getActivated() && this.getActivated()){
-                shapeRenderer.setColor(0, 0.8f, 0, 1);
+                //shapeRenderer.setColor(0, 0.8f, 0, 1);  -> green
+                shapeRenderer.setColor(1, 1, 1, 1);
             }else{
                 shapeRenderer.setColor(0.5f, 0.5f, 0.5f, 1);
             }

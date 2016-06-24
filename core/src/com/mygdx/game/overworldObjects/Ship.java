@@ -64,6 +64,8 @@ public class Ship extends ARenderableObject{
             if(currentLevel.getHitbox().contains(position)){
                 isInOrbit = true;
                 travelsRoute = false;
+                //rotate ship again
+                sprite.setRotation(currentLevel.getPositionCenter().cpy().sub(position.cpy()).angle());
             }else if(travelsRoute && currentRoute.peek().getHitbox().contains(position)){  //second case: ship has reached next beacon on route
                 //in this case we tell the ship to fly to the next beacon in the route
                 currentRoute.pop(); //pop (delete) the reached beacon
@@ -88,9 +90,10 @@ public class Ship extends ARenderableObject{
      */
     public void flyToBeacon(LevelBeacon beacon){
         vectorToBeacon = beacon.getPositionCenter().cpy().sub(position.cpy());
+        System.out.println("Angle: " + vectorToBeacon.angle());
         //rotate the ship so that it aims at the new beacon
         //therefore we need get the angle of the vector to the beacon
-        sprite.setRotation(vectorToBeacon.angle());
+        sprite.setRotation(vectorToBeacon.angle() - 90);
     }
     /**
      * set current level

@@ -32,6 +32,7 @@ public class SkipButton extends Decoration implements IInputHandler {
         //initialize texture is method of ARenderableObject
         initializeTexture(spriteDimension, 0, pathToTexture);
         progress = 0;
+        skipButtonOverlay.initialize(getPosition(), progress, height, overlayTexture);
     }
 
     @Override
@@ -67,13 +68,7 @@ public class SkipButton extends Decoration implements IInputHandler {
 
     @Override
     public void OnDrag(TouchData td) {
-        progress += 10;
-        //progress will indicate the width of the overlay
-        showOverlay = true;
-        skipButtonOverlay.initialize(getPosition(), progress, height, overlayTexture);
-        if(progress == 400){
-            dialogManager.skipDialog();
-        }
+
     }
 
     @Override
@@ -81,7 +76,8 @@ public class SkipButton extends Decoration implements IInputHandler {
         progress += 10;
         //progress will indicate the width of the overlay
         showOverlay = true;
-        skipButtonOverlay.initialize(getPosition(), progress, height, overlayTexture);
+        //change width of overlay
+        skipButtonOverlay.getSprite().setBounds(getPosition().x, getPosition().y, progress, height);
         if(progress >= 400){
             dialogManager.skipDialog();
         }

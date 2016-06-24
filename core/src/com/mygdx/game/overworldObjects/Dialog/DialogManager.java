@@ -36,7 +36,7 @@ public class DialogManager {
         Array<String> textArray2 = new Array<String>();
         textArray2.addAll("This is the second dialog", "It has 2 characters. And the second character speaks a bit longer, cause he has to explan something really important.", "And the first one speaks twice");
         Array<Integer> avatarArray2 = new Array<Integer>();
-        avatarArray2.addAll(1, 2, 1);
+        avatarArray2.addAll(3, 5, 3);
         Dialog dialog2 = new Dialog(textArray2, avatarArray2);
         dialogArray = new Array<Dialog>();
         dialogArray.addAll(dialog1, dialog2);
@@ -160,8 +160,12 @@ public class DialogManager {
                 return "char3.png";
             case 4:
                 return "char4.png";
+            case 5:
+                return "char5.png";
+            case 6:
+                return "char6.png";
             default:
-                return "";
+                return "char1.png";
         }
     }
 
