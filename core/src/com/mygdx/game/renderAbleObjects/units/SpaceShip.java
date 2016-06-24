@@ -107,6 +107,11 @@ public class SpaceShip extends Unit {
         }else{
             targetPosition = SpaceMath.rotatePoint(position,connectedPlanet.getPosition(),rotationSpeed*delta,rotationDirection);
 
+            if(connectedPlanet.getIsMoving()){
+                targetPosition.add(connectedPlanet.getTranslation());
+            }
+
+
             currentRotDrawingAngle += rotationDirection * rotationSpeed * delta;
 
             if(currentRotDrawingAngle > 360)

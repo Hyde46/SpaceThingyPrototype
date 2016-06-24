@@ -138,8 +138,10 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
             if (levelId == lg.getCurrentLevel().getLevelId() && sh.getInOrbit()) {
                 if (getIsShop()) {
                     game.setScreen(new ShopScreen());
-                } else {
-                    InputManager.instance.objectHolder.Clear();
+                }
+                else
+                {
+                    InputManager.get.Clear();
                     game.setScreen(new GameScreen(levelId));
 
                 }

@@ -13,24 +13,24 @@ public class ObjectHolder<T>
         objects = new Array<T>();
     }
 
-    public void Register(T obj)
+    public void RegisterIntern(T obj)
     {
         if(!objects.contains(obj, false))
             objects.add(obj);
     }
 
-    public void Register(Array<T> objs)
+    public void RegisterIntern(Array<T> objs)
     {
-        for(int i = 0; i < objs.size; i++) Register(objs.get(i));
+        for(int i = 0; i < objs.size; i++) RegisterIntern(objs.get(i));
     }
 
-    public void UnRegister(T obj)
+    public void UnRegisterIntern(T obj)
     {
         if(objects.contains(obj,false))
         objects.removeValue(obj, false);
     }
 
-    public void Clear()
+    public void ClearIntern()
     {
         objects.clear();
     }

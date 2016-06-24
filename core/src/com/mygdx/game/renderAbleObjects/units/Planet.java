@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.IInputHandler;
 import com.mygdx.game.InputManager.TouchData;
+import com.mygdx.game.screens.GameScreen;
+import com.mygdx.game.utils.SpaceMath;
 
 /**
  * Created by denis on 5/13/16.
@@ -20,6 +22,12 @@ public class Planet extends Unit implements IInputHandler {
     private boolean isGoalPlanet;
     private SpaceShip connectedSpaceShip;
     private Sprite orbitSprite;
+
+    private boolean isMoving;
+    private Planet connectedPlanet;
+    private float rotationSpeed;
+    private int rotationDirection;
+    private Vector2 translation;
 
     public Planet() {
         super();
@@ -36,6 +44,10 @@ public class Planet extends Unit implements IInputHandler {
         initializeTexture(new Vector2(planetRadius * 2, planetRadius * 2), spriteId, texturePath);
         sprite.rotate(initialRotation);
         initializeOrbitTex();
+        isMoving = false;
+        rotationSpeed = 0.0f;
+        rotationDirection = 0;
+        translation = new Vector2();
     }
 
     private void initializeOrbitTex(){
@@ -64,6 +76,11 @@ public class Planet extends Unit implements IInputHandler {
 
     @Override
     public void moveUnit() {
+        translation = new Vector2(targetPosition.cpy().x-position.cpy().x,targetPosition.cpy().y-position.cpy().y);
+        orbitSprite.translate(translation.x,translation.y);
+        sprite.translate(translation.x,translation.y);
+        ((Circle)collisionHitbox).setPosition(targetPosition);
+        ((Circle)touchHitbox).setPosition(targetPosition);
         this.position.set(this.targetPosition);
     }
 
@@ -78,8 +95,30 @@ public class Planet extends Unit implements IInputHandler {
 
     @Override
     public void update(float delta) {
+        if(isMoving){
+            //Stuff for moving planet
 
+
+            //Rotation around another planet
+            if(connectedPlanet != null){
+                targetPosition = (SpaceMath.rotatePoint(position,connectedPlanet.getPosition(),rotationSpeed*delta, rotationDirection));
+            }
+        }
     }
+
+    public void connectToPlanet(Planet p){
+        connectedPlanet = p;
+        isMoving = true;
+    }
+
+    public void setRotationSpeed(float rs, int rd){
+        rotationSpeed = rs;
+        rotationDirection = rd;
+    }
+
+    public Vector2 getTranslation(){ return translation; }
+
+    public boolean getIsMoving(){ return isMoving; }
 
     public float getOrbitRadius() {
         return orbitRadius;
@@ -101,7 +140,7 @@ public class Planet extends Unit implements IInputHandler {
     }
 
     public void OnTouch(TouchData td) {
-        if(connectedSpaceShip != null){
+        if(connectedSpaceShip != null && !GameScreen.hasFinishedLevel){
             launchSpaceShip();
         }
     }

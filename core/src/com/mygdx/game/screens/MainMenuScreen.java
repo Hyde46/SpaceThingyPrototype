@@ -70,7 +70,7 @@ public class MainMenuScreen implements Screen {
         cam.setToOrtho(false, 1080,1920);
         camFixed = new OrthographicCamera();
         camFixed.setToOrtho(false, 1080, 1920);
-        InputManager.setup(cam);
+        InputManager.get.setup(cam);
         //create LevelGraph object and initialize it (creating beacons etc)
         this.levelGraph = new LevelGraph();
         levelGraph.initializeGraph();
@@ -111,8 +111,8 @@ public class MainMenuScreen implements Screen {
 
 
         //register overlay and cameraHelper to InputManager
-        InputManager.instance.objectHolder.Register(overlay);
-        InputManager.instance.objectHolder.Register(cameraHelper);
+        InputManager.get.Register(overlay);
+        InputManager.get.Register(cameraHelper);
     }
 
     @Override

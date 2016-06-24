@@ -41,10 +41,26 @@ public class SpacePhysiX {
 
     public void update(float delta) {
         //update all target locations of units, what they want to do
+        updateUnits(delta);
+        //resolve all collisions
+        resolveCollisions();
+        //check if player in worldbounds.
+        checkLevelboundaryCondition();
+        //check if playership docs to some orbit
+        dockPlayerToOrbit();
+        //Move Units after resolving alle collisions
+        moveAllUnits();
+        //check if player has reached some goal planet
+        resolveFinishLogic();
+    }
+
+    private void updateUnits(float delta) {
         for(Unit u : units){
             u.update(delta);
         }
-        //resolve all collisions
+    }
+
+    private void resolveCollisions() {
         for(Unit u : units){
             if(u.getUnitType() != 0){ //0 = playership
                 //player crashes into planet
@@ -53,12 +69,15 @@ public class SpacePhysiX {
                 }
             }
         }
-        //check if player in worldbounds.
+    }
+
+    private void checkLevelboundaryCondition() {
         if(! worldBound.contains(playerShip.getPosition())){
             playerShip.loseShip();
         }
+    }
 
-        //check if playership docs to some orbit
+    private void dockPlayerToOrbit() {
         if(playerShip != null) {
             if (!playerShip.isInOrbit() && !playerShip.isCollided()) {
                 for (Unit u : units) {
@@ -78,16 +97,21 @@ public class SpacePhysiX {
                 }
             }
         }
-        for(Unit u : units) {
-            u.moveUnit();
-        }
-        //check if player has reached some goal planet
+    }
+
+    private void resolveFinishLogic() {
         if(playerShip.hasReachedGoal()){
             gs.finishLevel(true,false);
         }else if(playerShip.isCollided()){
             gs.finishLevel(false,false);
         }else if(playerShip.isLost()){
             gs.finishLevel(false,true);
+        }
+    }
+
+    private void moveAllUnits() {
+        for(Unit u : units) {
+            u.moveUnit();
         }
     }
 

@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.InputManager;
-import com.mygdx.game.managers.levels.Level;
 
 /**
  * Created by Vali on 18.05.2016.
@@ -77,15 +76,15 @@ public class LevelGraph {
         addBeacon(levelBeacon9);
         setCurrentLevel(levelBeacon1);
 
-        InputManager.instance.objectHolder.Register(levelBeacon1);
-        InputManager.instance.objectHolder.Register(levelBeacon2);
-        InputManager.instance.objectHolder.Register(levelBeacon3);
-        InputManager.instance.objectHolder.Register(levelBeacon4);
-        InputManager.instance.objectHolder.Register(levelBeacon5);
-        InputManager.instance.objectHolder.Register(levelBeacon6);
-        InputManager.instance.objectHolder.Register(levelBeacon7);
-        InputManager.instance.objectHolder.Register(levelBeacon8);
-        InputManager.instance.objectHolder.Register(levelBeacon9);
+        InputManager.get.Register(levelBeacon1);
+        InputManager.get.Register(levelBeacon2);
+        InputManager.get.Register(levelBeacon3);
+        InputManager.get.Register(levelBeacon4);
+        InputManager.get.Register(levelBeacon5);
+        InputManager.get.Register(levelBeacon6);
+        InputManager.get.Register(levelBeacon7);
+        InputManager.get.Register(levelBeacon8);
+        InputManager.get.Register(levelBeacon9);
 
     }
 
