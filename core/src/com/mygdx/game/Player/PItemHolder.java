@@ -28,9 +28,18 @@ public class PItemHolder
 
     public void activate(int slot)
     {
-        if(!items[slot].inCooldown)
+        if(items[slot].stateItem == Item.StateItem.READY)
         {
             items[slot].activate();
         }
+        if(items[slot+1 % 2].stateItem == Item.StateItem.ACTIVATED)
+        {
+            items[slot+1 % 2].deactivate();
+        }
+    }
+
+    public void update(float delta)
+    {
+        for(int i = 0; i < items.length; i++) items[i].update(delta);
     }
 }
