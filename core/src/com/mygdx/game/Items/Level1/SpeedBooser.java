@@ -1,29 +1,39 @@
 package com.mygdx.game.Items.Level1;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.Items.Item;
-import com.mygdx.game.Items.renderAbles.ItemButton;
+import com.mygdx.game.Items.ItemManager;
+import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.utils.SpaceMath;
-import com.mygdx.game.utils.SpacePhysiX;
 
 /**
  * Created by Mechandrius on 25.06.2016.
  */
 public class SpeedBooser extends Item
 {
-    public SpeedBooser(int itemPos)
+    private SpaceShip player;
+
+    private final static float maxCooldown = 10000;
+
+    private float boostTime;
+    private float boostScl;
+
+    public SpeedBooser(int itemPos, ItemManager itemManager)
     {
         super();
         this.level = 1;
         this.levelPos = itemPos;
-        itemButton = new ItemButton();
+        this.iM = itemManager;
     }
 
     @Override
     public void initialize(){
         Vector2 posToRender = SpaceMath.getPosToRender(levelPos);
-        itemButton.initialize("speedBooster_200x200.png",200,posToRender);
+        initialize("speedBooster_200x200.png",200,posToRender);
+        boostTime = 1000;
+        boostScl = 0.01f;
     }
 
     @Override
@@ -51,13 +61,36 @@ public class SpeedBooser extends Item
 
     }
 
+    @Override
+    public void OnHold(TouchData td) {
+        if(stateItem == StateItem.EFFECT){
+            player.boost(boostScl);
+            boostTime-=1;
+            if(boostTime <= 0){
+                effectEndSuper();
+                timeCooldown = maxCooldown;
+            }
+        }
+    }
+
     public void update(float delta)
     {
+        if(stateItem == StateItem.ACTIVATED){
+            stateItem = StateItem.EFFECT;
+
+            if(player == null)
+                player = iM.getPlayer();
+
+            timeCooldown = maxCooldown;
+        }
+        if(stateItem == StateItem.COOLDOWN){
+            timeCooldown -=1;
+            if(timeCooldown <= 0){
+                deactivateSuper();
+            }
+        }
 
     }
 
-    @Override
-    public void render(SpriteBatch sB){
-        itemButton.render(sB);
-    }
+
 }

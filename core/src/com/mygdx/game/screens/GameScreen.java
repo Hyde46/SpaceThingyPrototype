@@ -316,6 +316,10 @@ public class GameScreen implements Screen{
         }
     }
 
+    public SpaceShip getPlayerShip(){
+        return uM.getPlayerShip();
+    }
+
     @Override
     public void resize(int width, int height) {
     }

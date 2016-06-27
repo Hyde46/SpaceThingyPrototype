@@ -1,14 +1,18 @@
 package com.mygdx.game.Items;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Items.renderAbles.ItemButton;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.InputManager.IInputHandler;
+import com.mygdx.game.InputManager.TouchData;
+import com.mygdx.game.renderAbleObjects.decorations.Decoration;
 
 /**
  * Created by Mechandrius on 19.06.2016.
  */
-public abstract class Item
-{
-    public enum StateItem { READY, ACTIVATED, EFFECT, COOLDOWN }
+public abstract class Item  extends Decoration implements IInputHandler {
+    public enum StateItem {READY, ACTIVATED, EFFECT, COOLDOWN}
 
 
     public int level;
@@ -18,37 +22,36 @@ public abstract class Item
     *Determines wether the item is on pos 0(left) oder 1(right) oder 2(mitte)
      */
     protected int levelPos;
-    protected ItemButton itemButton;
+    protected ItemManager iM;
 
-    public Item()
-    {
+    public Item() {
         stateItem = StateItem.READY;
     }
 
     public float timeCooldown;
 
-    public void activateSuper()
-    {
+    public void activateSuper() {
         stateItem = StateItem.ACTIVATED;
     }
-    public void deactivateSuper()
-    {
+
+    public void deactivateSuper() {
         stateItem = StateItem.READY;
     }
 
-    public void effectStartSuper()
-    {
+    public void effectStartSuper() {
         stateItem = StateItem.EFFECT;
     }
 
-    public void effectEndSuper()
-    {
+    public void effectEndSuper() {
         stateItem = StateItem.COOLDOWN;
     }
 
     public abstract void activate();
+
     public abstract void effectStart();
+
     public abstract void effectEnd();
+
     public abstract void deactivate();
 
     public abstract void initialize();
@@ -58,7 +61,52 @@ public abstract class Item
     public abstract void reset();
 
     // will be overriden in subclass because some items dont need the update
-    public void update(float delta){}
+    public void update(float delta) {
 
-    public abstract void render(SpriteBatch sB);
+    }
+
+    public void render(SpriteBatch sB){
+        if(!isActive || tex == null){
+            return;
+        }
+        sprite.draw(sB);
+    }
+    public void renderHitboxes(ShapeRenderer b){
+
+    }
+
+    public void initialize(String texturePath, int widthHeight, Vector2 posToRender){
+        initializePositions(posToRender.cpy());
+        initializeTexture(new Vector2(widthHeight,widthHeight), 0, texturePath);
+        isUI = true;
+        touchHitbox = new Rectangle(posToRender.x,1920-(posToRender.y+200),200,200);
+    }
+
+    @Override
+    public void OnTouch(TouchData td) {
+        if(stateItem == StateItem.READY){
+            System.out.println("activating item");
+            activateSuper();
+        }
+    }
+
+    @Override
+    public void OnRelease(TouchData td) {
+
+    }
+
+    @Override
+    public void OnDrag(TouchData td) {
+
+    }
+
+    @Override
+    public void OnHold(TouchData td) {
+
+    }
+
+    @Override
+    public void OnSwipe(TouchData td) {
+
+    }
 }

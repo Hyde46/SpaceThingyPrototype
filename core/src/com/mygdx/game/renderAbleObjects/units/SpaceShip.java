@@ -26,7 +26,7 @@ public class SpaceShip extends Unit {
 
     public SpaceShip(){
         super();
-
+        unitType = 0;
         deltaMovement = new Vector2();
     }
 
@@ -168,5 +168,14 @@ public class SpaceShip extends Unit {
     public void reachGoal(){ this.hasReachedGoal = true; }
 
     public boolean hasReachedGoal(){ return hasReachedGoal; }
+
+    //METHODS FOR ITEMS
+    public void boost(float boostScl){
+        if(isInOrbit()){
+            rotationSpeed = rotationSpeed *boostScl;
+        }else{
+            deltaMovement.scl(boostScl);
+        }
+    }
 
 }

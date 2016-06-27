@@ -1,7 +1,9 @@
 package com.mygdx.game.Items;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.Items.Level1.SpeedBooser;
+import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.screens.GameScreen;
 
 /**
@@ -38,9 +40,10 @@ public class ItemManager {
         int itemPos = getItemPos(sideToAdd);
 
         switch (itemId) {
-            case 1: items[sideToAdd] = new SpeedBooser(itemPos);
+            case 1: items[sideToAdd] = new SpeedBooser(itemPos,this);
                     itemIds[sideToAdd] = itemId;
                     items[sideToAdd].initialize();
+                    InputManager.get.Register(items[sideToAdd]);
                     break;
             default: break;
         }
@@ -77,5 +80,9 @@ public class ItemManager {
 
     public void update(float delta){
 
+    }
+
+    public SpaceShip getPlayer(){
+        return gs.getPlayerShip();
     }
 }

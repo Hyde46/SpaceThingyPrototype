@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.renderAbleObjects.decorations.Decoration;
+import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
 
 /**
@@ -52,5 +53,13 @@ public class UnitManager {
 
     public void deleteUnit(Unit u){
         //TODO
+    }
+
+    public SpaceShip getPlayerShip(){
+        for(Unit u : units){
+            if(u.getUnitType() == 0 )
+                return (SpaceShip)u;
+        }
+        return null;
     }
 }

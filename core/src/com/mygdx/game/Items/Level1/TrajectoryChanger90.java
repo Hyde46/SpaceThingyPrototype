@@ -13,10 +13,7 @@ public class TrajectoryChanger90 extends Item
         super();
         this.level = 1;
     }
-    @Override
-    public void render(SpriteBatch sB){
-        itemButton.render(sB);
-    }
+
     @Override
     public void initialize(){
 

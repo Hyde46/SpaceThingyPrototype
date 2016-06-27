@@ -18,10 +18,7 @@ public class ShieldFull extends Item
 
     }
 
-    @Override
-    public void render(SpriteBatch sB){
-        itemButton.render(sB);
-    }
+
     @Override
     public void activate() {
 

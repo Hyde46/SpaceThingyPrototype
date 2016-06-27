@@ -17,10 +17,7 @@ public class Teleport extends Item
     public void initialize(){
 
     }
-    @Override
-    public void render(SpriteBatch sB){
-        itemButton.render(sB);
-    }
+
     @Override
     public void activate() {
 

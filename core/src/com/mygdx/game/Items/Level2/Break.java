@@ -8,14 +8,9 @@ import com.mygdx.game.Items.Item;
  */
 public class Break extends Item
 {
-    public Break()
-    {
+    public Break() {
         super();
         this.level = 2;
-    }
-    @Override
-    public void render(SpriteBatch sB){
-        itemButton.render(sB);
     }
     @Override
     public void initialize(){
