@@ -109,4 +109,8 @@ public abstract class Item  extends Decoration implements IInputHandler {
     public void OnSwipe(TouchData td) {
 
     }
+
+    public StateItem getState(){
+        return stateItem;
+    }
 }

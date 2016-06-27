@@ -5,6 +5,7 @@ import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.Items.Level1.SpeedBooser;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.screens.GameScreen;
+import com.mygdx.game.screens.MyGdxGame;
 
 /**
  * Created by Denis on 27.06.2016.
@@ -40,7 +41,7 @@ public class ItemManager {
         int itemPos = getItemPos(sideToAdd);
 
         switch (itemId) {
-            case 1: items[sideToAdd] = new SpeedBooser(itemPos,this);
+            case 1: items[sideToAdd] = new SpeedBooser(itemPos,sideToAdd,this);
                     itemIds[sideToAdd] = itemId;
                     items[sideToAdd].initialize();
                     InputManager.get.Register(items[sideToAdd]);
@@ -70,12 +71,27 @@ public class ItemManager {
     }
 
     public void render(SpriteBatch batch){
+        //Debug
+        if(items[0] != null){
+            MyGdxGame.game.debugFont.draw(batch,"Item 1: "+items[0].getState(),350,1900);
+        }else{
+            MyGdxGame.game.debugFont.draw(batch,"Item 1: NONE",350,1900);
+        }
+        if(items[1] != null){
+            MyGdxGame.game.debugFont.draw(batch,"Item 2: "+items[1].getState(),700,1900);
+        }else{
+            MyGdxGame.game.debugFont.draw(batch,"Item 2: NONE",700,1900);
+        }
+
+        //button render
         if(items[0] != null) {
             items[0].render(batch);
         }
         if(items[1] != null){
             items[1].render(batch);
         }
+
+
     }
 
     public void update(float delta){

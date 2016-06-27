@@ -172,11 +172,9 @@ public class SpaceShip extends Unit {
     //METHODS FOR ITEMS
     public void boost(float boostScl,float delta){
         float scaledBoost = 1.0f+boostScl*delta;
-        if(isInOrbit()){
-            rotationSpeed = rotationSpeed * scaledBoost;
-        }else{
-            deltaMovement = deltaMovement.scl(scaledBoost).cpy();
-        }
+        rotationSpeed = rotationSpeed * scaledBoost;
+        deltaMovement = deltaMovement.scl(scaledBoost).cpy();
+
     }
 
 }
