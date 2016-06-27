@@ -18,6 +18,7 @@ public class MyGdxGame extends Game {
 	public SpriteBatch batch;
 	public SpriteBatch uiBatch;
 	public BitmapFont font;
+	public BitmapFont debugFont;
 	public ShapeRenderer shapeRenderer;
 	public FPSLimiter fpsLimit;
 	public String currentVersion;
@@ -43,11 +44,13 @@ public class MyGdxGame extends Game {
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.size = 90;
 		font = generator.generateFont(parameter);
+		parameter.size = 50;
+		debugFont = generator.generateFont(parameter);
 		generator.dispose();
 		//font.getData().scale(1.0f);
 		shapeRenderer = new ShapeRenderer();
 		fpsLimit = new FPSLimiter(60);
-		currentVersion = "Prototype v0.0.12";
+		currentVersion = "Prototype v0.0.23";
 		openScreen(new MainMenuScreen());
 	}
 
@@ -64,6 +67,7 @@ public class MyGdxGame extends Game {
 	public void dispose() {
 		batch.dispose();
 		font.dispose();
+		debugFont.dispose();
 	}
 
 }

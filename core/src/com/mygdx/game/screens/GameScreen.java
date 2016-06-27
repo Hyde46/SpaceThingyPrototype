@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.InputManager;
+import com.mygdx.game.Items.ItemManager;
 import com.mygdx.game.managers.UnitManager;
 
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
@@ -31,6 +32,8 @@ public class GameScreen implements Screen{
 
     UnitManager uM;
     SpacePhysiX spX;
+
+    ItemManager itemMan;
 
     ParallaxBackgroundManager pbM;
 
@@ -70,14 +73,9 @@ public class GameScreen implements Screen{
 
         spX = new SpacePhysiX();
 
+        itemMan = new ItemManager();
         setLevel(levelToStart);
-
-        ////////////////////////////////
-        //TODO:
-        //INSERT ITEM MANAGER INIT STUFF HERE
-        // <------
-        // <------
-        ////////////////////////////////
+        itemMan.initialize(this);
     }
 
     @Override
@@ -104,14 +102,9 @@ public class GameScreen implements Screen{
 
         //draw ui elments which dont get projected by the camera
         game.uiBatch.begin();
-        game.font.draw(game.uiBatch, game.currentVersion, 5 , 45);
+        game.debugFont.draw(game.uiBatch, game.currentVersion, 5 , 45);
 
-        ////////////////////////////////
-        //TODO:
-        //INSERT ITEM MANAGER RENDERING STUFF HERE
-        // <------
-        // <------
-        ////////////////////////////////
+        itemMan.render(game.uiBatch);
 
         renderFinishedGameState(game);
 
@@ -149,12 +142,8 @@ public class GameScreen implements Screen{
 
     public void update(float delta)
     {
-        ////////////////////////////////
-        //TODO:
-        //INSERT ITEM MANAGER update STUFF HERE
-        // <------
-        // <------
-        ////////////////////////////////
+        itemMan.update(delta);
+
         spX.update(delta);
         InputManager.get.update(delta);
         MyGdxGame.game.fpsLimit.delay();
@@ -183,8 +172,6 @@ public class GameScreen implements Screen{
         }
     }
 
-    //just for the prototype !!!!!!!
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     private void initPrototypeLevel(){
         uM.resetUnits();
         finishCounter = 300;
@@ -209,7 +196,7 @@ public class GameScreen implements Screen{
         ((Planet)p2).initialize(new Vector2(800,1720),320,50,false,"planet2_100x100.png",2,40);
         ((Planet)p3).initialize(new Vector2(950,900),320,36,false,"planet1_72x72.png",1,30);
         ((Planet)p4).initialize(new Vector2(-300,1700),320,50,false,"planet2_100x100.png",2,90);
-        ((Planet)p5).initialize(new Vector2(950,2530),240,36,false,"planet1_72x72.png",1,120);
+        ((Planet)p5).initialize(new Vector2(450,2530),240,36,false,"planet1_72x72.png",1,120);
         ((Planet)p6).initialize(new Vector2(-110,2800),320,50,false,"planet2_100x100.png",2,10);
         ((Planet)p8).initialize(new Vector2(130,3800),320,50,true,"planet2_100x100.png",2,10);
 
@@ -259,6 +246,7 @@ public class GameScreen implements Screen{
         levelBGColor[0] = 63.0f/255.0f;
         levelBGColor[1] = 31.0f/255.0f;
         levelBGColor[2] = 39.0f/255.0f;
+        itemMan.addItem(1,0);
 
         System.out.println("Done!");
     }
@@ -279,7 +267,7 @@ public class GameScreen implements Screen{
         System.out.println("Loading resources...");
         ((SpaceShip)playerShip).initialize(new Vector2(320,300),new Vector2(5,350),null,0,new Vector2(40,40),"ship1_40x40.png",0);
         ((Planet)p1).initialize(new Vector2(200,670),320,50,false,"planet2_100x100.png",1,0);
-        ((Planet)p2).initialize(new Vector2(1000,850),320,50,false,"planet2_100x100.png",2,20);
+        ((Planet)p2).initialize(new Vector2(700,850),320,50,false,"planet2_100x100.png",2,20);
         ((Planet)p3).initialize(new Vector2(-600,1500),320,36,false,"planet1_72x72.png",1,30);
         ((Planet)p4).initialize(new Vector2(1100,2150),320,50,false,"planet2_100x100.png",2,40);
         ((Planet)p5).initialize(new Vector2(-300,2400),240,36,false,"planet1_72x72.png",1,120);
@@ -323,7 +311,7 @@ public class GameScreen implements Screen{
             hasWonLevel = false;
 
             InputManager.get.Clear();
-            MyGdxGame.game.setScreen(new MainMenuScreen());
+            MyGdxGame.game.setScreen(new MainMenuScreen(level,hasWonLevel));
 
         }
     }

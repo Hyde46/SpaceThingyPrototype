@@ -21,4 +21,14 @@ public class SpaceMath {
                                 cosTheta * (pointToRotate.y - centerPoint.y) + centerPoint.y);
         return returnVec;
     }
+
+    public static Vector2 getPosToRender(int levelPos){
+        Vector2 screenDimensions = new Vector2(1080, 1920);
+        Vector2 posToRender = new Vector2();
+        posToRender.y = screenDimensions.y * 0.1f;
+        if(levelPos == 2){
+            posToRender.x = screenDimensions.x/2 - 100;
+        }
+        return posToRender.cpy();
+    }
 }

@@ -1,5 +1,6 @@
 package com.mygdx.game.Items.Level2;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Items.Item;
 
 /**
@@ -12,7 +13,14 @@ public class DestroyRadius extends Item
         super();
         this.level = 2;
     }
+    @Override
+    public void initialize(){
 
+    }
+    @Override
+    public void render(SpriteBatch sB){
+        itemButton.render(sB);
+    }
     @Override
     public void activate() {
 
