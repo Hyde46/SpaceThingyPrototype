@@ -79,7 +79,12 @@ public class ItemManager {
     }
 
     public void update(float delta){
-
+        if(items[0] != null) {
+            items[0].update(delta);
+        }
+        if(items[1] != null){
+            items[1].update(delta);
+        }
     }
 
     public SpaceShip getPlayer(){

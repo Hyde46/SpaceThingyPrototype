@@ -170,11 +170,12 @@ public class SpaceShip extends Unit {
     public boolean hasReachedGoal(){ return hasReachedGoal; }
 
     //METHODS FOR ITEMS
-    public void boost(float boostScl){
+    public void boost(float boostScl,float delta){
+        float scaledBoost = 1.0f+boostScl*delta;
         if(isInOrbit()){
-            rotationSpeed = rotationSpeed *boostScl;
+            rotationSpeed = rotationSpeed * scaledBoost;
         }else{
-            deltaMovement.scl(boostScl);
+            deltaMovement = deltaMovement.scl(scaledBoost).cpy();
         }
     }
 

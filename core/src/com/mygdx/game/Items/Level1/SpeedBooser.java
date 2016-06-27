@@ -20,12 +20,15 @@ public class SpeedBooser extends Item
     private float boostTime;
     private float boostScl;
 
+    private boolean isActivated;
+
     public SpeedBooser(int itemPos, ItemManager itemManager)
     {
         super();
         this.level = 1;
         this.levelPos = itemPos;
         this.iM = itemManager;
+        isActivated = false;
     }
 
     @Override
@@ -33,7 +36,7 @@ public class SpeedBooser extends Item
         Vector2 posToRender = SpaceMath.getPosToRender(levelPos);
         initialize("speedBooster_200x200.png",200,posToRender);
         boostTime = 1000;
-        boostScl = 0.01f;
+        boostScl = 1.1f;
     }
 
     @Override
@@ -62,15 +65,13 @@ public class SpeedBooser extends Item
     }
 
     @Override
+    public void OnRelease(TouchData td) {
+        isActivated = false;
+    }
+
+    @Override
     public void OnHold(TouchData td) {
-        if(stateItem == StateItem.EFFECT){
-            player.boost(boostScl);
-            boostTime-=1;
-            if(boostTime <= 0){
-                effectEndSuper();
-                timeCooldown = maxCooldown;
-            }
-        }
+        isActivated = true;
     }
 
     public void update(float delta)
@@ -82,6 +83,14 @@ public class SpeedBooser extends Item
                 player = iM.getPlayer();
 
             timeCooldown = maxCooldown;
+        }
+        if(stateItem == StateItem.EFFECT && isActivated){
+            player.boost(boostScl,delta);
+            boostTime-=1;
+            if(boostTime <= 0){
+                effectEndSuper();
+                timeCooldown = maxCooldown;
+            }
         }
         if(stateItem == StateItem.COOLDOWN){
             timeCooldown -=1;
