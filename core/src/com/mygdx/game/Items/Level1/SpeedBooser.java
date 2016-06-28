@@ -120,9 +120,9 @@ public class SpeedBooser extends Item
         sprite.draw(sB);
 
         //Debug
-        MyGdxGame.game.debugFont.draw(sB,"Boost Time: "+(int)boostTime, (side*350)+350, 1800);
-        MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown/100), (side*350)+350, 1750);
-        MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (side*350)+350, 1700);
+        MyGdxGame.game.debugFont.draw(sB,"Boost Time: "+(int)boostTime, (side*350)+400, 1800);
+        MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown/100), (side*350)+400, 1750);
+        MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (side*350)+400, 1700);
 
 
 
