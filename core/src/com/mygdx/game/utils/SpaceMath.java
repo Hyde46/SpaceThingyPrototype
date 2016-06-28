@@ -1,6 +1,8 @@
 package com.mygdx.game.utils;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.screens.GameScreen;
 
 /**
  * Created by denis on 5/13/16.
@@ -23,15 +25,16 @@ public class SpaceMath {
     }
 
     public static Vector2 getPosToRender(int levelPos){
-        Vector2 screenDimensions = new Vector2(1080, 1920);
+        Vector2 screenDimensions = new Vector2(GameScreen.camFixed.viewportWidth, GameScreen.camFixed.viewportHeight);
+        System.out.println(screenDimensions);
         Vector2 posToRender = new Vector2();
         posToRender.y = screenDimensions.y * 0.1f;
         if(levelPos == 2){
             posToRender.x = screenDimensions.x/2 - 100;
         }else if(levelPos == 1){
-            posToRender.x = screenDimensions.x/2 + 150;
+            posToRender.x = screenDimensions.x/2 + screenDimensions.x*0.1851f;
         }else if(levelPos == 0){
-            posToRender.x = screenDimensions.x/2 - 350;
+            posToRender.x = screenDimensions.x/2 - screenDimensions.x*2*0.1851f;
         }
         return posToRender.cpy();
     }
