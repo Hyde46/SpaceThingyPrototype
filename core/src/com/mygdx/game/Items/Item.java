@@ -28,6 +28,7 @@ public abstract class Item  extends Decoration implements IInputHandler {
      */
     protected int levelPos;
     protected ItemManager iM;
+    protected GameScreen gs;
 
     protected String itemName;
 
