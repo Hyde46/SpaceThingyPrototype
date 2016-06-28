@@ -61,16 +61,14 @@ public class ItemManager {
 
         switch (itemId) {
             case 1: items[sideToAdd] = new SpeedBooser(itemPos,sideToAdd,this);
-                    itemIds[sideToAdd] = itemId;
-                    items[sideToAdd].initialize();
-                    InputManager.get.Register(items[sideToAdd]);
                     break;
             case 6:items[sideToAdd] = new Break(itemPos,sideToAdd,this);
-                itemIds[sideToAdd] = itemId;
-                items[sideToAdd].initialize();
-                InputManager.get.Register(items[sideToAdd]);
+                    break;
             default: break;
         }
+        itemIds[sideToAdd] = itemId;
+        items[sideToAdd].initialize();
+        InputManager.get.Register(items[sideToAdd]);
 
         return true;
     }

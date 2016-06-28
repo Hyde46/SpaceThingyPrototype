@@ -37,6 +37,8 @@ public class GameScreen implements Screen{
 
     ParallaxBackgroundManager pbM;
 
+    private OrthographicCamera camFixed;
+
     private LevelFactory levelFactory;
 
     //Prototype only stuff
@@ -54,6 +56,8 @@ public class GameScreen implements Screen{
         // create the camera and the SpriteBatch
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, 1080, 1920);
+        camFixed = new OrthographicCamera();
+        camFixed.setToOrtho(false, 1080,1920);
         //camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         /* Main and Game have different cams,
@@ -87,10 +91,12 @@ public class GameScreen implements Screen{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         //draw parallax background
+
+        game.uiBatch.setProjectionMatrix(camFixed.combined);
         game.uiBatch.begin();
         pbM.render(game.uiBatch);
         game.uiBatch.end();
-
+        camFixed.update();
         cM.update(delta);
 
         //draw units
@@ -320,10 +326,13 @@ public class GameScreen implements Screen{
 
         }
     }
-
+    //Item Methods
     public SpaceShip getPlayerShip(){
         return uM.getPlayerShip();
     }
+
+
+    /////////////////////////////
 
     @Override
     public void resize(int width, int height) {
