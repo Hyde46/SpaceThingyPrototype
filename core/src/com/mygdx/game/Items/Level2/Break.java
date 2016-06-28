@@ -40,7 +40,7 @@ public class Break extends Item
     @Override
     public void initialize(){
         Vector2 posToRender = SpaceMath.getPosToRender(levelPos);
-        initialize("speedBooster_200x200.png",200,posToRender);
+        initialize("break_200x200.png",200,posToRender);
         boostTime = maxBoostTime;
         boostScl = -1.1f;
         itemName = "Break";
@@ -120,9 +120,9 @@ public class Break extends Item
         sprite.draw(sB);
 
         //Debug
-        MyGdxGame.game.debugFont.draw(sB,"Break Time: "+(int)boostTime, (side*350)+400, 1800);
-        MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown/100), (side*350)+400, 1750);
-        MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (side*350)+400, 1700);
+        MyGdxGame.game.debugFont.draw(sB,"Break Time: "+(int)boostTime, (side*400)+350, 1800);
+        MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown/100), (side*400)+350, 1750);
+        MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (side*400)+350, 1700);
 
 
 
