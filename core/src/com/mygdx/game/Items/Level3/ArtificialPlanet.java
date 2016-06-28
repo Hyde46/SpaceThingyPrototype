@@ -1,7 +1,10 @@
 package com.mygdx.game.Items.Level3;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.Items.Item;
+import com.mygdx.game.Items.ItemManager;
+import com.mygdx.game.screens.GameScreen;
 
 /**
  * Created by Mechandrius on 25.06.2016.
@@ -13,7 +16,7 @@ public class ArtificialPlanet extends Item
 
     private int side;
 
-    public ArtificialPlanet(int itemPos,int sideToAdd, ItemManager itemManager, GameScreen gs)
+    public ArtificialPlanet(int itemPos, int sideToAdd, ItemManager itemManager, GameScreen gs)
     {
         super();
         this.level = 3;
@@ -58,6 +61,7 @@ public class ArtificialPlanet extends Item
 
     @Override
     public void OnTouch(TouchData td) {
+        /*
         if(stateItem == StateItem.READY){
             stateItem = StateItem.ACTIVATED;
 
@@ -92,7 +96,7 @@ stateItem = StateItem.READY;
 
 }
 
-}
+}*/
     }
 
 public void SetPossibleRadius(){}
@@ -101,6 +105,7 @@ public void RemovePossibleRadius(){}
 
     public void update(float delta)
     {
+        /*
         if(stateItem == StateItem.ACTIVATED){
             stateItem = StateItem.EFFECT;
 
@@ -125,11 +130,12 @@ public void RemovePossibleRadius(){}
                 timeCooldown = 0;
             }
         }
-
+*/
     }
 
 
      public void render(SpriteBatch sB){
+         /*
         if(!isActive || tex == null){
             return;
         }
@@ -140,7 +146,7 @@ public void RemovePossibleRadius(){}
         MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown/100), (side*400)+350, 1750);
         MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (side*400)+350, 1700);
 
-
+    */
 
     }
 }

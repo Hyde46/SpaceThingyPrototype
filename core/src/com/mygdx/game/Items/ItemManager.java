@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.Items.Level1.SpeedBooser;
 import com.mygdx.game.Items.Level2.Break;
+import com.mygdx.game.Items.Level3.ArtificialPlanet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.screens.MyGdxGame;
@@ -64,8 +65,8 @@ public class ItemManager {
                     break;
             case 6:items[sideToAdd] = new Break(itemPos,sideToAdd,this);
                     break;
-case 6:items[sideToAdd] = new ArtificialPlanet(itemPos,sideToAdd,this,GameScreen gs);
-                    break;
+            //case 7:items[sideToAdd] = new ArtificialPlanet(itemPos,sideToAdd,this,GameScreen gs);
+                    //break;
             default: break;
         }
         itemIds[sideToAdd] = itemId;
