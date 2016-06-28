@@ -78,20 +78,6 @@ public class ItemManager {
         return true;
     }
 
-    private int getItemPos(int sideToAdd){
-        if(     (itemIds[0] == -1 && itemIds[1] == -1) ||
-                (itemIds[sideToAdd] != -1 && itemIds[1-sideToAdd] == -1))
-        {
-            return 2;
-        }
-
-        if(itemIds[sideToAdd] == -1 && itemIds[1-sideToAdd] != -1){
-
-            return sideToAdd;
-        }
-        return 2;
-    }
-
     public void render(SpriteBatch batch){
         //Debug
         if(items[0] != null){
