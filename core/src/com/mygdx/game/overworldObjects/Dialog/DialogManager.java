@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.InputManager;
+import com.mygdx.game.screens.MainMenuScreen;
 import com.mygdx.game.screens.MyGdxGame;
 
 /**
@@ -110,20 +111,22 @@ public class DialogManager {
             game.shapeRenderer.end();
             //draw text inside of textarea
             game.font.setColor(Color.BLACK);
-            game.batch.begin();
+
+            game.uiBatch.setProjectionMatrix(MainMenuScreen.camFixed.combined);
+            game.uiBatch.begin();
             //depending on the step of the dialog the text inside of dialog box 1 or 2 is rendered
             //the text is extracted from the text array and rendered
             if (currentDialogStep % 2 == 0) {
-                dialogBox1.renderText(game.batch, currentDialog.getTextArray().get(currentDialogStep));
+                dialogBox1.renderText(game.uiBatch, currentDialog.getTextArray().get(currentDialogStep));
                 //render avatar sprite
-                dialogAvatar1.render(game.batch);
+                dialogAvatar1.render(game.uiBatch);
             } else {
-                dialogBox2.renderText(game.batch, currentDialog.getTextArray().get(currentDialogStep));
+                dialogBox2.renderText(game.uiBatch, currentDialog.getTextArray().get(currentDialogStep));
                 //render avatar sprite
-                dialogAvatar2.render(game.batch);
+                dialogAvatar2.render(game.uiBatch);
             }
-            skipButton.render(game.batch);
-            game.batch.end();
+            skipButton.render(game.uiBatch);
+            game.uiBatch.end();
         }
     }
 

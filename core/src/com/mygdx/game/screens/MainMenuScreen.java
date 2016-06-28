@@ -27,7 +27,7 @@ public class MainMenuScreen implements Screen {
 
     OrthographicCamera cam;
 
-    OrthographicCamera camFixed;
+    public static OrthographicCamera camFixed;
 
     CameraHelper cameraHelper;
 

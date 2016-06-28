@@ -76,10 +76,8 @@ public class InputManager implements InputProcessor
         //screenY = ((int)cam.viewportHeight) -screenY;
         Vector3 posTouchUnproj = new Vector3(screenX,screenY,0);
         //cam.unproject(posTouch);
-
         Array<ARenderableObject> objs = objectHolder.getObjects();
 
-        System.out.println("holder size " + objs.size);
 
         Array<IInputHandler> objsHit = new Array<IInputHandler>();
         for(int i = 0; i < objs.size; i++)
@@ -88,6 +86,9 @@ public class InputManager implements InputProcessor
             if (obj instanceof IInputHandler)
             {
                 cam.unproject(posTouch);
+
+                System.out.println(posTouch);
+                System.out.println(posTouchUnproj);
                 if
                 (
 
