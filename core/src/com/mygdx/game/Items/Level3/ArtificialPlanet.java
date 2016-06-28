@@ -25,7 +25,9 @@ public class ArtificialPlanet extends Item
         this.level = 3;
         this.levelPos = itemPos;
         this.iM = itemManager;
+        this.gs = gs;
         side = sideToAdd;
+
     }
   
     @Override
@@ -69,9 +71,11 @@ public class ArtificialPlanet extends Item
     {
         if(stateItem == StateItem.READY)
         {
-            stateItem = StateItem.ACTIVATED;
+            activateSuper();
 
-            if(ss == null) ss = gs.getPlayerShip();
+            if(gs == null) System.out.println("gs null???");
+
+            //if(ss == null) ss = gs.getPlayerShip();
 
             SetPossibleRadius();
 
