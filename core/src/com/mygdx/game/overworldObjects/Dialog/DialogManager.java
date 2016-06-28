@@ -47,39 +47,44 @@ public class DialogManager {
      * the function initalized everything for the current dialog
      * @param finishedLevel
      */
-    public void initializeDialog(int finishedLevel){
-        int dialogIndex = getWhichDialog(finishedLevel);
+    public void initializeDialog(int finishedLevel, boolean success){
+        if(success){
 
-        //if there should not be a dialog displayed this time (dialogIndex = -1) no initialization
-        if(dialogIndex != -1) {
-            showDialog = true;
-            //get the dialog which should be shown
-            currentDialog = dialogArray.get(dialogIndex);
+            int dialogIndex = getWhichDialog(finishedLevel);
 
-            //initialize dialog boxes
-            dialogBox1 = new DialogTextArea();
-            dialogBox2 = new DialogTextArea();
-            //the width of the first box should be almost the rest of the screen (meaning screen width minus the offset from left and a little
-            dialogBox1.initialize(new Vector2(300, 250), MyGdxGame.game.screenWidth - 300, 700, this);
-            //the second box starts from left and leaves room to the right
-            dialogBox2.initialize(new Vector2(0, 250), MyGdxGame.game.screenWidth - 300, 700, this);
+            //if there should not be a dialog displayed this time (dialogIndex = -1) no initialization
+            if(dialogIndex != -1) {
+                showDialog = true;
+                //get the dialog which should be shown
+                currentDialog = dialogArray.get(dialogIndex);
 
-            //initalize dialog avatar with the avatar image of the first entry in the avatar array of this dialog
-            dialogAvatar1 = new DialogAvatar();
-            dialogAvatar1.initialize(new Vector2(0, 400), 300, 400, getAvatarPath(currentDialog.getAvatarArray().get(0)));
+                //initialize dialog boxes
+                dialogBox1 = new DialogTextArea();
+                dialogBox2 = new DialogTextArea();
+                //the width of the first box should be almost the rest of the screen (meaning screen width minus the offset from left and a little
+                dialogBox1.initialize(new Vector2(300, 250), MyGdxGame.game.screenWidth - 300, 700, this);
+                //the second box starts from left and leaves room to the right
+                dialogBox2.initialize(new Vector2(0, 250), MyGdxGame.game.screenWidth - 300, 700, this);
 
-            dialogAvatar2 = new DialogAvatar();
-            dialogAvatar2.initialize(new Vector2(MyGdxGame.game.screenWidth - 300, 400), 300, 400, getAvatarPath(currentDialog.getAvatarArray().get(1)));
+                //initalize dialog avatar with the avatar image of the first entry in the avatar array of this dialog
+                dialogAvatar1 = new DialogAvatar();
+                dialogAvatar1.initialize(new Vector2(0, 400), 300, 400, getAvatarPath(currentDialog.getAvatarArray().get(0)));
 
-            skipButton = new SkipButton();
-            skipButton.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 200, 10), 400, 200, "skip_button.png", this);
+                dialogAvatar2 = new DialogAvatar();
+                dialogAvatar2.initialize(new Vector2(MyGdxGame.game.screenWidth - 300, 400), 300, 400, getAvatarPath(currentDialog.getAvatarArray().get(1)));
 
-            //register dialog boxes to InputManager
-            InputManager.get.Register(dialogBox1);
-            InputManager.get.Register(dialogBox2);
-            InputManager.get.Register(skipButton);
+                skipButton = new SkipButton();
+                skipButton.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 200, 10), 400, 200, "skip_button.png", this);
 
-            currentDialogStep = 0;
+                //register dialog boxes to InputManager
+                InputManager.get.Register(dialogBox1);
+                InputManager.get.Register(dialogBox2);
+                InputManager.get.Register(skipButton);
+
+                currentDialogStep = 0;
+            }else{
+                showDialog = false;
+            }
         }else{
             showDialog = false;
         }

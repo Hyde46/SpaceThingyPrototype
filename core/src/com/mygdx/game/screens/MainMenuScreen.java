@@ -66,6 +66,7 @@ public class MainMenuScreen implements Screen {
     public MainMenuScreen(){
         finishedLevel = 0;      //is beginning
         setupScreen();
+        setupDialogs(true);
     }
 
     /**
@@ -76,8 +77,13 @@ public class MainMenuScreen implements Screen {
     public MainMenuScreen(int level, boolean success){
         finishedLevel = level;
         setupScreen();
+        //depending on success the boolean showDialog will be set to true of false
+        setupDialogs(success);
     }
 
+    /**
+     * method to set up everything needed for main menu screen, called in both constructors
+     */
     private void setupScreen(){
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080,1920);
@@ -103,12 +109,6 @@ public class MainMenuScreen implements Screen {
         boTest = new ButtonOptions();
         boTest.initialize(new Vector2(200,200), 250, 250);
 
-        //create the dialog manager and initialize the dialogs
-        dialogManager = new DialogManager();
-        dialogManager.createDialogs();
-        //show the dialog
-        dialogManager.initializeDialog(finishedLevel);
-
         //add the backgrounds (hex pattern and stars)
         backgroundManager = new ParallaxBackgroundManager();
         backgroundManager.setLayers(2);
@@ -124,6 +124,18 @@ public class MainMenuScreen implements Screen {
         InputManager.get.Register(overlay);
         InputManager.get.Register(cameraHelper);
     }
+
+    /**
+     * method to set up everything needed for the dialog, called in constructor if level was successfully finished
+     */
+    private void setupDialogs(boolean success){
+        //create the dialog manager and initialize the dialogs
+        dialogManager = new DialogManager();
+        dialogManager.createDialogs();
+        //show the dialog
+        dialogManager.initializeDialog(finishedLevel, success);
+    }
+
     @Override
     public void render(float delta) {
 
