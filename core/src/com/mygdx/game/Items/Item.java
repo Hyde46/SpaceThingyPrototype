@@ -119,6 +119,8 @@ public abstract class Item  extends Decoration implements IInputHandler {
 
     }
 
+    public GameScreen getGS() { return gs; }
+
     public StateItem getState(){
         return stateItem;
     }

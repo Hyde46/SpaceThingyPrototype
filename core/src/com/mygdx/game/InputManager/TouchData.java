@@ -7,20 +7,20 @@ public class TouchData
 {
     public enum DirSwipe { DEFAULT, RIGHT, LEFT , UP, DOWN }
 
-    Array<IInputHandler> objsOrigin;
+    private Array<IInputHandler> objsOrigin;
 
-    Vector2 posOrigin;
-    Vector2 posOriginUnprojected;
-    Vector2 posCurrent;
-    Vector2 posCurrentUnprojected;
-    Vector2 posPrev;
-    Vector2 deltaFrame;
-    Vector2 deltaSwipe;
+    private Vector2 posOrigin;
+    private Vector2 posOriginUnprojected;
+    private Vector2 posCurrent;
+    private Vector2 posCurrentUnprojected;
+    private Vector2 posPrev;
+    private Vector2 deltaFrame;
+    private Vector2 deltaSwipe;
 
-    DirSwipe dirSwipePrev;
+    private DirSwipe dirSwipePrev;
 
-    float lengthSwipe;
-    float secPressed;
+    private float lengthSwipe;
+    private float secPressed;
 
     public TouchData()
     {

@@ -306,7 +306,7 @@ public class GameScreen implements Screen{
         levelBGColor[1] = 49.0f/255.0f;
         levelBGColor[2] = 41.0f/255.0f;
 
-        itemMan.setItems(-1,1);
+        itemMan.setItems(1,7);
 
         System.out.println("Done!");
     }
@@ -325,13 +325,26 @@ public class GameScreen implements Screen{
 
         }
     }
+
+    //////////////
     //Item Methods
+    //////////////
+
     public SpaceShip getPlayerShip(){
         return uM.getPlayerShip();
     }
 
+    public void addPlanet(Vector2 posSpawn)
+    {
+        Unit planetTemp = new Planet();
+        ((Planet)planetTemp).initialize(posSpawn,320,50,false,"planet2_100x100.png",1,0);
+        uM.addUnit(planetTemp);
+        InputManager.get.Register(planetTemp);
+    }
 
-    /////////////////////////////
+    //////////////
+    //////////////
+    //////////////
 
     @Override
     public void resize(int width, int height) {

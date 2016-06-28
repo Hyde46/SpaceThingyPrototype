@@ -138,13 +138,13 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
 
             if (levelId == lg.getCurrentLevel().getLevelId() && sh.getInOrbit()) {
                 if (getIsShop()) {
+                    //InputManager.get.Clear();
                     game.setScreen(new ShopScreen());
                 }
                 else
                 {
-                    InputManager.get.Clear();
+                    //InputManager.get.Clear();
                     game.setScreen(new GameScreen(levelId));
-
                 }
             } else {  //touched level is different from current level
                 if (!sh.getTravelsRoute()) {      //only call navigate function, if the ship is not already on route

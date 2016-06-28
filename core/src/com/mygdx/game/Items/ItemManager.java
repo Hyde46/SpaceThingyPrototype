@@ -65,8 +65,8 @@ public class ItemManager {
                     break;
             case 6:items[sideToAdd] = new Break(itemPos,sideToAdd,this);
                     break;
-            //case 7:items[sideToAdd] = new ArtificialPlanet(itemPos,sideToAdd,this,GameScreen gs);
-                    //break;
+            case 7:items[sideToAdd] = new ArtificialPlanet(itemPos,sideToAdd,this,gs);
+                    break;
             default: break;
         }
         itemIds[sideToAdd] = itemId;

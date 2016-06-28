@@ -1,10 +1,14 @@
 package com.mygdx.game.Items.Level3;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.Items.Item;
 import com.mygdx.game.Items.ItemManager;
+import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.screens.GameScreen;
+import com.mygdx.game.screens.MyGdxGame;
+import com.mygdx.game.utils.SpaceMath;
 
 /**
  * Created by Mechandrius on 25.06.2016.
@@ -12,26 +16,25 @@ import com.mygdx.game.screens.GameScreen;
 public class ArtificialPlanet extends Item
 {
 
-
-
     private int side;
 
     public ArtificialPlanet(int itemPos, int sideToAdd, ItemManager itemManager, GameScreen gs)
     {
         super();
+
         this.level = 3;
         this.levelPos = itemPos;
         this.iM = itemManager;
         side = sideToAdd;
     }
-
-    
-
-
   
     @Override
     public void initialize(){
-
+        Vector2 posToRender = SpaceMath.getPosToRender(levelPos);
+        initialize("speedBooster_200x200.png",200,posToRender);
+        itemName = "Artificial Planet";
+        maxUses = 10;
+        uses = maxUses;
     }
 
     @Override
@@ -59,44 +62,39 @@ public class ArtificialPlanet extends Item
 
     }
 
+    SpaceShip ss;
+
     @Override
-    public void OnTouch(TouchData td) {
-        /*
-        if(stateItem == StateItem.READY){
+    public void OnTouch(TouchData td)
+    {
+        if(stateItem == StateItem.READY)
+        {
             stateItem = StateItem.ACTIVATED;
 
-             
+            if(ss == null) ss = gs.getPlayerShip();
 
-            if(player == null)
-                player = iM.getPlayer();
+            SetPossibleRadius();
 
-
-SetPossibleRadius();
-
-
-            timeCooldown = maxCooldown;
+            timeCooldown = 5f;
         };
 
+        if(stateItem == StateItem.ACTIVATED)
+        {
+            Vector2 posPlayer = ss.getPosition();
+            Vector2 posPress = td.getPosCurrent();
 
-if(stateItem == StateItem.ACTIVATED){
-Vector2 posPlayer;
-Vector2 posPress = td.posCurrent;
+            if(Vector2.dst(posPlayer.x, posPlayer.y, posPress.x, posPress.y) < 300)
+            {
+                timeCooldown = 5f;
+                stateItem = StateItem.COOLDOWN;
+                RemovePossibleRadius();
 
-if(Vector2.Distance < 300)
-{
-RemovePossibleRadius();
-gs.addPlanet(Vector2 pos);
+                gs.addPlanet(posPress);
 
+                stateItem = StateItem.READY;
+            }
 
-
-
-stateItem = StateItem.READY;
-
-
-
-}
-
-}*/
+        }
     }
 
 public void SetPossibleRadius(){}
@@ -105,24 +103,6 @@ public void RemovePossibleRadius(){}
 
     public void update(float delta)
     {
-        /*
-        if(stateItem == StateItem.ACTIVATED){
-            stateItem = StateItem.EFFECT;
-
-            if(player == null)
-                player = iM.getPlayer();
-
-            timeCooldown = maxCooldown;
-        }
-        if(stateItem == StateItem.EFFECT && isActivated){
-            player.boost(boostScl,delta);
-            boostTime-=1000*delta;
-            if(boostTime <= 0){
-                effectEndSuper();
-                boostTime = maxBoostTime;
-                timeCooldown = maxCooldown;
-            }
-        }
         if(stateItem == StateItem.COOLDOWN){
             timeCooldown -=1000*delta;
             if(timeCooldown <= 0){
@@ -130,23 +110,20 @@ public void RemovePossibleRadius(){}
                 timeCooldown = 0;
             }
         }
-*/
     }
 
 
-     public void render(SpriteBatch sB){
-         /*
+     public void render(SpriteBatch sB)
+     {
+
         if(!isActive || tex == null){
             return;
         }
         sprite.draw(sB);
 
         //Debug
-        MyGdxGame.game.debugFont.draw(sB,"Boost Time: "+(int)boostTime, (side*400)+350, 1800);
+        MyGdxGame.game.debugFont.draw(sB,"Hello im Aritifical Planet item", (side*400)+350, 1800);
         MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown/100), (side*400)+350, 1750);
         MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (side*400)+350, 1700);
-
-    */
-
     }
 }
