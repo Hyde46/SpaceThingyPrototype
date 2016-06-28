@@ -61,16 +61,14 @@ public class ItemManager {
 
         switch (itemId) {
             case 1: items[sideToAdd] = new SpeedBooser(itemPos,sideToAdd,this);
-                    itemIds[sideToAdd] = itemId;
-                    items[sideToAdd].initialize();
-                    InputManager.get.Register(items[sideToAdd]);
                     break;
             case 6:items[sideToAdd] = new Break(itemPos,sideToAdd,this);
-                itemIds[sideToAdd] = itemId;
-                items[sideToAdd].initialize();
-                InputManager.get.Register(items[sideToAdd]);
+                    break;
             default: break;
         }
+        itemIds[sideToAdd] = itemId;
+        items[sideToAdd].initialize();
+        InputManager.get.Register(items[sideToAdd]);
 
         return true;
     }
@@ -78,20 +76,6 @@ public class ItemManager {
     public boolean removeItemSlot(int sideToRemove){
 
         return true;
-    }
-
-    private int getItemPos(int sideToAdd){
-        if(     (itemIds[0] == -1 && itemIds[1] == -1) ||
-                (itemIds[sideToAdd] != -1 && itemIds[1-sideToAdd] == -1))
-        {
-            return 2;
-        }
-
-        if(itemIds[sideToAdd] == -1 && itemIds[1-sideToAdd] != -1){
-
-            return sideToAdd;
-        }
-        return 2;
     }
 
     public void render(SpriteBatch batch){
