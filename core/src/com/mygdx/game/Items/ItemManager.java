@@ -16,6 +16,15 @@ public class ItemManager {
 
     //some sort of safedata, with informations about which items the player has is needed
 
+    // while 1 item is activated ... orbit leave not possible ...
+    // item activation can trigger orbit leave with same touch
+
+    public boolean isOneItemActive()
+    {
+        // is item 0, 1 == activated
+        return true;
+    }
+
     private Item[] items;
     private int[] itemIds;
 

@@ -35,7 +35,7 @@ public class SpaceShip extends Unit {
     }
 
     public void initialize(Vector2 position,Vector2 deltaMovement,Planet connectedPlanet, float currentOrbitRadius, Vector2 spriteDimensions, String texturePath, int spriteId){
-        unitType = 0;
+//        unitType = 0;
         isCollided = false;
         isLost = false;
         hasReachedGoal = false;

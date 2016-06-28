@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 //import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.Items.ItemManager;
 import com.mygdx.game.managers.UnitManager;
@@ -24,6 +25,8 @@ import com.mygdx.game.renderAbleObjects.units.Planet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
 import com.mygdx.game.utils.SpacePhysiX;
+
+import java.util.Random;
 
 public class GameScreen implements Screen{
 
@@ -78,8 +81,8 @@ public class GameScreen implements Screen{
         spX = new SpacePhysiX();
 
         itemMan = new ItemManager();
-        setLevel(levelToStart);
         itemMan.initialize(this);
+        setLevel(levelToStart);
     }
 
     @Override
@@ -146,7 +149,6 @@ public class GameScreen implements Screen{
                 game.font.draw(game.uiBatch, "Your ship got lost!", 180, 1000);
 
             }
-
         }
     }
 
@@ -337,10 +339,18 @@ public class GameScreen implements Screen{
         return uM.getPlayerShip();
     }
 
-    public void addPlanet(Vector2 posSpawn)
+    public void addPlanet(Vector2 posWorld)
     {
         Unit planetTemp = new Planet();
-        ((Planet)planetTemp).initialize(posSpawn,320,50,false,"planet2_100x100.png",1,0);
+
+        //Vector3 posWorldUnprojected = camFixed.unproject(posWorld);
+        //Vector2 posWorldFlat = new Vector2(posWorldUnprojected.x, posWorldUnprojected.y);
+
+        //int dimPicX = 320;
+        //int dimPixY = 50;
+
+        ((Planet)planetTemp).initialize(posWorld,320,50,false,"planet2_100x100.png",1,(new Random()).nextInt(360));
+
         uM.addUnit(planetTemp);
         InputManager.get.Register(planetTemp);
     }

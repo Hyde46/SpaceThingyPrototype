@@ -1,14 +1,33 @@
 package com.mygdx.game.InputManager;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
 public class TouchData
 {
+    public Vector3 getPosWorldOrigin() {
+        return posWorldOrigin;
+    }
+
+    public Vector3 getPosWorldCurrent() {
+        return posWorldCurrent;
+    }
+
+    public void setPosWorldCurrent(Vector3 posWorldCurrent) {
+        this.posWorldCurrent = posWorldCurrent;
+    }
+
+    public void setPosWorldOrigin(Vector3 posWorldOrigin) {
+        this.posWorldOrigin = posWorldOrigin;
+    }
+
     public enum DirSwipe { DEFAULT, RIGHT, LEFT , UP, DOWN }
 
     private Array<IInputHandler> objsOrigin;
 
+    private Vector3 posWorldOrigin;
+    private Vector3 posWorldCurrent;
     private Vector2 posOrigin;
     private Vector2 posOriginUnprojected;
     private Vector2 posCurrent;
