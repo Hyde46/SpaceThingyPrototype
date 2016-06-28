@@ -198,7 +198,7 @@ public class GameScreen implements Screen{
         Unit p9 = new Planet();
         Unit p10 = new Planet();
         System.out.println("Loading resources...");
-        ((SpaceShip)playerShip).initialize(new Vector2(295,300),new Vector2(5,280),null,0,new Vector2(40,40),"ship1_40x40.png",0);
+
         ((Planet)p1).initialize(new Vector2(200,670),320,36,false,"planet1_72x72.png",1,0);
         ((Planet)p2).initialize(new Vector2(800,1720),320,50,false,"planet2_100x100.png",2,40);
         ((Planet)p3).initialize(new Vector2(950,900),320,36,false,"planet1_72x72.png",1,30);
@@ -207,6 +207,7 @@ public class GameScreen implements Screen{
         ((Planet)p6).initialize(new Vector2(-110,2800),320,50,false,"planet2_100x100.png",2,10);
         ((Planet)p8).initialize(new Vector2(130,3800),320,50,true,"planet2_100x100.png",2,10);
 
+        ((SpaceShip)playerShip).initialize(new Vector2(350,300),new Vector2(5,350),null,100,new Vector2(40,40),"ship1_40x40.png",0);
         ((Planet)p7).initialize(new Vector2(-430,2800),190,18,false,"moon1_36x36.png",1,0);
         ((Planet)p7).connectToPlanet((Planet)p6);
         ((Planet)p7).setRotationSpeed(20.0f,1);
@@ -272,14 +273,13 @@ public class GameScreen implements Screen{
         Unit p5 = new Planet();
         Unit p6 = new Planet();
         System.out.println("Loading resources...");
-        ((SpaceShip)playerShip).initialize(new Vector2(320,300),new Vector2(5,350),null,0,new Vector2(40,40),"ship1_40x40.png",0);
         ((Planet)p1).initialize(new Vector2(200,670),320,50,false,"planet2_100x100.png",1,0);
         ((Planet)p2).initialize(new Vector2(700,850),320,50,false,"planet2_100x100.png",2,20);
         ((Planet)p3).initialize(new Vector2(-600,1500),320,36,false,"planet1_72x72.png",1,30);
         ((Planet)p4).initialize(new Vector2(1100,2150),320,50,false,"planet2_100x100.png",2,40);
         ((Planet)p5).initialize(new Vector2(-300,2400),240,36,false,"planet1_72x72.png",1,120);
         ((Planet)p6).initialize(new Vector2(200,3300),240,50,true,"planet2_100x100.png",2,10);
-
+        ((SpaceShip)playerShip).initialize(new Vector2(300,670),new Vector2(5,350),(Planet)p1,100,new Vector2(40,40),"ship1_40x40.png",0);
         uM.addUnit(p1);
         uM.addUnit(p2);
         uM.addUnit(p3);

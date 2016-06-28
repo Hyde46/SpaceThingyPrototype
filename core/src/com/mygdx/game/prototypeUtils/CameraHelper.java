@@ -8,6 +8,8 @@ import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.overworldObjects.Dialog.DialogManager;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
+import com.mygdx.game.screens.GameScreen;
+import com.mygdx.game.screens.MainMenuScreen;
 
 /**
  * Created by denis on 5/22/16.
@@ -34,7 +36,7 @@ public class CameraHelper extends ARenderableObject implements IInputHandler {
     }
     public void setCameraManager(CameraManager cM, DialogManager dialogManager){
         this.cM = cM;
-        hitbox.set(0,0,cM.getCam().viewportWidth, cM.getCam().viewportHeight);
+        hitbox.set(0,0, MainMenuScreen.camFixed.viewportWidth, MainMenuScreen.camFixed.viewportHeight);
         isUI = true;
         this.dialogManager = dialogManager;
     }
