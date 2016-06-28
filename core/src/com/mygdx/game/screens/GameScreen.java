@@ -91,11 +91,10 @@ public class GameScreen implements Screen{
 
         //draw parallax background
 
-        game.uiBatch.setProjectionMatrix(camFixed.combined);
         game.uiBatch.begin();
+        game.uiBatch.setProjectionMatrix(camFixed.combined);
         pbM.render(game.uiBatch);
         game.uiBatch.end();
-        camFixed.update();
         cM.update(delta);
 
         //draw units
@@ -107,8 +106,8 @@ public class GameScreen implements Screen{
 
         //draw ui elments which dont get projected by the camera
 
-        game.uiBatch.setProjectionMatrix(camFixed.combined);
         game.uiBatch.begin();
+        game.uiBatch.setProjectionMatrix(camFixed.combined);
         game.debugFont.draw(game.uiBatch, game.currentVersion, 5 , 1900);
         game.debugFont.draw(game.uiBatch, "X: "+(int)(getPlayerShip().getPosition().x / 10),5,1850);
         game.debugFont.draw(game.uiBatch, "Y: "+(int)(getPlayerShip().getPosition().y / 10),5,1800);
@@ -118,6 +117,8 @@ public class GameScreen implements Screen{
         renderFinishedGameState(game);
 
         game.uiBatch.end();
+
+        camFixed.update();
 
         //draw hitboxes
         /*
