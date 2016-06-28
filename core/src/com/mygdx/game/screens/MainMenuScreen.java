@@ -64,55 +64,8 @@ public class MainMenuScreen implements Screen {
     private ParallaxBackgroundManager backgroundManager;
 
     public MainMenuScreen(){
-//        this.game = game;
-
-        cam = new OrthographicCamera();
-        cam.setToOrtho(false, 1080,1920);
-        camFixed = new OrthographicCamera();
-        camFixed.setToOrtho(false, 1080, 1920);
-        InputManager.get.setup(cam);
-        //create LevelGraph object and initialize it (creating beacons etc)
-        this.levelGraph = new LevelGraph();
-        levelGraph.initializeGraph();
-
-        //create ship object and initialize it (connected beacon)
-        this.ship = new Ship();
-        ship.initialize(levelGraph.getCurrentLevel(), new Vector2(40,40),"ship1_40x40.png");
-
-        pathNavigationManager = new PathNavigationManager(ship, levelGraph);
-
-        overlay = new Overlay();
-        overlay.initialize(true);       //true because it should be seen
-
-        overlayHUD = new OverlayOverworldHUD();
-        overlayHUD.initialize();
-
-        boTest = new ButtonOptions();
-        boTest.initialize(new Vector2(200,200), 250, 250);
-
-        //set finished level, needs to be changed later...
-        finishedLevel = 1;
-
-        //create the dialog manager and initialize the dialogs
-        dialogManager = new DialogManager();
-        dialogManager.createDialogs();
-        //show the dialog
-        dialogManager.initializeDialog(finishedLevel);
-
-        //add the backgrounds (hex pattern and stars)
-        backgroundManager = new ParallaxBackgroundManager();
-        backgroundManager.setLayers(2);
-
-        cameraManager = new CameraManager();
-        cameraHelper = new CameraHelper();
-        cameraManager.setCam(cam);
-        cameraHelper.setCameraManager(cameraManager, dialogManager);
-        cameraManager.addPBM(backgroundManager);
-
-
-        //register overlay and cameraHelper to InputManager
-        InputManager.get.Register(overlay);
-        InputManager.get.Register(cameraHelper);
+        finishedLevel = 0;      //is beginning
+        setupScreen();
     }
 
     /**
@@ -121,6 +74,11 @@ public class MainMenuScreen implements Screen {
      * @param success
      */
     public MainMenuScreen(int level, boolean success){
+        finishedLevel = level;
+        setupScreen();
+    }
+
+    private void setupScreen(){
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080,1920);
         camFixed = new OrthographicCamera();
@@ -145,9 +103,6 @@ public class MainMenuScreen implements Screen {
         boTest = new ButtonOptions();
         boTest.initialize(new Vector2(200,200), 250, 250);
 
-        //set finished level, needs to be changed later...
-        finishedLevel = 1;
-
         //create the dialog manager and initialize the dialogs
         dialogManager = new DialogManager();
         dialogManager.createDialogs();
@@ -169,7 +124,6 @@ public class MainMenuScreen implements Screen {
         InputManager.get.Register(overlay);
         InputManager.get.Register(cameraHelper);
     }
-
     @Override
     public void render(float delta) {
 
@@ -212,7 +166,10 @@ public class MainMenuScreen implements Screen {
         }
 
         //process ship's movement
+        //TODO put in own update method
         ship.update(delta);
+        InputManager.get.update(delta);
+
     }
 
     /**
@@ -222,6 +179,8 @@ public class MainMenuScreen implements Screen {
     public DialogManager getDialogManager(){
         return dialogManager;
     }
+
+
 
     @Override
     public void dispose()    {
