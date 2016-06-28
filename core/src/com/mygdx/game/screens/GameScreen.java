@@ -106,6 +106,8 @@ public class GameScreen implements Screen{
 
 
         //draw ui elments which dont get projected by the camera
+
+        game.uiBatch.setProjectionMatrix(camFixed.combined);
         game.uiBatch.begin();
         game.debugFont.draw(game.uiBatch, game.currentVersion, 5 , 1900);
         game.debugFont.draw(game.uiBatch, "X: "+(int)(getPlayerShip().getPosition().x / 10),5,1850);
