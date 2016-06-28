@@ -79,7 +79,7 @@ public class SkipButton extends Decoration implements IInputHandler {
         showOverlay = true;
         //change width of overlay
 //        skipButtonOverlay.initialize(getPosition(), progress, height, overlayTexture);
-           skipButtonOverlay.getSprite().setBounds(getPosition().x, getPosition().y, progress, height);
+           skipButtonOverlay.getSprite().setSize(progress, height);
         if(progress >= 400){
             dialogManager.skipDialog();
         }

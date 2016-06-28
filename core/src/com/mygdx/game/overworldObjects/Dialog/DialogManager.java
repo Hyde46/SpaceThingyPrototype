@@ -29,12 +29,12 @@ public class DialogManager {
      */
     public void createDialogs(){
         Array<String> textArray1 = new Array<String>();
-        textArray1.addAll("This is the first dialog", "It has two characters");
+        textArray1.addAll("Welcome to the game!!", "This dialog has two characters");
         Array<Integer> avatarArray1 = new Array<Integer>();
         avatarArray1.addAll(1, 2);
         Dialog dialog1 = new Dialog(textArray1, avatarArray1);
         Array<String> textArray2 = new Array<String>();
-        textArray2.addAll("This is the second dialog", "It has 2 characters. And the second character speaks a bit longer, cause he has to explan something really important.", "And the first one speaks twice");
+        textArray2.addAll("This is the dialog after we successfully finished level 1!", "It has 2 characters. And the second character speaks a bit longer, cause he has to explain something really important.", "And the first one speaks twice");
         Array<Integer> avatarArray2 = new Array<Integer>();
         avatarArray2.addAll(3, 5, 3);
         Dialog dialog2 = new Dialog(textArray2, avatarArray2);
