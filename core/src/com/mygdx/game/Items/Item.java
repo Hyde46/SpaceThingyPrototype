@@ -18,14 +18,20 @@ public abstract class Item  extends Decoration implements IInputHandler {
     public int level;
     public StateItem stateItem;
 
+    protected int maxUses;
+    protected int uses;
+
     /*
     *Determines wether the item is on pos 0(left) oder 1(right) oder 2(mitte)
      */
     protected int levelPos;
     protected ItemManager iM;
 
+    protected String itemName;
+
     public Item() {
         stateItem = StateItem.READY;
+        itemName = "None";
     }
 
     public float timeCooldown;
@@ -84,9 +90,9 @@ public abstract class Item  extends Decoration implements IInputHandler {
 
     @Override
     public void OnTouch(TouchData td) {
-        if(stateItem == StateItem.READY){
-            System.out.println("activating item");
+        if(stateItem == StateItem.READY && uses > 0){
             activateSuper();
+            uses--;
         }
     }
 
@@ -113,4 +119,6 @@ public abstract class Item  extends Decoration implements IInputHandler {
     public StateItem getState(){
         return stateItem;
     }
+
+    public String getItemName() { return itemName; }
 }

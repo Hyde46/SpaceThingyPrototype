@@ -43,6 +43,9 @@ public class SpeedBooser extends Item
         initialize("speedBooster_200x200.png",200,posToRender);
         boostTime = maxBoostTime;
         boostScl = 1.1f;
+        itemName = "Speed Booster";
+        maxUses = 10;
+        uses = maxUses;
     }
 
     @Override
@@ -117,8 +120,9 @@ public class SpeedBooser extends Item
         sprite.draw(sB);
 
         //Debug
-        MyGdxGame.game.debugFont.draw(sB,"Boost Time: "+(int)boostTime, (side*350)+350, 1850);
-        MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown/100), (side*350)+350, 1800);
+        MyGdxGame.game.debugFont.draw(sB,"Boost Time: "+(int)boostTime, (side*350)+350, 1800);
+        MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown/100), (side*350)+350, 1750);
+        MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (side*350)+350, 1700);
 
 
 

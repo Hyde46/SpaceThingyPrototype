@@ -28,6 +28,10 @@ public class SpaceMath {
         posToRender.y = screenDimensions.y * 0.1f;
         if(levelPos == 2){
             posToRender.x = screenDimensions.x/2 - 100;
+        }else if(levelPos == 1){
+            posToRender.x = screenDimensions.x/2 + 150;
+        }else if(levelPos == 0){
+            posToRender.x = screenDimensions.x/2 - 350;
         }
         return posToRender.cpy();
     }

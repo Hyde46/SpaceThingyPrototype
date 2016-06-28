@@ -248,7 +248,7 @@ public class GameScreen implements Screen{
         levelBGColor[0] = 63.0f/255.0f;
         levelBGColor[1] = 31.0f/255.0f;
         levelBGColor[2] = 39.0f/255.0f;
-        itemMan.addItem(1,0);
+        itemMan.setItems(1,6);
 
         System.out.println("Done!");
     }
