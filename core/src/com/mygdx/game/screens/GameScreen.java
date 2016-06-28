@@ -9,7 +9,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+//import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.InputManager;
@@ -37,7 +37,7 @@ public class GameScreen implements Screen{
 
     ParallaxBackgroundManager pbM;
 
-    private OrthographicCamera camFixed;
+    public static OrthographicCamera camFixed;
 
     private LevelFactory levelFactory;
 
@@ -86,8 +86,7 @@ public class GameScreen implements Screen{
     public void render(float delta) {
 
         MyGdxGame game = MyGdxGame.game;
-        //Gdx.gl.glClearColor(33.0f/255.0f, 49.0f/255.0f, 41.0f/255.0f, 1);  // Blue/green ish background
-        Gdx.gl.glClearColor(levelBGColor[0],levelBGColor[1],levelBGColor[2], 1);  // red ish background
+        Gdx.gl.glClearColor(levelBGColor[0],levelBGColor[1],levelBGColor[2], 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         //draw parallax background
