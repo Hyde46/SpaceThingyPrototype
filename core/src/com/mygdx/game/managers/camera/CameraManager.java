@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
+import com.mygdx.game.screens.GameScreen;
+import com.mygdx.game.screens.MainMenuScreen;
 
 /**
  * Created by denis on 5/22/16.
@@ -39,7 +41,7 @@ public class CameraManager {
     public void initializeCamera(SpaceShip player){
         this.player = player;
         //this.screenDim.set(new Vector2(cam.viewportWidth,cam.viewportHeight));
-        this.screenDim.set(new Vector2(Gdx.graphics.getWidth(),Gdx.graphics.getHeight()));
+        this.screenDim.set(new Vector2(MainMenuScreen.camFixed.viewportWidth,MainMenuScreen.camFixed.viewportHeight));
         screenCenter.set(screenDim.x/2,screenDim.y/2,0);
         cam.unproject(screenCenter);
         cam.translate(player.getPosition().x-screenCenter.x/2,player.getPosition().y-screenCenter.y/2);

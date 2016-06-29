@@ -107,7 +107,11 @@ public class InputManager implements InputProcessor
             return true; // there is no interesting object touched
         }
 
+        Vector3 vecTouch = new Vector3(screenX, screenY, 0);
+
         TouchData td = new TouchData();
+        td.setPosWorldOrigin(cam.unproject(new Vector3(screenX,screenY,0)));
+        td.setPosWorldCurrent(cam.unproject(new Vector3(screenX,screenY,0)));
         td.setObjsOrigin(objsHit);
         td.setPosOrigin(new Vector2(posTouch.x, posTouch.y));
         td.setPosOriginUnprojected(new Vector2(posTouchUnproj.x, posTouchUnproj.y));
@@ -120,6 +124,7 @@ public class InputManager implements InputProcessor
         td.setLengthSwipe(0f);
 
         touchData.put(pointer, td);
+        notifyObjectsTouchAnywhere(td);
         notifyObjectsTouch(td);
 
         return true;
@@ -139,7 +144,6 @@ public class InputManager implements InputProcessor
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer)
     {
-
         if(touchData.containsKey(pointer))
         {
             Vector3 vecTouch = new Vector3(screenX, screenY, 0);
@@ -148,6 +152,9 @@ public class InputManager implements InputProcessor
            // cam.unproject(vecTouch);
 
             TouchData td = touchData.get(pointer);
+
+            td.setPosWorldOrigin(cam.unproject(new Vector3(screenX,screenY,0)));
+            td.setPosWorldCurrent(cam.unproject(new Vector3(screenX,screenY,0)));
             td.setPosPrev(td.getPosCurrent());
             //td.setPosCurrent(new Vector2(screenX, screenY));
             td.setPosCurrent(new Vector2(vecTouch.x, vecTouch.y));
@@ -190,6 +197,14 @@ public class InputManager implements InputProcessor
         }
 
         return true;
+    }
+
+    void notifyObjectsTouchAnywhere(TouchData td)
+    {
+        for (ARenderableObject obj : objectHolder.getObjects())
+        {
+            if(obj instanceof IInputAnywhere) ((IInputAnywhere)obj).OnTouchAnywhere(td);
+        }
     }
 
     void notifyObjectsTouch(TouchData td)

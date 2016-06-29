@@ -35,6 +35,7 @@ public abstract class Item  extends Decoration implements IInputHandler {
     public Item() {
         stateItem = StateItem.READY;
         itemName = "None";
+        //this.gs = gs;
     }
 
     public float timeCooldown;
@@ -118,6 +119,8 @@ public abstract class Item  extends Decoration implements IInputHandler {
     public void OnSwipe(TouchData td) {
 
     }
+
+    public GameScreen getGS() { return gs; }
 
     public StateItem getState(){
         return stateItem;

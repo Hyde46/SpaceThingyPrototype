@@ -1,4 +1,4 @@
-package com.mygdx.game.Player;
+package com.mygdx.game.old.Player;
 
 import com.mygdx.game.Items.Item;
 

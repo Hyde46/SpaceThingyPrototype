@@ -73,8 +73,6 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
         this.activated = activated;
     }
 
-
-
     /**
      * renders the edges for one level beacon
      * @param shapeRenderer
@@ -91,7 +89,6 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
             shapeRenderer.line(positionCenter, connectedBeacon.getPositionCenter());
         }
     }
-
 
     /**
      * getter for position of center of beacon
@@ -138,13 +135,13 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
 
             if (levelId == lg.getCurrentLevel().getLevelId() && sh.getInOrbit()) {
                 if (getIsShop()) {
+                    InputManager.get.Clear();
                     game.setScreen(new ShopScreen());
                 }
                 else
                 {
                     InputManager.get.Clear();
                     game.setScreen(new GameScreen(levelId));
-
                 }
             } else {  //touched level is different from current level
                 if (!sh.getTravelsRoute()) {      //only call navigate function, if the ship is not already on route

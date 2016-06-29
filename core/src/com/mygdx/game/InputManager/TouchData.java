@@ -1,26 +1,45 @@
 package com.mygdx.game.InputManager;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
 public class TouchData
 {
+    public Vector3 getPosWorldOrigin() {
+        return posWorldOrigin;
+    }
+
+    public Vector3 getPosWorldCurrent() {
+        return posWorldCurrent;
+    }
+
+    public void setPosWorldCurrent(Vector3 posWorldCurrent) {
+        this.posWorldCurrent = posWorldCurrent;
+    }
+
+    public void setPosWorldOrigin(Vector3 posWorldOrigin) {
+        this.posWorldOrigin = posWorldOrigin;
+    }
+
     public enum DirSwipe { DEFAULT, RIGHT, LEFT , UP, DOWN }
 
-    Array<IInputHandler> objsOrigin;
+    private Array<IInputHandler> objsOrigin;
 
-    Vector2 posOrigin;
-    Vector2 posOriginUnprojected;
-    Vector2 posCurrent;
-    Vector2 posCurrentUnprojected;
-    Vector2 posPrev;
-    Vector2 deltaFrame;
-    Vector2 deltaSwipe;
+    private Vector3 posWorldOrigin;
+    private Vector3 posWorldCurrent;
+    private Vector2 posOrigin;
+    private Vector2 posOriginUnprojected;
+    private Vector2 posCurrent;
+    private Vector2 posCurrentUnprojected;
+    private Vector2 posPrev;
+    private Vector2 deltaFrame;
+    private Vector2 deltaSwipe;
 
-    DirSwipe dirSwipePrev;
+    private DirSwipe dirSwipePrev;
 
-    float lengthSwipe;
-    float secPressed;
+    private float lengthSwipe;
+    private float secPressed;
 
     public TouchData()
     {

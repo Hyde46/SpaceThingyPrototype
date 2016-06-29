@@ -37,7 +37,7 @@ public class DataPersistent
 
     public class DataSaved
     {
-        /* Here can stored everything */
+        /* Here can be stored everything */
 
         // Settings data
 

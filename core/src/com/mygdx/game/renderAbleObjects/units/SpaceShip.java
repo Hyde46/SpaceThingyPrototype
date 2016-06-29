@@ -1,8 +1,10 @@
 package com.mygdx.game.renderAbleObjects.units;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.renderAbleObjects.Animation;
 import com.mygdx.game.utils.SpaceMath;
 
 /**
@@ -24,6 +26,8 @@ public class SpaceShip extends Unit {
 
     private boolean hasReachedGoal;
 
+    private Animation deathAnimation;
+
     public SpaceShip(){
         super();
         unitType = 0;
@@ -31,7 +35,7 @@ public class SpaceShip extends Unit {
     }
 
     public void initialize(Vector2 position,Vector2 deltaMovement,Planet connectedPlanet, float currentOrbitRadius, Vector2 spriteDimensions, String texturePath, int spriteId){
-        unitType = 0;
+//        unitType = 0;
         isCollided = false;
         isLost = false;
         hasReachedGoal = false;
@@ -40,11 +44,14 @@ public class SpaceShip extends Unit {
 
         if(connectedPlanet != null){
             lastConnectedPlanetId = connectedPlanet.getUnitID();
+            connectedPlanet.connectSpaceShip(this);
         }else{
             lastConnectedPlanetId = -1;
         }
 
-        rotationSpeed = 80.5f;
+
+        rotationSpeed = deltaMovement.len() / currentOrbitRadius;
+        rotationSpeed = rotationSpeed*180.0f/3.141592653f;
         rotationDirection = 1;
 
         collisionHitbox = new Circle(position.x,position.y,20f);
@@ -53,7 +60,8 @@ public class SpaceShip extends Unit {
         initializePositions(position,deltaMovement);
         initializeTexture(spriteDimensions, spriteId, texturePath);
 
-
+        deathAnimation = new Animation();
+        deathAnimation.setAnimation(9,0.06f,new Vector2(64,64),false,"player_death_f",this);
     }
 
     public void launch(){
@@ -76,8 +84,7 @@ public class SpaceShip extends Unit {
     }
 
     public void enterOrbit(Planet connectedPlanet, float orbitRadius){
-        //TODO: dont connect to the last connected planet. may lead to problems
-        //TODO: calculate new rotation Speed !
+
         if(isInOrbit() || lastConnectedPlanetId == connectedPlanet.getUnitID()){
             return;
         }
@@ -95,8 +102,6 @@ public class SpaceShip extends Unit {
 
         rotationSpeed = deltaMovement.len() / orbitRadius;
         rotationSpeed = rotationSpeed*180.0f/3.141592653f;
-        System.out.println(deltaMovement);
-        System.out.println(deltaMovement.len());
         currentOrbitRadius = orbitRadius;
     }
 
@@ -123,6 +128,21 @@ public class SpaceShip extends Unit {
 
             targetHitbox.set(targetPosition,20f);
         }
+        //if(isCollided)
+        deathAnimation.update(delta,isCollided);
+
+    }
+
+    @Override
+    public void render(SpriteBatch g){
+        if(!isActive || tex == null){
+            return;
+        }
+        if(!isCollided)
+            sprite.draw(g);
+        else
+            deathAnimation.render(g);
+        //g.draw(tex,position.x-spriteDimension.x/2,position.y-spriteDimension.y/2,spriteDimension.x,spriteDimension.y);
     }
 
     @Override
