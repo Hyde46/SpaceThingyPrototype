@@ -73,8 +73,6 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
         this.activated = activated;
     }
 
-
-
     /**
      * renders the edges for one level beacon
      * @param shapeRenderer
@@ -91,7 +89,6 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
             shapeRenderer.line(positionCenter, connectedBeacon.getPositionCenter());
         }
     }
-
 
     /**
      * getter for position of center of beacon

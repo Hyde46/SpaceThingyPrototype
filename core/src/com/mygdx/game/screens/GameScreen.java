@@ -341,15 +341,8 @@ public class GameScreen implements Screen{
 
     public void addPlanet(Vector2 posWorld)
     {
-        Unit planetTemp = new Planet();
-
-        //Vector3 posWorldUnprojected = camFixed.unproject(posWorld);
-        //Vector2 posWorldFlat = new Vector2(posWorldUnprojected.x, posWorldUnprojected.y);
-
-        //int dimPicX = 320;
-        //int dimPixY = 50;
-
-        ((Planet)planetTemp).initialize(posWorld,320,50,false,"planet2_100x100.png",1,(new Random()).nextInt(360));
+        Planet planetTemp = new Planet();
+        planetTemp.initialize(posWorld,320,50,false,"planet2_100x100.png",1,(new Random()).nextInt(360));
 
         uM.addUnit(planetTemp);
         InputManager.get.Register(planetTemp);

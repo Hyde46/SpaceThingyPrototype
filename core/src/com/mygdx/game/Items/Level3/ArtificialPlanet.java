@@ -76,15 +76,23 @@ public class ArtificialPlanet extends Item implements IInputAnywhere
             Vector3 posPress = td.getPosWorldCurrent();
             Vector2 posRender = new Vector2(posPress.x, posPress.y);
 
-            if(Vector2.dst(posPlayer.x, posPlayer.y, posRender.x, posRender.y) < 600f) // && not inside a orbit??
+            if(uses > 0)
             {
-                timeCooldown = 4f;
-                stateItem = StateItem.COOLDOWN;
-                RemovePossibleRadius();
+                if(Vector2.dst(posPlayer.x, posPlayer.y, posRender.x, posRender.y) < 900f) // && not inside a orbit??
+                {
+                    uses--;
+                    timeCooldown = 4f;
+                    stateItem = StateItem.COOLDOWN;
+                    RemovePossibleRadius();
 
-                gs.addPlanet(posRender);
+                    gs.addPlanet(posRender);
+                }
+                else
+                {
+                    stateItem = StateItem.READY;
+                    RemovePossibleRadius();
+                }
             }
-
         }
     }
 
