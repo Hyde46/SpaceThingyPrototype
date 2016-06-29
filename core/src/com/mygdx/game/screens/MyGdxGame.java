@@ -24,6 +24,7 @@ public class MyGdxGame extends Game {
 	public String currentVersion;
 	public int screenWidth;
 	public int screenHeight;
+	public boolean showOverlay;
 
 	/*
 		cam manager needs to be here to initiate the input manager
@@ -52,6 +53,7 @@ public class MyGdxGame extends Game {
 		fpsLimit = new FPSLimiter(60);
 		currentVersion = "Prototype v0.0.25";
 		openScreen(new MainMenuScreen());
+		showOverlay = true;
 	}
 
 	public void openScreen(Screen screen)

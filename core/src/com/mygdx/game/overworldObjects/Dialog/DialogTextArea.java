@@ -27,7 +27,7 @@ public class DialogTextArea extends Decoration implements IInputHandler
     private DialogManager dialogManager;
     private boolean isPressed;
 
-    public void initialize(Vector2 position, int width, int height, DialogManager dialogManager)
+    public void initialize(Vector2 position, int width, int height, String texturePath, DialogManager dialogManager)
     {
         this.position = position.cpy();
 
@@ -44,6 +44,8 @@ public class DialogTextArea extends Decoration implements IInputHandler
         this.dialogManager = dialogManager;
 
         this.isPressed = false;
+
+        initializeTexture(spriteDimension, 0, texturePath);
 
     }
 

@@ -67,6 +67,7 @@ public class MainMenuScreen implements Screen {
         finishedLevel = 0;      //is beginning
         setupScreen();
         setupDialogs(true);
+        cameraHelper.setCameraManager(cameraManager, dialogManager);
     }
 
     /**
@@ -79,6 +80,7 @@ public class MainMenuScreen implements Screen {
         setupScreen();
         //depending on success the boolean showDialog will be set to true of false
         setupDialogs(success);
+        cameraHelper.setCameraManager(cameraManager, dialogManager);
     }
 
     /**
@@ -116,7 +118,6 @@ public class MainMenuScreen implements Screen {
         cameraManager = new CameraManager();
         cameraHelper = new CameraHelper();
         cameraManager.setCam(cam);
-        cameraHelper.setCameraManager(cameraManager, dialogManager);
         cameraManager.addPBM(backgroundManager);
 
 
@@ -171,17 +172,23 @@ public class MainMenuScreen implements Screen {
 
 
         //render overlay only if it shell be shown
-        if(overlay.getShowOverlay()){
+        if(overlay.getShowOverlay() && game.showOverlay){
             overlay.render(delta);
         }else if(dialogManager.getShowDialog()){
             dialogManager.renderDialog();
         }
 
+        update(delta);
+    }
+
+    /**
+     * update method for main menu screen
+     * @param delta
+     */
+    private void update(float delta){
         //process ship's movement
-        //TODO put in own update method
         ship.update(delta);
         InputManager.get.update(delta);
-
     }
 
     /**
@@ -191,6 +198,7 @@ public class MainMenuScreen implements Screen {
     public DialogManager getDialogManager(){
         return dialogManager;
     }
+
 
 
 

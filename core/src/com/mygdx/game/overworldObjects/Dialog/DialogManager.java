@@ -32,7 +32,7 @@ public class DialogManager {
         Array<String> textArray1 = new Array<String>();
         textArray1.addAll("Welcome to the game!!", "This dialog has two characters");
         Array<Integer> avatarArray1 = new Array<Integer>();
-        avatarArray1.addAll(1, 2);
+        avatarArray1.addAll(3, 5);
         Dialog dialog1 = new Dialog(textArray1, avatarArray1);
         Array<String> textArray2 = new Array<String>();
         textArray2.addAll("This is the dialog after we successfully finished level 1!", "It has 2 characters. And the second character speaks a bit longer, cause he has to explain something really important.", "And the first one speaks twice");
@@ -63,9 +63,9 @@ public class DialogManager {
                 dialogBox1 = new DialogTextArea();
                 dialogBox2 = new DialogTextArea();
                 //the width of the first box should be almost the rest of the screen (meaning screen width minus the offset from left and a little
-                dialogBox1.initialize(new Vector2(300, 250), MyGdxGame.game.screenWidth - 300, 700, this);
+                dialogBox1.initialize(new Vector2(300, 250), MyGdxGame.game.screenWidth - 300, 700, "dialogBox.png", this);
                 //the second box starts from left and leaves room to the right
-                dialogBox2.initialize(new Vector2(0, 250), MyGdxGame.game.screenWidth - 300, 700, this);
+                dialogBox2.initialize(new Vector2(0, 250), MyGdxGame.game.screenWidth - 300, 700, "dialogBox.png", this);
 
                 //initalize dialog avatar with the avatar image of the first entry in the avatar array of this dialog
                 dialogAvatar1 = new DialogAvatar();
@@ -85,9 +85,11 @@ public class DialogManager {
                 currentDialogStep = 0;
             }else{
                 showDialog = false;
+                System.out.println("erstes false");
             }
         }else{
             showDialog = false;
+            System.out.println("zweites false");
         }
     }
 
@@ -101,19 +103,18 @@ public class DialogManager {
             showDialog = false;
         }else {
 
-            game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            //if the first character speaks render the right dialog box, otherwise the left
-            if (currentDialogStep % 2 == 0) {
-                dialogBox1.renderHitboxes(game.shapeRenderer);
-            } else {
-                dialogBox2.renderHitboxes(game.shapeRenderer);
-            }
-            game.shapeRenderer.end();
+
             //draw text inside of textarea
             game.font.setColor(Color.BLACK);
 
             game.uiBatch.setProjectionMatrix(MainMenuScreen.camFixed.combined);
             game.uiBatch.begin();
+            //if the first character speaks render the right dialog box, otherwise the left
+            if (currentDialogStep % 2 == 0) {
+                dialogBox1.render(game.uiBatch);
+            } else {
+                dialogBox2.render(game.uiBatch);
+            }
             //depending on the step of the dialog the text inside of dialog box 1 or 2 is rendered
             //the text is extracted from the text array and rendered
             if (currentDialogStep % 2 == 0) {

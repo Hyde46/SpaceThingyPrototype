@@ -85,6 +85,7 @@ public class Overlay extends ARenderableObject implements IInputHandler {
     @Override
     public void OnTouch(TouchData td) {
         showOverlay = false;
+        game.showOverlay = false;
     }
 
     @Override
@@ -100,6 +101,7 @@ public class Overlay extends ARenderableObject implements IInputHandler {
     @Override
     public void OnHold(TouchData td) {
         showOverlay = false;
+        game.showOverlay = false;
     }
 
     @Override
