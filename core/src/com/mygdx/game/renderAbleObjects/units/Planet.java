@@ -43,17 +43,21 @@ public class Planet extends Unit implements IInputHandler {
         initializePositions(pos, new Vector2(0, 0));
         initializeTexture(new Vector2(planetRadius * 2, planetRadius * 2), spriteId, texturePath);
         sprite.rotate(initialRotation);
-        initializeOrbitTex();
+        initializeOrbitTex(isGoalPlanet);
         isMoving = false;
         rotationSpeed = 0.0f;
         rotationDirection = 0;
         translation = new Vector2();
     }
 
-    private void initializeOrbitTex(){
+    private void initializeOrbitTex(boolean isGoalPlanet){
 
         /* orbit radius kann zwischen vorbestimmten sprite größen sein ... gefährlich */
-        Texture t = new Texture(Gdx.files.internal("orbit2_"+(int)(orbitRadius*2)+"x"+(int)(orbitRadius*2)+".png"));
+        Texture t;
+        if(isGoalPlanet)
+            t = new Texture(Gdx.files.internal("orbit2_goal_"+(int)(orbitRadius*2)+"x"+(int)(orbitRadius*2)+".png"));
+        else
+            t = new Texture(Gdx.files.internal("orbit2_"+(int)(orbitRadius*2)+"x"+(int)(orbitRadius*2)+".png"));
         orbitSprite = new Sprite(t,(int)orbitRadius*2,(int)orbitRadius*2);
         orbitSprite.setCenter(orbitRadius,orbitRadius);
         orbitSprite.setX(position.x-orbitRadius);
