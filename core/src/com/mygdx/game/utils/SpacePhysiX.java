@@ -84,7 +84,7 @@ public class SpacePhysiX {
         if(playerShip != null) {
             if (!playerShip.isInOrbit() && !playerShip.isCollided()) {
                 for (Unit u : units) {
-                    if (u.getUnitType() != 0) {
+                    if (u.getUnitType() != 0) { // 0 = SpaceShip
                         //if player is in range, check if he should dock
                         if (playerShip.getPosition().cpy().sub(u.getPosition()).len() <= ((Planet) u).getOrbitRadius()) { // u = moveableobject
                             Vector2 v = u.getPosition().cpy();
@@ -137,4 +137,5 @@ public class SpacePhysiX {
         units = null;
         playerShip = null;
     }
+
 }

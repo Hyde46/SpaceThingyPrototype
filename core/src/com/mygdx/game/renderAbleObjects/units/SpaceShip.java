@@ -200,5 +200,4 @@ public class SpaceShip extends Unit {
         deltaMovement = deltaMovement.scl(scaledBoost).cpy();
 
     }
-
 }
