@@ -71,4 +71,6 @@ public abstract class Unit extends AUpdateableObject {
         return deltaMovement;
     }
     public Vector2 getTargetPosition(){ return targetPosition;}
+
+    public Vector2 getPrevPosition(){ return prevPosition; }
 }

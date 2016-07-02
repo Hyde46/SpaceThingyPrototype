@@ -95,10 +95,13 @@ public class SpaceShip extends Unit {
 
         int i = connectedPlanet.getPosition().y > position.y ? 1:-1;
 
-        if(position.x > prevPosition.x )
+        if(position.x - prevPosition.x > 0.1 )
             rotationDirection = i * 1;
-        else
+        else if(position.x - prevPosition.x < -0.1)
             rotationDirection = i * -1;
+        else{
+            rotationDirection = connectedPlanet.getPosition().x > position.x ? -1 : 1 ;
+        }
 
         rotationSpeed = deltaMovement.len() / orbitRadius;
         rotationSpeed = rotationSpeed*180.0f/3.141592653f;
@@ -106,6 +109,7 @@ public class SpaceShip extends Unit {
     }
 
     public void update(float delta){
+
         if(connectedPlanet == null) {
             targetPosition.add(deltaMovement.cpy().scl(delta));
             targetHitbox.set(targetPosition,20f);
