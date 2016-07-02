@@ -60,7 +60,7 @@ public class GameScreen implements Screen{
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, 1080, 1920);
         camFixed = new OrthographicCamera();
-        camFixed.setToOrtho(false, 1080,1920);
+        camFixed.setToOrtho(false, 1080, 1920);
         //camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         /* Main and Game have different cams,
@@ -83,6 +83,7 @@ public class GameScreen implements Screen{
         itemMan = new ItemManager();
         itemMan.initialize(this);
         setLevel(levelToStart);
+
     }
 
     @Override
@@ -212,7 +213,7 @@ public class GameScreen implements Screen{
         ((Planet)p6).initialize(new Vector2(-110,2800),320,50,false,"planet42_100x100.png",2,10);
         ((Planet)p8).initialize(new Vector2(130,3800),320,50,true,"planet7_100x100.png",2,10);
 
-        ((SpaceShip)playerShip).initialize(new Vector2(350,300),new Vector2(5,350),null,100,new Vector2(40,40),"ship1_40x40.png",0);
+        ((SpaceShip)playerShip).initialize(new Vector2(350,670),new Vector2(5,350),(Planet)p1,150,new Vector2(40,40),"ship1_40x40.png",0);
         ((Planet)p7).initialize(new Vector2(-430,2800),190,18,false,"moon1_36x36.png",1,0);
         ((Planet)p7).connectToPlanet((Planet)p6);
         ((Planet)p7).setRotationSpeed(20.0f,1);
@@ -281,7 +282,7 @@ public class GameScreen implements Screen{
         ((Planet)p1).initialize(new Vector2(200,670),320,50,false,"planet2_100x100.png",1,0);
         ((Planet)p2).initialize(new Vector2(700,850),320,50,false,"planet2_100x100.png",2,20);
         ((Planet)p3).initialize(new Vector2(-600,1500),320,36,false,"planet1_72x72.png",1,30);
-        ((SpaceShip)playerShip).initialize(new Vector2(320,300),new Vector2(5,350),null,0,new Vector2(40,40),"ship1_40x40.png",0);
+       // ((SpaceShip)playerShip).initialize(new Vector2(320,300),new Vector2(5,350),null,0,new Vector2(40,40),"ship1_40x40.png",0);
         ((Planet)p1).initialize(new Vector2(200,670),320,50,false,"planet3_100x100.png",1,0);
         ((Planet)p2).initialize(new Vector2(700,850),320,50,false,"planet4_100x100.png",2,20);
         ((Planet)p3).initialize(new Vector2(-600,1500),320,65,false,"planet5_130x130.png",1,30);
@@ -305,7 +306,7 @@ public class GameScreen implements Screen{
         InputManager.get.Register(p6);
 
         cM.initializeCamera((SpaceShip)playerShip);
-        spX.initWorldBounds(new Rectangle(-700,-100,4000,6000));
+        spX.initWorldBounds(new Rectangle(-1700,-1100,5000,7000));
 
         pbM.setLayers(2);
         cM.addPBM(pbM);
