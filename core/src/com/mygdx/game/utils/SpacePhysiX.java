@@ -25,6 +25,9 @@ public class SpacePhysiX {
 
     //tune this down, if the game lags too much
     private final static int PHYSIC_TICKS = 20;
+    private final static float DOTPRODUCT_BOUNDARIES = 30.0f;
+
+    public final static float PI = 3.141592653f;
 
     public SpacePhysiX(){
     }
@@ -108,7 +111,7 @@ public class SpacePhysiX {
         for(int i = 0; i <= ticks; i++){
             Vector2 tickpos = startPosition.cpy().add(deltaPosition.cpy().scl((float)i/(float)ticks));
             Vector2 vts = planetPos.cpy().sub(tickpos);
-            if (vts.dot(playerShip.getDeltaMovement().cpy().scl(0.1f)) <= 100 && vts.dot(playerShip.getDeltaMovement().cpy().scl(0.1f)) >= -100) {
+            if (vts.dot(playerShip.getDeltaMovement().cpy().scl(0.1f)) <= DOTPRODUCT_BOUNDARIES && vts.dot(playerShip.getDeltaMovement().cpy().scl(0.1f)) >= -DOTPRODUCT_BOUNDARIES) {
                 vecToShip.set(vts.cpy());
                 return true;
             }

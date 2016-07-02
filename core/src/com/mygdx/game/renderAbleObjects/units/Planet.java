@@ -29,6 +29,8 @@ public class Planet extends Unit implements IInputHandler {
     private int rotationDirection;
     private Vector2 translation;
 
+    private float gravity;
+
     public Planet() {
         super();
     }
@@ -48,31 +50,32 @@ public class Planet extends Unit implements IInputHandler {
         rotationSpeed = 0.0f;
         rotationDirection = 0;
         translation = new Vector2();
+        gravity = 10.0f;
     }
 
-    private void initializeOrbitTex(boolean isGoalPlanet){
+    private void initializeOrbitTex(boolean isGoalPlanet) {
 
         /* orbit radius kann zwischen vorbestimmten sprite größen sein ... gefährlich */
         Texture t;
-        if(isGoalPlanet)
-            t = new Texture(Gdx.files.internal("orbit2_goal_"+(int)(orbitRadius*2)+"x"+(int)(orbitRadius*2)+".png"));
+        if (isGoalPlanet)
+            t = new Texture(Gdx.files.internal("orbit2_goal_" + (int) (orbitRadius * 2) + "x" + (int) (orbitRadius * 2) + ".png"));
         else
-            t = new Texture(Gdx.files.internal("orbit2_"+(int)(orbitRadius*2)+"x"+(int)(orbitRadius*2)+".png"));
-        orbitSprite = new Sprite(t,(int)orbitRadius*2,(int)orbitRadius*2);
-        orbitSprite.setCenter(orbitRadius,orbitRadius);
-        orbitSprite.setX(position.x-orbitRadius);
-        orbitSprite.setY(position.y-orbitRadius);
+            t = new Texture(Gdx.files.internal("orbit2_" + (int) (orbitRadius * 2) + "x" + (int) (orbitRadius * 2) + ".png"));
+        orbitSprite = new Sprite(t, (int) orbitRadius * 2, (int) orbitRadius * 2);
+        orbitSprite.setCenter(orbitRadius, orbitRadius);
+        orbitSprite.setX(position.x - orbitRadius);
+        orbitSprite.setY(position.y - orbitRadius);
     }
 
     @Override
-    public void render(SpriteBatch g){
-        if(!isActive || tex ==null){
+    public void render(SpriteBatch g) {
+        if (!isActive || tex == null) {
             return;
         }
-        if(orbitSprite!=null)
+        if (orbitSprite != null)
             orbitSprite.draw(g);
 
-        if(sprite != null)
+        if (sprite != null)
             sprite.draw(g);
 
         //g.draw(tex,position.x-spriteDimension.x/2,position.y-spriteDimension.y/2,spriteDimension.x,spriteDimension.y);
@@ -80,11 +83,11 @@ public class Planet extends Unit implements IInputHandler {
 
     @Override
     public void moveUnit() {
-        translation = new Vector2(targetPosition.cpy().x-position.cpy().x,targetPosition.cpy().y-position.cpy().y);
-        orbitSprite.translate(translation.x,translation.y);
-        sprite.translate(translation.x,translation.y);
-        ((Circle)collisionHitbox).setPosition(targetPosition);
-        ((Circle)touchHitbox).setPosition(targetPosition);
+        translation = new Vector2(targetPosition.cpy().x - position.cpy().x, targetPosition.cpy().y - position.cpy().y);
+        orbitSprite.translate(translation.x, translation.y);
+        sprite.translate(translation.x, translation.y);
+        ((Circle) collisionHitbox).setPosition(targetPosition);
+        ((Circle) touchHitbox).setPosition(targetPosition);
         this.position.set(this.targetPosition);
     }
 
@@ -99,30 +102,34 @@ public class Planet extends Unit implements IInputHandler {
 
     @Override
     public void update(float delta) {
-        if(isMoving){
+        if (isMoving) {
             //Stuff for moving planet
 
 
             //Rotation around another planet
-            if(connectedPlanet != null){
-                targetPosition = (SpaceMath.rotatePoint(position,connectedPlanet.getPosition(),rotationSpeed*delta, rotationDirection));
+            if (connectedPlanet != null) {
+                targetPosition = (SpaceMath.rotatePoint(position, connectedPlanet.getPosition(), rotationSpeed * delta, rotationDirection));
             }
         }
     }
 
-    public void connectToPlanet(Planet p){
+    public void connectToPlanet(Planet p) {
         connectedPlanet = p;
         isMoving = true;
     }
 
-    public void setRotationSpeed(float rs, int rd){
+    public void setRotationSpeed(float rs, int rd) {
         rotationSpeed = rs;
         rotationDirection = rd;
     }
 
-    public Vector2 getTranslation(){ return translation; }
+    public Vector2 getTranslation() {
+        return translation;
+    }
 
-    public boolean getIsMoving(){ return isMoving; }
+    public boolean getIsMoving() {
+        return isMoving;
+    }
 
     public float getOrbitRadius() {
         return orbitRadius;
@@ -144,7 +151,7 @@ public class Planet extends Unit implements IInputHandler {
     }
 
     public void OnTouch(TouchData td) {
-        if(connectedSpaceShip != null && !GameScreen.hasFinishedLevel){
+        if (connectedSpaceShip != null && !GameScreen.hasFinishedLevel) {
             launchSpaceShip();
         }
     }
@@ -161,5 +168,9 @@ public class Planet extends Unit implements IInputHandler {
 
     public void OnSwipe(TouchData td) {
         //System.out.println("planet " + getUnitID() + " swiped to dir: " + td.getDirSwipePrev().toString());
+    }
+
+    public float getGravity(){
+        return gravity;
     }
 }
