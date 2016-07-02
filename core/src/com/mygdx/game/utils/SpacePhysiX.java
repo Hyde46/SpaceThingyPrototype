@@ -24,7 +24,7 @@ public class SpacePhysiX {
     private GameScreen gs;
 
     //tune this down, if the game lags too much
-    private final static int PHYSIC_TICKS = 8;
+    private final static int PHYSIC_TICKS = 20;
 
     public SpacePhysiX(){
     }
