@@ -203,6 +203,8 @@ public class GameScreen implements Screen{
         Unit p8 = new Planet();
         Unit p9 = new Planet();
         Unit p10 = new Planet();
+        Unit p11 = new Planet();
+        Unit p12 = new Planet();
         System.out.println("Loading resources...");
 
         ((Planet)p1).initialize(new Vector2(200,670),320,36,false,"planet1_72x72.png",1,0);
@@ -213,13 +215,21 @@ public class GameScreen implements Screen{
         ((Planet)p5).initialize(new Vector2(450,2530),240,36,false,"planet1_72x72.png",1,120);
         ((Planet)p6).initialize(new Vector2(-110,2800),320,50,false,"planet42_100x100.png",2,10);
         ((Planet)p8).initialize(new Vector2(130,3800),320,50,true,"planet7_100x100.png",2,10);
+        ((Planet)p11).initialize(new Vector2(1230,3480),480,50,false,"planet7_100x100.png",2,10);
+
+
+        //Moons
         ((Planet)p7).initialize(new Vector2(-430,2800),190,18,false,"moon1_36x36.png",1,0);
         ((Planet)p7).connectToPlanet((Planet)p6);
         ((Planet)p7).setRotationSpeed(20.0f,1);
 
-        ((Planet)p9).initialize(new Vector2(-200,3800),190,18,false,"moon2_36x36.png",1,0);
-        ((Planet)p9).connectToPlanet((Planet)p8);
-        ((Planet)p9).setRotationSpeed(35.0f,1);
+
+        ((Planet)p9).initialize(new Vector2(1680,3480),240,18,false,"moon2_36x36.png",1,0);
+        ((Planet)p9).connectToPlanet((Planet)p11);
+        ((Planet)p9).setRotationSpeed(25.0f,1);
+        ((Planet)p12).initialize(new Vector2(950,3480),190,18,false,"moon1_36x36.png",1,0);
+        ((Planet)p12).connectToPlanet((Planet)p11);
+        ((Planet)p12).setRotationSpeed(45.0f,-1);
 
         ((Planet)p10).initialize(new Vector2(480,1720),190,18,false,"moon2_36x36.png",1,0);
         ((Planet)p10).connectToPlanet((Planet)p2);
@@ -235,6 +245,8 @@ public class GameScreen implements Screen{
         uM.addUnit(p8);
         uM.addUnit(p9);
         uM.addUnit(p10);
+        uM.addUnit(p11);
+        uM.addUnit(p12);
         uM.addUnit(playerShip);
         spX.initializePhysics(uM.getUnits(),this);
         InputManager.get.Register(p1);
@@ -244,9 +256,10 @@ public class GameScreen implements Screen{
         InputManager.get.Register(p5);
         InputManager.get.Register(p6);
         InputManager.get.Register(p7);
-        InputManager.get.Register(p8);
         InputManager.get.Register(p9);
         InputManager.get.Register(p10);
+        InputManager.get.Register(p11);
+        InputManager.get.Register(p12);
 
         cM.initializeCamera((SpaceShip)playerShip);
         spX.initWorldBounds(new Rectangle(-700,-1100,4000,7000));
