@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.renderAbleObjects.Animation;
 import com.mygdx.game.utils.SpaceMath;
+import com.mygdx.game.utils.SpacePhysiX;
 
 /**
  * Created by denis on 5/13/16.
@@ -28,6 +29,7 @@ public class SpaceShip extends Unit {
 
     private Animation deathAnimation;
 
+
     public SpaceShip(){
         super();
         unitType = 0;
@@ -35,7 +37,7 @@ public class SpaceShip extends Unit {
     }
 
     public void initialize(Vector2 position,Vector2 deltaMovement,Planet connectedPlanet, float currentOrbitRadius, Vector2 spriteDimensions, String texturePath, int spriteId){
-//        unitType = 0;
+        unitType = 0;
         isCollided = false;
         isLost = false;
         hasReachedGoal = false;
@@ -62,6 +64,7 @@ public class SpaceShip extends Unit {
 
         deathAnimation = new Animation();
         deathAnimation.setAnimation(9,0.06f,new Vector2(64,64),false,"player_death_f",this);
+
     }
 
     public void launch(){
@@ -73,10 +76,9 @@ public class SpaceShip extends Unit {
         Vector2 vecToPlanet = b.sub(connectedPlanet.getPosition());
         vecToPlanet = vecToPlanet.nor();
         deltaMovement = vecToPlanet.cpy();
-        deltaMovement.scl(270f);
         deltaMovement.set(-deltaMovement.y,deltaMovement.x);
         deltaMovement.scl(1.0f/deltaMovement.len());
-        rotationSpeed = rotationSpeed*3.141592653f/180.0f;
+        rotationSpeed = rotationSpeed* SpacePhysiX.PI/180.0f;
         deltaMovement.scl(rotationDirection * rotationSpeed * currentOrbitRadius);
         lastConnectedPlanetId = connectedPlanet.getUnitID();
         connectedPlanet = null;
@@ -95,42 +97,66 @@ public class SpaceShip extends Unit {
 
         int i = connectedPlanet.getPosition().y > position.y ? 1:-1;
 
-        if(position.x > prevPosition.x )
+        if(position.x - prevPosition.x > 0.1 )
             rotationDirection = i * 1;
-        else
+        else if(position.x - prevPosition.x < -0.1)
             rotationDirection = i * -1;
+        else{
+            rotationDirection = connectedPlanet.getPosition().x > position.x ? -1 : 1 ;
+        }
 
         rotationSpeed = deltaMovement.len() / orbitRadius;
-        rotationSpeed = rotationSpeed*180.0f/3.141592653f;
+        rotationSpeed = rotationSpeed*180.0f/SpacePhysiX.PI;
         currentOrbitRadius = orbitRadius;
     }
 
     public void update(float delta){
+
         if(connectedPlanet == null) {
             targetPosition.add(deltaMovement.cpy().scl(delta));
             targetHitbox.set(targetPosition,20f);
         }else{
-            targetPosition = SpaceMath.rotatePoint(position,connectedPlanet.getPosition(),rotationSpeed*delta,rotationDirection);
+            //let space ship fall into planet
+            pullSpaceShipToPlanet(delta);
 
-            if(connectedPlanet.getIsMoving()){
-                targetPosition.add(connectedPlanet.getTranslation());
-            }
+            //rotate space ship
+            rotateSpaceShip(delta);
 
-
-            currentRotDrawingAngle += rotationDirection * rotationSpeed * delta;
-
-            if(currentRotDrawingAngle > 360)
-                currentRotDrawingAngle -= 360;
-            if(currentRotDrawingAngle < 0)
-                currentRotDrawingAngle += 360;
-
-            sprite.rotate(rotationSpeed*delta*rotationDirection);
-
+            //update angle to draw sprite
+            updateSprite(delta);
+            //update hitbox
             targetHitbox.set(targetPosition,20f);
         }
         //if(isCollided)
         deathAnimation.update(delta,isCollided);
 
+    }
+
+    private void pullSpaceShipToPlanet(float delta) {
+        Vector2 fall = connectedPlanet.getPosition().cpy().sub(position).nor().scl(-connectedPlanet.getGravity()*delta);
+        position.sub(fall);
+        currentOrbitRadius -= fall.len();
+        //get speed by falling into the planet
+        rotationSpeed = rotationSpeed + (1/currentOrbitRadius) * connectedPlanet.getGravity() * 220 * delta;
+    }
+
+    private void rotateSpaceShip(float delta) {
+        targetPosition = SpaceMath.rotatePoint(position,connectedPlanet.getPosition(),rotationSpeed*delta,rotationDirection);
+        //make up for rotation if connected planet is also rotating
+        if(connectedPlanet.getIsMoving()){
+            targetPosition.add(connectedPlanet.getTranslation());
+        }
+    }
+
+    private void updateSprite(float delta) {
+
+        //TODO: Not working correct. Needs a bigger angle of rotation
+        currentRotDrawingAngle += rotationDirection * rotationSpeed * delta;
+        if(currentRotDrawingAngle > 360)
+            currentRotDrawingAngle -= 360;
+        if(currentRotDrawingAngle < 0)
+            currentRotDrawingAngle += 360;
+        sprite.rotate(rotationSpeed*delta*rotationDirection);
     }
 
     @Override
@@ -196,5 +222,4 @@ public class SpaceShip extends Unit {
         deltaMovement = deltaMovement.scl(scaledBoost).cpy();
 
     }
-
 }

@@ -23,6 +23,12 @@ public class SpacePhysiX {
 
     private GameScreen gs;
 
+    //tune this down, if the game lags too much
+    private final static int PHYSIC_TICKS = 20;
+    private final static float DOTPRODUCT_BOUNDARIES = 30.0f;
+
+    public final static float PI = 3.141592653f;
+
     public SpacePhysiX(){
     }
 
@@ -81,22 +87,37 @@ public class SpacePhysiX {
         if(playerShip != null) {
             if (!playerShip.isInOrbit() && !playerShip.isCollided()) {
                 for (Unit u : units) {
-                    if (u.getUnitType() != 0) {
+                    if (u.getUnitType() != 0) { // 0 = SpaceShip
                         //if player is in range, check if he should dock
                         if (playerShip.getPosition().cpy().sub(u.getPosition()).len() <= ((Planet) u).getOrbitRadius()) { // u = moveableobject
                             Vector2 v = u.getPosition().cpy();
                             Vector2 vecToShip = playerShip.getPosition().cpy();
-                            vecToShip.sub(v);
-                            if (vecToShip.dot(playerShip.getDeltaMovement().cpy().scl(0.1f)) <= 100 && vecToShip.dot(playerShip.getDeltaMovement().cpy().scl(0.1f)) >= -100) {
+                            if(dotProductToShipTickCollision(PHYSIC_TICKS,vecToShip,v)){
                                 playerShip.enterOrbit((Planet) u, vecToShip.len());
-
                             }
+
                         }
 
                     }
                 }
             }
         }
+    }
+
+    private boolean dotProductToShipTickCollision(int ticks ,Vector2 vecToShip, Vector2 planetPos){
+        Vector2 startPosition = playerShip.getPosition();
+        Vector2 targetPosition = playerShip.getTargetPosition();
+        Vector2 deltaPosition = startPosition.cpy().sub(targetPosition.cpy());
+        for(int i = 0; i <= ticks; i++){
+            Vector2 tickpos = startPosition.cpy().add(deltaPosition.cpy().scl((float)i/(float)ticks));
+            Vector2 vts = planetPos.cpy().sub(tickpos);
+            if (vts.dot(playerShip.getDeltaMovement().cpy().scl(0.1f)) <= DOTPRODUCT_BOUNDARIES && vts.dot(playerShip.getDeltaMovement().cpy().scl(0.1f)) >= -DOTPRODUCT_BOUNDARIES) {
+                vecToShip.set(vts.cpy());
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void resolveFinishLogic() {
@@ -119,4 +140,5 @@ public class SpacePhysiX {
         units = null;
         playerShip = null;
     }
+
 }

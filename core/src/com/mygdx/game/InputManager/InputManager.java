@@ -87,8 +87,8 @@ public class InputManager implements InputProcessor
             {
                 cam.unproject(posTouch);
 
-                System.out.println(posTouch);
-                System.out.println(posTouchUnproj);
+               // System.out.println(posTouch);
+               // System.out.println(posTouchUnproj);
                 if
                 (
 
