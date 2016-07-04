@@ -1,6 +1,7 @@
 package com.mygdx.game.managers;
 
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.managers.levels.Level;
 import com.mygdx.game.overworldObjects.LevelBeacon;
 import com.mygdx.game.overworldObjects.LevelGraph;
 import com.mygdx.game.overworldObjects.Ship;
@@ -14,8 +15,14 @@ public class PathNavigationManager {
 
     private Ship ship;
     private LevelGraph levelGraph;
+    private Array<LevelBeacon> path;
 
-    public PathNavigationManager(Ship ship, LevelGraph levelGraph){
+    public PathNavigationManager(){
+
+        this.path = new Array<LevelBeacon>();
+    }
+
+    public void initialize(Ship ship, LevelGraph levelGraph){
         this.ship = ship;
         this.levelGraph = levelGraph;
     }
@@ -26,15 +33,17 @@ public class PathNavigationManager {
      */
     public void navigateToBeacon(LevelBeacon levelBeacon){
         //the compute route function returns an Array with the shortest path to the beacon
-        Array<LevelBeacon> path = computeRoute(levelBeacon);
+        path = computeRoute(levelBeacon);
         if(path != null){
             //set the current level to the new one
+            System.out.println("Touched beacon: " + levelBeacon.getLevelId());
             levelGraph.setCurrentLevel(levelBeacon);
             ship.setCurrentLevel(levelBeacon);
             ship.setInOrbit(false);
             ship.setTravelsRoute(true);
             ship.setCurrentRoute(path);
             //call function in Ship class to start the route; this function in turn calls flyToBeacon(), which computes the vector
+            System.out.println("Ship should start route now");
             ship.startRoute();
         }
 
@@ -83,7 +92,7 @@ public class PathNavigationManager {
     }
 
     /**
-     * helper function to backtrach the bfs to find the shortest path
+     * helper function to backtrack the bfs to find the shortest path
      * @param previousNode
      * @param startBeacon
      * @param goalBeacon

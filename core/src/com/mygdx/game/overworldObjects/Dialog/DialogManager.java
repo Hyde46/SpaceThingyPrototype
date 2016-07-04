@@ -85,11 +85,9 @@ public class DialogManager {
                 currentDialogStep = 0;
             }else{
                 showDialog = false;
-                System.out.println("erstes false");
             }
         }else{
             showDialog = false;
-            System.out.println("zweites false");
         }
     }
 

@@ -94,13 +94,14 @@ public class MainMenuScreen implements Screen {
         InputManager.get.setup(cam);
         //create LevelGraph object and initialize it (creating beacons etc)
         this.levelGraph = new LevelGraph();
-        levelGraph.initializeGraph();
+        levelGraph.initializeGraph(finishedLevel);
 
         //create ship object and initialize it (connected beacon)
         this.ship = new Ship();
         ship.initialize(levelGraph.getCurrentLevel(), new Vector2(40,40),"ship1_40x40.png");
 
-        pathNavigationManager = new PathNavigationManager(ship, levelGraph);
+        pathNavigationManager = new PathNavigationManager();
+        pathNavigationManager.initialize(ship, levelGraph);
 
         overlay = new Overlay();
         overlay.initialize(true);       //true because it should be seen
@@ -186,14 +187,14 @@ public class MainMenuScreen implements Screen {
      * @param delta
      */
     private void update(float delta){
+        InputManager.get.update(delta);
         //process ship's movement
         ship.update(delta);
-        InputManager.get.update(delta);
     }
 
     /**
      * getter for the dialogManager, needed in on touch function of level beacon
-     * @return
+     * @return dialogManager
      */
     public DialogManager getDialogManager(){
         return dialogManager;

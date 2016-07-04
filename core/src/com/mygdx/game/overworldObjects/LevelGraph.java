@@ -10,7 +10,7 @@ import com.mygdx.game.InputManager.InputManager;
  * Created by Vali on 18.05.2016.
  */
 public class LevelGraph {
-    //array that holds on the levels
+    //array that holds all the levels
     private Array<LevelBeacon> levelBeacons;
     private LevelBeacon currentLevel;
     /**
@@ -23,7 +23,7 @@ public class LevelGraph {
     /**
      * function to initialize the LevelGraph, which adds the levels
      */
-    public void initializeGraph(){
+    public void initializeGraph(int level){
         LevelBeacon levelBeacon1 = new LevelBeacon();
         LevelBeacon levelBeacon2 = new LevelBeacon();
         LevelBeacon levelBeacon3 = new LevelBeacon();
@@ -74,7 +74,12 @@ public class LevelGraph {
         addBeacon(levelBeacon7);
         addBeacon(levelBeacon8);
         addBeacon(levelBeacon9);
-        setCurrentLevel(levelBeacon1);
+        //if game was just started (finished level = 0) set the current level to 1
+        if(level == 0){
+            setCurrentLevel(levelBeacon1);
+        }else{  //otherwise set the current level as the one that was just finished
+            setCurrentLevel(levelBeacons.get(level - 1));
+        }
 
         InputManager.get.Register(levelBeacon1);
         InputManager.get.Register(levelBeacon2);
@@ -101,13 +106,15 @@ public class LevelGraph {
      * @param beacon
      */
     public void setCurrentLevel(LevelBeacon beacon){
-        currentLevel = beacon;
+        this.currentLevel = beacon;
     }
+
     /**
      * Render every beacon
      * @param batch
      */
     public void renderBeacons(SpriteBatch batch){
+        System.out.println("Level graph current level: " + currentLevel.getLevelId());
         for(LevelBeacon beacon : levelBeacons){
             beacon.render(batch);
         }
@@ -122,6 +129,7 @@ public class LevelGraph {
             beacon.renderEdges(shapeRenderer);
         }
     }
+
     /**
      * getter for current level
      * @return currentLevel

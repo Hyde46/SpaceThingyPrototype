@@ -37,7 +37,7 @@ public class Ship extends ARenderableObject{
         this.spriteDimension = spriteDimensions;
         //sprite id needs to be changed later
         initializeTexture(spriteDimensions, 0, texturePath);
-        //rotate the sp
+        System.out.println("Ship is initialized");
     }
 
     public void renderHitboxes(ShapeRenderer shapeRenderer){
@@ -53,6 +53,7 @@ public class Ship extends ARenderableObject{
         //if ship is currently circling around planet the circling movement shell be made
         if(isInOrbit){
             //set new position, which will be rendered in next frame
+            System.out.println("Current level id in update method: " +  currentLevel.getLevelId());
             position = SpaceMath.rotatePoint(position, currentLevel.getPositionCenter(), rotationSpeed * delta, rotationDirection);
 
             //rotate the sprite so that it looks like the ship actually circles around beacon (just like ingame)
@@ -62,12 +63,15 @@ public class Ship extends ARenderableObject{
             position.add(vectorToBeacon.cpy().scl(delta));
             //if ship is inside of the goal beacon it should start rotating again
             if(currentLevel.getHitbox().contains(position)){
+                System.out.println("The goal beacon is reached");
+
                 isInOrbit = true;
                 travelsRoute = false;
                 //rotate ship again
                 sprite.setRotation(currentLevel.getPositionCenter().cpy().sub(position.cpy()).angle());
             }else if(travelsRoute && currentRoute.peek().getHitbox().contains(position)){  //second case: ship has reached next beacon on route
                 //in this case we tell the ship to fly to the next beacon in the route
+                System.out.println("The first beacon is reached");
                 currentRoute.pop(); //pop (delete) the reached beacon
                 flyToBeacon(currentRoute.peek());
             }
@@ -82,8 +86,10 @@ public class Ship extends ARenderableObject{
      */
     public void startRoute(){
         System.out.println("size of route: " + currentRoute.size);
+        System.out.println("Current level in ship: " + currentLevel.getLevelId());
         flyToBeacon(currentRoute.peek()); //peek returns the last item (without deleting)
     }
+
     /**
      * fly to the given level beacon
      * @param beacon given by PathNavigationManager
@@ -91,16 +97,21 @@ public class Ship extends ARenderableObject{
     public void flyToBeacon(LevelBeacon beacon){
         vectorToBeacon = beacon.getPositionCenter().cpy().sub(position.cpy());
         System.out.println("Angle: " + vectorToBeacon.angle());
+        System.out.println("Travels route: " + travelsRoute);
+        System.out.println("Is in orbit: " + isInOrbit);
+        System.out.println("Level id: " + beacon.getLevelId());
         //rotate the ship so that it aims at the new beacon
         //therefore we need get the angle of the vector to the beacon
         sprite.setRotation(vectorToBeacon.angle() - 90);
+        isInOrbit = false;
     }
+
     /**
      * set current level
      * @param beacon
      */
     public void setCurrentLevel(LevelBeacon beacon){
-        currentLevel = beacon;
+        this.currentLevel = beacon;
     }
 
     /**
