@@ -53,7 +53,7 @@ public class Ship extends ARenderableObject{
         //if ship is currently circling around planet the circling movement shell be made
         if(isInOrbit){
             //set new position, which will be rendered in next frame
-            System.out.println("Current level id in update method: " +  currentLevel.getLevelId());
+            //System.out.println("Current level id in update method: " +  currentLevel.getLevelId());
             position = SpaceMath.rotatePoint(position, currentLevel.getPositionCenter(), rotationSpeed * delta, rotationDirection);
 
             //rotate the sprite so that it looks like the ship actually circles around beacon (just like ingame)

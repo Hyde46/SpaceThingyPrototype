@@ -5,6 +5,7 @@ import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.Items.Level1.SpeedBooser;
 import com.mygdx.game.Items.Level2.Break;
 import com.mygdx.game.Items.Level3.ArtificialPlanet;
+import com.mygdx.game.Items.Level3.DestroyTarget;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.screens.MyGdxGame;
@@ -16,8 +17,10 @@ public class ItemManager {
 
     //some sort of safedata, with informations about which items the player has is needed
 
-    // while 1 item is activated ... orbit leave not possible ...
+    // while 1 item is activated ... orbit leave not possible ..
     // item activation can trigger orbit leave with same touch
+
+    // when 1 item activated other gets deactivated ... activate has to go over manager
 
     public boolean isOneItemActive()
     {
@@ -76,6 +79,8 @@ public class ItemManager {
                     break;
             case 7:items[sideToAdd] = new ArtificialPlanet(itemPos,sideToAdd,this,gs);
                     break;
+            case 8:items[sideToAdd] = new DestroyTarget(itemPos,sideToAdd,this,gs);
+                break;
             default: break;
         }
         itemIds[sideToAdd] = itemId;

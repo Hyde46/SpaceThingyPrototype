@@ -114,7 +114,7 @@ public class LevelGraph {
      * @param batch
      */
     public void renderBeacons(SpriteBatch batch){
-        System.out.println("Level graph current level: " + currentLevel.getLevelId());
+        //System.out.println("Level graph current level: " + currentLevel.getLevelId());
         for(LevelBeacon beacon : levelBeacons){
             beacon.render(batch);
         }

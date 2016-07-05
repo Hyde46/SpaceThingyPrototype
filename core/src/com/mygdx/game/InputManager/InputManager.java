@@ -50,7 +50,7 @@ public class InputManager implements InputProcessor
             objectHolder.objects.removeValue(obj, false);
     }
 
-    public void Clear()
+    public void clear()
     {
         objectHolder.objects.clear();
     }

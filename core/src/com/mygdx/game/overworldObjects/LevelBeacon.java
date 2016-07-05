@@ -120,7 +120,7 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
     @Override
     public void OnTouch(TouchData td)
     {
-        System.out.println("Wird getouched");
+        //System.out.println("Wird getouched");
         MyGdxGame game = MyGdxGame.game;
         //only process touch data if there is no dialog shown
         if(!((MainMenuScreen) game.current).getDialogManager().getShowDialog()) {
@@ -131,12 +131,12 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
 
             if (levelId == lg.getCurrentLevel().getLevelId() && sh.getInOrbit()) {
                 if (getIsShop()) {
-                    InputManager.get.Clear();
+                    InputManager.get.clear();
                     game.setScreen(new ShopScreen());
                 }
                 else
                 {
-                    InputManager.get.Clear();
+                    InputManager.get.clear();
                     game.setScreen(new GameScreen(levelId));
                 }
             } else {  //touched level is different from current level
@@ -144,7 +144,7 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
                     //tell PathNavigationManager to navigate to this level
                     //only send ship to beacon if it has been activated
                     if (activated) {
-                        System.out.println("Ship should navigate now!");
+                        //System.out.println("Ship should navigate now!");
                         pnm.navigateToBeacon(this);
                     }
                 }

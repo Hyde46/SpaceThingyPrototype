@@ -5,7 +5,6 @@ package com.mygdx.game.screens;
  */
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -13,7 +12,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 //import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.DataPersistent.DataPersistent;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.Items.ItemManager;
 import com.mygdx.game.managers.UnitManager;
@@ -22,6 +22,7 @@ import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.managers.levels.LevelFactory;
 import com.mygdx.game.prototypeUtils.CameraHelper;
+import com.mygdx.game.renderAbleObjects.ARenderableObject;
 import com.mygdx.game.renderAbleObjects.units.Planet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
@@ -171,7 +172,10 @@ public class GameScreen implements Screen{
     int levelId     The Id of the level which should be loaded ;)
      */
     public void setLevel(int levelId){
+        DataPersistent.get().data.nthGame++;
+        DataPersistent.get().save();
 
+        System.out.println("level nth: " + DataPersistent.get().data.nthGame);
         // Level l = LevelFactory.loadLevel(levelId);
         //for now
         switch(levelId) {
@@ -188,6 +192,8 @@ public class GameScreen implements Screen{
 
     private void initPrototypeLevel(){
         uM.resetUnits();
+        //InputManager.get.clear();
+
         finishCounter = 300;
         hasFinishedLevel = false;
         hasWonLevel = false;
@@ -279,6 +285,8 @@ public class GameScreen implements Screen{
     }
     private void initPrototypeLevelTwo(){
         uM.resetUnits();
+        //InputManager.get.clear();
+
         finishCounter = 300;
         hasFinishedLevel = false;
         hasWonLevel = false;
@@ -350,7 +358,7 @@ public class GameScreen implements Screen{
         levelBGColor[1] = 49.0f/255.0f;
         levelBGColor[2] = 41.0f/255.0f;
 
-        itemMan.setItems(1,7);
+        itemMan.setItems(7,8);
 
         System.out.println("Done!");
     }
@@ -364,9 +372,8 @@ public class GameScreen implements Screen{
             hasFinishedLevel = false;
             hasWonLevel = false;
 
-            InputManager.get.Clear();
+            InputManager.get.clear();
             MyGdxGame.game.setScreen(new MainMenuScreen(level,hasWonLevel));
-
         }
     }
 
@@ -381,10 +388,41 @@ public class GameScreen implements Screen{
     public void addPlanet(Vector2 posWorld)
     {
         Planet planetTemp = new Planet();
-        planetTemp.initialize(posWorld,320,50,false,"planet2_100x100.png",1,(new Random()).nextInt(360));
+        planetTemp.initialize(posWorld,320,64,false,"artificial-planet-sprite-128.png",1,(new Random()).nextInt(360));
+
+        System.out.println("planet set to " + posWorld);
 
         uM.addUnit(planetTemp);
         InputManager.get.Register(planetTemp);
+    }
+
+    public boolean tryDestroyTarget(Vector2 posWorld)
+    {
+        System.out.println("try destroy");
+        boolean hasFound = false;
+        Array<Unit> units = uM.getUnits();
+        for (Unit unit: units)
+        {
+            if(((ARenderableObject)unit).getCollisionHitbox().contains(posWorld))
+            {
+                System.out.println("destroy xx");
+                uM.deleteUnit(unit);
+                InputManager.get.UnRegister(unit);
+                hasFound = true;
+            }
+        }
+
+        return hasFound;
+        /*
+        Array<IInputHandler> objsHit = InputManager.get.getObjsHit((int)posWorld.x, (int)posWorld.y);
+        for (IInputHandler obj : objsHit)
+        {
+            if(obj instanceof Unit)
+            {
+                uM.deleteUnit((Unit)obj);
+            }
+        }
+        */
     }
 
     //////////////

@@ -5,9 +5,8 @@ package com.mygdx.game.DataPersistent;
  */
 public class DataPersistent
 {
-    public static DataPersistent get;
-
-    DataSaverLibGDX dataSaver;
+    private static DataPersistent instance;
+    private DataSaverLibGDX dataSaver;
 
     public DataSaved data;
 
@@ -17,12 +16,10 @@ public class DataPersistent
         data = (DataSaved)dataSaver.load_object();
     }
 
-    public static void setup()
+    public static DataPersistent get()
     {
-        if(get == null)
-        {
-            get = new DataPersistent();
-        }
+        if(instance == null){ instance = new DataPersistent(); }
+        return instance;
     }
 
     public void save()
@@ -30,7 +27,7 @@ public class DataPersistent
         dataSaver.save_object(data);
     }
 
-    public void load()
+    private void load()
     {
         data = (DataSaved)dataSaver.load_object();
     }
@@ -40,9 +37,9 @@ public class DataPersistent
         /* Here can be stored everything */
 
         // Settings data
-
         // Level data
-
         // Player data
+
+        public int nthGame = 0;
     }
 }

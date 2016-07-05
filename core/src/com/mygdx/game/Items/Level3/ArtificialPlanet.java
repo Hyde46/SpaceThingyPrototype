@@ -34,7 +34,7 @@ public class ArtificialPlanet extends Item implements IInputAnywhere
     @Override
     public void initialize(){
         Vector2 posToRender = SpaceMath.getPosToRender(levelPos);
-        initialize("speedBooster_200x200.png",200,posToRender);
+        initialize("artificial-planet-icon-256.png",256,posToRender);
         itemName = "Artificial Planet";
         maxUses = 10;
         uses = maxUses;
@@ -99,7 +99,7 @@ public class ArtificialPlanet extends Item implements IInputAnywhere
     @Override
     public void OnTouch(TouchData td)
     {
-        if(stateItem == StateItem.READY)
+        if(stateItem == StateItem.READY && uses > 0)
         {
             activateSuper();
             SetPossibleRadius();
@@ -111,9 +111,6 @@ public class ArtificialPlanet extends Item implements IInputAnywhere
 
     public void update(float delta)
     {
- //       timeCooldown -= 1f;
-  //      if(timeCooldown <= 0) timeCooldown = 1000f;
-
         if(stateItem == StateItem.COOLDOWN){
             timeCooldown -= delta;
             if(timeCooldown <= 0){

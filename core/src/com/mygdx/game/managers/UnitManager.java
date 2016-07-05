@@ -52,7 +52,13 @@ public class UnitManager {
     }
 
     public void deleteUnit(Unit u){
+        // xD wundere mich warum mein item tut aber die unit nicht deleted wird
         //TODO
+        if(units.contains(u, false))
+        {
+            System.out.println("removed");
+            units.removeValue(u, false);
+        }
     }
 
     public SpaceShip getPlayerShip(){
