@@ -55,7 +55,7 @@ public class MainMenuScreen implements Screen {
 
     OverlayOverworldHUD overlayHUD;
 
-    ButtonOptions boTest;
+    //ButtonOptions boTest;
 
     private int finishedLevel;
 
@@ -109,8 +109,10 @@ public class MainMenuScreen implements Screen {
         overlayHUD = new OverlayOverworldHUD();
         overlayHUD.initialize();
 
+        /*
         boTest = new ButtonOptions();
         boTest.initialize(new Vector2(200,200), 250, 250);
+        */
 
         //add the backgrounds (hex pattern and stars)
         backgroundManager = new ParallaxBackgroundManager();
@@ -152,7 +154,7 @@ public class MainMenuScreen implements Screen {
         game.batch.begin();
         backgroundManager.render(game.batch);
         overlayHUD.render(game.batch);
-        boTest.render(game.batch);
+       // boTest.render(game.batch);
         game.font.draw(game.batch, game.currentVersion, 5 , 30);
         game.batch.end();
 

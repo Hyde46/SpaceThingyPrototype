@@ -12,6 +12,7 @@ public class ParallaxBackgroundManager {
 
     private Array<BackGround> layers;
     private float[] layerDamp;
+    private int layerSize;
 
     public ParallaxBackgroundManager(){
         layers = new Array<BackGround>();
@@ -19,6 +20,7 @@ public class ParallaxBackgroundManager {
     }
 
     public void setLayers(int numlayers){
+        layerSize = numlayers;
         layerDamp = new float[numlayers+1];
         BackGround[] layers = new BackGround[numlayers];
 
@@ -41,8 +43,13 @@ public class ParallaxBackgroundManager {
     }
 
     public void noticeTranslation(Vector2 translation){
+        for(int i = 0; i < layerSize; ++i){
+            layers.get(i).getSprite().translate(translation.x*layerDamp[i],translation.y*layerDamp[i]);
+        }
+        /*
         layers.get(0).getSprite().translate(translation.x*layerDamp[0],translation.y*layerDamp[0]);
         layers.get(1).getSprite().translate(translation.x*layerDamp[1],translation.y*layerDamp[1]);
         layers.get(2).getSprite().translate(translation.x*layerDamp[2],translation.y*layerDamp[2]);
+        */
     }
 }

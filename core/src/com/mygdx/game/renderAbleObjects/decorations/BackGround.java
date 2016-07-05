@@ -1,5 +1,6 @@
 package com.mygdx.game.renderAbleObjects.decorations;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
@@ -20,4 +21,14 @@ public class BackGround extends Decoration {
     public void renderHitboxes(ShapeRenderer s){
         return;
     }
+
+    @Override
+    public void render(SpriteBatch g){
+        if(!isActive || tex == null){
+            return;
+        }
+        sprite.draw(g);
+        //g.draw(tex,position.x-spriteDimension.x/2,position.y-spriteDimension.y/2,spriteDimension.x,spriteDimension.y);
+    }
+
 }

@@ -265,7 +265,7 @@ public class GameScreen implements Screen{
         cM.initializeCamera((SpaceShip)playerShip);
         spX.initWorldBounds(new Rectangle(-700,-1100,4000,7000));
 
-        pbM.setLayers(2);
+        pbM.setLayers(4);
         cM.addPBM(pbM);
 
 
@@ -305,7 +305,7 @@ public class GameScreen implements Screen{
         ((Planet)p6).initialize(new Vector2(800,4700),240,50,false,"planet2_100x100.png",2,10);
         ((Planet)p7).initialize(new Vector2(1800,5300),240,50,true,"planet8_100x100.png",2,10);
 
-        ((SpaceShip)playerShip).initialize(new Vector2(500,670),new Vector2(5,350),(Planet)p1,100,new Vector2(40,40),"ship1_40x40.png",0);
+        ((SpaceShip)playerShip).initialize(new Vector2(500,670),new Vector2(5,350),(Planet)p1,300,new Vector2(40,40),"ship1_40x40.png",0);
 
 
         //initialize moons
@@ -336,6 +336,8 @@ public class GameScreen implements Screen{
         InputManager.get.Register(p5);
         InputManager.get.Register(p6);
         InputManager.get.Register(p7);
+        InputManager.get.Register(p8);
+        InputManager.get.Register(p9);
 
         cM.initializeCamera((SpaceShip)playerShip);
         spX.initWorldBounds(new Rectangle(-1700,-1100,5000,7000));
