@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.DataPers.DataPers;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.managers.PathNavigationManager;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
@@ -16,7 +17,6 @@ import com.mygdx.game.overworldObjects.Overlay;
 import com.mygdx.game.overworldObjects.OverlayOverworldHUD;
 import com.mygdx.game.overworldObjects.Ship;
 import com.mygdx.game.prototypeUtils.CameraHelper;
-import com.mygdx.game.renderAbleObjects.decorations.ButtonOptions;
 
 /**
  * Created by denis on 5/6/16.
@@ -106,8 +106,8 @@ public class MainMenuScreen implements Screen {
         overlay = new Overlay();
         overlay.initialize(true);       //true because it should be seen
 
-        overlayHUD = new OverlayOverworldHUD();
-        overlayHUD.initialize();
+        //overlayHUD = new OverlayOverworldHUD();
+       // overlayHUD.initialize();
 
         /*
         boTest = new ButtonOptions();
@@ -153,9 +153,13 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(camFixed.combined);
         game.batch.begin();
         backgroundManager.render(game.batch);
-        overlayHUD.render(game.batch);
+//        overlayHUD.render(game.batch);
        // boTest.render(game.batch);
-        game.font.draw(game.batch, game.currentVersion, 5 , 30);
+        game.font.draw(game.batch, game.currentVersion, 10 , 50);
+
+
+        game.font.draw(game.batch, "nth start " + DataPers.data().nthGame, 600 , 50);
+
         game.batch.end();
 
         //render other elements, which have a specific position in the world (e.g. beacons)

@@ -1,5 +1,7 @@
 package com.mygdx.game.DataPersistent;
 
+import com.badlogic.gdx.graphics.g3d.particles.ResourceData;
+
 /**
  * Created by Mechandrius on 19.06.2016.
  */
