@@ -305,7 +305,7 @@ public class GameScreen implements Screen{
         ((Planet)p6).initialize(new Vector2(800,4700),240,50,false,"planet2_100x100.png",2,10);
         ((Planet)p7).initialize(new Vector2(1800,5300),240,50,true,"planet8_100x100.png",2,10);
 
-        ((SpaceShip)playerShip).initialize(new Vector2(300,670),new Vector2(5,350),(Planet)p1,100,new Vector2(40,40),"ship1_40x40.png",0);
+        ((SpaceShip)playerShip).initialize(new Vector2(500,670),new Vector2(5,350),(Planet)p1,100,new Vector2(40,40),"ship1_40x40.png",0);
 
 
         //initialize moons
