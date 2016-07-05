@@ -292,22 +292,30 @@ public class GameScreen implements Screen{
         Unit p5 = new Planet();
         Unit p6 = new Planet();
         Unit p7 = new Planet();
+        Unit p8 = new Planet();
+        Unit p9 = new Planet();
         System.out.println("Loading resources...");
-        ((Planet)p1).initialize(new Vector2(200,670),320,50,false,"planet2_100x100.png",1,0);
-        ((Planet)p2).initialize(new Vector2(700,850),320,50,false,"planet2_100x100.png",2,20);
-        ((Planet)p3).initialize(new Vector2(-600,1500),320,36,false,"planet1_72x72.png",1,30);
+
        // ((SpaceShip)playerShip).initialize(new Vector2(320,300),new Vector2(5,350),null,0,new Vector2(40,40),"ship1_40x40.png",0);
         ((Planet)p1).initialize(new Vector2(200,670),320,50,false,"planet3_100x100.png",1,0);
-        ((Planet)p2).initialize(new Vector2(700,850),320,50,false,"planet4_100x100.png",2,20);
-        ((Planet)p3).initialize(new Vector2(-600,1500),320,65,false,"planet5_130x130.png",1,30);
-        ((Planet)p4).initialize(new Vector2(1100,2150),320,75,false,"planet7_150x150.png",2,40);
-        ((Planet)p5).initialize(new Vector2(-300,2400),240,36,false,"planet6_72x72.png",1,120);
-        ((Planet)p6).initialize(new Vector2(200,3300),240,50,true,"planet2_100x100.png",2,10);
+        ((Planet)p2).initialize(new Vector2(1300,750),320,50,false,"planet4_100x100.png",2,20);
+        ((Planet)p3).initialize(new Vector2(1600,2350),320,65,false,"planet5_130x130.png",1,30);
+        ((Planet)p4).initialize(new Vector2(300,2850),320,75,false,"planet7_150x150.png",2,40);
+        ((Planet)p5).initialize(new Vector2(600,4000),240,36,false,"planet6_72x72.png",1,120);
+        ((Planet)p6).initialize(new Vector2(800,4700),240,50,false,"planet2_100x100.png",2,10);
+        ((Planet)p7).initialize(new Vector2(1800,5300),240,50,true,"planet8_100x100.png",2,10);
+
         ((SpaceShip)playerShip).initialize(new Vector2(300,670),new Vector2(5,350),(Planet)p1,100,new Vector2(40,40),"ship1_40x40.png",0);
 
-        ((Planet)p7).initialize(new Vector2(-920,1500),190,18,false,"moon2_36x36.png",1,0);
-        ((Planet)p7).connectToPlanet((Planet)p3);
-        ((Planet)p7).setRotationSpeed(20.0f,1);
+
+        //initialize moons
+        ((Planet)p8).initialize(new Vector2(1270,2350),190,18,false,"moon2_36x36.png",1,0);
+        ((Planet)p8).connectToPlanet((Planet)p3);
+        ((Planet)p8).setRotationSpeed(20.0f,1);
+
+        ((Planet)p9).initialize(new Vector2(340,4000),190,18,false,"moon1_36x36.png",1,0);
+        ((Planet)p9).connectToPlanet((Planet)p5);
+        ((Planet)p9).setRotationSpeed(27.0f,-1);
 
         uM.addUnit(p1);
         uM.addUnit(p2);
@@ -316,6 +324,9 @@ public class GameScreen implements Screen{
         uM.addUnit(p5);
         uM.addUnit(p6);
         uM.addUnit(p7);
+        uM.addUnit(p8);
+        uM.addUnit(p9);
+
         uM.addUnit(playerShip);
         spX.initializePhysics(uM.getUnits(),this);
         InputManager.get.Register(p1);
