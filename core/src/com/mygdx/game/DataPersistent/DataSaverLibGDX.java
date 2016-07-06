@@ -5,38 +5,43 @@ import com.badlogic.gdx.Preferences;
 import com.google.gson.Gson;
 
 public class DataSaverLibGDX<T>
-{	
+{
 	private final Gson GSON = new Gson();
     private final Preferences PREFS;
     private final String NAME_PREFS = "PREFS_0";
 	private final String SAVE_NAME;
 	private final T DEFAULT_VALUE;
 
-    public DataSaverLibGDX(T default_value, String save_name)
+    public DataSaverLibGDX(T obj_default, String save_name)
     {
         this.PREFS = Gdx.app.getPreferences("NAME_PREFS");
-        this.DEFAULT_VALUE = default_value;
+        this.DEFAULT_VALUE = obj_default;
         this.SAVE_NAME = save_name;
+        save_object(obj_default);
     }
 
 	public void save_object(T object)
 	{
-		String json_object = GSON.toJson(object);		
+		String json_object = GSON.toJson(object);
 		PREFS.putString(SAVE_NAME, json_object);
+        PREFS.flush();
 	}
 
 	public T load_object()
 	{
 		String json_object = PREFS.getString(SAVE_NAME, "");
-		
+        PREFS.flush();
+
+        System.out.println("saved string + " + json_object);
+
 		if (json_object == "")
-		{	
-			save_object(DEFAULT_VALUE);
+		{
+			//save_object(DEFAULT_VALUE);
 			return DEFAULT_VALUE;
 		}
 		else
 		{
-			return (T)GSON.fromJson(json_object, DEFAULT_VALUE.getClass());	
+			return (T)GSON.fromJson(json_object, DEFAULT_VALUE.getClass());
 		}						
 	}
 
