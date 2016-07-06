@@ -74,12 +74,12 @@ public class CameraManager {
         //player != null, so the camera manager can be used in overworld
         if(player != null && !player.isInOrbit()) {
             trans = player.getPosition().cpy().add(translation.x - screenCenter.x, translation.y - screenCenter.y).scl(1.0f);
-            if(trans.cpy().sub(translation.x,translation.y).len() >= 10){
+            if(trans.cpy().sub(translation.x,translation.y).len() >= 5){
                 trans.scl(1.0f/ translationDamp);
             }
             cam.translate(trans);
             translation.sub(trans.x, trans.y, 0);
-
+            screenCenter.add(trans.x,trans.y,0);
             pBM.noticeTranslation(trans.scl(-1.0f));
         }
         cam.update();
