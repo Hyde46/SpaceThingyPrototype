@@ -9,7 +9,9 @@ import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.overworldObjects.Dialog.DialogManager;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
 import com.mygdx.game.screens.GameScreen;
+import com.mygdx.game.screens.HangarScreen;
 import com.mygdx.game.screens.MainMenuScreen;
+import com.mygdx.game.screens.MyGdxGame;
 
 /**
  * Created by denis on 5/22/16.
@@ -19,6 +21,7 @@ public class CameraHelper extends ARenderableObject implements IInputHandler {
     private CameraManager cM;
 
     private DialogManager dialogManager;
+    private int screenType; //1 = game screen, 2 = overworld, 3 = shop, 4 = hangar
     private Vector2 touchPos;
     private Vector2 lastUpdatedPos;
     private Vector2 diff;
@@ -34,11 +37,12 @@ public class CameraHelper extends ARenderableObject implements IInputHandler {
         hitbox = new Rectangle();
         isUpdate = false;
     }
-    public void setCameraManager(CameraManager cM, DialogManager dialogManager){
+    public void setCameraManager(CameraManager cM, DialogManager dialogManager, int screenType){
         this.cM = cM;
         hitbox.set(0,0, MainMenuScreen.camFixed.viewportWidth, MainMenuScreen.camFixed.viewportHeight);
         isUI = true;
         this.dialogManager = dialogManager;
+        this.screenType = screenType;
     }
 
     public void OnTouch(TouchData td) {
@@ -50,11 +54,16 @@ public class CameraHelper extends ARenderableObject implements IInputHandler {
     }
 
     public void OnDrag(TouchData td) {
-        //player == null so that the helper can be used in in overworld
-        if(cM.getPlayer() != null){//|| cM.getPlayer().isInOrbit()) {
+        //player == null so that the helper can be used in in overworld TODO talk to denis
+        if(cM.getPlayer() == null){//|| cM.getPlayer().isInOrbit()) {
             //check if dialog manager is null (ingame) or if a dialog is shown (overworld) -> no camera movement
             if(dialogManager == null || !dialogManager.getShowDialog()){
-                cM.addTranslation(new Vector2(-td.getDeltaSwipe().x, td.getDeltaSwipe().y));
+                //if screen is 4 (hangar) only translate in y direction)
+                if(screenType == 4){
+                    cM.addTranslation(new Vector2(0, td.getDeltaSwipe().y));
+                }else{
+                    cM.addTranslation(new Vector2(-td.getDeltaSwipe().x, td.getDeltaSwipe().y));
+                }
             }
         }
     }

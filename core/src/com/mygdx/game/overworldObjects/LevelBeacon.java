@@ -16,6 +16,7 @@ import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.managers.PathNavigationManager;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
 import com.mygdx.game.screens.GameScreen;
+import com.mygdx.game.screens.HangarScreen;
 import com.mygdx.game.screens.MainMenuScreen;
 import com.mygdx.game.screens.MyGdxGame;
 import com.mygdx.game.screens.ShopScreen;
@@ -31,7 +32,7 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
     protected Vector2 positionCenter;
     //array that holds the levels that are connected to this on (to implement graph structure)
     private Array<LevelBeacon> connectedBeacons;
-    private boolean isShop;
+    private int type;   //1 = normal level, 2 = shop, 3 = hangar
     private boolean activated;
     private Color beaconColor;
 
@@ -47,7 +48,7 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
      * @param height
      * @param width
      */
-    protected void initialize(Vector2 position, int height, int width, int levelId, Array<LevelBeacon> connectedBeacons, boolean isShop, boolean activated){
+    protected void initialize(Vector2 position, int height, int width, int levelId, Array<LevelBeacon> connectedBeacons, int type, boolean activated){
         initializePositions(position);
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
         this.height = height;
@@ -56,16 +57,18 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
         //compute position of the center of the rectangle
         positionCenter = new Vector2(position.x + width / 2, position.y + height / 2);
         this.connectedBeacons = connectedBeacons;
-        this.isShop = isShop;
-        //color that the object shell have depends on whether it is shop or level
-        if(isShop){
-            initializeTexture(new Vector2(width, height), 0, "beacon_shop.png");
-        }else if(activated){ //normal activated level
-            initializeTexture(new Vector2(width, height), 0, "beacon.png");
-        }else{  //not activated level
-            initializeTexture(new Vector2(width, height), 0, "beacon_inactive.png");
-        }
+        this.type = type;
         this.activated = activated;
+        //color that the object shell have depends on whether it is shop, hangar or level
+        if(!activated){
+            initializeTexture(new Vector2(width, height), 0, "beacon_inactive.png");
+        }else if(type == 2){
+            initializeTexture(new Vector2(width, height), 0, "beacon_shop.png");
+        }else if(type == 3){
+            initializeTexture(new Vector2(width, height), 0, "beacon_hangar.png");
+        }else{ //normal activated level
+            initializeTexture(new Vector2(width, height), 0, "beacon.png");
+        }
     }
 
     /**
@@ -130,14 +133,18 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
             PathNavigationManager pnm = ((MainMenuScreen) game.current).getPathNavigationManager();
 
             if (levelId == lg.getCurrentLevel().getLevelId() && sh.getInOrbit()) {
-                if (getIsShop()) {
+                if (type == 2) {
                     InputManager.get.clear();
-                    game.setScreen(new ShopScreen());
+                    game.openScreen(new ShopScreen());
+                }
+                else if(type == 3){
+                    InputManager.get.clear();
+                    game.openScreen(new HangarScreen());
                 }
                 else
                 {
                     InputManager.get.clear();
-                    game.setScreen(new GameScreen(levelId));
+                    game.openScreen(new GameScreen(levelId));
                 }
             } else {  //touched level is different from current level
                 if (!sh.getTravelsRoute()) {      //only call navigate function, if the ship is not already on route
@@ -173,11 +180,11 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
     }
 
     /**
-     * get, if this beacon leads to a shop or not
+     * get, if this beacon leads to a shop, hangar or level
      * @return isShop
      */
-    public boolean getIsShop(){
-        return isShop;
+    public int getType(){
+        return type;
     }
 
     /**

@@ -67,7 +67,7 @@ public class MainMenuScreen implements Screen {
         finishedLevel = 0;      //is beginning
         setupScreen();
         setupDialogs(true);
-        cameraHelper.setCameraManager(cameraManager, dialogManager);
+        cameraHelper.setCameraManager(cameraManager, dialogManager, 2);
     }
 
     /**
@@ -80,7 +80,7 @@ public class MainMenuScreen implements Screen {
         setupScreen();
         //depending on success the boolean showDialog will be set to true of false
         setupDialogs(success);
-        cameraHelper.setCameraManager(cameraManager, dialogManager);
+        cameraHelper.setCameraManager(cameraManager, dialogManager, 2);
     }
 
     /**
@@ -184,7 +184,7 @@ public class MainMenuScreen implements Screen {
         }else if(dialogManager.getShowDialog()){
             dialogManager.renderDialog();
         }
-
+        camFixed.update();
         update(delta);
     }
 

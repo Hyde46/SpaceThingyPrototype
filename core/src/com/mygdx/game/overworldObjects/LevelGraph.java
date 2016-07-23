@@ -53,16 +53,16 @@ public class LevelGraph {
         array8.addAll(levelBeacon7, levelBeacon9);
         Array<LevelBeacon> array9 = new Array<LevelBeacon>();
         array9.add(levelBeacon8);
-        //initialize beacons: position, size, id, array of connected beacons, is shop, is already activated
-        levelBeacon1.initialize(new Vector2(300, 300), 300, 300, 1, array1, false, true);
-        levelBeacon2.initialize(new Vector2(700, 700), 300, 300, 2, array2, false, true);
-        levelBeacon3.initialize(new Vector2(300, 1000), 300, 300, 3, array3, true, true);
-        levelBeacon4.initialize(new Vector2(800, 1200), 300, 300, 4, array4, false, false);
-        levelBeacon5.initialize(new Vector2(500, 1600), 300, 300, 5, array5, false, false);
-        levelBeacon6.initialize(new Vector2(500, 2000), 300, 300, 6, array6, false, false);
-        levelBeacon7.initialize(new Vector2(100, 2000), 300, 300, 7, array7, false, false);
-        levelBeacon8.initialize(new Vector2(-300, 1900), 300, 300, 8, array8, false, false);
-        levelBeacon9.initialize(new Vector2(-300, 2300), 300, 300, 9, array9, false, false);
+        //initialize beacons: position, size, id, array of connected beacons, type of beacon (1=level, 2=shop, 3=hangar), is already activated
+        levelBeacon1.initialize(new Vector2(300, 300), 300, 300, 1, array1, 1, true);
+        levelBeacon2.initialize(new Vector2(700, 700), 300, 300, 2, array2, 1, true);
+        levelBeacon3.initialize(new Vector2(300, 1000), 300, 300, 3, array3, 2, true);
+        levelBeacon4.initialize(new Vector2(800, 1200), 300, 300, 4, array4, 3, true);
+        levelBeacon5.initialize(new Vector2(500, 1600), 300, 300, 5, array5, 1, false);
+        levelBeacon6.initialize(new Vector2(500, 2000), 300, 300, 6, array6, 1, false);
+        levelBeacon7.initialize(new Vector2(100, 2000), 300, 300, 7, array7, 1, false);
+        levelBeacon8.initialize(new Vector2(-300, 1900), 300, 300, 8, array8, 1, false);
+        levelBeacon9.initialize(new Vector2(-300, 2300), 300, 300, 9, array9, 1, false);
 
         //add beacons to array of this LevelGraph object
         addBeacon(levelBeacon1);
