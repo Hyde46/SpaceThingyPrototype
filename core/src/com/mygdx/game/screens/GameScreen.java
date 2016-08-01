@@ -272,7 +272,6 @@ public class GameScreen implements Screen{
         InputManager.get.Register(p10);
         InputManager.get.Register(p11);
         InputManager.get.Register(p12);
-
         cM.initializeCamera((SpaceShip)playerShip);
         spX.initWorldBounds(new Rectangle(-700,-1100,4000,7000));
 

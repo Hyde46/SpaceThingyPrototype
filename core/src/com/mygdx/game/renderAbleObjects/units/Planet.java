@@ -51,6 +51,7 @@ public class Planet extends Unit implements IInputHandler {
         rotationDirection = 0;
         translation = new Vector2();
         gravity = 10.0f;
+
     }
 
     private void initializeOrbitTex(boolean isGoalPlanet) {
