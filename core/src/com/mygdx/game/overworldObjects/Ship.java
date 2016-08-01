@@ -1,5 +1,6 @@
 package com.mygdx.game.overworldObjects;
 
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -38,6 +39,7 @@ public class Ship extends ARenderableObject{
         //sprite id needs to be changed later
         initializeTexture(spriteDimensions, 0, texturePath);
         System.out.println("Ship is initialized");
+
     }
 
     public void renderHitboxes(ShapeRenderer shapeRenderer){
@@ -50,6 +52,7 @@ public class Ship extends ARenderableObject{
      * @param delta
      */
     public void update(float delta){
+
         //if ship is currently circling around planet the circling movement shell be made
         if(isInOrbit){
             //set new position, which will be rendered in next frame

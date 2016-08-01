@@ -51,8 +51,9 @@ public class MyGdxGame extends Game {
 		//font.getData().scale(1.0f);
 		shapeRenderer = new ShapeRenderer();
 		fpsLimit = new FPSLimiter(60);
-		currentVersion = "Prototype v0.1.4";
-		openScreen(new MainMenuScreen());
+		currentVersion = "Prototype v0.1.6";
+		//openScreen(new MainMenuScreen());
+		openScreen(new MainMenuScreen(0,true));
 		showOverlay = true;
 	}
 
