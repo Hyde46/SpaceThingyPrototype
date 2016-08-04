@@ -70,7 +70,7 @@ public class SpacePhysiX {
         for(Unit u : units){
             if(u.getUnitType() != 0){ //0 = playership
                 //player crashes into planet
-                if(((Circle)u.getCollisionHitbox()).overlaps(playerShip.getTargetHitbox())){
+                if(((Circle)u.getCollisionHitbox()).overlaps(playerShip.getTargetHitbox()) && !playerShip.isPhasedOut()){
                     playerShip.collide();
                 }
             }
@@ -85,7 +85,7 @@ public class SpacePhysiX {
 
     private void dockPlayerToOrbit() {
         if(playerShip != null) {
-            if (!playerShip.isInOrbit() && !playerShip.isCollided()) {
+            if (!playerShip.isInOrbit() && !playerShip.isCollided() && !playerShip.isPhasedOut()) {
                 for (Unit u : units) {
                     if (u.getUnitType() != 0) { // 0 = SpaceShip
                         //if player is in range, check if he should dock

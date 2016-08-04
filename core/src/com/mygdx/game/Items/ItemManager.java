@@ -6,6 +6,7 @@ import com.mygdx.game.Items.Level1.SpeedBooser;
 import com.mygdx.game.Items.Level2.Break;
 import com.mygdx.game.Items.Level3.ArtificialPlanet;
 import com.mygdx.game.Items.Level3.DestroyTarget;
+import com.mygdx.game.Items.Level3.PhaseOut;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.screens.MyGdxGame;
@@ -80,6 +81,8 @@ public class ItemManager {
             case 7:items[sideToAdd] = new ArtificialPlanet(itemPos,sideToAdd,this,gs);
                     break;
             case 8:items[sideToAdd] = new DestroyTarget(itemPos,sideToAdd,this,gs);
+                break;
+            case 9:items[sideToAdd] = new PhaseOut(itemPos,sideToAdd,this);
                 break;
             default: break;
         }

@@ -29,11 +29,14 @@ public class SpaceShip extends Unit {
 
     private Animation deathAnimation;
 
+    private boolean isPhasedOut;
+
 
     public SpaceShip(){
         super();
         unitType = 0;
         deltaMovement = new Vector2();
+        isPhasedOut = false;
     }
 
     public void initialize(Vector2 position,Vector2 deltaMovement,Planet connectedPlanet, float currentOrbitRadius, Vector2 spriteDimensions, String texturePath, int spriteId){
@@ -215,11 +218,17 @@ public class SpaceShip extends Unit {
 
     public boolean hasReachedGoal(){ return hasReachedGoal; }
 
+    public boolean isPhasedOut(){ return isPhasedOut; }
+
     //METHODS FOR ITEMS
     public void boost(float boostScl,float delta){
         float scaledBoost = 1.0f+boostScl*delta;
         rotationSpeed = rotationSpeed * scaledBoost;
         deltaMovement = deltaMovement.scl(scaledBoost).cpy();
 
+    }
+
+    public void phaseOut(boolean b){
+        isPhasedOut = b;
     }
 }
