@@ -18,7 +18,6 @@ import com.mygdx.game.utils.SpaceMath;
 public class ArtificialPlanet extends Item implements IInputAnywhere
 {
     private int side;
-    SpaceShip ss;
 
 
     public ArtificialPlanet(int itemPos, int sideToAdd, ItemManager itemManager, GameScreen gs)
@@ -38,8 +37,10 @@ public class ArtificialPlanet extends Item implements IInputAnywhere
         itemName = "Artificial Planet";
         maxUses = 10;
         uses = maxUses;
-        ss = gs.getPlayerShip();
         timeCooldown = 4f;
+
+        if(player == null)
+            player = iM.getPlayer();
     }
 
     @Override
@@ -72,7 +73,7 @@ public class ArtificialPlanet extends Item implements IInputAnywhere
     {
         if(stateItem == StateItem.ACTIVATED)
         {
-            Vector2 posPlayer = ss.getPosition();
+            Vector2 posPlayer = player.getPosition();
             Vector3 posPress = td.getPosWorldCurrent();
             Vector2 posRender = new Vector2(posPress.x, posPress.y);
 

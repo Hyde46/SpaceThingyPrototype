@@ -136,4 +136,5 @@ public class ItemManager {
     public SpaceShip getPlayer(){
         return gs.getPlayerShip();
     }
+    public boolean hasLevelEnded() { return gs.isLevelFinished();}
 }

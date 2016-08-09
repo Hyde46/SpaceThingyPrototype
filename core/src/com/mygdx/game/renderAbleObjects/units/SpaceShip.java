@@ -229,7 +229,6 @@ public class SpaceShip extends Unit {
         deltaMovement = deltaMovement.scl(scaledBoost).cpy();
 
     }
-
     public void phaseOut(boolean b){
         isPhasedOut = b;
         isFlickering = true;

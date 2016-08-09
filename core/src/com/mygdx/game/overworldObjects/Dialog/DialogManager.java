@@ -103,7 +103,6 @@ public class DialogManager {
 
 
             //draw text inside of textarea
-            game.font.setColor(Color.BLACK);
 
             game.uiBatch.setProjectionMatrix(MainMenuScreen.camFixed.combined);
             game.uiBatch.begin();

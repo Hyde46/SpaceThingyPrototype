@@ -8,10 +8,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.IInputHandler;
 import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.renderAbleObjects.decorations.Decoration;
+import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.screens.GameScreen;
 
 /**
  * Created by Mechandrius on 19.06.2016.
+ * Hyde
  */
 public abstract class Item  extends Decoration implements IInputHandler {
     public enum StateItem {READY, ACTIVATED, EFFECT, COOLDOWN}
@@ -31,6 +33,9 @@ public abstract class Item  extends Decoration implements IInputHandler {
     protected GameScreen gs;
 
     protected String itemName;
+
+
+    protected SpaceShip player;
 
     public Item() {
         stateItem = StateItem.READY;
@@ -94,6 +99,8 @@ public abstract class Item  extends Decoration implements IInputHandler {
 
     @Override
     public void OnTouch(TouchData td) {
+        if(iM.getPlayer().isCollided()||iM.hasLevelEnded())
+            return;
         if(stateItem == StateItem.READY && uses > 0){
             activateSuper();
             uses--;

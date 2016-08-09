@@ -46,6 +46,8 @@ public class SpeedBooser extends Item
         itemName = "Speed Booster";
         maxUses = 10;
         uses = maxUses;
+        if(player == null)
+            player = iM.getPlayer();
     }
 
     @Override
@@ -87,9 +89,6 @@ public class SpeedBooser extends Item
     {
         if(stateItem == StateItem.ACTIVATED){
             stateItem = StateItem.EFFECT;
-
-            if(player == null)
-                player = iM.getPlayer();
 
             timeCooldown = maxCooldown;
         }

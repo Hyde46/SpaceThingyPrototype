@@ -59,7 +59,6 @@ public class GameScreen implements Screen{
 
     public GameScreen(int levelToStart) {
         this.level = levelToStart;
-        MyGdxGame.game.font.setColor(Color.WHITE);
         // create the camera and the SpriteBatch
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, 1080, 1920);
@@ -200,7 +199,7 @@ public class GameScreen implements Screen{
         uM.resetUnits();
         //InputManager.get.clear();
 
-        finishCounter = 300;
+        finishCounter = 200;
         hasFinishedLevel = false;
         hasWonLevel = false;
         isOutOfBounds = false;
@@ -297,7 +296,7 @@ public class GameScreen implements Screen{
         uM.resetUnits();
         //InputManager.get.clear();
 
-        finishCounter = 300;
+        finishCounter = 200;
         hasFinishedLevel = false;
         hasWonLevel = false;
         isOutOfBounds = false;
@@ -462,6 +461,14 @@ public class GameScreen implements Screen{
 
     @Override
     public void dispose() {
+    }
+
+    public void finishLevelImidiate(){
+        finishCounter = 1;
+    }
+
+    public boolean isLevelFinished(){
+        return hasFinishedLevel;
     }
 
 }
