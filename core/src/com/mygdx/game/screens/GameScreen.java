@@ -24,6 +24,7 @@ import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.managers.levels.LevelFactory;
 import com.mygdx.game.prototypeUtils.CameraHelper;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
+import com.mygdx.game.renderAbleObjects.units.PickableItem;
 import com.mygdx.game.renderAbleObjects.units.Planet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
@@ -260,6 +261,11 @@ public class GameScreen implements Screen{
         uM.addUnit(p11);
         uM.addUnit(p12);
         uM.addUnit(playerShip);
+
+        Unit item1 = new PickableItem();
+        ((PickableItem)item1).initialize(0,new Vector2(100,670),false);
+        uM.addUnit(item1);
+
         spX.initializePhysics(uM.getUnits(),this);
         InputManager.get.Register(p1);
         InputManager.get.Register(p2);
@@ -283,7 +289,7 @@ public class GameScreen implements Screen{
         levelBGColor[0] = 63.0f/255.0f;
         levelBGColor[1] = 31.0f/255.0f;
         levelBGColor[2] = 39.0f/255.0f;
-        itemMan.setItems(9,6);
+        itemMan.setItems(1,6);
 
         System.out.println("Done!");
     }

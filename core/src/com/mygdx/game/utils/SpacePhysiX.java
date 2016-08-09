@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.renderAbleObjects.units.PickableItem;
 import com.mygdx.game.renderAbleObjects.units.Planet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
@@ -71,7 +72,13 @@ public class SpacePhysiX {
             if(u.getUnitType() != 0){ //0 = playership
                 //player crashes into planet
                 if(((Circle)u.getCollisionHitbox()).overlaps(playerShip.getTargetHitbox()) && !playerShip.isPhasedOut()){
-                    playerShip.collide();
+                    if(u.getUnitType() != 2) { // if not colliding with an item
+                        playerShip.collide();
+                    }else{
+                        ((PickableItem)u).pickUpItem();
+                        //logic to add the picked up item to the players inventory
+                        // [...]
+                    }
                 }
             }
         }
@@ -87,7 +94,8 @@ public class SpacePhysiX {
         if(playerShip != null) {
             if (!playerShip.isInOrbit() && !playerShip.isCollided() && !playerShip.isPhasedOut()) {
                 for (Unit u : units) {
-                    if (u.getUnitType() != 0) { // 0 = SpaceShip
+                    //resolve planet collision
+                    if (u.getUnitType() == 1) { // 0 = SpaceShip
                         //if player is in range, check if he should dock
                         if (playerShip.getPosition().cpy().sub(u.getPosition()).len() <= ((Planet) u).getOrbitRadius()) { // u = moveableobject
                             Vector2 v = u.getPosition().cpy();
