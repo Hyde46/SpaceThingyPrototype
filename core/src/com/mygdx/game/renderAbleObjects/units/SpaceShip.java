@@ -31,6 +31,8 @@ public class SpaceShip extends Unit {
 
     private boolean isPhasedOut;
 
+    //flicker effect
+    private boolean isFlickering;
 
     public SpaceShip(){
         super();
@@ -164,7 +166,7 @@ public class SpaceShip extends Unit {
 
     @Override
     public void render(SpriteBatch g){
-        if(!isActive || tex == null){
+        if(!isActive || tex == null || isFlickering){
             return;
         }
         if(!isCollided)
@@ -230,5 +232,11 @@ public class SpaceShip extends Unit {
 
     public void phaseOut(boolean b){
         isPhasedOut = b;
+        isFlickering = true;
     }
+    public void flicker(boolean b){
+        isFlickering = b;
+    }
+
+
 }

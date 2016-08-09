@@ -26,6 +26,10 @@ public class PhaseOut extends Item
 
     private int side;
 
+    private int flickerCounter;
+    private int flickerDelay;
+    private int maxFlickerDelay;
+
     public PhaseOut(int itemPos, int sideToAdd, ItemManager im)
     {
         super();
@@ -43,6 +47,10 @@ public class PhaseOut extends Item
         itemName = "Phaseout";
         maxUses = 2;
         uses = maxUses;
+        flickerCounter = 0;
+        flickerDelay = 0;
+        maxFlickerDelay = 3;
+
     }
 
 
@@ -83,7 +91,8 @@ public class PhaseOut extends Item
             player.phaseOut(isPhasedOut);
 
             timeCooldown = maxCooldown;
-
+            flickerCounter = 0;
+            flickerDelay = 0;
         }
         if(stateItem == StateItem.EFFECT && isPhasedOut){
             phaseOutTime-=1000*delta;
@@ -93,8 +102,15 @@ public class PhaseOut extends Item
                 timeCooldown = maxCooldown;
                 player.phaseOut(false);
             }
+            flickerDelay+=1;
+            if(flickerDelay >= maxFlickerDelay){
+                flickerCounter +=1;
+                flickerDelay = 0;
+            }
+            player.flicker(flickerCounter%2 == 0);
         }
         if(stateItem == StateItem.COOLDOWN){
+            player.flicker(false);
             timeCooldown -=1000*delta;
             if(timeCooldown <= 0){
                 deactivateSuper();
