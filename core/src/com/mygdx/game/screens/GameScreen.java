@@ -221,6 +221,7 @@ public class GameScreen implements Screen{
 
         ((Planet)p1).initialize(new Vector2(200,670),320,36,false,"planet1_72x72.png",1,0);
         ((SpaceShip)playerShip).initialize(new Vector2(350,200),new Vector2(0,400),null,150,new Vector2(40,40),"ship1_40x40.png",0);
+        //((SpaceShip)playerShip).initialize(new Vector2(350,200),new Vector2(0,0),null,150,new Vector2(40,40),"ship1_40x40.png",0);
         ((Planet)p2).initialize(new Vector2(800,1720),320,50,false,"planet2_100x100.png",2,40);
         ((Planet)p3).initialize(new Vector2(950,900),320,50,false,"planet9_100x100.png",1,30);
         ((Planet)p4).initialize(new Vector2(-300,1700),320,50,false,"planet2_100x100.png",2,90);
@@ -288,7 +289,7 @@ public class GameScreen implements Screen{
         levelBGColor[0] = 63.0f/255.0f;
         levelBGColor[1] = 31.0f/255.0f;
         levelBGColor[2] = 39.0f/255.0f;
-        itemMan.setItems(1,6);
+        itemMan.setItems(9,6);
 
         System.out.println("Done!");
     }
