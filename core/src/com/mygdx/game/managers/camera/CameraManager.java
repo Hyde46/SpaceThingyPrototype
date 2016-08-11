@@ -16,6 +16,7 @@ public class CameraManager {
 
     private Vector2 screenDim;
     private Vector3 screenCenter;
+    private Vector3 screenCenterStatic;
     private Vector3 translation;
 
     private Vector3 offsetFocusplayer;
@@ -36,6 +37,7 @@ public class CameraManager {
         screenDim = new Vector2();
         translation = new Vector3(0,0,0);
         screenCenter = new Vector3();
+        screenCenter = new Vector3();
         offsetFocusplayer = new Vector3(0,0,0);
         trans = new Vector2();
     }
@@ -48,6 +50,7 @@ public class CameraManager {
         translation.set(player.getPosition().cpy().x - screenCenter.x , player.getPosition().cpy().y - screenCenter.y, 0 );
         cam.update();
         translationDamp = 25.0f;
+        screenCenterStatic = screenCenter.cpy();
     }
 
     public void addTranslation(Vector2 translate){
@@ -77,11 +80,12 @@ public class CameraManager {
         if(player != null && !player.isInOrbit()) {
 
             offsetFocusplayer = getPointToFocusCamera(); // get the point, where the camera should focus on
-
+            //offsetFocusplayer = new Vector3(0,0,0);
             Vector3 playerWorldSpace = new Vector3(player.getPosition().cpy().x,player.getPosition().cpy().y,0);
 
             Vector3 trans3D = playerWorldSpace.cpy().sub(cam.position.cpy().add(offsetFocusplayer));
             Vector2 trans2D = new Vector2(trans3D.x,trans3D.y);
+
 
             if(trans2D.cpy().sub(translation.x,translation.y).len() >= 5){
                 trans2D.scl(1.0f/ translationDamp);
@@ -89,7 +93,7 @@ public class CameraManager {
             }
 
             cam.translate(trans3D);
-            translation.sub(trans3D.x, trans3D.y, 0);
+            translation.add(trans3D.x, trans3D.y, 0);
             screenCenter.add(trans3D.x,trans3D.y,0);
             pBM.noticeTranslation(trans2D.scl(-1.0f));
 
@@ -112,14 +116,14 @@ public class CameraManager {
         Vector2 playerVel = player.getDeltaMovement().cpy();
 
         if( playerVel.x * playerVel.x > playerVel.y * playerVel.y ){ // focus is in the middle, left or right
-            float deltaMiddleValueToScreenEnd = MainMenuScreen.camFixed.viewportWidth - screenCenter.x;
+            float deltaMiddleValueToScreenEnd = MainMenuScreen.camFixed.viewportWidth - screenCenterStatic.x;
             if(playerVel.x < 0){
                 return new Vector3(deltaMiddleValueToScreenEnd/2.0f,0,0);
             }else{
                 return new Vector3(-deltaMiddleValueToScreenEnd/2.0f,0,0);
             }
         }else if(playerVel.x * playerVel.x < playerVel.y * playerVel.y){ // focus is either on the bottom or top
-            float deltaMiddleValueToScreenEnd = MainMenuScreen.camFixed.viewportHeight - screenCenter.y;
+            float deltaMiddleValueToScreenEnd = MainMenuScreen.camFixed.viewportHeight - screenCenterStatic.y;
             if(playerVel.y < 0){
                 return new Vector3(0,deltaMiddleValueToScreenEnd/2.0f,0);
             }else{
