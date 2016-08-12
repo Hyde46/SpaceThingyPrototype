@@ -2,7 +2,6 @@ package com.mygdx.game.Items.Level3;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.Items.Item;
 import com.mygdx.game.Items.ItemManager;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;

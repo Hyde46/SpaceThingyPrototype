@@ -10,7 +10,6 @@ import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
 import com.mygdx.game.screens.GameScreen;
 
-import org.w3c.dom.css.Rect;
 
 /**
  * Created by denis on 5/17/16.
