@@ -31,7 +31,7 @@ public class ItemScreen implements Screen  {
         camFixed.setToOrtho(false, 1080, 1920);
         InputManager.setup(cam);
         backgroundManager = new ParallaxBackgroundManager();
-        backgroundManager.setLayers(2);
+        backgroundManager.setLayers(2,false);
         this.itemId = itemId;
         //icon of the item
         itemImage = new ItemImage();

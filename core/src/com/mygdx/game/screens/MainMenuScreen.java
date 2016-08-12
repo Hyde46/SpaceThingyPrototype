@@ -116,7 +116,7 @@ public class MainMenuScreen implements Screen {
 
         //add the backgrounds (hex pattern and stars)
         backgroundManager = new ParallaxBackgroundManager();
-        backgroundManager.setLayers(2);
+        backgroundManager.setLayers(2,true);
 
         cameraManager = new CameraManager();
         cameraHelper = new CameraHelper();

@@ -19,7 +19,7 @@ public class ParallaxBackgroundManager {
 
     }
 
-    public void setLayers(int numlayers){
+    public void setLayers(int numlayers, boolean isHexgridRendered){
         layerSize = numlayers;
         layerDamp = new float[numlayers+1];
         BackGround[] layers = new BackGround[numlayers];
@@ -30,10 +30,14 @@ public class ParallaxBackgroundManager {
             layerDamp[i] = (i+1)*0.1f;
             this.layers.add(layers[i]);
         }
-        BackGround hex = new BackGround();
-        this.layers.add(hex);
+        if(isHexgridRendered) {
+            BackGround hex = new BackGround();
+            hex.initialize(new Vector2(0, 0), new Vector2(1080, 1920), 3, "bg_hex.png");
+            this.layers.add(hex);
+        }else{
+            numlayers -=1;
+        }
         layerDamp[numlayers] = 0.001f;
-        hex.initialize(new Vector2(0,0),new Vector2(1080,1920),3,"bg_hex.png");
     }
 
     public void render(SpriteBatch g){

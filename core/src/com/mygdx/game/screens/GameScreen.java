@@ -288,7 +288,7 @@ public class GameScreen implements Screen{
         cM.initializeCamera((SpaceShip)playerShip,p8.getPosition());
         spX.initWorldBounds(new Rectangle(-700,-1100,4000,7000));
 
-        pbM.setLayers(4);
+        pbM.setLayers(4,true);
         cM.addPBM(pbM);
 
 
@@ -367,7 +367,7 @@ public class GameScreen implements Screen{
         cM.initializeCamera((SpaceShip)playerShip,p7.getPosition());
         spX.initWorldBounds(new Rectangle(-1700,-1100,5000,7000));
 
-        pbM.setLayers(2);
+        pbM.setLayers(2,true);
         cM.addPBM(pbM);
 
         levelBGColor = new float[3];
