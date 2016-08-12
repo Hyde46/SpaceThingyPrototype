@@ -18,7 +18,7 @@ public class PhaseOut extends Item
     private SpaceShip player;
 
     private static float maxCooldown = 5000;
-    private final static float maxPhaseoutTime = 1400;
+    private final static float maxPhaseoutTime = 900;
 
     private float phaseOutTime;
 

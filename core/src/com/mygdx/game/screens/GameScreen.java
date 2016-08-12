@@ -22,9 +22,10 @@ import com.mygdx.game.managers.UnitManager;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.managers.levels.LevelFactory;
+import com.mygdx.game.managers.levels.LevelState;
 import com.mygdx.game.prototypeUtils.CameraHelper;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
-import com.mygdx.game.renderAbleObjects.units.PickableItem;
+import com.mygdx.game.renderAbleObjects.units.CurrencyPickable;
 import com.mygdx.game.renderAbleObjects.units.Planet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
@@ -48,12 +49,13 @@ public class GameScreen implements Screen{
 
     private LevelFactory levelFactory;
 
-    //Prototype only stuff
     private int finishCounter;
     public static boolean hasFinishedLevel;
     private boolean hasWonLevel;
     private boolean isOutOfBounds;
     private float[] levelBGColor;
+
+    private LevelState levelState;
 
     private int level;
 
@@ -81,6 +83,7 @@ public class GameScreen implements Screen{
 
         uM = new UnitManager();
 
+        levelState = new LevelState();
         spX = new SpacePhysiX();
 
         itemMan = new ItemManager();
@@ -123,6 +126,7 @@ public class GameScreen implements Screen{
         game.debugFont.draw(game.uiBatch, "X: "+(int)(getPlayerShip().getPosition().x / 10),5,1850);
         game.debugFont.draw(game.uiBatch, "Y: "+(int)(getPlayerShip().getPosition().y / 10),5,1800);
         game.debugFont.draw(game.uiBatch, "vel: "+(int)(getPlayerShip().getDeltaMovement().len()),5,1750);
+        game.debugFont.draw(game.uiBatch, "Currency: "+(int)levelState.getCurrency(), 5, 1700);
         itemMan.render(game.uiBatch);
 
         renderFinishedGameState(game);
@@ -262,9 +266,12 @@ public class GameScreen implements Screen{
         uM.addUnit(p12);
         uM.addUnit(playerShip);
 
-        Unit item1 = new PickableItem();
-        ((PickableItem)item1).initialize(0,new Vector2(100,670),false);
+        Unit item1 = new CurrencyPickable();
+        ((CurrencyPickable)item1).initialize(0,new Vector2(100,670),100);
         uM.addUnit(item1);
+        Unit item2 = new CurrencyPickable();
+        ((CurrencyPickable)item2).initialize(0,new Vector2(300,670),200);
+        uM.addUnit(item2);
 
         spX.initializePhysics(uM.getUnits(),this);
         InputManager.get.Register(p1);
@@ -386,6 +393,10 @@ public class GameScreen implements Screen{
             MyGdxGame.game.openScreen(new MainMenuScreen(level,hasWonLevel));
             //MyGdxGame.game.setScreen(new MainMenuScreen(level,hasWonLevel));
         }
+    }
+
+    public LevelState getLevelState(){
+        return levelState;
     }
 
     //////////////

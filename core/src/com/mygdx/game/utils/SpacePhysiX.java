@@ -71,11 +71,11 @@ public class SpacePhysiX {
         for(Unit u : units){
             if(u.getUnitType() != 0){ //0 = playership
                 //player crashes into planet
-                if(((Circle)u.getCollisionHitbox()).overlaps(playerShip.getTargetHitbox()) && !playerShip.isPhasedOut()){
+                if(((Circle)u.getCollisionHitbox()).overlaps(playerShip.getTargetHitbox()) && !playerShip.isPhasedOut() && u.isActive()){
                     if(u.getUnitType() != 2) { // if not colliding with an item
                         playerShip.collide();
                     }else{
-                        ((PickableItem)u).pickUpItem();
+                        ((PickableItem)u).pickUpItem(gs.getLevelState());
                         //logic to add the picked up item to the players inventory
                         // [...]
                     }
