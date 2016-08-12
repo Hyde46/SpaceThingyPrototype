@@ -90,10 +90,10 @@ public class SpaceShip extends Unit {
         currentOrbitRadius = 0f;
     }
 
-    public void enterOrbit(Planet connectedPlanet, float orbitRadius){
+    public boolean enterOrbit(Planet connectedPlanet, float orbitRadius){
 
         if(isInOrbit() || lastConnectedPlanetId == connectedPlanet.getUnitID()){
-            return;
+            return false;
         }
         this.connectedPlanet = connectedPlanet;
         this.currentOrbitRadius = orbitRadius;
@@ -113,6 +113,8 @@ public class SpaceShip extends Unit {
         rotationSpeed = deltaMovement.len() / orbitRadius;
         rotationSpeed = rotationSpeed*180.0f/SpacePhysiX.PI;
         currentOrbitRadius = orbitRadius;
+
+        return true;
     }
 
     public void update(float delta){

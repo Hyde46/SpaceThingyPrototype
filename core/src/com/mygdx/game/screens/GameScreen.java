@@ -124,7 +124,8 @@ public class GameScreen implements Screen{
         game.debugFont.draw(game.uiBatch, "X: "+(int)(getPlayerShip().getPosition().x / 10),5,1850);
         game.debugFont.draw(game.uiBatch, "Y: "+(int)(getPlayerShip().getPosition().y / 10),5,1800);
         game.debugFont.draw(game.uiBatch, "vel: "+(int)(getPlayerShip().getDeltaMovement().len()),5,1750);
-        game.debugFont.draw(game.uiBatch, "Currency: "+(int)levelState.getCurrency(), 5, 1700);
+        game.debugFont.draw(game.uiBatch, "Currency: "+levelState.getCurrency(), 5, 1700);
+        game.debugFont.draw(game.uiBatch, "Hops: "+levelState.getHops(), 5, 1650);
         itemMan.render(game.uiBatch);
 
         renderFinishedGameState(game);
@@ -185,6 +186,7 @@ public class GameScreen implements Screen{
         System.out.println("level nth: " + DataPersistent.get().data.nthGame);
         // Level l = LevelFactory.loadLevel(levelId);
         //for now
+        levelState.resetState();
         switch(levelId) {
             case 1:
                 initPrototypeLevel();
@@ -222,14 +224,14 @@ public class GameScreen implements Screen{
         System.out.println("Loading resources...");
 
         ((Planet)p1).initialize(new Vector2(200,670),320,36,false,"planet1_72x72.png",1,0,0);
-        ((SpaceShip)playerShip).initialize(new Vector2(350,200),new Vector2(0,400),null,150,new Vector2(40,40),"ship1_40x40.png",0);
+        ((SpaceShip)playerShip).initialize(new Vector2(360,670),new Vector2(0,400),(Planet)p1,150,new Vector2(40,40),"ship1_40x40.png",0);
         //((SpaceShip)playerShip).initialize(new Vector2(350,200),new Vector2(0,0),null,150,new Vector2(40,40),"ship1_40x40.png",0);
         ((Planet)p2).initialize(new Vector2(800,1720),320,50,false,"planet2_100x100.png",2,40,10.0f);
         ((Planet)p3).initialize(new Vector2(950,900),320,50,false,"planet9_100x100.png",1,30,10.0f);
         ((Planet)p4).initialize(new Vector2(-300,1700),320,50,false,"planet2_100x100.png",2,90,10.0f);
         ((Planet)p5).initialize(new Vector2(450,2530),240,36,false,"planet1_72x72.png",1,120,10.0f);
         ((Planet)p6).initialize(new Vector2(-110,2800),320,50,false,"planet42_100x100.png",2,10,10.0f);
-        ((Planet)p8).initialize(new Vector2(130,3800),320,50,true,"planet7_100x100.png",2,10,10.0f);
+        ((Planet)p8).initialize(new Vector2(130,3800),320,50,true,"planet7_100x100.png",2,10,0.0f);
         ((Planet)p11).initialize(new Vector2(1230,3480),480,50,false,"planet7_100x100.png",2,10,10.0f);
 
 
@@ -283,7 +285,7 @@ public class GameScreen implements Screen{
         InputManager.get.Register(p10);
         InputManager.get.Register(p11);
         InputManager.get.Register(p12);
-        cM.initializeCamera((SpaceShip)playerShip);
+        cM.initializeCamera((SpaceShip)playerShip,p8.getPosition());
         spX.initWorldBounds(new Rectangle(-700,-1100,4000,7000));
 
         pbM.setLayers(4);
@@ -362,7 +364,7 @@ public class GameScreen implements Screen{
         InputManager.get.Register(p8);
         InputManager.get.Register(p9);
 
-        cM.initializeCamera((SpaceShip)playerShip);
+        cM.initializeCamera((SpaceShip)playerShip,p7.getPosition());
         spX.initWorldBounds(new Rectangle(-1700,-1100,5000,7000));
 
         pbM.setLayers(2);

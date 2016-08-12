@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
+import com.mygdx.game.renderAbleObjects.units.Planet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.screens.MainMenuScreen;
 
@@ -22,7 +23,7 @@ public class CameraManager {
     private Vector3 screenCenterStatic;
     private Vector3 translation;
 
-    private Vector3 offsetFocusplayer;
+    private Vector3 offsetFocusPlayer;
 
     private float translationDamp;
 
@@ -44,22 +45,32 @@ public class CameraManager {
         translation = new Vector3(0,0,0);
         screenCenter = new Vector3();
         screenCenter = new Vector3();
-        offsetFocusplayer = new Vector3(0,0,0);
+        offsetFocusPlayer = new Vector3(0,0,0);
         trans = new Vector2();
     }
 
+    public void initializeCamera(SpaceShip player,Vector2 positionToFocus){
+        initfields(player);
+        instantFocusCamera(positionToFocus);
+    }
     public void initializeCamera(SpaceShip player){
+        initfields(player);
+        instantFocusCamera(player.getPosition());
+    }
+
+    private void initfields(SpaceShip player){
         this.player = player;
         this.screenDim.set(new Vector2(MainMenuScreen.camFixed.viewportWidth,MainMenuScreen.camFixed.viewportHeight));
         screenCenter.set(screenDim.x/2,screenDim.y/2,0);
-        cam.translate(player.getPosition().cpy().x - screenCenter.x , player.getPosition().cpy().y - screenCenter.y );
-        translation.set(player.getPosition().cpy().x - screenCenter.x , player.getPosition().cpy().y - screenCenter.y, 0 );
-        cam.update();
         translationDamp = 35.0f;
+    }
+    private void instantFocusCamera(Vector2 focusPoint){
+        cam.translate(focusPoint.cpy().x - screenCenter.x ,focusPoint.cpy().y - screenCenter.y );
+        translation.set(focusPoint.cpy().x - screenCenter.x , focusPoint.cpy().y - screenCenter.y, 0 );
+        cam.update();
         screenCenterStatic = screenCenter.cpy();
         cameraDelayCounter = MAX_CAMERA_WAITITNG_TIME;
         isFocusingPlayerInOrbit = false;
-
     }
 
     public void addTranslation(Vector2 translate){
@@ -105,10 +116,10 @@ public class CameraManager {
     }
 
     private void focusCamOnPos(Vector2 positionToFocus) {
-        offsetFocusplayer = getPointToFocusCamera(); // get the point, where the camera should focus on
+        offsetFocusPlayer = getPointToFocusCamera(); // get the point, where the camera should focus on
         Vector3 positionWorldSpace = new Vector3(positionToFocus.cpy().x,positionToFocus.cpy().y,0);
 
-        Vector3 trans3D = positionWorldSpace.cpy().sub(cam.position.cpy().add(offsetFocusplayer));
+        Vector3 trans3D = positionWorldSpace.cpy().sub(cam.position.cpy().add(offsetFocusPlayer));
         Vector2 trans2D = new Vector2(trans3D.x,trans3D.y);
 
 

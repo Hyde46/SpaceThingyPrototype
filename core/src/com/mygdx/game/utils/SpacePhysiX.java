@@ -100,7 +100,8 @@ public class SpacePhysiX {
                             Vector2 v = u.getPosition().cpy();
                             Vector2 vecToShip = playerShip.getPosition().cpy();
                             if(dotProductToShipTickCollision(PHYSIC_TICKS,vecToShip,v)){
-                                playerShip.enterOrbit((Planet) u, vecToShip.len());
+                                if(playerShip.enterOrbit((Planet) u, vecToShip.len()))
+                                    gs.getLevelState().hop();
                             }
 
                         }
