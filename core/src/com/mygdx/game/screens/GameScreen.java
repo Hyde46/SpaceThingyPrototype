@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.DataPers.DataPers;
+import com.mygdx.game.dataPersistence.DataPers;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.Items.ItemManager;
 import com.mygdx.game.managers.UnitManager;
@@ -85,8 +85,8 @@ public class GameScreen implements Screen{
        // itemMan = ItemManager.get;
         ItemManager.initialize(this);
 
-        DataPers.data().nthGame++;
-        DataPers.save();
+        DataPers.dataP().nthGame++;
+        DataPers.saveP();
 
         setLevel(levelToStart);
 

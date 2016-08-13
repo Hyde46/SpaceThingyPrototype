@@ -6,7 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.DataPers.DataPers;
+import com.mygdx.game.dataPersistence.DataPers;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.managers.PathNavigationManager;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
@@ -158,7 +158,7 @@ public class MainMenuScreen implements Screen {
         game.font.draw(game.batch, game.currentVersion, 10 , 50);
 
 
-        game.font.draw(game.batch, "nth start " + DataPers.data().nthGame, 600 , 50);
+        game.font.draw(game.batch, "nth start " + DataPers.dataP().nthGame, 600 , 50);
 
         game.batch.end();
 

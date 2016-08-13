@@ -1,4 +1,4 @@
-package com.mygdx.game.DataPers;
+package com.mygdx.game.dataPersistence.saveClasses;
 
 /**
  * Created by Mechandrius on 05.07.2016.
