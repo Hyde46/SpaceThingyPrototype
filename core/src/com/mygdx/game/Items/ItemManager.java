@@ -23,7 +23,6 @@ public class ItemManager {
 
     // when 1 item activated other gets deactivated ... activate has to go over manager
 
-
     public static ItemManager get;
 
     public boolean isOneItemActive()
@@ -98,8 +97,21 @@ public class ItemManager {
         return true;
     }
 
-    public boolean removeItemSlot(int sideToRemove){
+//    public Item getItemFromId(int idItem)
+//    {
+//        switch (idItem)
+//        {
+//            case 1: return new SpeedBooser(0,0,this);
+//            case 6: return new Break(0,0,this);
+//            case 7: return new ArtificialPlanet(0,0,this,gs);
+//            case 8: return new DestroyTarget(0,0,this,gs);
+//            case 9: return new PhaseOut(0,0,this);
+//            default: return null;
+//        }
+//    }
 
+    public boolean removeItemSlot(int sideToRemove)
+    {
         return true;
     }
 
@@ -125,8 +137,6 @@ public class ItemManager {
         if(items[1] != null){
             items[1].render(batch);
         }
-
-
     }
 
     public void update(float delta){

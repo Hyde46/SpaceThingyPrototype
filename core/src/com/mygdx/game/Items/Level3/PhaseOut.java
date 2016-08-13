@@ -43,7 +43,7 @@ public class PhaseOut extends Item
         Vector2 posToRender = SpaceMath.getPosToRender(levelPos);
         initialize("phaseOut_200x200.png",200,posToRender);
         this.phaseOutTime = maxPhaseoutTime;
-        itemName = "Phaseout";
+//        itemName = "Phaseout";
         maxUses = 2;
         uses = maxUses;
         flickerCounter = 0;

@@ -31,8 +31,18 @@ public class InfoButton extends Decoration implements IInputHandler{
     }
 
     @Override
-    public void OnTouch(TouchData td) {
-        MyGdxGame.game.openScreen(new ItemScreen(id));
+    public void OnTouch(TouchData td)
+    {
+        boolean playerHasMoney = true;
+        if(playerHasMoney)
+        {
+            // subtract money
+
+        }
+        else
+        {
+
+        }
     }
 
     @Override

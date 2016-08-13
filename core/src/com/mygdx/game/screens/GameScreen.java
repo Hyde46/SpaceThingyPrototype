@@ -11,10 +11,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.DataPers.DataPers;
-import com.mygdx.game.DataPersistent.DataPersistent;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.Items.ItemManager;
+import com.mygdx.game.dataPersistence.DataPers;
 import com.mygdx.game.managers.UnitManager;
 
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
@@ -75,7 +74,7 @@ public class GameScreen implements Screen{
         pbM = new ParallaxBackgroundManager();
         cM.setCam(camera);
         cH.setCameraManager(cM, null, 0);
-        InputManager.get.Register(cH);
+        InputManager.get.register(cH);
 
         MyGdxGame.game.shapeRenderer.setColor(1, 1, 0, 1);
 
@@ -87,16 +86,16 @@ public class GameScreen implements Screen{
         itemMan = new ItemManager();
         itemMan.initialize(this);
 
-        DataPers.data().nthGame++;
-        DataPers.save();
+        DataPers.dataP().nthGame++;
+        DataPers.saveP();
 
         setLevel(levelToStart);
 
     }
 
     @Override
-    public void render(float delta) {
-
+    public void render(float delta)
+    {
         MyGdxGame game = MyGdxGame.game;
         Gdx.gl.glClearColor(levelBGColor[0],levelBGColor[1],levelBGColor[2], 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -179,11 +178,11 @@ public class GameScreen implements Screen{
     Call this Method from MainMenuScreen to load the appropriate level
     int levelId     The Id of the level which should be loaded ;)
      */
-    public void setLevel(int levelId){
-        DataPersistent.get().data.nthGame++;
-        DataPersistent.get().save();
+    public void setLevel(int levelId)
+    {
 
-        System.out.println("level nth: " + DataPersistent.get().data.nthGame);
+
+        //System.out.println("level nth: " + DataPers.dataP().nthGame);
         // Level l = LevelFactory.loadLevel(levelId);
         //for now
         levelState.resetState();
@@ -274,17 +273,17 @@ public class GameScreen implements Screen{
         uM.addUnit(item2);
 
         spX.initializePhysics(uM.getUnits(),this);
-        InputManager.get.Register(p1);
-        InputManager.get.Register(p2);
-        InputManager.get.Register(p3);
-        InputManager.get.Register(p4);
-        InputManager.get.Register(p5);
-        InputManager.get.Register(p6);
-        InputManager.get.Register(p7);
-        InputManager.get.Register(p9);
-        InputManager.get.Register(p10);
-        InputManager.get.Register(p11);
-        InputManager.get.Register(p12);
+        InputManager.get.register(p1);
+        InputManager.get.register(p2);
+        InputManager.get.register(p3);
+        InputManager.get.register(p4);
+        InputManager.get.register(p5);
+        InputManager.get.register(p6);
+        InputManager.get.register(p7);
+        InputManager.get.register(p9);
+        InputManager.get.register(p10);
+        InputManager.get.register(p11);
+        InputManager.get.register(p12);
         cM.initializeCamera((SpaceShip)playerShip,p8.getPosition());
         spX.initWorldBounds(new Rectangle(-700,-1100,4000,7000));
 
@@ -354,15 +353,15 @@ public class GameScreen implements Screen{
 
         uM.addUnit(playerShip);
         spX.initializePhysics(uM.getUnits(),this);
-        InputManager.get.Register(p1);
-        InputManager.get.Register(p2);
-        InputManager.get.Register(p3);
-        InputManager.get.Register(p4);
-        InputManager.get.Register(p5);
-        InputManager.get.Register(p6);
-        InputManager.get.Register(p7);
-        InputManager.get.Register(p8);
-        InputManager.get.Register(p9);
+        InputManager.get.register(p1);
+        InputManager.get.register(p2);
+        InputManager.get.register(p3);
+        InputManager.get.register(p4);
+        InputManager.get.register(p5);
+        InputManager.get.register(p6);
+        InputManager.get.register(p7);
+        InputManager.get.register(p8);
+        InputManager.get.register(p9);
 
         cM.initializeCamera((SpaceShip)playerShip,p7.getPosition());
         spX.initWorldBounds(new Rectangle(-1700,-1100,5000,7000));
@@ -415,7 +414,7 @@ public class GameScreen implements Screen{
         System.out.println("planet set to " + posWorld);
 
         uM.addUnit(planetTemp);
-        InputManager.get.Register(planetTemp);
+        InputManager.get.register(planetTemp);
     }
 
     public boolean tryDestroyTarget(Vector2 posWorld)
@@ -429,7 +428,7 @@ public class GameScreen implements Screen{
             {
                 System.out.println("destroy xx");
                 uM.deleteUnit(unit);
-                InputManager.get.UnRegister(unit);
+                InputManager.get.unRegister(unit);
                 hasFound = true;
             }
         }

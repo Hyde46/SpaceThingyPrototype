@@ -12,8 +12,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.utils.FPSLimiter;
 
-public class MyGdxGame extends Game {
-
+public class MyGdxGame extends Game
+{
 	public static MyGdxGame game;
 
 	public SpriteBatch batch;
@@ -79,5 +79,4 @@ public class MyGdxGame extends Game {
 		font.dispose();
 		debugFont.dispose();
 	}
-
 }

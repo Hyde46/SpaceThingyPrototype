@@ -19,7 +19,7 @@ import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.screens.HangarScreen;
 import com.mygdx.game.screens.MainMenuScreen;
 import com.mygdx.game.screens.MyGdxGame;
-import com.mygdx.game.screens.ShopScreenBuy;
+import com.mygdx.game.screens.ScreenShop;
 
 /**
  * Created by Vali on 18.05.2016.
@@ -33,6 +33,8 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
     //array that holds the levels that are connected to this on (to implement graph structure)
     private Array<LevelBeacon> connectedBeacons;
     private int type;   //1 = normal level, 2 = shop, 3 = hangar
+    private int levelOfShop = 1; // if its a shop
+
     private boolean activated;
     private Color beaconColor;
 
@@ -135,7 +137,7 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
             if (levelId == lg.getCurrentLevel().getLevelId() && sh.getInOrbit()) {
                 if (type == 2) {
                     InputManager.get.clear();
-                    game.openScreen(new ShopScreenBuy());
+                    game.openScreen(new ScreenShop(levelOfShop));
                 }
                 else if(type == 3){
                     InputManager.get.clear();
@@ -145,7 +147,6 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
                 {
                     InputManager.get.clear();
                     game.openScreen(new GameScreen(levelId));
-
                 }
             } else {  //touched level is different from current level
                 if (!sh.getTravelsRoute()) {      //only call navigate function, if the ship is not already on route

@@ -5,6 +5,9 @@ package com.mygdx.game.dataPersistence.saveClasses;
  */
 public class DataSavableHangar extends DataSavable
 {
+        // arrays needs to be saved as ArrayList ... so java.io.serializable can handle it
+
+
         public int nthGame = 0;
 
 }

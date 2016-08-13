@@ -42,7 +42,6 @@ public abstract class Item extends Decoration implements IInputHandler {
 
 
 
-
     protected SpaceShip player;
 
     public Item() {
