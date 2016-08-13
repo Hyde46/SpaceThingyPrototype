@@ -29,11 +29,16 @@ public class SpaceShip extends Unit {
 
     private Animation deathAnimation;
 
+    private boolean isPhasedOut;
+
+    //flicker effect
+    private boolean isFlickering;
 
     public SpaceShip(){
         super();
         unitType = 0;
         deltaMovement = new Vector2();
+        isPhasedOut = false;
     }
 
     public void initialize(Vector2 position,Vector2 deltaMovement,Planet connectedPlanet, float currentOrbitRadius, Vector2 spriteDimensions, String texturePath, int spriteId){
@@ -85,10 +90,10 @@ public class SpaceShip extends Unit {
         currentOrbitRadius = 0f;
     }
 
-    public void enterOrbit(Planet connectedPlanet, float orbitRadius){
+    public boolean enterOrbit(Planet connectedPlanet, float orbitRadius){
 
         if(isInOrbit() || lastConnectedPlanetId == connectedPlanet.getUnitID()){
-            return;
+            return false;
         }
         this.connectedPlanet = connectedPlanet;
         this.currentOrbitRadius = orbitRadius;
@@ -108,6 +113,8 @@ public class SpaceShip extends Unit {
         rotationSpeed = deltaMovement.len() / orbitRadius;
         rotationSpeed = rotationSpeed*180.0f/SpacePhysiX.PI;
         currentOrbitRadius = orbitRadius;
+
+        return true;
     }
 
     public void update(float delta){
@@ -161,7 +168,7 @@ public class SpaceShip extends Unit {
 
     @Override
     public void render(SpriteBatch g){
-        if(!isActive || tex == null){
+        if(!isActive || tex == null || isFlickering){
             return;
         }
         if(!isCollided)
@@ -215,6 +222,8 @@ public class SpaceShip extends Unit {
 
     public boolean hasReachedGoal(){ return hasReachedGoal; }
 
+    public boolean isPhasedOut(){ return isPhasedOut; }
+
     //METHODS FOR ITEMS
     public void boost(float boostScl,float delta){
         float scaledBoost = 1.0f+boostScl*delta;
@@ -222,4 +231,13 @@ public class SpaceShip extends Unit {
         deltaMovement = deltaMovement.scl(scaledBoost).cpy();
 
     }
+    public void phaseOut(boolean b){
+        isPhasedOut = b;
+        isFlickering = true;
+    }
+    public void flicker(boolean b){
+        isFlickering = b;
+    }
+
+
 }

@@ -14,7 +14,6 @@ import com.mygdx.game.utils.SpaceMath;
  */
 public class Break extends Item
 {
-    private SpaceShip player;
 
     private final static float maxCooldown = 5000;
     private final static float maxBoostTime = 1000;
@@ -45,6 +44,9 @@ public class Break extends Item
         name = "Break";
         maxUses = 3;
         uses = maxUses;
+
+        if(player == null)
+            player = iM.getPlayer();
     }
 
     @Override
@@ -86,9 +88,6 @@ public class Break extends Item
     {
         if(stateItem == StateItem.ACTIVATED){
             stateItem = StateItem.EFFECT;
-
-            if(player == null)
-                player = iM.getPlayer();
 
             timeCooldown = maxCooldown;
         }

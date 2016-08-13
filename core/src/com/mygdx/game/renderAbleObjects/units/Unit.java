@@ -18,7 +18,7 @@ public abstract class Unit extends AUpdateableObject {
     /*
     0 - SpaceShip
     1 - Planet
-    2 -
+    2 - Pickable Item
     3 -
     4 -
      */

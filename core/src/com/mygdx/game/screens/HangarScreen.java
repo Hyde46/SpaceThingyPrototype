@@ -52,7 +52,7 @@ public class HangarScreen implements Screen {
         InputManager.get.setup(cam);
         //add the backgrounds (hex pattern and stars)
         backgroundManager = new ParallaxBackgroundManager();
-        backgroundManager.setLayers(2);
+        backgroundManager.setLayers(2,false);
 
         //create skin functionality
         Slot skinSlot1 = new Slot();
