@@ -1,7 +1,6 @@
 package com.mygdx.game.Items.Level1;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.Items.Item;
@@ -43,7 +42,7 @@ public class SpeedBooser extends Item
         initialize("speedBooster_200x200.png",200,posToRender);
         boostTime = maxBoostTime;
         boostScl = 1.1f;
-        itemName = "Speed Booster";
+        name = "Speed Booster";
         maxUses = 10;
         uses = maxUses;
     }

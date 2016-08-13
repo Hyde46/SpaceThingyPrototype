@@ -1,7 +1,6 @@
 package com.mygdx.game.Items.Level2;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.Items.Item;
@@ -43,7 +42,7 @@ public class Break extends Item
         initialize("break_200x200.png",200,posToRender);
         boostTime = maxBoostTime;
         boostScl = -1.1f;
-        itemName = "Break";
+        name = "Break";
         maxUses = 3;
         uses = maxUses;
     }

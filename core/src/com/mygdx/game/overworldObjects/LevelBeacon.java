@@ -19,7 +19,7 @@ import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.screens.HangarScreen;
 import com.mygdx.game.screens.MainMenuScreen;
 import com.mygdx.game.screens.MyGdxGame;
-import com.mygdx.game.screens.ShopScreen;
+import com.mygdx.game.screens.ShopScreenBuy;
 
 /**
  * Created by Vali on 18.05.2016.
@@ -135,7 +135,7 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
             if (levelId == lg.getCurrentLevel().getLevelId() && sh.getInOrbit()) {
                 if (type == 2) {
                     InputManager.get.clear();
-                    game.openScreen(new ShopScreen());
+                    game.openScreen(new ShopScreenBuy());
                 }
                 else if(type == 3){
                     InputManager.get.clear();

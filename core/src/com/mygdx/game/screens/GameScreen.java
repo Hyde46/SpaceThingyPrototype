@@ -14,7 +14,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.DataPers.DataPers;
-import com.mygdx.game.DataPersistent.DataPersistent;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.Items.ItemManager;
 import com.mygdx.game.managers.UnitManager;
@@ -39,7 +38,7 @@ public class GameScreen implements Screen{
     UnitManager uM;
     SpacePhysiX spX;
 
-    ItemManager itemMan;
+    //ItemManager itemMan;
 
     ParallaxBackgroundManager pbM;
 
@@ -75,7 +74,7 @@ public class GameScreen implements Screen{
         pbM = new ParallaxBackgroundManager();
         cM.setCam(camera);
         cH.setCameraManager(cM, null, 0);
-        InputManager.get.Register(cH);
+        InputManager.get.register(cH);
 
         MyGdxGame.game.shapeRenderer.setColor(1, 1, 0, 1);
 
@@ -83,8 +82,8 @@ public class GameScreen implements Screen{
 
         spX = new SpacePhysiX();
 
-        itemMan = new ItemManager();
-        itemMan.initialize(this);
+       // itemMan = ItemManager.get;
+        ItemManager.initialize(this);
 
         DataPers.data().nthGame++;
         DataPers.save();
@@ -123,7 +122,7 @@ public class GameScreen implements Screen{
         game.debugFont.draw(game.uiBatch, "X: "+(int)(getPlayerShip().getPosition().x / 10),5,1850);
         game.debugFont.draw(game.uiBatch, "Y: "+(int)(getPlayerShip().getPosition().y / 10),5,1800);
         game.debugFont.draw(game.uiBatch, "vel: "+(int)(getPlayerShip().getDeltaMovement().len()),5,1750);
-        itemMan.render(game.uiBatch);
+        ItemManager.get.render(game.uiBatch);
 
         renderFinishedGameState(game);
 
@@ -162,7 +161,7 @@ public class GameScreen implements Screen{
 
     public void update(float delta)
     {
-        itemMan.update(delta);
+        ItemManager.get.update(delta);
 
         spX.update(delta);
         InputManager.get.update(delta);
@@ -177,10 +176,10 @@ public class GameScreen implements Screen{
     int levelId     The Id of the level which should be loaded ;)
      */
     public void setLevel(int levelId){
-        DataPersistent.get().data.nthGame++;
-        DataPersistent.get().save();
+ //       DataPersistent.get().data.nthGame++;
+ //       DataPersistent.get().save();
 
-        System.out.println("level nth: " + DataPersistent.get().data.nthGame);
+  //      System.out.println("level nth: " + DataPersistent.get().data.nthGame);
         // Level l = LevelFactory.loadLevel(levelId);
         //for now
         switch(levelId) {
@@ -261,17 +260,17 @@ public class GameScreen implements Screen{
         uM.addUnit(p12);
         uM.addUnit(playerShip);
         spX.initializePhysics(uM.getUnits(),this);
-        InputManager.get.Register(p1);
-        InputManager.get.Register(p2);
-        InputManager.get.Register(p3);
-        InputManager.get.Register(p4);
-        InputManager.get.Register(p5);
-        InputManager.get.Register(p6);
-        InputManager.get.Register(p7);
-        InputManager.get.Register(p9);
-        InputManager.get.Register(p10);
-        InputManager.get.Register(p11);
-        InputManager.get.Register(p12);
+        InputManager.get.register(p1);
+        InputManager.get.register(p2);
+        InputManager.get.register(p3);
+        InputManager.get.register(p4);
+        InputManager.get.register(p5);
+        InputManager.get.register(p6);
+        InputManager.get.register(p7);
+        InputManager.get.register(p9);
+        InputManager.get.register(p10);
+        InputManager.get.register(p11);
+        InputManager.get.register(p12);
         cM.initializeCamera((SpaceShip)playerShip);
         spX.initWorldBounds(new Rectangle(-700,-1100,4000,7000));
 
@@ -283,7 +282,7 @@ public class GameScreen implements Screen{
         levelBGColor[0] = 63.0f/255.0f;
         levelBGColor[1] = 31.0f/255.0f;
         levelBGColor[2] = 39.0f/255.0f;
-        itemMan.setItems(1,6);
+        ItemManager.get.setItems(1,6);
 
         System.out.println("Done!");
     }
@@ -341,15 +340,15 @@ public class GameScreen implements Screen{
 
         uM.addUnit(playerShip);
         spX.initializePhysics(uM.getUnits(),this);
-        InputManager.get.Register(p1);
-        InputManager.get.Register(p2);
-        InputManager.get.Register(p3);
-        InputManager.get.Register(p4);
-        InputManager.get.Register(p5);
-        InputManager.get.Register(p6);
-        InputManager.get.Register(p7);
-        InputManager.get.Register(p8);
-        InputManager.get.Register(p9);
+        InputManager.get.register(p1);
+        InputManager.get.register(p2);
+        InputManager.get.register(p3);
+        InputManager.get.register(p4);
+        InputManager.get.register(p5);
+        InputManager.get.register(p6);
+        InputManager.get.register(p7);
+        InputManager.get.register(p8);
+        InputManager.get.register(p9);
 
         cM.initializeCamera((SpaceShip)playerShip);
         spX.initWorldBounds(new Rectangle(-1700,-1100,5000,7000));
@@ -362,7 +361,7 @@ public class GameScreen implements Screen{
         levelBGColor[1] = 49.0f/255.0f;
         levelBGColor[2] = 41.0f/255.0f;
 
-        itemMan.setItems(7,8);
+        ItemManager.get.setItems(7,8);
 
         System.out.println("Done!");
     }
@@ -398,7 +397,7 @@ public class GameScreen implements Screen{
         System.out.println("planet set to " + posWorld);
 
         uM.addUnit(planetTemp);
-        InputManager.get.Register(planetTemp);
+        InputManager.get.register(planetTemp);
     }
 
     public boolean tryDestroyTarget(Vector2 posWorld)
@@ -412,7 +411,7 @@ public class GameScreen implements Screen{
             {
                 System.out.println("destroy xx");
                 uM.deleteUnit(unit);
-                InputManager.get.UnRegister(unit);
+                InputManager.get.unRegister(unit);
                 hasFound = true;
             }
         }

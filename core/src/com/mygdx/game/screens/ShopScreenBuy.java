@@ -5,45 +5,54 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.InputManager;
+import com.mygdx.game.Items.ItemManager;
+import com.mygdx.game.Items.Level1.SpeedBooser;
+import com.mygdx.game.Items.Level2.Break;
+import com.mygdx.game.Items.Level3.ArtificialPlanet;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.camera.CameraManager;
+import com.mygdx.game.modelItems.ModelItemsShop;
+import com.mygdx.game.modelItems.ModelItemsShopManager;
 import com.mygdx.game.prototypeUtils.CameraHelper;
-import com.mygdx.game.renderAbleObjects.decorations.ArrowButton;
 import com.mygdx.game.renderAbleObjects.decorations.EquipButton;
 import com.mygdx.game.renderAbleObjects.decorations.InfoButton;
 import com.mygdx.game.renderAbleObjects.decorations.Slot;
 
 /**
- * Created by Vali on 10.07.2016.
+ * Created by Vali on 23.05.2016.
  */
-public class HangarScreen implements Screen {
-
+public class ShopScreenBuy implements Screen
+{
     OrthographicCamera cam;
-    private Array<Slot> itemSlots;
-    private Array<EquipButton> equipButtons;
-    private Array<InfoButton> infoButtons;
-    private Array<Slot> skinSlots;
+ //   private Array<Slot> itemSlots;
+ //   private Array<EquipButton> equipButtons;
+  //  private Array<InfoButton> infoButtons;
+ //   private Array<Slot> skinSlots;
 
-    private ArrowButton skinArrowUp;
-    private ArrowButton skinArrowDown;
-    private Array<Slot> particleSlots;
-    private ArrowButton particlesArrowUp;
-    private ArrowButton particlesArrowDown;
+ //   private ArrowButton skinArrowUp;
+ //   private ArrowButton skinArrowDown;
+  //  private Array<Slot> particleSlots;
+  //  private ArrowButton particlesArrowUp;
+  //  private ArrowButton particlesArrowDown;
     // private Array<Slot> itemSlots;
+
+
     private ParallaxBackgroundManager backgroundManager;
-    private ScrollPane scrollPane;
-    private int currentId;
-    private int currentSkin;
-    private int currentParticles;
+
+  //  private ScrollPane scrollPane;
+   // private int currentId;
+  //  private int currentSkin;
+  //  private int currentParticles;
     public static OrthographicCamera camFixed;
     CameraHelper cameraHelper;
 
     CameraManager cameraManager;
 
-    public HangarScreen(){
+    public ShopScreenBuy(){
+        cam = new OrthographicCamera();
+        cam.setToOrtho(false, 1080,1920);
+
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080, 1920);
 
@@ -61,7 +70,7 @@ public class HangarScreen implements Screen {
         skinSlot2.initialize(new Vector2(200, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_skin2.png");
         Slot skinSlot3 = new Slot();
         skinSlot3.initialize(new Vector2(200, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_skin3.png");
-
+/*
         skinSlots = new Array<Slot>();
         skinSlots.addAll(skinSlot1, skinSlot2, skinSlot3);
         currentSkin = 0;
@@ -91,17 +100,29 @@ public class HangarScreen implements Screen {
         particlesArrowDown.initialize(new Vector2(MyGdxGame.game.screenWidth - 500, MyGdxGame.game.screenHeight - 800), 200, 200, "arrow_down.png", false, false);
         InputManager.get.register(particlesArrowUp);
         InputManager.get.register(particlesArrowDown);
+*/
+        String nameShopCurrent = "FirstShop";
 
+        ModelItemsShop shop = new ModelItemsShop();
+        shop.addItem(new SpeedBooser(0, 0, ItemManager.get));
+        shop.addItem(new ArtificialPlanet(0, 0, ItemManager.get, null));
+        shop.addItem(new Break(0, 0, ItemManager.get));
 
-        int numberOfItems = 12;
+        ModelItemsShopManager.get().AddShop(nameShopCurrent, shop);
+
+        int numberOfItems = shop.getITems().size;
+
         //add all of the item slots to array
-        itemSlots = new Array<Slot>();
-        equipButtons = new Array<EquipButton>();
-        infoButtons = new Array<InfoButton>();
+    //    itemSlots = new Array<Slot>();
+     //   equipButtons = new Array<EquipButton>();
+     //   infoButtons = new Array<InfoButton>();
 
         int width = MyGdxGame.game.screenWidth - 200;
         int posY = 800;
-        for(int i = 0; i < numberOfItems; i++){
+        for(int i = 0; i < numberOfItems; i++)
+        {
+            posY = 800 - 200*i;
+
             Slot slot = new Slot();
             //intialize item slot
             slot.initialize(new Vector2(100, posY), width, 200, "item_slot.png");
@@ -111,135 +132,40 @@ public class HangarScreen implements Screen {
             InfoButton infoButton = new InfoButton();
             infoButton.initialize(new Vector2(width - 500, posY), 250, 200, "info_button.png", i);
             InputManager.get.register(infoButton);
-            posY -= 200;
-            itemSlots.add(slot);
-            equipButtons.add(equipButton);
-            infoButtons.add(infoButton);
-    }
+
+         //   itemSlots.add(slot);
+           // equipButtons.add(equipButton);
+          //  infoButtons.add(infoButton);
+        }
 
 
-        currentId = -1;
+  //      currentId = -1;
+
+
+
         cameraManager = new CameraManager();
         cameraHelper = new CameraHelper();
         cameraManager.setCam(cam);
         cameraManager.addPBM(backgroundManager);
         cameraHelper.setCameraManager(cameraManager, null, 4);
         InputManager.get.register(cameraHelper);
-
     }
 
     @Override
-    public void render(float delta){
-        MyGdxGame game = MyGdxGame.game;
+    public void render(float delta) {
         Gdx.gl.glClearColor(0, 0.2f, 0.2f, 1);
+
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        game.uiBatch.setProjectionMatrix(camFixed.combined);
-        game.uiBatch.begin();
-        backgroundManager.render(game.uiBatch);
-        game.uiBatch.end();
-        cameraManager.update(delta);
-        game.batch.setProjectionMatrix(cameraManager.getCam().combined);
-        game.batch.begin();
-        for(Slot slot : itemSlots){
-           slot.render(game.batch);
-       }
-        for(EquipButton button : equipButtons){
-            button.render(game.batch);
-        }
-        for(InfoButton button : infoButtons){
-            button.render(game.batch);
-        }
-        skinArrowDown.render(game.batch);
-        skinArrowUp.render(game.batch);
-        skinSlots.get(currentSkin).render(game.batch);
-        particleSlots.get(currentParticles).render(game.batch);
-        particlesArrowUp.render(game.batch);
-        particlesArrowDown.render(game.batch);
-        game.batch.end();
-        camFixed.update();
-        update(delta);
+        cam.update();
+        MyGdxGame.game.batch.setProjectionMatrix(cam.combined);
+        //draw string indicating, that this is a shop (to be removed later)
+        MyGdxGame.game.batch.begin();
+        MyGdxGame.game.font.draw(MyGdxGame.game.batch, "Prototype v0.0.4", 5 , 30);
+        MyGdxGame.game.font.draw(MyGdxGame.game.batch, "This is a shop!", 320, 920);
+        MyGdxGame.game.batch.end();
     }
 
-    /**
-     * update method for hangar screen
-     * @param delta
-     */
-    private void update(float delta){
-        InputManager.get.update(delta);
-    }
-
-    /**
-     * getter for item slots
-     * @return
-     */
-    public Array<Slot> getItemSlots(){
-        return itemSlots;
-    }
-
-    /**
-     * getter for previous id
-     * @return
-     */
-    public int getCurrentId(){
-        return currentId;
-    }
-
-    /**
-     * setter for previous id
-     * @param id
-     */
-    public void setCurrentId(int id){
-        this.currentId = id;
-    }
-
-    /**
-     * getter for skin
-     * @return current skin
-     */
-    public int getCurrentSkin(){
-        return currentSkin;
-    }
-
-    /**
-     * setter for current skin
-     * @param skin
-     */
-    public void setCurrentSkin(int skin){
-        this.currentSkin = skin;
-    }
-
-    /**
-     * getter for the number of activated skins, needed in arrow button class
-     * @return number of skins
-     */
-    public int getNumberSkins(){
-        return skinSlots.size;
-    }
-
-    /**
-     * getter for current particles
-     * @return current particles
-     */
-    public int getCurrentParticles(){
-        return currentParticles;
-    }
-
-    /**
-     * setter for current particles
-     * @param particles
-     */
-    public void setCurrentParticles(int particles){
-        this.currentParticles = particles;
-    }
-
-    /**
-     * getter for the number of activated particles, needed in arrow button class
-     * @return number of particles
-     */
-    public int getNumberParticles(){
-        return particleSlots.size;
-    }
     @Override
     public void dispose()    {
 
@@ -264,6 +190,8 @@ public class HangarScreen implements Screen {
     public void pause()    {
 
     }
+
+
 
 
 

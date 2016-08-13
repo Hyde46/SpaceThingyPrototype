@@ -125,8 +125,8 @@ public class MainMenuScreen implements Screen {
 
 
         //register overlay and cameraHelper to InputManager
-        InputManager.get.Register(overlay);
-        InputManager.get.Register(cameraHelper);
+        InputManager.get.register(overlay);
+        InputManager.get.register(cameraHelper);
     }
 
     /**

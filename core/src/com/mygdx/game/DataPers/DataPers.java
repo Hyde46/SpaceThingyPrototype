@@ -12,41 +12,53 @@ import java.io.ObjectOutputStream;
  */
 public class DataPers
 {
-    private static final String NAME_SAFE = "save.sav";
+    private static final String[] NAME_SAFE = new String[]{ "saveHangar", "saveShop", "saveProgress", "saveMisc" };
+
+ //   private static final String NAME_SAFE = "save.sav";
     private static final String PATH = Gdx.files.getLocalStoragePath();
-    private static File file;
 
-    private static DataSavable data;
+    private static File file[] = new File[4];
+    private static DataSavable data[] = new DataSavable[4];
 
-    public static DataSavable data()
+ //   private static boolean isFirstRequest = true;
+
+    public static DataSavable data(int idSaveSlot)
     {
-        if(data == null)
+//        if(isFirstRequest)
+//        {
+//            isFirstRequest = false;
+//
+//        }
+
+        if(data[idSaveSlot] == null)
         {
-            file = new File(PATH, "/" + NAME_SAFE);
-            if(!file.exists())
+            file[idSaveSlot] = new File(PATH, "/" + NAME_SAFE[idSaveSlot]);
+            if(!file[idSaveSlot].exists())
             {
-                data = new DataSavable();
-                save();
+                switch(idSaveSlot)
+                {
+                    case 0: data[0] = new DataSavableProgress(); break;
+                    case 1: data[1] = new DataSavableShop(); break;
+                    case 2: data[2] = new DataSavableHangar(); break;
+                    case 3: data[3] = new DataSavableMisc(); break;
+                }
+                data[idSaveSlot] = new DataSavable();
+                save(idSaveSlot);
             }
             else
             {
-                load();
+                load(idSaveSlot);
             }
         }
-        return data;
+        return data[idSaveSlot];
     }
 
-    private static void ini()
+    public static void save(int idSaveSlot)
     {
-        data = new DataSavable();
-        save();
-    }
 
-    public static void save()
-    {
         try
         {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file[idSaveSlot]));
             oos.writeObject(data);
             oos.close();
         }
@@ -57,12 +69,12 @@ public class DataPers
         }
     }
 
-    public static void load()
+    public static void load(int idSaveSlot)
     {
         try
         {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
-            data = (DataSavable) ois.readObject();
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file[idSaveSlot]));
+            data[idSaveSlot] = (DataSavable) ois.readObject();
             ois.close();
         }
         catch(Exception e)

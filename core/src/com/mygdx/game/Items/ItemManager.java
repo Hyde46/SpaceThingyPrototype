@@ -22,6 +22,9 @@ public class ItemManager {
 
     // when 1 item activated other gets deactivated ... activate has to go over manager
 
+
+    public static ItemManager get;
+
     public boolean isOneItemActive()
     {
         // is item 0, 1 == activated
@@ -44,8 +47,10 @@ public class ItemManager {
         itemIds[1] = -1;
     }
 
-    public void initialize(GameScreen gs){
-        this.gs = gs;
+    public static void initialize(GameScreen gs)
+    {
+        get = new ItemManager();
+        get.gs = gs;
     }
 
     public boolean setItems(int itemIdLeft, int itemIdRight){
@@ -85,7 +90,7 @@ public class ItemManager {
         }
         itemIds[sideToAdd] = itemId;
         items[sideToAdd].initialize();
-        InputManager.get.Register(items[sideToAdd]);
+        InputManager.get.register(items[sideToAdd]);
 
         return true;
     }
@@ -98,13 +103,13 @@ public class ItemManager {
     public void render(SpriteBatch batch){
         //Debug
         if(items[0] != null){
-            MyGdxGame.game.debugFont.draw(batch,"Item 1: "+items[0].getItemName(),350,1900);
+            MyGdxGame.game.debugFont.draw(batch,"Item 1: "+items[0].getName(),350,1900);
             MyGdxGame.game.debugFont.draw(batch,"Status: "+items[0].getState(),350,1850);
         }else{
             MyGdxGame.game.debugFont.draw(batch,"Item 1: NONE",350,1900);
         }
         if(items[1] != null){
-            MyGdxGame.game.debugFont.draw(batch,"Item 2: "+items[1].getItemName(),750,1900);
+            MyGdxGame.game.debugFont.draw(batch,"Item 2: "+items[1].getName(),750,1900);
             MyGdxGame.game.debugFont.draw(batch,"Status: "+items[1].getState(),750,1850);
         }else{
             MyGdxGame.game.debugFont.draw(batch,"Item 2: NONE",700,1900);

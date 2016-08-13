@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.InputManager;
-import com.mygdx.game.Items.Item;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.renderAbleObjects.decorations.ItemImage;
 import com.mygdx.game.renderAbleObjects.decorations.ToHangarButton;
@@ -42,7 +41,7 @@ public class ItemScreen implements Screen  {
         itemDescription.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 400, MyGdxGame.game.screenHeight - 1600), 800, 500, "item_description.png");
         returnButton = new ToHangarButton();
         returnButton.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 200, 100), 400, 200, "return_button.png");
-        InputManager.get.Register(returnButton);
+        InputManager.get.register(returnButton);
 
     }
 
