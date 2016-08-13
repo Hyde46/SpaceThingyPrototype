@@ -34,7 +34,7 @@ public class ArtificialPlanet extends Item implements IInputAnywhere
     public void initialize(){
         Vector2 posToRender = SpaceMath.getPosToRender(levelPos);
         initialize("artificial-planet-icon-256.png",256,posToRender);
-        itemName = "Artificial Planet";
+        name = "Artificial Planet";
         maxUses = 10;
         uses = maxUses;
         timeCooldown = 4f;

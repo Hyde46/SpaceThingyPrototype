@@ -81,15 +81,15 @@ public class LevelGraph {
             setCurrentLevel(levelBeacons.get(level - 1));
         }
 
-        InputManager.get.Register(levelBeacon1);
-        InputManager.get.Register(levelBeacon2);
-        InputManager.get.Register(levelBeacon3);
-        InputManager.get.Register(levelBeacon4);
-        InputManager.get.Register(levelBeacon5);
-        InputManager.get.Register(levelBeacon6);
-        InputManager.get.Register(levelBeacon7);
-        InputManager.get.Register(levelBeacon8);
-        InputManager.get.Register(levelBeacon9);
+        InputManager.get.register(levelBeacon1);
+        InputManager.get.register(levelBeacon2);
+        InputManager.get.register(levelBeacon3);
+        InputManager.get.register(levelBeacon4);
+        InputManager.get.register(levelBeacon5);
+        InputManager.get.register(levelBeacon6);
+        InputManager.get.register(levelBeacon7);
+        InputManager.get.register(levelBeacon8);
+        InputManager.get.register(levelBeacon9);
 
     }
 

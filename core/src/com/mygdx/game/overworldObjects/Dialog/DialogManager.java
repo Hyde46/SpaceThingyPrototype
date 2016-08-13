@@ -1,7 +1,6 @@
 package com.mygdx.game.overworldObjects.Dialog;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.InputManager;
@@ -78,9 +77,9 @@ public class DialogManager {
                 skipButton.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 200, 10), 400, 200, "skip_button.png", this);
 
                 //register dialog boxes to InputManager
-                InputManager.get.Register(dialogBox1);
-                InputManager.get.Register(dialogBox2);
-                InputManager.get.Register(skipButton);
+                InputManager.get.register(dialogBox1);
+                InputManager.get.register(dialogBox2);
+                InputManager.get.register(skipButton);
 
                 currentDialogStep = 0;
             }else{

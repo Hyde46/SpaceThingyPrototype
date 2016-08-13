@@ -13,11 +13,11 @@ public class InputManager implements InputProcessor
 {
     public static InputManager get;
 
-    final float SWIPE_REC_LENGTH = 20f;
-    Camera cam;
+    private final float SWIPE_REC_LENGTH = 20f;
+    private Camera cam;
 
-    public static ObjectHolder<ARenderableObject> objectHolder;
-    static HashMap<Integer, TouchData> touchData = new HashMap<Integer, TouchData>();
+    private ObjectHolder<ARenderableObject> objectHolder;
+    private static HashMap<Integer, TouchData> touchData = new HashMap<Integer, TouchData>();
 
     /* Setup & Registration of Objects */
 
@@ -33,18 +33,18 @@ public class InputManager implements InputProcessor
         get.cam = cam;
     }
 
-    public void Register(ARenderableObject obj)
+    public void register(ARenderableObject obj)
     {
         if(!objectHolder.objects.contains(obj, false))
             objectHolder.objects.add(obj);
     }
 
-    public void Register(Array<ARenderableObject> objs)
+    public void register(Array<ARenderableObject> objs)
     {
-        for(int i = 0; i < objs.size; i++) Register(objs.get(i));
+        for(int i = 0; i < objs.size; i++) register(objs.get(i));
     }
 
-    public void UnRegister(ARenderableObject obj)
+    public void unRegister(ARenderableObject obj)
     {
         if(objectHolder.objects.contains(obj,false))
             objectHolder.objects.removeValue(obj, false);
@@ -56,7 +56,6 @@ public class InputManager implements InputProcessor
     }
 
     /* Use update to be able to measure time intervals */
-
     public void update(float deltaTime)
     {
         for (TouchData td : touchData.values())

@@ -1,6 +1,5 @@
 package com.mygdx.game.Items;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -15,9 +14,18 @@ import com.mygdx.game.screens.GameScreen;
  * Created by Mechandrius on 19.06.2016.
  * Hyde
  */
-public abstract class Item  extends Decoration implements IInputHandler {
-    public enum StateItem {READY, ACTIVATED, EFFECT, COOLDOWN}
+public abstract class Item extends Decoration implements IInputHandler {
 
+    // shop relevant
+    protected String name;
+    protected String desc;
+
+    protected boolean isTradeable;
+    protected int price;
+
+
+
+    public enum StateItem {READY, ACTIVATED, EFFECT, COOLDOWN}
 
     public int level;
     public StateItem stateItem;
@@ -32,14 +40,14 @@ public abstract class Item  extends Decoration implements IInputHandler {
     protected ItemManager iM;
     protected GameScreen gs;
 
-    protected String itemName;
+
 
 
     protected SpaceShip player;
 
     public Item() {
         stateItem = StateItem.READY;
-        itemName = "None";
+        name = "None";
         //this.gs = gs;
     }
 
@@ -133,5 +141,5 @@ public abstract class Item  extends Decoration implements IInputHandler {
         return stateItem;
     }
 
-    public String getItemName() { return itemName; }
+    public String getName() { return name; }
 }
