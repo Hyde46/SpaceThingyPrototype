@@ -1,3 +1,7 @@
+/*
+    Tab zwischen sell und buy funktioniert nur wenn der scrollview an der initial funktion ist !?!?!?
+*/
+
 package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
@@ -11,14 +15,14 @@ import com.mygdx.game.dataPersistence.DataPers;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.prototypeUtils.CameraHelper;
-import com.mygdx.game.renderAbleObjects.decorations.EquipButton;
-import com.mygdx.game.renderAbleObjects.decorations.InfoButton;
 import com.mygdx.game.renderAbleObjects.decorations.Slot;
-import com.mygdx.game.renderAbleObjects.decorations.uiShop.ButtonShopBuy;
-import com.mygdx.game.renderAbleObjects.decorations.uiShop.ButtonShopInfo;
-import com.mygdx.game.renderAbleObjects.decorations.uiShop.ButtonShopSell;
-import com.mygdx.game.renderAbleObjects.decorations.uiShop.TabBuy;
-import com.mygdx.game.renderAbleObjects.decorations.uiShop.TabSell;
+import com.mygdx.game.renderAbleObjects.decorations.uiShop.ShopButtonBuy;
+import com.mygdx.game.renderAbleObjects.decorations.uiShop.ShopButtonInfo;
+import com.mygdx.game.renderAbleObjects.decorations.uiShop.ShopImageBanner;
+import com.mygdx.game.renderAbleObjects.decorations.uiShop.ShopTabBuy;
+import com.mygdx.game.renderAbleObjects.decorations.uiShop.ShopButtonSell;
+import com.mygdx.game.renderAbleObjects.decorations.uiShop.ShopImageItem;
+import com.mygdx.game.renderAbleObjects.decorations.uiShop.ShopTabSell;
 
 import java.util.ArrayList;
 
@@ -27,115 +31,178 @@ import java.util.ArrayList;
  */
 public class ScreenShop implements Screen
 {
-    public boolean isBuyMode() {
-        return isBuyMode;
-    }
+    private final String nameStatic = "objStatic";
+    private final String nameDynamic = "objDynamic";
 
-    public void setBuyMode(boolean buyMode)
-    {
-        isBuyMode = buyMode;
-    }
+    // render
+    private ShopImageBanner banner;
 
-    private boolean isBuyMode = true;
-    private int levelShop;
-
-    OrthographicCamera cam;
-
-    // things that need rendering
-    private Array<Slot> slotsPanel;
-    private Array<ButtonShopInfo> slotsInfo;
-    private Array<ButtonShopBuy> slotsBuy;
-    private Array<ButtonShopSell> slotsSell;
-
+    private Array<Slot> panels;
+    private Array<ShopImageItem> imgsItem;
+    private Array<ShopButtonInfo> slotsInfo;
+    private Array<ShopButtonBuy> slotsBuy;
+    private Array<ShopButtonSell> slotsSell;
     private ParallaxBackgroundManager backgroundManager;
+    private ShopTabSell tabSell;
+    private ShopTabBuy tabBuy;
 
-  //  private ScrollPane scrollPane;
-   // private int currentId;
-  //  private int currentSkin;
-  //  private int currentParticles;
+    //  cam
     public static OrthographicCamera camFixed;
+    OrthographicCamera cam;
     CameraHelper cameraHelper;
     CameraManager cameraManager;
+
+    ArrayList<Integer> idsItemPlayer;
+    ArrayList<Integer> idsItemShop;
+    int creditsPlayer;
+
+    // shop
+    private int levelShop;
+    private boolean isBuyMode = true;
 
     public ScreenShop(int levelShop)
     {
         this.levelShop = levelShop;
+
+        idsItemPlayer = DataPers.dataP().idsItemsPlayer;
+        idsItemShop = DataPers.dataS().idsItemsShopOfLevel.get(levelShop);
+        creditsPlayer = DataPers.dataP().credits;
+
+        panels = new Array<Slot>();
+        imgsItem = new Array<ShopImageItem>();
+        slotsInfo = new Array<ShopButtonInfo>();
+        slotsBuy = new Array<ShopButtonBuy>();
+        slotsSell = new Array<ShopButtonSell>();
+
+        setShopStatics();
         buildShop();
     }
 
-    //create skin functionality
-//        Slot skinSlot1 = new Slot();
-//        skinSlot1.initialize(new Vector2(200, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_skin.png");
-//        Slot skinSlot2 = new Slot();
-//        skinSlot2.initialize(new Vector2(200, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_skin2.png");
-//        Slot skinSlot3 = new Slot();
-//        skinSlot3.initialize(new Vector2(200, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_skin3.png");
-/*
-        skinSlots = new Array<Slot>();
-        skinSlots.addAll(skinSlot1, skinSlot2, skinSlot3);
-        currentSkin = 0;
-        skinArrowUp = new ArrowButton();
-        skinArrowUp.initialize(new Vector2(300, MyGdxGame.game.screenHeight - 200), 200, 200, "arrow_up.png", true, true);    //true for up, true for skin
-        skinArrowDown = new ArrowButton();
-        skinArrowDown.initialize(new Vector2(300, MyGdxGame.game.screenHeight - 800), 200, 200, "arrow_down.png", false, true);
-        InputManager.get.register(skinArrowUp);
-        InputManager.get.register(skinArrowDown);
-
-        //create particle functionality
-        Slot particleSlot1 = new Slot();
-        particleSlot1.initialize(new Vector2(MyGdxGame.game.screenWidth - 600, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_particles1.png");
-
-        Slot particleSlot2 = new Slot();
-        particleSlot2.initialize(new Vector2(MyGdxGame.game.screenWidth - 600, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_particles2.png");
-
-        Slot particleSlot3 = new Slot();
-        particleSlot3.initialize(new Vector2(MyGdxGame.game.screenWidth - 600, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_particles3.png");
-
-        particleSlots = new Array<Slot>();
-        particleSlots.addAll(particleSlot1, particleSlot2, particleSlot3);
-        currentParticles = 0;
-        particlesArrowUp = new ArrowButton();
-        particlesArrowUp.initialize(new Vector2(MyGdxGame.game.screenWidth - 500, MyGdxGame.game.screenHeight - 200), 200, 200, "arrow_up.png", true, false);    //true for up, false for particles
-        particlesArrowDown = new ArrowButton();
-        particlesArrowDown.initialize(new Vector2(MyGdxGame.game.screenWidth - 500, MyGdxGame.game.screenHeight - 800), 200, 200, "arrow_down.png", false, false);
-        InputManager.get.register(particlesArrowUp);
-        InputManager.get.register(particlesArrowDown);
-*/
-
-
-//        ModelItemsShop shop = new ModelItemsShop();
-//        shop.addItem(new SpeedBooser(0, 0, ItemManager.get));
-//        shop.addItem(new ArtificialPlanet(0, 0, ItemManager.get, null));
-//        shop.addItem(new Break(0, 0, ItemManager.get));
-//
-//        ModelItemsShopManager.get().AddShop(nameShopCurrent, shop);
-
-    private TabBuy tabBuy;
-    private TabSell tabSell;
-
-    public void buildShop()
+    public void toggleBuyMode()
     {
-        String nameShopCurrent = "Level 1 Shop";
+        isBuyMode = !isBuyMode;
+        buildShop();
+    }
 
+    public void saveShop()
+    {
+        DataPers.dataP().credits = creditsPlayer;
+        DataPers.dataP().idsItemsPlayer = idsItemPlayer;
+        DataPers.dataS().idsItemsShopOfLevel.set(levelShop, idsItemShop);
+    }
+
+
+    int w = MyGdxGame.game.screenWidth;
+    int h = MyGdxGame.game.screenHeight;
+
+    int wForth = w / 4;
+
+    int wPanel = 900;
+    int hPanel = 200;
+    int wOffsetPanel = (w - wPanel) / 2;
+    int wForthPanel = wPanel / 4;
+
+    int wButton = 180;
+    int hButton = 140;
+    int wOffsetButton = (wButton / 2);
+    int hOffsetButton = (hPanel - hButton) / 2;
+
+    int hBanner = 400;
+    int yBanner = (int)(h * 0.75);
+
+
+    public void setShopStatics()
+    {
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080,1920);
-
-        cam = new OrthographicCamera();
-        cam.setToOrtho(false, 1080, 1920);
+        InputManager.get.setup(cam);
 
         camFixed = new OrthographicCamera();
         camFixed.setToOrtho(false, 1080, 1920);
-        InputManager.get.setup(cam);
-        //add the backgrounds (hex pattern and stars)
+
         backgroundManager = new ParallaxBackgroundManager();
         backgroundManager.setLayers(2, true);
 
         int w = MyGdxGame.game.screenWidth;
         int h = MyGdxGame.game.screenHeight;
 
+        int wButton = 180;
+
+        int yTabs = (int)(h * 0.65);
+
+
+        int wOffsetButton = wButton / 2;
+
+        banner = new ShopImageBanner();
+        banner.initialize(new Vector2(wOffsetPanel, yBanner), 900, 400, "shop-banner-900-400.png");
+
+        tabBuy = new ShopTabBuy();
+        tabBuy.initialize(new Vector2(1 * wForth - wOffsetButton, yTabs), 180, 140, "btn-buy-180-140.png", this);
+        InputManager.get.register(nameStatic, tabBuy);
+
+        tabSell = new ShopTabSell();
+        tabSell.initialize(new Vector2(2 * wForth - wOffsetButton, yTabs), 180, 140, "btn-sell-180-140.png", this);
+        InputManager.get.register(nameStatic, tabSell);
+
+        cameraManager = new CameraManager();
+        cameraHelper = new CameraHelper();
+        cameraManager.setCam(cam);
+        cameraManager.addPBM(backgroundManager);
+        cameraHelper.setCameraManager(cameraManager, null, 4);
+        InputManager.get.register(nameStatic, cameraHelper);
+    }
+
+    public void buyItem(int idItem)
+    {
+        int price = 20;
+
+        if(creditsPlayer >= price)
+        {
+            creditsPlayer -= price;
+            idsItemPlayer.add(idItem);
+            idsItemShop.remove(new Integer(idItem));
+
+            buildShop();
+        }
+        else
+        {
+            // no money
+        }
+    }
+
+    public void sellItem(int idItem)
+    {
+        int creditsSell = 20;
+
+        creditsPlayer += creditsSell;
+        idsItemPlayer.remove(new Integer(idItem));
+
+        idsItemShop.add(idItem);
+
+        buildShop();
+    }
+
+    public void buildShop()
+    {
+        InputManager.get.clearGroup(nameDynamic);
+
+        if(panels != null) panels.clear();
+        if(imgsItem != null) imgsItem.clear();
+        if(slotsInfo != null) slotsInfo.clear();
+        if(slotsBuy != null) slotsBuy.clear();
+        if(slotsSell != null) slotsSell.clear();
+
+        panels = new Array<Slot>();
+        imgsItem = new Array<ShopImageItem>();
+        slotsInfo = new Array<ShopButtonInfo>();
+        slotsBuy = new Array<ShopButtonBuy>();
+        slotsSell = new Array<ShopButtonSell>();
+
+        int w = MyGdxGame.game.screenWidth;
+        int h = MyGdxGame.game.screenHeight;
+
         int yPicture = (int)(h * 0.95);
         int hPicture = (int)(h * 0.2);
-        int yTabs = (int)(h * 0.65);
 
         int xPanel = (w / 2) - 450;
         int wPanel =  (int)(w * 0.9);
@@ -143,110 +210,116 @@ public class ScreenShop implements Screen
         int width = 900;
         int posY = 800;
 
-        tabBuy = new TabBuy();
-        tabBuy.initialize(new Vector2(150, yTabs), 180, 140, "btn-buy-180-140.png", this);
-        InputManager.get.register(tabBuy);
-
-        tabSell = new TabSell();
-        tabSell.initialize(new Vector2(400, yTabs), 180, 140, "btn-sell-180-140.png", this);
-        InputManager.get.register(tabSell);
-
-        slotsPanel = new Array<Slot>();
-        slotsInfo = new Array<ButtonShopInfo>();
-        slotsBuy = new Array<ButtonShopBuy>();
-        slotsSell = new Array<ButtonShopSell>();
-
-        ArrayList<Integer> idsItemsAvailable =  DataPers.dataS().idsItemsAvailable.get(levelShop);
-
-        int numberOfItems = idsItemsAvailable.size();
-
-        for(int i = 0; i < numberOfItems; i++)
+        if(isBuyMode)
         {
-            posY = 800 - 200*i;
-
-            Slot slot = new Slot();
-            slot.initialize(new Vector2(xPanel, posY), wPanel, 200, "item-slot-900-200.png");
-            slotsPanel.add(slot);
-
-            ButtonShopInfo btnInfo = new ButtonShopInfo();
-            btnInfo.initialize(new Vector2(w - 550, posY + (int)(0.5 * (200 - 140))), 180, 140, "btn-info-180-140.png", idsItemsAvailable.get(i), levelShop);
-            InputManager.get.register(btnInfo);
-            slotsInfo.add(btnInfo);
-
-            if(isBuyMode)
+            for (int i = 0; i < idsItemShop.size(); i++)
             {
-                ButtonShopBuy btnBuy = new ButtonShopBuy();
-                btnBuy.initialize(new Vector2(w - 350, posY + (int) (0.5 * (200 - 140))), 180, 140, "btn-buy-180-140.png", levelShop, idsItemsAvailable.get(i), this);
-                InputManager.get.register(btnBuy);
-                slotsBuy.add(btnBuy);
+                posY = 800 - 200 * i;
+
+                addSlot(posY, idsItemShop.get(i));
             }
-            else
+        }
+        else
+        {
+            for (int i = 0; i < idsItemPlayer.size(); i++)
             {
-                ButtonShopSell btnSell = new ButtonShopSell();
-                btnSell.initialize(new Vector2(w - 350, posY + (int) (0.5 * (200 - 140))), 180, 140, "btn-sell-180-140.png", levelShop, idsItemsAvailable.get(i), this);
-                InputManager.get.register(btnSell);
-                slotsSell.add(btnSell);
+                posY = 800 - 200 * i;
+
+                addSlot(posY, idsItemPlayer.get(i));
             }
         }
 
-        cameraManager = new CameraManager();
-        cameraHelper = new CameraHelper();
-        cameraManager.setCam(cam);
-        cameraManager.addPBM(backgroundManager);
-        cameraHelper.setCameraManager(cameraManager, null, 4);
-        InputManager.get.register(cameraHelper);
+        saveShop();
+    }
+
+    public void addSlot(int yOfPanel, int idItem)
+    {
+        Slot slot = new Slot();
+        slot.initialize(new Vector2(wOffsetPanel, yOfPanel), wPanel, 200, "item-panel-900-200.png");
+        panels.add(slot);
+
+        ShopImageItem imgItem = new ShopImageItem();
+        imgItem.initialize(new Vector2(wOffsetPanel + 1 * wForthPanel - wOffsetButton, yOfPanel + hOffsetButton), wButton, hButton, "shop-btn-image.png", idItem);
+        //InputManager.get.register(nameDynamic, imgItem);
+        imgsItem.add(imgItem);
+
+        ShopButtonInfo btnInfo = new ShopButtonInfo();
+        btnInfo.initialize(new Vector2(wOffsetPanel + 2 * wForthPanel - wOffsetButton, yOfPanel + hOffsetButton), wButton, hButton, "btn-info-180-140.png", idItem, levelShop);
+        InputManager.get.register(nameDynamic, btnInfo);
+        slotsInfo.add(btnInfo);
+
+        if(isBuyMode)
+        {
+            ShopButtonBuy btnBuy = new ShopButtonBuy();
+            btnBuy.initialize(new Vector2(wOffsetPanel + 3 * wForthPanel - wOffsetButton, yOfPanel + hOffsetButton), wButton, hButton, "btn-buy-180-140.png", levelShop, idItem, this);
+            InputManager.get.register(nameDynamic, btnBuy);
+            slotsBuy.add(btnBuy);
+        }
+        else
+        {
+            ShopButtonSell btnSell = new ShopButtonSell();
+            btnSell.initialize(new Vector2(wOffsetPanel + 3 * wForthPanel - wOffsetButton, yOfPanel + hOffsetButton), wButton, hButton, "btn-sell-180-140.png", levelShop, idItem, this);
+            InputManager.get.register(nameDynamic, btnSell);
+            slotsSell.add(btnSell);
+        }
     }
 
     @Override
-    public void render(float delta) {
+    public void render(float delta)
+    {
+        cam.update();
+
         MyGdxGame game = MyGdxGame.game;
 
         Gdx.gl.glClearColor(0, 0.2f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        MyGdxGame.game.batch.setProjectionMatrix(cam.combined);
-        //draw string indicating, that this is a shop (to be removed later)
-        MyGdxGame.game.batch.begin();
-        //MyGdxGame.game.font.draw(MyGdxGame.game.batch, "Prototype v0.0.4", 5 , 30);
-        //MyGdxGame.game.font.draw(MyGdxGame.game.batch, "This is a shop!", 320, 920);
+        game.batch.setProjectionMatrix(cam.combined);
+        game.batch.begin();
 
-        for(Slot slot : slotsPanel){
+        for(Slot slot : panels){
             slot.render(game.batch);
+
+            int xText = (int)slot.getPosition().x + wForthPanel - wOffsetButton;
+            int yText = (int)slot.getPosition().y + (int)(0.5 * hButton) + hOffsetButton;
+            MyGdxGame.game.font.draw(MyGdxGame.game.batch, "Item " + 1, xText, yText);
         }
 
-        for(ButtonShopInfo button : slotsInfo)
+        for(ShopImageItem img : imgsItem)
+        {
+            img.render(game.batch);
+        }
+
+        for(ShopButtonInfo button : slotsInfo)
         {
             button.render(game.batch);
         }
 
         if(isBuyMode)
         {
-            for(ButtonShopBuy button : slotsBuy)
+            for(ShopButtonBuy button : slotsBuy)
             {
                 button.render(game.batch);
             }
         }
         else
         {
-            for(ButtonShopSell button : slotsSell)
+            for(ShopButtonSell button : slotsSell)
             {
                 button.render(game.batch);
             }
         }
-        MyGdxGame.game.batch.end();
+        game.batch.end();
 
         game.uiBatch.begin();
-        tabBuy.render(game.uiBatch);
-        tabSell.render(game.uiBatch);
+            banner.render(game.uiBatch);
+            tabBuy.render(game.uiBatch);
+            tabSell.render(game.uiBatch);
         game.uiBatch.end();
-
-        cam.update();
     }
 
     @Override
-    public void dispose()    {
-
-    }
+    public void dispose() {}
     @Override
     public void show()    {
 

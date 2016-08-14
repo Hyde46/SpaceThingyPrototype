@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * Created by ilost on 04.08.2016.
  */
 
-public class ButtonShopBuy extends Decoration implements IInputHandler
+public class ShopButtonBuy extends Decoration implements IInputHandler
 {
     private ScreenShop ss;
     private int levelShop;
@@ -41,24 +41,7 @@ public class ButtonShopBuy extends Decoration implements IInputHandler
     @Override
     public void OnTouch(TouchData td)
     {
-        int price = 20;
-        int creditsOwned = DataPers.dataP().credits;
-
-        if(creditsOwned >= price)
-        {
-            DataPers.dataP().credits -= price;
-            DataPers.dataP().idsItemsPlayer.add(idItem);
-            DataPers.saveP();
-
-            DataPers.dataS().idsItemsAvailable.get(levelShop).remove(new Integer(idItem));
-            DataPers.saveS();
-
-            ss.buildShop();
-        }
-        else
-        {
-            // no money
-        }
+        ss.buyItem(idItem);
     }
 
     @Override

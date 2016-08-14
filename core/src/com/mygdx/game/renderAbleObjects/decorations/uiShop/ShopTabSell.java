@@ -5,17 +5,16 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.IInputHandler;
 import com.mygdx.game.InputManager.TouchData;
-import com.mygdx.game.renderAbleObjects.decorations.Decoration;
+import com.mygdx.game.renderAbleObjects.ARenderableObject;
 import com.mygdx.game.screens.ScreenShop;
 
 /**
  * Created by ilost on 04.08.2016.
  */
 
-public class TabSell extends Decoration implements IInputHandler
+public class ShopTabSell extends ARenderableObject implements IInputHandler
 {
     private ScreenShop ss;
-
 
     public void initialize(Vector2 position, int width, int height, String pathToTexture, ScreenShop ss){
         initializePositions(position);
@@ -35,7 +34,7 @@ public class TabSell extends Decoration implements IInputHandler
     public void OnTouch(TouchData td) {
         // TODO
         System.out.println("pressed sell tab");
-        if(ss.isBuyMode()) ss.setBuyMode(false);
+        ss.toggleBuyMode();
     }
 
     @Override

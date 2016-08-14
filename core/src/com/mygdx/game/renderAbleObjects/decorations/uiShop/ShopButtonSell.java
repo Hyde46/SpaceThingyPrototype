@@ -5,24 +5,26 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.IInputHandler;
 import com.mygdx.game.InputManager.TouchData;
+import com.mygdx.game.dataPersistence.DataPers;
 import com.mygdx.game.renderAbleObjects.decorations.Decoration;
-import com.mygdx.game.screens.ItemScreen;
-import com.mygdx.game.screens.MyGdxGame;
+import com.mygdx.game.screens.ScreenShop;
 
 /**
  * Created by ilost on 04.08.2016.
  */
 
-public class ButtonShopInfo extends Decoration implements IInputHandler
+public class ShopButtonSell extends Decoration implements IInputHandler
 {
+    private ScreenShop ss;
+    private int levelShop;
     private int idItem;
-    private int idReturn;
 
-    public void initialize(Vector2 position, int width, int height, String pathToTexture, int idItem, int idReturn){
+    public void initialize(Vector2 position, int width, int height, String pathToTexture, int levelShop, int idItem, ScreenShop ss){
         initializePositions(position);
-        this.idReturn = idReturn;
+        this.ss = ss;
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
         this.spriteDimension = new Vector2(width, height);
+        this.levelShop = levelShop;
         this.idItem = idItem;
         initializeTexture(spriteDimension, 0, pathToTexture);
     }
@@ -35,7 +37,7 @@ public class ButtonShopInfo extends Decoration implements IInputHandler
     @Override
     public void OnTouch(TouchData td)
     {
-        MyGdxGame.game.openScreen(new ItemScreen(idItem, idReturn));
+        ss.sellItem(idItem);
     }
 
     @Override

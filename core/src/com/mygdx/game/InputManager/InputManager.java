@@ -1,3 +1,12 @@
+/*
+    Bessere Handhabung:
+        objs in gruppe registrieren und nacher ganze gruppe mit string name löschen
+
+    Für touch everywhere muss speziell in gruppe "e" registriert werden
+        - spart durchlauf aller obj in jedem frame
+
+*/
+
 package com.mygdx.game.InputManager;
 
 import com.badlogic.gdx.Gdx;
@@ -7,52 +16,36 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class InputManager implements InputProcessor
 {
+    // general
     public static InputManager get;
-
-    private final float SWIPE_REC_LENGTH = 20f;
     private Camera cam;
 
-    private ObjectHolder<ARenderableObject> objectHolder;
+    // input relevant
     private static HashMap<Integer, TouchData> touchData = new HashMap<Integer, TouchData>();
+    private final float SWIPE_REC_LENGTH = 20f;
 
-    /* Setup & Registration of Objects */
+    // objects
+    private HashMap<String, Array<ARenderableObject>> objects;
+    private final String nameGroupGeneral = "g";
+    private final String nameGroupTouchEverywhere = "e";
 
+    // setup
     InputManager()
     {
         Gdx.input.setInputProcessor(this); // this is an input processor that gets registered at the main input
-        objectHolder = new ObjectHolder<ARenderableObject>();
+        objects = new HashMap<String, Array<ARenderableObject>>();
     }
 
     public static void setup(Camera cam)
     {
         get = new InputManager();
         get.cam = cam;
-    }
-
-    public void register(ARenderableObject obj)
-    {
-        if(!objectHolder.objects.contains(obj, false))
-            objectHolder.objects.add(obj);
-    }
-
-    public void register(Array<ARenderableObject> objs)
-    {
-        for(int i = 0; i < objs.size; i++) register(objs.get(i));
-    }
-
-    public void unRegister(ARenderableObject obj)
-    {
-        if(objectHolder.objects.contains(obj,false))
-            objectHolder.objects.removeValue(obj, false);
-    }
-
-    public void clear()
-    {
-        objectHolder.objects.clear();
     }
 
     /* Use update to be able to measure time intervals */
@@ -65,8 +58,90 @@ public class InputManager implements InputProcessor
         }
     }
 
-    /* Handle input events */
+    // registration of objs
+    public void register(ARenderableObject obj)
+    {
+        registerIntern(nameGroupGeneral, obj);
+    }
+    public void register(String name, ARenderableObject obj)
+    {
+        registerIntern(name, obj);
+    }
+    public void unRegister(ARenderableObject obj)
+    {
+        unRegisterIntern(nameGroupGeneral, obj);
+    }
+    public void unRegister(String name, ARenderableObject obj)
+    {
+        unRegisterIntern(name, obj);
+    }
+    public void clearGeneral()
+    {
+        clearGroupIntern(nameGroupGeneral);
+    }
+    public void clearGroup(String name)
+    {
+        clearGroupIntern(name);
+    }
+    public void clearAll()
+    {
+        ArrayList<String> keysGroups = new ArrayList<String>(objects.keySet());
+        for (int i = 0; i < keysGroups.size(); i++) clearGroupIntern(keysGroups.get(i));
+    }
+    public Array<ARenderableObject> getObjectsGeneral()
+    {
+        return getObjectsIntern(nameGroupGeneral);
+    }
+    public Array<ARenderableObject> getObjectsGroup(String name)
+    {
+        return getObjectsIntern(name);
+    }
+    public Array<ARenderableObject> getObjectsAll()
+    {
+        ArrayList<String> keysGroups = new ArrayList<String>(objects.keySet());
+        Array<ARenderableObject> objsAll = new Array<ARenderableObject>();
 
+        for (int i = 0; i < keysGroups.size(); i++)
+        {
+            objsAll.addAll(objects.get(keysGroups.get(i)));
+        }
+
+        return objsAll;
+    }
+
+    // local
+    private void registerIntern(String name, ARenderableObject obj)
+    {
+        if(!objects.containsKey(name))
+            objects.put(name, new Array<ARenderableObject>());
+        else
+        {
+            if(!objects.get(name).contains(obj, false))
+                objects.get(name).add(obj);
+        }
+    }
+
+    private void unRegisterIntern(String name, ARenderableObject obj)
+    {
+        if(objects.get(name).contains(obj,false))
+            objects.get(name).removeValue(obj, false);
+    }
+
+    private void clearGroupIntern(String name)
+    {
+        if(objects.containsKey(name)){
+            objects.get(name).clear();
+            objects.remove(name);
+        }
+    }
+
+    private Array<ARenderableObject> getObjectsIntern(String name)
+    {
+        return objects.get(name);
+    }
+
+
+    // read input
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
@@ -75,29 +150,31 @@ public class InputManager implements InputProcessor
         //screenY = ((int)cam.viewportHeight) -screenY;
         Vector3 posTouchUnproj = new Vector3(screenX,screenY,0);
         //cam.unproject(posTouch);
-        Array<ARenderableObject> objs = objectHolder.getObjects();
-
 
         Array<IInputHandler> objsHit = new Array<IInputHandler>();
-        for(int i = 0; i < objs.size; i++)
+
+        ArrayList<String> keys = new ArrayList<String>(objects.keySet());
+        for (int idxGroup = 0; idxGroup < keys.size(); idxGroup++)
         {
-            ARenderableObject obj = objs.get(i);
-            if (obj instanceof IInputHandler)
+            Array<ARenderableObject> objsOfGroup = getObjectsGroup(keys.get(idxGroup));
+
+            for (int i = 0; i < objsOfGroup.size; i++)
             {
-                cam.unproject(posTouch);
-
-               // System.out.println(posTouch);
-               // System.out.println(posTouchUnproj);
-                if
-                (
-
-                    (!obj.isUI() && (obj.getHitbox().contains(posTouch.x,posTouch.y))) ||
-                    (obj.isUI() &&(obj.getHitbox().contains(posTouchUnproj.x,posTouchUnproj.y)))
-                )
+                ARenderableObject obj = objsOfGroup.get(i);
+                if (obj instanceof IInputHandler)
                 {
-                    objsHit.add((IInputHandler) obj);
+                    cam.unproject(posTouch);
+
+                    if
+                    (
+                        (!obj.isUI() && (obj.getHitbox().contains(posTouch.x, posTouch.y))) ||
+                        (obj.isUI() && (obj.getHitbox().contains(posTouchUnproj.x, posTouchUnproj.y)))
+                    )
+                    {
+                        objsHit.add((IInputHandler) obj);
+                    }
+                    posTouch.set(posTouchUnproj);
                 }
-                posTouch.set(posTouchUnproj);
             }
         }
 
@@ -198,15 +275,19 @@ public class InputManager implements InputProcessor
         return true;
     }
 
-    void notifyObjectsTouchAnywhere(TouchData td)
+    private void notifyObjectsTouchAnywhere(TouchData td)
     {
-        for (ARenderableObject obj : objectHolder.getObjects())
+        if(objects.containsKey(nameGroupTouchEverywhere))
         {
-            if(obj instanceof IInputAnywhere) ((IInputAnywhere)obj).OnTouchAnywhere(td);
+            for(int i = 0; i < objects.get(nameGroupTouchEverywhere).size; i++)
+            {
+                if(objects.get(nameGroupTouchEverywhere).get(i) instanceof IInputAnywhere)
+                    ((IInputAnywhere)objects.get(nameGroupTouchEverywhere).get(i)).OnTouchAnywhere(td);
+            }
         }
     }
 
-    void notifyObjectsTouch(TouchData td)
+    private void notifyObjectsTouch(TouchData td)
     {
         Array<IInputHandler> objsOrigin = td.getObjsOrigin();
         for(int i = 0; i < objsOrigin.size; i++)
@@ -215,7 +296,7 @@ public class InputManager implements InputProcessor
         }
     }
 
-    void notifyObjectsRelease(TouchData td)
+    private void notifyObjectsRelease(TouchData td)
     {
         Array<IInputHandler> objsOrigin = td.getObjsOrigin();
         for(int i = 0; i < objsOrigin.size; i++)
@@ -224,7 +305,7 @@ public class InputManager implements InputProcessor
         }
     }
 
-    void notifyObjectsDrag(TouchData td)
+    private void notifyObjectsDrag(TouchData td)
     {
         Array<IInputHandler> objsOrigin = td.getObjsOrigin();
         for(int i = 0; i < objsOrigin.size; i++)
@@ -233,7 +314,7 @@ public class InputManager implements InputProcessor
         }
     }
 
-    void notifyObjectsHold(TouchData td)
+    private void notifyObjectsHold(TouchData td)
     {
         Array<IInputHandler> objsOrigin = td.getObjsOrigin();
         for(int i = 0; i < objsOrigin.size; i++)
@@ -242,7 +323,7 @@ public class InputManager implements InputProcessor
         }
     }
 
-    void notifyObjectsSwipe(TouchData td)
+    private void notifyObjectsSwipe(TouchData td)
     {
         Array<IInputHandler> objsOrigin = td.getObjsOrigin();
         for(int i = 0; i < objsOrigin.size; i++)

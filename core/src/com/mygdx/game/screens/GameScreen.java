@@ -388,7 +388,7 @@ public class GameScreen implements Screen{
             hasFinishedLevel = false;
             hasWonLevel = false;
 
-            InputManager.get.clear();
+            InputManager.get.clearAll();
             MyGdxGame.game.openScreen(new MainMenuScreen(level,hasWonLevel));
             //MyGdxGame.game.setScreen(new MainMenuScreen(level,hasWonLevel));
         }

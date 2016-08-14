@@ -12,49 +12,23 @@ import com.mygdx.game.screens.ScreenShop;
  * Created by ilost on 04.08.2016.
  */
 
-public class TabBuy extends Decoration implements IInputHandler
+public class ShopImageItem extends Decoration
 {
-    private ScreenShop ss;
+    private int idItem;
 
-    public void initialize(Vector2 position, int width, int height, String pathToTexture, ScreenShop ss){
+    public void initialize(Vector2 position, int width, int height, String pathToTexture, int idItem)
+    {
         initializePositions(position);
-        this.ss = ss;
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
         this.spriteDimension = new Vector2(width, height);
-
         initializeTexture(spriteDimension, 0, pathToTexture);
+
+        this.idItem = idItem;
     }
 
     @Override
     public void renderHitboxes(ShapeRenderer d)
     {
-
-    }
-
-    @Override
-    public void OnTouch(TouchData td) {
-        // TODO
-        System.out.println("pressed buy tab");
-        if(!ss.isBuyMode()) ss.setBuyMode(true);
-    }
-
-    @Override
-    public void OnRelease(TouchData td) {
-
-    }
-
-    @Override
-    public void OnDrag(TouchData td) {
-
-    }
-
-    @Override
-    public void OnHold(TouchData td) {
-
-    }
-
-    @Override
-    public void OnSwipe(TouchData td) {
 
     }
 }
