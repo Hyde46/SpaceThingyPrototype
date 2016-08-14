@@ -3,7 +3,7 @@
         objs in gruppe registrieren und nacher ganze gruppe mit string name löschen
 
     Für touch everywhere muss speziell in gruppe "e" registriert werden
-        - spart durchlauf aller obj in jedem frame
+        - spart durchlauf aller obj mit jedem touch
 
 */
 

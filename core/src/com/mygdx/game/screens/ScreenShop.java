@@ -136,6 +136,7 @@ public class ScreenShop implements Screen
         banner = new ShopImageBanner();
         banner.initialize(new Vector2(wOffsetPanel, yBanner), 900, 400, "shop-banner-900-400.png");
 
+        // dieser button bekommt keinen touch ... obwohl gleich initialisiert wie Tab sell ...
         tabBuy = new ShopTabBuy();
         tabBuy.initialize(new Vector2(1 * wForth - wOffsetButton, yTabs), 180, 140, "btn-buy-180-140.png", this);
         InputManager.get.register(nameStatic, tabBuy);
