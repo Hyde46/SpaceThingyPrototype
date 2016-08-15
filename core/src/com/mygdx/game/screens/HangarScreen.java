@@ -8,14 +8,16 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.InputManager;
+import com.mygdx.game.Items.Item;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.prototypeUtils.CameraHelper;
 import com.mygdx.game.renderAbleObjects.decorations.ArrowButton;
 import com.mygdx.game.renderAbleObjects.decorations.EquipButton;
 import com.mygdx.game.renderAbleObjects.decorations.InfoButton;
-import com.mygdx.game.renderAbleObjects.decorations.ItemImage;
+
 import com.mygdx.game.renderAbleObjects.decorations.Slot;
+import com.mygdx.game.renderAbleObjects.decorations.uiItemDisplay.ItemDisplayImage;
 
 /**
  * Created by Vali on 10.07.2016.
@@ -24,7 +26,7 @@ public class HangarScreen implements Screen {
 
     OrthographicCamera cam;
     private Array<Slot> itemSlots;
-    private Array<ItemImage> itemIcons;
+    private Array<ItemDisplayImage> itemIcons;
     private Array<EquipButton> equipButtons;
     private Array<InfoButton> infoButtons;
     private Array<Slot> skinSlots;
@@ -52,7 +54,7 @@ public class HangarScreen implements Screen {
         InputManager.get.setup(cam);
         //add the backgrounds (hex pattern and stars)
         backgroundManager = new ParallaxBackgroundManager();
-        backgroundManager.setLayers(2);
+        backgroundManager.setLayers(2, false);
 
         //create skin functionality
         Slot skinSlot1 = new Slot();
@@ -71,8 +73,8 @@ public class HangarScreen implements Screen {
         skinArrowUp.initialize(new Vector2(200, MyGdxGame.game.screenHeight - 200), 200, 200, "arrow_up.png", true, true);    //true for up, true for skin
         skinArrowDown = new ArrowButton();
         skinArrowDown.initialize(new Vector2(200, MyGdxGame.game.screenHeight - 800), 200, 200, "arrow_down.png", false, true);
-        InputManager.get.Register(skinArrowUp);
-        InputManager.get.Register(skinArrowDown);
+        InputManager.get.register(skinArrowUp);
+        InputManager.get.register(skinArrowDown);
 
         //create particle functionality
         Slot particleSlot1 = new Slot();
@@ -91,8 +93,8 @@ public class HangarScreen implements Screen {
         particlesArrowUp.initialize(new Vector2(MyGdxGame.game.screenWidth - 400, MyGdxGame.game.screenHeight - 200), 200, 200, "arrow_up.png", true, false);    //true for up, false for particles
         particlesArrowDown = new ArrowButton();
         particlesArrowDown.initialize(new Vector2(MyGdxGame.game.screenWidth - 400, MyGdxGame.game.screenHeight - 800), 200, 200, "arrow_down.png", false, false);
-        InputManager.get.Register(particlesArrowUp);
-        InputManager.get.Register(particlesArrowDown);
+        InputManager.get.register(particlesArrowUp);
+        InputManager.get.register(particlesArrowDown);
 
 
         int numberOfItems = 12;
@@ -100,7 +102,7 @@ public class HangarScreen implements Screen {
         itemSlots = new Array<Slot>();
         equipButtons = new Array<EquipButton>();
         infoButtons = new Array<InfoButton>();
-        itemIcons = new Array<ItemImage>();
+        itemIcons = new Array<ItemDisplayImage>();
 
         int width = MyGdxGame.game.screenWidth - 200;
         int posY = 800;
@@ -108,14 +110,14 @@ public class HangarScreen implements Screen {
             Slot slot = new Slot();
             //intialize item slot
             slot.initialize(new Vector2(100, posY), width, 200, "item_slot.png");
-            ItemImage itemIcon = new ItemImage();
+            ItemDisplayImage itemIcon = new ItemDisplayImage();
             itemIcon.initialize(new Vector2(120, posY), 200, 200, "item_icon.png");
             EquipButton equipButton = new EquipButton();
             equipButton.initialize(new Vector2(width - 200, posY), 250, 200, "equip_button.png", i);
-            InputManager.get.Register(equipButton);
+            InputManager.get.register(equipButton);
             InfoButton infoButton = new InfoButton();
             infoButton.initialize(new Vector2(width - 500, posY), 250, 200, "info_button.png", i);
-            InputManager.get.Register(infoButton);
+            InputManager.get.register(infoButton);
             posY -= 200;
             itemSlots.add(slot);
             itemIcons.add(itemIcon);
@@ -130,7 +132,7 @@ public class HangarScreen implements Screen {
         cameraManager.setCam(cam);
         cameraManager.addPBM(backgroundManager);
         cameraHelper.setCameraManager(cameraManager, null, 4);
-        InputManager.get.Register(cameraHelper);
+        InputManager.get.register(cameraHelper);
 
     }
 
@@ -156,7 +158,7 @@ public class HangarScreen implements Screen {
         for(InfoButton button : infoButtons){
             button.render(game.batch);
         }
-        for(ItemImage icon : itemIcons){
+        for(ItemDisplayImage icon : itemIcons){
             icon.render(game.batch);
         }
         skinArrowDown.render(game.batch);
