@@ -63,10 +63,10 @@ public class DialogTextArea extends Decoration implements IInputHandler
         currentText = text;
         //if the text position is greater or equal than the text length, it means that we already want to show the whole text
         if(textPosition >= text.length()){
-            MyGdxGame.game.font.draw(batch, currentText, position.x + 40, position.y + height - 40, width - 40, Align.topLeft, true);
+            MyGdxGame.game.dialogFont.draw(batch, currentText, position.x + 40, position.y + height - 40, width - 40, Align.topLeft, true);
         }else{
             //otherwise we just want to show a substring
-            MyGdxGame.game.font.draw(batch, currentText, position.x + 40, position.y + height - 40, 0, textPosition, width - 40, Align.topLeft, true);
+            MyGdxGame.game.dialogFont.draw(batch, currentText, position.x + 40, position.y + height - 40, 0, textPosition, width - 40, Align.topLeft, true);
             //afterwords we increment text position so that in the next rendering frame one more letter will be shown etc
             textPosition++;
         }

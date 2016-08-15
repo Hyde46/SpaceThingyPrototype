@@ -35,7 +35,8 @@ public class Planet extends Unit implements IInputHandler {
         super();
     }
 
-    public void initialize(Vector2 pos, float orbitRadius, float planetRadius, boolean isGoalPlanet, String texturePath, int spriteId, float initialRotation) {
+    public void initialize(Vector2 pos, float orbitRadius, float planetRadius,
+                           boolean isGoalPlanet, String texturePath, int spriteId, float initialRotation, float gravity) {
         unitType = 1;
         this.orbitRadius = orbitRadius;
         this.planetRadius = planetRadius;
@@ -50,7 +51,7 @@ public class Planet extends Unit implements IInputHandler {
         rotationSpeed = 0.0f;
         rotationDirection = 0;
         translation = new Vector2();
-        gravity = 10.0f;
+        this.gravity = gravity;
     }
 
     private void initializeOrbitTex(boolean isGoalPlanet) {

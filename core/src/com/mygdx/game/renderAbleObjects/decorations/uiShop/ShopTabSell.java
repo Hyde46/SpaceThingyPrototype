@@ -1,34 +1,40 @@
-package com.mygdx.game.renderAbleObjects.decorations;
+package com.mygdx.game.renderAbleObjects.decorations.uiShop;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.IInputHandler;
 import com.mygdx.game.InputManager.TouchData;
-import com.mygdx.game.screens.HangarScreen;
-import com.mygdx.game.screens.MyGdxGame;
+import com.mygdx.game.renderAbleObjects.ARenderableObject;
+import com.mygdx.game.screens.ScreenShop;
 
 /**
- * Created by Vali on 22.07.2016.
+ * Created by ilost on 04.08.2016.
  */
-public class ToHangarButton extends Decoration implements IInputHandler {
 
-    public void initialize(Vector2 position, int width, int height, String pathToTexture){
+public class ShopTabSell extends ARenderableObject implements IInputHandler
+{
+    private ScreenShop ss;
+
+    public void initialize(Vector2 position, int width, int height, String pathToTexture, ScreenShop ss){
         initializePositions(position);
+        this.ss = ss;
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
         this.spriteDimension = new Vector2(width, height);
         initializeTexture(spriteDimension, 0, pathToTexture);
     }
 
     @Override
-    public void renderHitboxes(ShapeRenderer d) {
+    public void renderHitboxes(ShapeRenderer d)
+    {
 
     }
 
     @Override
     public void OnTouch(TouchData td) {
-        MyGdxGame.game.openScreen(new HangarScreen());
+        // TODO
+        System.out.println("pressed sell tab");
+        ss.toggleBuyMode();
     }
 
     @Override
@@ -50,7 +56,4 @@ public class ToHangarButton extends Decoration implements IInputHandler {
     public void OnSwipe(TouchData td) {
 
     }
-
 }
-
-

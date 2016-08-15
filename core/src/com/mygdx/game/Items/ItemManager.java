@@ -6,6 +6,7 @@ import com.mygdx.game.Items.Level1.SpeedBooser;
 import com.mygdx.game.Items.Level2.Break;
 import com.mygdx.game.Items.Level3.ArtificialPlanet;
 import com.mygdx.game.Items.Level3.DestroyTarget;
+import com.mygdx.game.Items.Level3.PhaseOut;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.screens.MyGdxGame;
@@ -21,6 +22,8 @@ public class ItemManager {
     // item activation can trigger orbit leave with same touch
 
     // when 1 item activated other gets deactivated ... activate has to go over manager
+
+    public static ItemManager get;
 
     public boolean isOneItemActive()
     {
@@ -44,8 +47,10 @@ public class ItemManager {
         itemIds[1] = -1;
     }
 
-    public void initialize(GameScreen gs){
-        this.gs = gs;
+    public static void initialize(GameScreen gs)
+    {
+        get = new ItemManager();
+        get.gs = gs;
     }
 
     public boolean setItems(int itemIdLeft, int itemIdRight){
@@ -81,30 +86,45 @@ public class ItemManager {
                     break;
             case 8:items[sideToAdd] = new DestroyTarget(itemPos,sideToAdd,this,gs);
                 break;
+            case 9:items[sideToAdd] = new PhaseOut(itemPos,sideToAdd,this);
+                break;
             default: break;
         }
         itemIds[sideToAdd] = itemId;
         items[sideToAdd].initialize();
-        InputManager.get.Register(items[sideToAdd]);
+        InputManager.get.register(items[sideToAdd]);
 
         return true;
     }
 
-    public boolean removeItemSlot(int sideToRemove){
+//    public Item getItemFromId(int idItem)
+//    {
+//        switch (idItem)
+//        {
+//            case 1: return new SpeedBooser(0,0,this);
+//            case 6: return new Break(0,0,this);
+//            case 7: return new ArtificialPlanet(0,0,this,gs);
+//            case 8: return new DestroyTarget(0,0,this,gs);
+//            case 9: return new PhaseOut(0,0,this);
+//            default: return null;
+//        }
+//    }
 
+    public boolean removeItemSlot(int sideToRemove)
+    {
         return true;
     }
 
     public void render(SpriteBatch batch){
         //Debug
         if(items[0] != null){
-            MyGdxGame.game.debugFont.draw(batch,"Item 1: "+items[0].getItemName(),350,1900);
+            MyGdxGame.game.debugFont.draw(batch,"Item 1: "+items[0].getName(),350,1900);
             MyGdxGame.game.debugFont.draw(batch,"Status: "+items[0].getState(),350,1850);
         }else{
             MyGdxGame.game.debugFont.draw(batch,"Item 1: NONE",350,1900);
         }
         if(items[1] != null){
-            MyGdxGame.game.debugFont.draw(batch,"Item 2: "+items[1].getItemName(),750,1900);
+            MyGdxGame.game.debugFont.draw(batch,"Item 2: "+items[1].getName(),750,1900);
             MyGdxGame.game.debugFont.draw(batch,"Status: "+items[1].getState(),750,1850);
         }else{
             MyGdxGame.game.debugFont.draw(batch,"Item 2: NONE",700,1900);
@@ -117,8 +137,6 @@ public class ItemManager {
         if(items[1] != null){
             items[1].render(batch);
         }
-
-
     }
 
     public void update(float delta){
@@ -133,4 +151,5 @@ public class ItemManager {
     public SpaceShip getPlayer(){
         return gs.getPlayerShip();
     }
+    public boolean hasLevelEnded() { return gs.isLevelFinished();}
 }

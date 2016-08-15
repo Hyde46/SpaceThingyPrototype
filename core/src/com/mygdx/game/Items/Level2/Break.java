@@ -1,7 +1,6 @@
 package com.mygdx.game.Items.Level2;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.Items.Item;
@@ -15,7 +14,6 @@ import com.mygdx.game.utils.SpaceMath;
  */
 public class Break extends Item
 {
-    private SpaceShip player;
 
     private final static float maxCooldown = 5000;
     private final static float maxBoostTime = 1000;
@@ -43,9 +41,12 @@ public class Break extends Item
         initialize("break_200x200.png",200,posToRender);
         boostTime = maxBoostTime;
         boostScl = -1.1f;
-        itemName = "Break";
+        name = "Break";
         maxUses = 3;
         uses = maxUses;
+
+        if(player == null)
+            player = iM.getPlayer();
     }
 
     @Override
@@ -87,9 +88,6 @@ public class Break extends Item
     {
         if(stateItem == StateItem.ACTIVATED){
             stateItem = StateItem.EFFECT;
-
-            if(player == null)
-                player = iM.getPlayer();
 
             timeCooldown = maxCooldown;
         }

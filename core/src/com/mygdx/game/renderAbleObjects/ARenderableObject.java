@@ -40,6 +40,8 @@ public abstract class ARenderableObject
         isDebug = true;
         currentRotDrawingAngle = 0;
         isUI = false;
+
+
     }
 
     //lots of initialize methods will have a different header?

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -11,13 +12,14 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.utils.FPSLimiter;
 
-public class MyGdxGame extends Game {
-
+public class MyGdxGame extends Game
+{
 	public static MyGdxGame game;
 
 	public SpriteBatch batch;
 	public SpriteBatch uiBatch;
 	public BitmapFont font;
+	public BitmapFont dialogFont;
 	public BitmapFont debugFont;
 	public ShapeRenderer shapeRenderer;
 	public FPSLimiter fpsLimit;
@@ -45,15 +47,21 @@ public class MyGdxGame extends Game {
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.size = 90;
 		font = generator.generateFont(parameter);
+		dialogFont = generator.generateFont(parameter);
 		parameter.size = 50;
 		debugFont = generator.generateFont(parameter);
 		generator.dispose();
 		//font.getData().scale(1.0f);
 		shapeRenderer = new ShapeRenderer();
 		fpsLimit = new FPSLimiter(60);
-		currentVersion = "Prototype v0.1.4";
-		openScreen(new MainMenuScreen());
+		currentVersion = "Prototype v0.1.11";
+
+		font.setColor(Color.WHITE);
+		debugFont.setColor(Color.WHITE);
+		dialogFont.setColor(Color.BLACK);
 		showOverlay = true;
+		openScreen(new MainMenuScreen(0,true));
+
 	}
 
 	public void openScreen(Screen screen)
@@ -71,5 +79,4 @@ public class MyGdxGame extends Game {
 		font.dispose();
 		debugFont.dispose();
 	}
-
 }

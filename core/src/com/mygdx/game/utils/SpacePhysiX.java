@@ -4,12 +4,12 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.renderAbleObjects.units.PickableItem;
 import com.mygdx.game.renderAbleObjects.units.Planet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
 import com.mygdx.game.screens.GameScreen;
 
-import org.w3c.dom.css.Rect;
 
 /**
  * Created by denis on 5/17/16.
@@ -70,8 +70,14 @@ public class SpacePhysiX {
         for(Unit u : units){
             if(u.getUnitType() != 0){ //0 = playership
                 //player crashes into planet
-                if(((Circle)u.getCollisionHitbox()).overlaps(playerShip.getTargetHitbox())){
-                    playerShip.collide();
+                if(((Circle)u.getCollisionHitbox()).overlaps(playerShip.getTargetHitbox()) && !playerShip.isPhasedOut() && u.isActive()){
+                    if(u.getUnitType() != 2) { // if not colliding with an item
+                        playerShip.collide();
+                    }else{
+                        ((PickableItem)u).pickUpItem(gs.getLevelState());
+                        //logic to add the picked up item to the players inventory
+                        // [...]
+                    }
                 }
             }
         }
@@ -85,15 +91,17 @@ public class SpacePhysiX {
 
     private void dockPlayerToOrbit() {
         if(playerShip != null) {
-            if (!playerShip.isInOrbit() && !playerShip.isCollided()) {
+            if (!playerShip.isInOrbit() && !playerShip.isCollided() && !playerShip.isPhasedOut()) {
                 for (Unit u : units) {
-                    if (u.getUnitType() != 0) { // 0 = SpaceShip
+                    //resolve planet collision
+                    if (u.getUnitType() == 1) { // 0 = SpaceShip
                         //if player is in range, check if he should dock
                         if (playerShip.getPosition().cpy().sub(u.getPosition()).len() <= ((Planet) u).getOrbitRadius()) { // u = moveableobject
                             Vector2 v = u.getPosition().cpy();
                             Vector2 vecToShip = playerShip.getPosition().cpy();
                             if(dotProductToShipTickCollision(PHYSIC_TICKS,vecToShip,v)){
-                                playerShip.enterOrbit((Planet) u, vecToShip.len());
+                                if(playerShip.enterOrbit((Planet) u, vecToShip.len()))
+                                    gs.getLevelState().hop();
                             }
 
                         }

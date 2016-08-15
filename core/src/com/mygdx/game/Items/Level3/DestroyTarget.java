@@ -33,7 +33,7 @@ public class DestroyTarget extends Item implements IInputAnywhere
     public void initialize(){
         Vector2 posToRender = SpaceMath.getPosToRender(levelPos);
         initialize("destroy-icon-256.png",256,posToRender);
-        itemName = "Destroy";
+        name = "Destroy";
         maxUses = 10;
         uses = maxUses;
         timeCooldown = 2f;

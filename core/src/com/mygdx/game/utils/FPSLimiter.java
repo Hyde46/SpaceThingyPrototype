@@ -3,6 +3,10 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 public class FPSLimiter {
 
+    // thread sleep verhindert auch andere berechnungen,
+    // vielleicht günstiger nur das rendering synchron (langsam) zu halten
+    // und den thread im background noch für andere asynchrone prozesse verfügbar zu halten
+
     private long previousTime = TimeUtils.nanoTime();
     private long currentTime = TimeUtils.nanoTime();
     private long deltaTime = 0;

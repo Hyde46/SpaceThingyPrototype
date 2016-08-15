@@ -6,24 +6,23 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-//import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.DataPers.DataPers;
-import com.mygdx.game.DataPersistent.DataPersistent;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.Items.ItemManager;
+import com.mygdx.game.dataPersistence.DataPers;
 import com.mygdx.game.managers.UnitManager;
 
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.managers.levels.LevelFactory;
+import com.mygdx.game.managers.levels.LevelState;
 import com.mygdx.game.prototypeUtils.CameraHelper;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
+import com.mygdx.game.renderAbleObjects.units.CurrencyPickable;
 import com.mygdx.game.renderAbleObjects.units.Planet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
@@ -47,18 +46,18 @@ public class GameScreen implements Screen{
 
     private LevelFactory levelFactory;
 
-    //Prototype only stuff
     private int finishCounter;
     public static boolean hasFinishedLevel;
     private boolean hasWonLevel;
     private boolean isOutOfBounds;
     private float[] levelBGColor;
 
+    private LevelState levelState;
+
     private int level;
 
     public GameScreen(int levelToStart) {
         this.level = levelToStart;
-        MyGdxGame.game.font.setColor(Color.WHITE);
         // create the camera and the SpriteBatch
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, 1080, 1920);
@@ -75,27 +74,28 @@ public class GameScreen implements Screen{
         pbM = new ParallaxBackgroundManager();
         cM.setCam(camera);
         cH.setCameraManager(cM, null, 0);
-        InputManager.get.Register(cH);
+        InputManager.get.register(cH);
 
         MyGdxGame.game.shapeRenderer.setColor(1, 1, 0, 1);
 
         uM = new UnitManager();
 
+        levelState = new LevelState();
         spX = new SpacePhysiX();
 
         itemMan = new ItemManager();
         itemMan.initialize(this);
 
-        DataPers.data().nthGame++;
-        DataPers.save();
+        DataPers.dataP().nthGame++;
+        DataPers.saveP();
 
         setLevel(levelToStart);
 
     }
 
     @Override
-    public void render(float delta) {
-
+    public void render(float delta)
+    {
         MyGdxGame game = MyGdxGame.game;
         Gdx.gl.glClearColor(levelBGColor[0],levelBGColor[1],levelBGColor[2], 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -123,6 +123,8 @@ public class GameScreen implements Screen{
         game.debugFont.draw(game.uiBatch, "X: "+(int)(getPlayerShip().getPosition().x / 10),5,1850);
         game.debugFont.draw(game.uiBatch, "Y: "+(int)(getPlayerShip().getPosition().y / 10),5,1800);
         game.debugFont.draw(game.uiBatch, "vel: "+(int)(getPlayerShip().getDeltaMovement().len()),5,1750);
+        game.debugFont.draw(game.uiBatch, "Currency: "+levelState.getCurrency(), 5, 1700);
+        game.debugFont.draw(game.uiBatch, "Hops: "+levelState.getHops(), 5, 1650);
         itemMan.render(game.uiBatch);
 
         renderFinishedGameState(game);
@@ -176,13 +178,14 @@ public class GameScreen implements Screen{
     Call this Method from MainMenuScreen to load the appropriate level
     int levelId     The Id of the level which should be loaded ;)
      */
-    public void setLevel(int levelId){
-        DataPersistent.get().data.nthGame++;
-        DataPersistent.get().save();
+    public void setLevel(int levelId)
+    {
 
-        System.out.println("level nth: " + DataPersistent.get().data.nthGame);
+
+        //System.out.println("level nth: " + DataPers.dataP().nthGame);
         // Level l = LevelFactory.loadLevel(levelId);
         //for now
+        levelState.resetState();
         switch(levelId) {
             case 1:
                 initPrototypeLevel();
@@ -199,7 +202,7 @@ public class GameScreen implements Screen{
         uM.resetUnits();
         //InputManager.get.clear();
 
-        finishCounter = 300;
+        finishCounter = 200;
         hasFinishedLevel = false;
         hasWonLevel = false;
         isOutOfBounds = false;
@@ -219,31 +222,32 @@ public class GameScreen implements Screen{
         Unit p12 = new Planet();
         System.out.println("Loading resources...");
 
-        ((Planet)p1).initialize(new Vector2(200,670),320,36,false,"planet1_72x72.png",1,0);
-        ((SpaceShip)playerShip).initialize(new Vector2(350,200),new Vector2(0,400),null,150,new Vector2(40,40),"ship1_40x40.png",0);
-        ((Planet)p2).initialize(new Vector2(800,1720),320,50,false,"planet2_100x100.png",2,40);
-        ((Planet)p3).initialize(new Vector2(950,900),320,50,false,"planet9_100x100.png",1,30);
-        ((Planet)p4).initialize(new Vector2(-300,1700),320,50,false,"planet2_100x100.png",2,90);
-        ((Planet)p5).initialize(new Vector2(450,2530),240,36,false,"planet1_72x72.png",1,120);
-        ((Planet)p6).initialize(new Vector2(-110,2800),320,50,false,"planet42_100x100.png",2,10);
-        ((Planet)p8).initialize(new Vector2(130,3800),320,50,true,"planet7_100x100.png",2,10);
-        ((Planet)p11).initialize(new Vector2(1230,3480),480,50,false,"planet7_100x100.png",2,10);
+        ((Planet)p1).initialize(new Vector2(200,670),320,36,false,"planet1_72x72.png",1,0,0);
+        ((SpaceShip)playerShip).initialize(new Vector2(360,670),new Vector2(0,400),(Planet)p1,150,new Vector2(40,40),"ship1_40x40.png",0);
+        //((SpaceShip)playerShip).initialize(new Vector2(350,200),new Vector2(0,0),null,150,new Vector2(40,40),"ship1_40x40.png",0);
+        ((Planet)p2).initialize(new Vector2(800,1720),320,50,false,"planet2_100x100.png",2,40,10.0f);
+        ((Planet)p3).initialize(new Vector2(950,900),320,50,false,"planet9_100x100.png",1,30,10.0f);
+        ((Planet)p4).initialize(new Vector2(-300,1700),320,50,false,"planet2_100x100.png",2,90,10.0f);
+        ((Planet)p5).initialize(new Vector2(450,2530),240,36,false,"planet1_72x72.png",1,120,10.0f);
+        ((Planet)p6).initialize(new Vector2(-110,2800),320,50,false,"planet42_100x100.png",2,10,10.0f);
+        ((Planet)p8).initialize(new Vector2(130,3800),320,50,true,"planet7_100x100.png",2,10,0.0f);
+        ((Planet)p11).initialize(new Vector2(1230,3480),480,50,false,"planet7_100x100.png",2,10,10.0f);
 
 
         //Moons
-        ((Planet)p7).initialize(new Vector2(-430,2800),190,18,false,"moon1_36x36.png",1,0);
+        ((Planet)p7).initialize(new Vector2(-430,2800),190,18,false,"moon1_36x36.png",1,0,10.0f);
         ((Planet)p7).connectToPlanet((Planet)p6);
         ((Planet)p7).setRotationSpeed(20.0f,1);
 
 
-        ((Planet)p9).initialize(new Vector2(1680,3480),240,18,false,"moon2_36x36.png",1,0);
+        ((Planet)p9).initialize(new Vector2(1680,3480),240,18,false,"moon2_36x36.png",1,0,10.0f);
         ((Planet)p9).connectToPlanet((Planet)p11);
         ((Planet)p9).setRotationSpeed(25.0f,1);
-        ((Planet)p12).initialize(new Vector2(950,3480),190,18,false,"moon1_36x36.png",1,0);
+        ((Planet)p12).initialize(new Vector2(950,3480),190,18,false,"moon1_36x36.png",1,0,10.0f);
         ((Planet)p12).connectToPlanet((Planet)p11);
         ((Planet)p12).setRotationSpeed(45.0f,-1);
 
-        ((Planet)p10).initialize(new Vector2(480,1720),190,18,false,"moon2_36x36.png",1,0);
+        ((Planet)p10).initialize(new Vector2(480,1720),190,18,false,"moon2_36x36.png",1,0,10.0f);
         ((Planet)p10).connectToPlanet((Planet)p2);
         ((Planet)p10).setRotationSpeed(15.0f,-1);
 
@@ -260,23 +264,30 @@ public class GameScreen implements Screen{
         uM.addUnit(p11);
         uM.addUnit(p12);
         uM.addUnit(playerShip);
-        spX.initializePhysics(uM.getUnits(),this);
-        InputManager.get.Register(p1);
-        InputManager.get.Register(p2);
-        InputManager.get.Register(p3);
-        InputManager.get.Register(p4);
-        InputManager.get.Register(p5);
-        InputManager.get.Register(p6);
-        InputManager.get.Register(p7);
-        InputManager.get.Register(p9);
-        InputManager.get.Register(p10);
-        InputManager.get.Register(p11);
-        InputManager.get.Register(p12);
 
-        cM.initializeCamera((SpaceShip)playerShip);
+        Unit item1 = new CurrencyPickable();
+        ((CurrencyPickable)item1).initialize(0,new Vector2(100,670),100);
+        uM.addUnit(item1);
+        Unit item2 = new CurrencyPickable();
+        ((CurrencyPickable)item2).initialize(0,new Vector2(300,670),200);
+        uM.addUnit(item2);
+
+        spX.initializePhysics(uM.getUnits(),this);
+        InputManager.get.register(p1);
+        InputManager.get.register(p2);
+        InputManager.get.register(p3);
+        InputManager.get.register(p4);
+        InputManager.get.register(p5);
+        InputManager.get.register(p6);
+        InputManager.get.register(p7);
+        InputManager.get.register(p9);
+        InputManager.get.register(p10);
+        InputManager.get.register(p11);
+        InputManager.get.register(p12);
+        cM.initializeCamera((SpaceShip)playerShip,p8.getPosition());
         spX.initWorldBounds(new Rectangle(-700,-1100,4000,7000));
 
-        pbM.setLayers(4);
+        pbM.setLayers(4,true);
         cM.addPBM(pbM);
 
 
@@ -284,7 +295,7 @@ public class GameScreen implements Screen{
         levelBGColor[0] = 63.0f/255.0f;
         levelBGColor[1] = 31.0f/255.0f;
         levelBGColor[2] = 39.0f/255.0f;
-        itemMan.setItems(1,6);
+        itemMan.setItems(9,6);
 
         System.out.println("Done!");
     }
@@ -292,7 +303,7 @@ public class GameScreen implements Screen{
         uM.resetUnits();
         //InputManager.get.clear();
 
-        finishCounter = 300;
+        finishCounter = 200;
         hasFinishedLevel = false;
         hasWonLevel = false;
         isOutOfBounds = false;
@@ -310,23 +321,23 @@ public class GameScreen implements Screen{
         System.out.println("Loading resources...");
 
        // ((SpaceShip)playerShip).initialize(new Vector2(320,300),new Vector2(5,350),null,0,new Vector2(40,40),"ship1_40x40.png",0);
-        ((Planet)p1).initialize(new Vector2(200,670),320,50,false,"planet3_100x100.png",1,0);
-        ((Planet)p2).initialize(new Vector2(1300,750),320,50,false,"planet4_100x100.png",2,20);
-        ((Planet)p3).initialize(new Vector2(1600,2350),320,65,false,"planet5_130x130.png",1,30);
-        ((Planet)p4).initialize(new Vector2(300,2850),320,75,false,"planet7_150x150.png",2,40);
-        ((Planet)p5).initialize(new Vector2(600,4000),240,36,false,"planet6_72x72.png",1,120);
-        ((Planet)p6).initialize(new Vector2(800,4700),240,50,false,"planet2_100x100.png",2,10);
-        ((Planet)p7).initialize(new Vector2(1800,5300),240,50,true,"planet8_100x100.png",2,10);
+        ((Planet)p1).initialize(new Vector2(200,670),320,50,false,"planet3_100x100.png",1,0,10.0f);
+        ((Planet)p2).initialize(new Vector2(1300,750),320,50,false,"planet4_100x100.png",2,20,10.0f);
+        ((Planet)p3).initialize(new Vector2(1600,2350),320,65,false,"planet5_130x130.png",1,30,10.0f);
+        ((Planet)p4).initialize(new Vector2(300,2850),320,75,false,"planet7_150x150.png",2,40,10.0f);
+        ((Planet)p5).initialize(new Vector2(600,4000),240,36,false,"planet6_72x72.png",1,120,10.0f);
+        ((Planet)p6).initialize(new Vector2(800,4700),240,50,false,"planet2_100x100.png",2,10,10.0f);
+        ((Planet)p7).initialize(new Vector2(1800,5300),240,50,true,"planet8_100x100.png",2,10,10.0f);
 
         ((SpaceShip)playerShip).initialize(new Vector2(500,670),new Vector2(5,350),(Planet)p1,300,new Vector2(40,40),"ship1_40x40.png",0);
 
 
         //initialize moons
-        ((Planet)p8).initialize(new Vector2(1270,2350),190,18,false,"moon2_36x36.png",1,0);
+        ((Planet)p8).initialize(new Vector2(1270,2350),190,18,false,"moon2_36x36.png",1,0,10.0f);
         ((Planet)p8).connectToPlanet((Planet)p3);
         ((Planet)p8).setRotationSpeed(20.0f,1);
 
-        ((Planet)p9).initialize(new Vector2(340,4000),190,18,false,"moon1_36x36.png",1,0);
+        ((Planet)p9).initialize(new Vector2(340,4000),190,18,false,"moon1_36x36.png",1,0,10.0f);
         ((Planet)p9).connectToPlanet((Planet)p5);
         ((Planet)p9).setRotationSpeed(27.0f,-1);
 
@@ -342,20 +353,20 @@ public class GameScreen implements Screen{
 
         uM.addUnit(playerShip);
         spX.initializePhysics(uM.getUnits(),this);
-        InputManager.get.Register(p1);
-        InputManager.get.Register(p2);
-        InputManager.get.Register(p3);
-        InputManager.get.Register(p4);
-        InputManager.get.Register(p5);
-        InputManager.get.Register(p6);
-        InputManager.get.Register(p7);
-        InputManager.get.Register(p8);
-        InputManager.get.Register(p9);
+        InputManager.get.register(p1);
+        InputManager.get.register(p2);
+        InputManager.get.register(p3);
+        InputManager.get.register(p4);
+        InputManager.get.register(p5);
+        InputManager.get.register(p6);
+        InputManager.get.register(p7);
+        InputManager.get.register(p8);
+        InputManager.get.register(p9);
 
-        cM.initializeCamera((SpaceShip)playerShip);
+        cM.initializeCamera((SpaceShip)playerShip,p7.getPosition());
         spX.initWorldBounds(new Rectangle(-1700,-1100,5000,7000));
 
-        pbM.setLayers(2);
+        pbM.setLayers(2,true);
         cM.addPBM(pbM);
 
         levelBGColor = new float[3];
@@ -377,9 +388,14 @@ public class GameScreen implements Screen{
             hasFinishedLevel = false;
             hasWonLevel = false;
 
-            InputManager.get.clear();
-            MyGdxGame.game.setScreen(new MainMenuScreen(level,hasWonLevel));
+            InputManager.get.clearAll();
+            MyGdxGame.game.openScreen(new MainMenuScreen(level,hasWonLevel));
+            //MyGdxGame.game.setScreen(new MainMenuScreen(level,hasWonLevel));
         }
+    }
+
+    public LevelState getLevelState(){
+        return levelState;
     }
 
     //////////////
@@ -393,12 +409,12 @@ public class GameScreen implements Screen{
     public void addPlanet(Vector2 posWorld)
     {
         Planet planetTemp = new Planet();
-        planetTemp.initialize(posWorld,320,64,false,"artificial-planet-sprite-128.png",1,(new Random()).nextInt(360));
+        planetTemp.initialize(posWorld,320,64,false,"artificial-planet-sprite-128.png",1,(new Random()).nextInt(360),10.0f);
 
         System.out.println("planet set to " + posWorld);
 
         uM.addUnit(planetTemp);
-        InputManager.get.Register(planetTemp);
+        InputManager.get.register(planetTemp);
     }
 
     public boolean tryDestroyTarget(Vector2 posWorld)
@@ -412,7 +428,7 @@ public class GameScreen implements Screen{
             {
                 System.out.println("destroy xx");
                 uM.deleteUnit(unit);
-                InputManager.get.UnRegister(unit);
+                InputManager.get.unRegister(unit);
                 hasFound = true;
             }
         }
@@ -456,6 +472,14 @@ public class GameScreen implements Screen{
 
     @Override
     public void dispose() {
+    }
+
+    public void finishLevelImidiate(){
+        finishCounter = 1;
+    }
+
+    public boolean isLevelFinished(){
+        return hasFinishedLevel;
     }
 
 }

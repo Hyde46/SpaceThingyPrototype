@@ -6,44 +6,47 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.InputManager;
-import com.mygdx.game.Items.Item;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
-import com.mygdx.game.renderAbleObjects.decorations.ItemImage;
-import com.mygdx.game.renderAbleObjects.decorations.ToHangarButton;
+import com.mygdx.game.renderAbleObjects.decorations.uiItemDisplay.ItemDisplayImage;
+import com.mygdx.game.renderAbleObjects.decorations.uiItemDisplay.ItemDisplayButtonReturn;
 
 /**
  * Created by Vali on 22.07.2016.
  */
-public class ItemScreen implements Screen  {
+public class ItemScreen implements Screen
+{
     OrthographicCamera cam;
     public static OrthographicCamera camFixed;
     private ParallaxBackgroundManager backgroundManager;
-    private ItemImage itemImage;
-    private ItemImage itemDescription;
-    private ToHangarButton returnButton;
-    private int itemId;
 
+    // render
+    private ItemDisplayImage itemImage;
+    private ItemDisplayImage itemDescription;
+    private ItemDisplayButtonReturn returnButton;
 
-    public ItemScreen(int itemId){
+    private int idItem;
+
+    public ItemScreen(int itemId, int idReturn)
+    {
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080,1920);
         camFixed = new OrthographicCamera();
         camFixed.setToOrtho(false, 1080, 1920);
         InputManager.setup(cam);
         backgroundManager = new ParallaxBackgroundManager();
-        backgroundManager.setLayers(2);
-        this.itemId = itemId;
+        backgroundManager.setLayers(2,false);
+        this.idItem = itemId;
         //icon of the item
-        itemImage = new ItemImage();
+        itemImage = new ItemDisplayImage();
         //center it horizontally
         itemImage.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 400, MyGdxGame.game.screenHeight - 1000), 800, 800, "item_image.png");
         //description of the item
-        itemDescription = new ItemImage();
+        itemDescription = new ItemDisplayImage();
         itemDescription.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 400, MyGdxGame.game.screenHeight - 1600), 800, 500, "item_description.png");
-        returnButton = new ToHangarButton();
-        returnButton.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 200, 100), 400, 200, "return_button.png");
-        InputManager.get.Register(returnButton);
 
+        returnButton = new ItemDisplayButtonReturn();
+        returnButton.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 200, 100), 400, 200, "return_button.png", idReturn);
+        InputManager.get.register(returnButton);
     }
 
     @Override
@@ -54,14 +57,19 @@ public class ItemScreen implements Screen  {
 
         game.uiBatch.setProjectionMatrix(camFixed.combined);
         game.uiBatch.begin();
-        backgroundManager.render(game.uiBatch);
+            backgroundManager.render(game.uiBatch);
         game.uiBatch.end();
+
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
-        itemImage.render(game.batch);
-        itemDescription.render(game.batch);
-        returnButton.render(game.batch);
+            itemImage.render(game.batch);
+            itemDescription.render(game.batch);
+            returnButton.render(game.batch);
         game.batch.end();
+
+        game.uiBatch.begin();
+            game.debugFont.draw(game.uiBatch, "IM ITEM of ID: " + idItem, 20, 20);
+        game.uiBatch.end();
     }
 
     @Override
@@ -88,5 +96,4 @@ public class ItemScreen implements Screen  {
     public void pause()    {
 
     }
-
 }
