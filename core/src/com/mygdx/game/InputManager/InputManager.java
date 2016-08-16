@@ -113,7 +113,10 @@ public class InputManager implements InputProcessor
     private void registerIntern(String name, ARenderableObject obj)
     {
         if(!objects.containsKey(name))
+        {
             objects.put(name, new Array<ARenderableObject>());
+            objects.get(name).add(obj);
+        }
         else
         {
             if(!objects.get(name).contains(obj, false))
@@ -123,13 +126,14 @@ public class InputManager implements InputProcessor
 
     private void unRegisterIntern(String name, ARenderableObject obj)
     {
-        if(objects.get(name).contains(obj,false))
-            objects.get(name).removeValue(obj, false);
+        if(objects.get(name).contains(obj,false)) objects.get(name).removeValue(obj, false);
+        if(objects.get(name).size == 0) objects.remove(name);
     }
 
     private void clearGroupIntern(String name)
     {
-        if(objects.containsKey(name)){
+        if(objects.containsKey(name))
+        {
             objects.get(name).clear();
             objects.remove(name);
         }

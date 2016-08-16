@@ -52,6 +52,7 @@ public class ItemScreen implements Screen
     @Override
     public void render(float delta){
         MyGdxGame game = MyGdxGame.game;
+
         Gdx.gl.glClearColor(0, 0.2f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -68,7 +69,7 @@ public class ItemScreen implements Screen
         game.batch.end();
 
         game.uiBatch.begin();
-            game.debugFont.draw(game.uiBatch, "IM ITEM of ID: " + idItem, 20, 20);
+            game.debugFont.draw(game.uiBatch, "IM ITEM of ID: " + idItem, 30, 30);
         game.uiBatch.end();
     }
 
