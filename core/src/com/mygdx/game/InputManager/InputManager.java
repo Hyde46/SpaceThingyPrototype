@@ -150,22 +150,15 @@ public class InputManager implements InputProcessor
     {
         // das brauchen wir für UI elemente, auch mit swipe, so wies aussieht
         Vector3 posTouch = new Vector3(screenX,screenY,0);
+
+        System.out.println("touch " + posTouch);
+        System.out.println("touch unpro start" + cam.unproject(posTouch));
+
+        Vector3 posUnproj = cam.unproject(posTouch);
+
         //screenY = ((int)cam.viewportHeight) -screenY;
         Vector3 posTouchUnproj = new Vector3(screenX,screenY,0);
         //cam.unproject(posTouch);
-
-        System.out.println("touched " + screenX + "/" + screenY);
-
-        if(objects.containsKey(nameGroupGeneral))
-        {
-            System.out.println("objs " + objects.get(nameGroupGeneral).size);
-
-            for (int i = 0; i < objects.get(nameGroupGeneral).size; i++)
-            {
-                System.out.print(objects.get(nameGroupGeneral).get(i).getPosition() + " || ");
-            }
-            System.out.println();
-        }
 
         Array<IInputHandler> objsHit = new Array<IInputHandler>();
 
@@ -179,7 +172,8 @@ public class InputManager implements InputProcessor
                 ARenderableObject obj = objsOfGroup.get(i);
                 if (obj instanceof IInputHandler)
                 {
-                    cam.unproject(posTouch);
+                    //cam.unproject(posTouch);
+                    System.out.println("unpro inside " + cam.unproject(posTouch));
 
                     if
                     (
@@ -189,6 +183,7 @@ public class InputManager implements InputProcessor
                     {
                         objsHit.add((IInputHandler) obj);
                     }
+
                     posTouch.set(posTouchUnproj);
                 }
             }

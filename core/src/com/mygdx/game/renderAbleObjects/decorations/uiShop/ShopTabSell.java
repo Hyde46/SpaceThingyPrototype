@@ -6,13 +6,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.IInputHandler;
 import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
+import com.mygdx.game.renderAbleObjects.decorations.Decoration;
 import com.mygdx.game.screens.ScreenShop;
 
 /**
  * Created by ilost on 04.08.2016.
  */
 
-public class ShopTabSell extends ARenderableObject implements IInputHandler
+public class ShopTabSell extends Decoration implements IInputHandler
 {
     private ScreenShop ss;
 
@@ -21,6 +22,7 @@ public class ShopTabSell extends ARenderableObject implements IInputHandler
         this.ss = ss;
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
         this.spriteDimension = new Vector2(width, height);
+        this.setUI(true);
         initializeTexture(spriteDimension, 0, pathToTexture);
     }
 

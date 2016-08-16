@@ -286,15 +286,16 @@ public class GameScreen implements Screen{
         pbM.setLayers(4,true);
         cM.addPBM(pbM);
 
-
         levelBGColor = new float[3];
         levelBGColor[0] = 63.0f/255.0f;
         levelBGColor[1] = 31.0f/255.0f;
         levelBGColor[2] = 39.0f/255.0f;
+
         ItemManager.get.setItems(9,6);
 
         System.out.println("Done!");
     }
+
     private void initPrototypeLevelTwo(){
         uM.resetUnits();
         //InputManager.get.clear();

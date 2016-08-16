@@ -13,8 +13,6 @@ import com.badlogic.gdx.math.Vector2;
  */
 public abstract class ARenderableObject
 {
-
-
     protected Vector2 position;
     protected Vector2 spriteDimension;
     protected int spriteID;
@@ -31,8 +29,8 @@ public abstract class ARenderableObject
     protected Texture tex;
     protected Sprite sprite;
 
-
-    protected ARenderableObject(){
+    protected ARenderableObject()
+    {
         position = new Vector2();
         spriteDimension  = new Vector2();
         tex = null;
@@ -40,12 +38,14 @@ public abstract class ARenderableObject
         isDebug = true;
         currentRotDrawingAngle = 0;
         isUI = false;
-
-
     }
 
     //lots of initialize methods will have a different header?
     //public abstract void initialize();
+
+    public void setUI(boolean UI) {
+        isUI = UI;
+    }
 
     public abstract void renderHitboxes(ShapeRenderer d);
 
@@ -101,5 +101,4 @@ public abstract class ARenderableObject
     }
 
     public Sprite getSprite(){ return sprite; }
-
 }

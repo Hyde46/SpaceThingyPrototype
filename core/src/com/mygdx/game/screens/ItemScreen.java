@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
+import com.mygdx.game.managers.camera.CameraManager;
+import com.mygdx.game.prototypeUtils.CameraHelper;
 import com.mygdx.game.renderAbleObjects.decorations.uiItemDisplay.ItemDisplayImage;
 import com.mygdx.game.renderAbleObjects.decorations.uiItemDisplay.ItemDisplayButtonReturn;
 
@@ -17,6 +19,8 @@ public class ItemScreen implements Screen
 {
     OrthographicCamera cam;
     public static OrthographicCamera camFixed;
+    CameraHelper cameraHelper;
+    CameraManager cameraManager;
     private ParallaxBackgroundManager backgroundManager;
 
     // render
@@ -30,11 +34,14 @@ public class ItemScreen implements Screen
     {
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080,1920);
+        InputManager.setup(cam);
+
         camFixed = new OrthographicCamera();
         camFixed.setToOrtho(false, 1080, 1920);
-        InputManager.setup(cam);
+
         backgroundManager = new ParallaxBackgroundManager();
         backgroundManager.setLayers(2,false);
+
         this.idItem = itemId;
         //icon of the item
         itemImage = new ItemDisplayImage();
@@ -47,6 +54,13 @@ public class ItemScreen implements Screen
         returnButton = new ItemDisplayButtonReturn();
         returnButton.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 200, 100), 400, 200, "return_button.png", idReturn);
         InputManager.get.register(returnButton);
+
+        cameraManager = new CameraManager();
+        cameraHelper = new CameraHelper();
+        cameraManager.setCam(cam);
+        cameraManager.addPBM(backgroundManager);
+        cameraHelper.setCameraManager(cameraManager, null, 4);
+        //InputManager.get.register(cameraHelper);
     }
 
     @Override

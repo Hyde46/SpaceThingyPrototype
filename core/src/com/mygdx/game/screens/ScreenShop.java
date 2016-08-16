@@ -91,7 +91,6 @@ public class ScreenShop implements Screen
         DataPers.dataS().idsItemsShopOfLevel.set(levelShop, idsItemShop);
     }
 
-
     int w = MyGdxGame.game.screenWidth;
     int h = MyGdxGame.game.screenHeight;
 

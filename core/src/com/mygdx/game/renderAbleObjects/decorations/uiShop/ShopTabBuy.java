@@ -25,6 +25,7 @@ public class ShopTabBuy extends Decoration implements IInputHandler
         this.spriteDimension = new Vector2(width, height);
        // this.levelShop = levelShop;
        // this.idItem = idItem;
+        this.setUI(true);
         initializeTexture(spriteDimension, 0, pathToTexture);
     }
 
