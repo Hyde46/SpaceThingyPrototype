@@ -140,7 +140,6 @@ public class InputManager implements InputProcessor
         return objects.get(name);
     }
 
-
     // read input
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
@@ -150,6 +149,19 @@ public class InputManager implements InputProcessor
         //screenY = ((int)cam.viewportHeight) -screenY;
         Vector3 posTouchUnproj = new Vector3(screenX,screenY,0);
         //cam.unproject(posTouch);
+
+        System.out.println("touched " + screenX + "/" + screenY);
+
+        if(objects.containsKey(nameGroupGeneral))
+        {
+            System.out.println("objs " + objects.get(nameGroupGeneral).size);
+
+            for (int i = 0; i < objects.get(nameGroupGeneral).size; i++)
+            {
+                System.out.print(objects.get(nameGroupGeneral).get(i).getPosition() + " || ");
+            }
+            System.out.println();
+        }
 
         Array<IInputHandler> objsHit = new Array<IInputHandler>();
 

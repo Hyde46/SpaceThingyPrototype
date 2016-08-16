@@ -14,16 +14,15 @@ import com.mygdx.game.screens.GameScreen;
  * Created by Mechandrius on 19.06.2016.
  * Hyde
  */
-public abstract class Item extends Decoration implements IInputHandler {
+public abstract class Item extends Decoration implements IInputHandler
+{
+    protected String name;
 
     // shop relevant
-    protected String name;
-    protected String desc;
+//    protected String desc;
 
     protected boolean isTradeable;
     protected int price;
-
-
 
     public enum StateItem {READY, ACTIVATED, EFFECT, COOLDOWN}
 
@@ -36,17 +35,18 @@ public abstract class Item extends Decoration implements IInputHandler {
     /*
     *Determines whether the item is on pos 0(left) oder 1(right) oder 2(mitte)
      */
+    // ??
+    protected int sideInHud;
     protected int levelPos;
-    protected ItemManager iM;
+    //protected ItemManager iM;
     protected GameScreen gs;
-
 
 
     protected SpaceShip player;
 
     public Item() {
         stateItem = StateItem.READY;
-        name = "None";
+  //      name = "None";
         //this.gs = gs;
     }
 
@@ -69,13 +69,9 @@ public abstract class Item extends Decoration implements IInputHandler {
     }
 
     public abstract void activate();
-
     public abstract void effectStart();
-
     public abstract void effectEnd();
-
     public abstract void deactivate();
-
     public abstract void initialize();
 
     /* when item is thrown out of inventory, etc
@@ -106,7 +102,7 @@ public abstract class Item extends Decoration implements IInputHandler {
 
     @Override
     public void OnTouch(TouchData td) {
-        if(iM.getPlayer().isCollided()||iM.hasLevelEnded())
+        if(ItemManager.get.getPlayer().isCollided()||ItemManager.get.hasLevelEnded())
             return;
         if(stateItem == StateItem.READY && uses > 0){
             activateSuper();
@@ -135,10 +131,8 @@ public abstract class Item extends Decoration implements IInputHandler {
     }
 
     public GameScreen getGS() { return gs; }
-
     public StateItem getState(){
         return stateItem;
     }
-
     public String getName() { return name; }
 }

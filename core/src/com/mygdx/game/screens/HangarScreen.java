@@ -111,7 +111,7 @@ public class HangarScreen implements Screen {
             //intialize item slot
             slot.initialize(new Vector2(100, posY), width, 200, "item_slot.png");
             ItemDisplayImage itemIcon = new ItemDisplayImage();
-            itemIcon.initialize(new Vector2(120, posY), 200, 200, "item_icon.png");
+            itemIcon.initialize(new Vector2(120, posY), 200, 200, "item_image.png");
             EquipButton equipButton = new EquipButton();
             equipButton.initialize(new Vector2(width - 200, posY), 250, 200, "equip_button.png", i);
             InputManager.get.register(equipButton);
@@ -123,8 +123,7 @@ public class HangarScreen implements Screen {
             itemIcons.add(itemIcon);
             equipButtons.add(equipButton);
             infoButtons.add(infoButton);
-    }
-
+        }
 
         currentId = -1;
         cameraManager = new CameraManager();
@@ -275,7 +274,4 @@ public class HangarScreen implements Screen {
     public void pause()    {
 
     }
-
-
-
 }

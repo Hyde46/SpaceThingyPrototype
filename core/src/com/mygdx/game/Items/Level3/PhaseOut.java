@@ -23,8 +23,6 @@ public class PhaseOut extends Item
 
     private boolean isPhasedOut;
 
-    private int side;
-
     private int flickerCounter;
     private int flickerDelay;
     private int maxFlickerDelay;
@@ -34,8 +32,8 @@ public class PhaseOut extends Item
         super();
         this.level = 3;
         this.isPhasedOut = false;
-        this.iM = im;
-        side = sideToAdd;
+       // this.iM = im;
+        sideInHud = sideToAdd;
         this.levelPos = itemPos;
     }
     @Override
@@ -84,7 +82,7 @@ public class PhaseOut extends Item
             stateItem = StateItem.EFFECT;
 
             if(player == null)
-                player = iM.getPlayer();
+                player = ItemManager.get.getPlayer();
 
             isPhasedOut = true;
             player.phaseOut(isPhasedOut);
@@ -125,10 +123,10 @@ public class PhaseOut extends Item
         sprite.draw(sB);
 
         //Debug
-        MyGdxGame.game.debugFont.draw(sB,"Phase out Time: "+(int)phaseOutTime, (side*400)+350, 1800);
-        MyGdxGame.game.debugFont.draw(sB,"Phased out: "+isPhasedOut, (side*400)+350, 1750);
-        MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown/100), (side*400)+350, 1700);
-        MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (side*400)+350, 1650);
+        MyGdxGame.game.debugFont.draw(sB,"Phase out Time: "+(int)phaseOutTime, (sideInHud *400)+350, 1800);
+        MyGdxGame.game.debugFont.draw(sB,"Phased out: "+isPhasedOut, (sideInHud *400)+350, 1750);
+        MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown/100), (sideInHud *400)+350, 1700);
+        MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (sideInHud *400)+350, 1650);
 
 
 

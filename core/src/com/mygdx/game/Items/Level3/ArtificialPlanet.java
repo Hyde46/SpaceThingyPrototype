@@ -1,3 +1,5 @@
+// add visual radius (render circle)
+
 package com.mygdx.game.Items.Level3;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -7,7 +9,6 @@ import com.mygdx.game.InputManager.IInputAnywhere;
 import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.Items.Item;
 import com.mygdx.game.Items.ItemManager;
-import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.screens.MyGdxGame;
 import com.mygdx.game.utils.SpaceMath;
@@ -17,17 +18,14 @@ import com.mygdx.game.utils.SpaceMath;
  */
 public class ArtificialPlanet extends Item implements IInputAnywhere
 {
-    private int side;
-
-
     public ArtificialPlanet(int itemPos, int sideToAdd, ItemManager itemManager, GameScreen gs)
     {
         super();
         this.level = 3;
         this.levelPos = itemPos;
-        this.iM = itemManager;
+        //this.iM = itemManager;
         this.gs = gs;
-        side = sideToAdd;
+        sideInHud = sideToAdd;
     }
   
     @Override
@@ -39,8 +37,7 @@ public class ArtificialPlanet extends Item implements IInputAnywhere
         uses = maxUses;
         timeCooldown = 4f;
 
-        if(player == null)
-            player = iM.getPlayer();
+        if(player == null)  player = gs.getPlayerShip();
     }
 
     @Override
@@ -102,6 +99,7 @@ public class ArtificialPlanet extends Item implements IInputAnywhere
     {
         if(stateItem == StateItem.READY && uses > 0)
         {
+            activate();
             activateSuper();
             SetPossibleRadius();
         }
@@ -123,15 +121,14 @@ public class ArtificialPlanet extends Item implements IInputAnywhere
 
     public void render(SpriteBatch sB)
     {
-
         if(!isActive || tex == null){
             return;
         }
         sprite.draw(sB);
 
         //Debug
-        //     MyGdxGame.game.debugFont.draw(sB,"Hello im Aritifical Planet item", (side*400)+350, 1800);
-        MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown), (side*400)+350, 1750);
-        MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (side*400)+350, 1700);
+        //     MyGdxGame.game.debugFont.draw(sB,"Hello im Aritifical Planet item", (sideInHud*400)+350, 1800);
+        MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown), (sideInHud *400)+350, 1750);
+        MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (sideInHud *400)+350, 1700);
     }
 }

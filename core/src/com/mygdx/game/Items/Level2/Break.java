@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.Items.Item;
 import com.mygdx.game.Items.ItemManager;
-import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.screens.MyGdxGame;
 import com.mygdx.game.utils.SpaceMath;
 
@@ -23,16 +22,14 @@ public class Break extends Item
 
     private boolean isActivated;
 
-    private int side;
-
     public Break(int itemPos,int sideToAdd, ItemManager itemManager)
     {
         super();
         this.level = 2;
         this.levelPos = itemPos;
-        this.iM = itemManager;
+        //this.iM = itemManager;
         isActivated = false;
-        side = sideToAdd;
+        sideInHud = sideToAdd;
     }
 
     @Override
@@ -46,7 +43,7 @@ public class Break extends Item
         uses = maxUses;
 
         if(player == null)
-            player = iM.getPlayer();
+            player = ItemManager.get.getPlayer();
     }
 
     @Override
@@ -118,9 +115,9 @@ public class Break extends Item
         sprite.draw(sB);
 
         //Debug
-        MyGdxGame.game.debugFont.draw(sB,"Break Time: "+(int)boostTime, (side*400)+350, 1800);
-        MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown/100), (side*400)+350, 1750);
-        MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (side*400)+350, 1700);
+        MyGdxGame.game.debugFont.draw(sB,"Break Time: "+(int)boostTime, (sideInHud *400)+350, 1800);
+        MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown/100), (sideInHud *400)+350, 1750);
+        MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (sideInHud *400)+350, 1700);
 
 
 

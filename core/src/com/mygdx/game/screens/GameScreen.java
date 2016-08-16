@@ -38,7 +38,7 @@ public class GameScreen implements Screen{
     UnitManager uM;
     SpacePhysiX spX;
 
-    ItemManager itemMan;
+    //ItemManager itemMan;
 
     ParallaxBackgroundManager pbM;
 
@@ -56,7 +56,8 @@ public class GameScreen implements Screen{
 
     private int level;
 
-    public GameScreen(int levelToStart) {
+    public GameScreen(int levelToStart)
+    {
         this.level = levelToStart;
         // create the camera and the SpriteBatch
         OrthographicCamera camera = new OrthographicCamera();
@@ -83,8 +84,8 @@ public class GameScreen implements Screen{
         levelState = new LevelState();
         spX = new SpacePhysiX();
 
-        itemMan = new ItemManager();
-        itemMan.initialize(this);
+        //itemMan = new ItemManager();
+        ItemManager.initialize(this);
 
         DataPers.dataP().nthGame++;
         DataPers.saveP();
@@ -125,7 +126,7 @@ public class GameScreen implements Screen{
         game.debugFont.draw(game.uiBatch, "vel: "+(int)(getPlayerShip().getDeltaMovement().len()),5,1750);
         game.debugFont.draw(game.uiBatch, "Currency: "+levelState.getCurrency(), 5, 1700);
         game.debugFont.draw(game.uiBatch, "Hops: "+levelState.getHops(), 5, 1650);
-        itemMan.render(game.uiBatch);
+        ItemManager.get.render(game.uiBatch);
 
         renderFinishedGameState(game);
 
@@ -164,7 +165,7 @@ public class GameScreen implements Screen{
 
     public void update(float delta)
     {
-        itemMan.update(delta);
+        ItemManager.get.update(delta);
 
         spX.update(delta);
         InputManager.get.update(delta);
@@ -180,11 +181,6 @@ public class GameScreen implements Screen{
      */
     public void setLevel(int levelId)
     {
-
-
-        //System.out.println("level nth: " + DataPers.dataP().nthGame);
-        // Level l = LevelFactory.loadLevel(levelId);
-        //for now
         levelState.resetState();
         switch(levelId) {
             case 1:
@@ -295,7 +291,7 @@ public class GameScreen implements Screen{
         levelBGColor[0] = 63.0f/255.0f;
         levelBGColor[1] = 31.0f/255.0f;
         levelBGColor[2] = 39.0f/255.0f;
-        itemMan.setItems(9,6);
+        ItemManager.get.setItems(9,6);
 
         System.out.println("Done!");
     }
@@ -374,7 +370,7 @@ public class GameScreen implements Screen{
         levelBGColor[1] = 49.0f/255.0f;
         levelBGColor[2] = 41.0f/255.0f;
 
-        itemMan.setItems(7,8);
+        ItemManager.get.setItems(7,8);
 
         System.out.println("Done!");
     }
@@ -434,16 +430,6 @@ public class GameScreen implements Screen{
         }
 
         return hasFound;
-        /*
-        Array<IInputHandler> objsHit = InputManager.get.getObjsHit((int)posWorld.x, (int)posWorld.y);
-        for (IInputHandler obj : objsHit)
-        {
-            if(obj instanceof Unit)
-            {
-                uM.deleteUnit((Unit)obj);
-            }
-        }
-        */
     }
 
     //////////////
@@ -481,6 +467,4 @@ public class GameScreen implements Screen{
     public boolean isLevelFinished(){
         return hasFinishedLevel;
     }
-
 }
-

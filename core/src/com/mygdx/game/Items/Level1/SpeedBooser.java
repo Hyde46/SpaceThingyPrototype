@@ -24,16 +24,14 @@ public class SpeedBooser extends Item
 
     private boolean isActivated;
 
-    private int side;
-
     public SpeedBooser(int itemPos,int sideToAdd, ItemManager itemManager)
     {
         super();
         this.level = 1;
         this.levelPos = itemPos;
-        this.iM = itemManager;
+        //this.iM = itemManager;
         isActivated = false;
-        side = sideToAdd;
+        sideInHud = sideToAdd;
     }
 
     @Override
@@ -46,7 +44,7 @@ public class SpeedBooser extends Item
         maxUses = 10;
         uses = maxUses;
         if(player == null)
-            player = iM.getPlayer();
+            player = ItemManager.get.getPlayer();
     }
 
     @Override
@@ -118,9 +116,9 @@ public class SpeedBooser extends Item
         sprite.draw(sB);
 
         //Debug
-        MyGdxGame.game.debugFont.draw(sB,"Boost Time: "+(int)boostTime, (side*400)+350, 1800);
-        MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown/100), (side*400)+350, 1750);
-        MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (side*400)+350, 1700);
+        MyGdxGame.game.debugFont.draw(sB,"Boost Time: "+(int)boostTime, (sideInHud *400)+350, 1800);
+        MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown/100), (sideInHud *400)+350, 1750);
+        MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (sideInHud *400)+350, 1700);
 
 
 

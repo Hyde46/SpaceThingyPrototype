@@ -14,8 +14,8 @@ import com.mygdx.game.screens.MyGdxGame;
 /**
  * Created by Denis on 27.06.2016.
  */
-public class ItemManager {
-
+public class ItemManager
+{
     //some sort of safedata, with informations about which items the player has is needed
 
     // while 1 item is activated ... orbit leave not possible ..
@@ -25,8 +25,7 @@ public class ItemManager {
 
     public static ItemManager get;
 
-    public boolean isOneItemActive()
-    {
+    public boolean isOneItemActive() {
         // is item 0, 1 == activated
         return true;
     }
@@ -38,7 +37,7 @@ public class ItemManager {
 
     private GameScreen gs;
 
-    public ItemManager(){
+    public ItemManager() {
         items = new Item[2];
         itemIds = new int[2];
         items[0] = null;
@@ -47,48 +46,53 @@ public class ItemManager {
         itemIds[1] = -1;
     }
 
-    public static void initialize(GameScreen gs)
-    {
+    public static void initialize(GameScreen gs) {
         get = new ItemManager();
         get.gs = gs;
     }
 
-    public boolean setItems(int itemIdLeft, int itemIdRight){
-        if(itemIdLeft == -1 && itemIdRight != -1){
-            addItem(itemIdRight,1,true);
+    public boolean setItems(int itemIdLeft, int itemIdRight) {
+        if (itemIdLeft == -1 && itemIdRight != -1) {
+            addItem(itemIdRight, 1, true);
             return true;
         }
-        if(itemIdLeft != -1 && itemIdRight == -1){
-            addItem(itemIdLeft,0,true);
+        if (itemIdLeft != -1 && itemIdRight == -1) {
+            addItem(itemIdLeft, 0, true);
             return true;
         }
-        if(itemIdLeft != -1  && itemIdRight != -1){
-            addItem(itemIdLeft,0,false);
-            addItem(itemIdRight,1,false);
+        if (itemIdLeft != -1 && itemIdRight != -1) {
+            addItem(itemIdLeft, 0, false);
+            addItem(itemIdRight, 1, false);
             return true;
         }
         return false;
     }
 
-    public boolean addItem(int itemId, int sideToAdd, boolean isOneItem){
-        if(itemId == itemIds[0] || itemId == itemIds[1]){
+    public boolean addItem(int itemId, int sideToAdd, boolean isOneItem) {
+        if (itemId == itemIds[0] || itemId == itemIds[1]) {
             return false;
         }
-       // int itemPos = getItemPos(sideToAdd);
-        int itemPos = isOneItem?2:sideToAdd;
+        // int itemPos = getItemPos(sideToAdd);
+        int itemPos = isOneItem ? 2 : sideToAdd;
 
         switch (itemId) {
-            case 1: items[sideToAdd] = new SpeedBooser(itemPos,sideToAdd,this);
-                    break;
-            case 6:items[sideToAdd] = new Break(itemPos,sideToAdd,this);
-                    break;
-            case 7:items[sideToAdd] = new ArtificialPlanet(itemPos,sideToAdd,this,gs);
-                    break;
-            case 8:items[sideToAdd] = new DestroyTarget(itemPos,sideToAdd,this,gs);
+            case 1:
+                items[sideToAdd] = new SpeedBooser(itemPos, sideToAdd, this);
                 break;
-            case 9:items[sideToAdd] = new PhaseOut(itemPos,sideToAdd,this);
+            case 6:
+                items[sideToAdd] = new Break(itemPos, sideToAdd, this);
                 break;
-            default: break;
+            case 7:
+                items[sideToAdd] = new ArtificialPlanet(itemPos, sideToAdd, this, gs);
+                break;
+            case 8:
+                items[sideToAdd] = new DestroyTarget(itemPos, sideToAdd, this, gs);
+                break;
+            case 9:
+                items[sideToAdd] = new PhaseOut(itemPos, sideToAdd, this);
+                break;
+            default:
+                break;
         }
         itemIds[sideToAdd] = itemId;
         items[sideToAdd].initialize();
@@ -97,59 +101,65 @@ public class ItemManager {
         return true;
     }
 
-//    public Item getItemFromId(int idItem)
-//    {
-//        switch (idItem)
-//        {
-//            case 1: return new SpeedBooser(0,0,this);
-//            case 6: return new Break(0,0,this);
-//            case 7: return new ArtificialPlanet(0,0,this,gs);
-//            case 8: return new DestroyTarget(0,0,this,gs);
-//            case 9: return new PhaseOut(0,0,this);
-//            default: return null;
-//        }
-//    }
-
-    public boolean removeItemSlot(int sideToRemove)
-    {
+    public boolean removeItemSlot(int sideToRemove) {
         return true;
     }
 
-    public void render(SpriteBatch batch){
+    public void render(SpriteBatch batch) {
         //Debug
-        if(items[0] != null){
-            MyGdxGame.game.debugFont.draw(batch,"Item 1: "+items[0].getName(),350,1900);
-            MyGdxGame.game.debugFont.draw(batch,"Status: "+items[0].getState(),350,1850);
-        }else{
-            MyGdxGame.game.debugFont.draw(batch,"Item 1: NONE",350,1900);
+        if (items[0] != null) {
+            MyGdxGame.game.debugFont.draw(batch, "Item 1: " + items[0].getName(), 350, 1900);
+            MyGdxGame.game.debugFont.draw(batch, "Status: " + items[0].getState(), 350, 1850);
+        } else {
+            MyGdxGame.game.debugFont.draw(batch, "Item 1: NONE", 350, 1900);
         }
-        if(items[1] != null){
-            MyGdxGame.game.debugFont.draw(batch,"Item 2: "+items[1].getName(),750,1900);
-            MyGdxGame.game.debugFont.draw(batch,"Status: "+items[1].getState(),750,1850);
-        }else{
-            MyGdxGame.game.debugFont.draw(batch,"Item 2: NONE",700,1900);
+        if (items[1] != null) {
+            MyGdxGame.game.debugFont.draw(batch, "Item 2: " + items[1].getName(), 750, 1900);
+            MyGdxGame.game.debugFont.draw(batch, "Status: " + items[1].getState(), 750, 1850);
+        } else {
+            MyGdxGame.game.debugFont.draw(batch, "Item 2: NONE", 700, 1900);
         }
 
         //button render
-        if(items[0] != null) {
+        if (items[0] != null) {
             items[0].render(batch);
         }
-        if(items[1] != null){
+        if (items[1] != null) {
             items[1].render(batch);
         }
     }
 
-    public void update(float delta){
-        if(items[0] != null) {
+    public void update(float delta) {
+        if (items[0] != null) {
             items[0].update(delta);
         }
-        if(items[1] != null){
+        if (items[1] != null) {
             items[1].update(delta);
         }
     }
 
-    public SpaceShip getPlayer(){
+    public SpaceShip getPlayer() {
         return gs.getPlayerShip();
     }
-    public boolean hasLevelEnded() { return gs.isLevelFinished();}
+
+    public boolean hasLevelEnded() {
+        return gs.isLevelFinished();
+    }
 }
+
+//    public Item getItemFromId(int idItem) {
+//        switch (idItem) {
+//            case 1:
+//                return new SpeedBooser(0, 0, this);
+//            case 6:
+//                return new Break(0, 0, this);
+//            case 7:
+//                return new ArtificialPlanet(0, 0, this, gs);
+//            case 8:
+//                return new DestroyTarget(0, 0, this, gs);
+//            case 9:
+//                return new PhaseOut(0, 0, this);
+//            default:
+//                return null;
+//        }
+//    }
