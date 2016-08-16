@@ -1,5 +1,6 @@
 package com.mygdx.game.Items;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -9,6 +10,8 @@ import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.renderAbleObjects.decorations.Decoration;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.screens.GameScreen;
+import com.mygdx.game.utils.SpaceMath;
+import com.mygdx.game.utils.SpacePhysiX;
 
 /**
  * Created by Mechandrius on 19.06.2016.
@@ -46,7 +49,7 @@ public abstract class Item extends Decoration implements IInputHandler
 
     public Item() {
         stateItem = StateItem.READY;
-  //      name = "None";
+        //name = "None";
         //this.gs = gs;
     }
 
@@ -97,7 +100,8 @@ public abstract class Item extends Decoration implements IInputHandler
         initializePositions(posToRender.cpy());
         initializeTexture(new Vector2(widthHeight,widthHeight), 0, texturePath);
         isUI = true;
-        touchHitbox = new Rectangle(posToRender.x, GameScreen.camFixed.viewportHeight-(posToRender.y+200),200,200);
+        //touchHitbox = new Rectangle(posToRender.x, GameScreen.camFixed.viewportHeight-(posToRender.y+200),200,200);
+        touchHitbox = new Rectangle(posToRender.x, Gdx.graphics.getHeight()-(posToRender.y+200),200,200);
     }
 
     @Override

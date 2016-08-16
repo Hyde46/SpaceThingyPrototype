@@ -33,6 +33,7 @@ public class SkipButton extends Decoration implements IInputHandler {
         initializeTexture(spriteDimension, 0, pathToTexture);
         progress = 0;
         skipButtonOverlay.initialize(getPosition(), progress, height, overlayTexture);
+        System.out.println(position);
     }
 
     @Override
