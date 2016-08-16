@@ -95,7 +95,9 @@ public class ItemManager
                 break;
         }
         itemIds[sideToAdd] = itemId;
+
         items[sideToAdd].initialize();
+
         InputManager.get.register(items[sideToAdd]);
 
         return true;

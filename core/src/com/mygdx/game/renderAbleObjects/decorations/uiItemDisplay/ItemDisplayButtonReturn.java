@@ -34,25 +34,10 @@ public class ItemDisplayButtonReturn extends Decoration implements IInputHandler
     @Override
     public void OnTouch(TouchData td)
     {
-        System.out.println("touch return");
-        MyGdxGame.game.openScreen(new ScreenShop(idReturn));
-
-//        switch (idReturn)
-//        {
-//            case 4:
-//            {
-//                MyGdxGame.game.openScreen(new HangarScreen());
-//                break;
-//            }
-//            case 1:
-//            case 2:
-//            case 1:
-//            {
-//                MyGdxGame.game.openScreen(new ScreenShop(idReturn));
-//                break;
-//            }
-//            default: break;
-//        }
+        //TODO
+        System.out.println("item display return " + idReturn);
+        if(idReturn == 1 || idReturn == 2 ||idReturn == 3) MyGdxGame.game.openScreen(new ScreenShop(idReturn));
+        else if(idReturn == 4) MyGdxGame.game.openScreen(new HangarScreen());
     }
 
     @Override

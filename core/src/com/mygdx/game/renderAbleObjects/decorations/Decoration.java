@@ -12,7 +12,9 @@ public abstract class Decoration extends ARenderableObject {
      * Buttons und sowas hier branchen lassen?
      *
      */
-    public Decoration(){
+    public Decoration()
+    {
         super();
+        // is ui set here
     }
 }

@@ -1,5 +1,6 @@
 package com.mygdx.game.managers.camera;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -14,7 +15,14 @@ import org.w3c.dom.css.Rect;
 /**
  * Created by denis on 5/22/16.
  */
-public class CameraManager {
+public class CameraManager
+{
+    // get screen size with?
+    public static int w = Gdx.graphics.getWidth();
+    public static int h = Gdx.graphics.getHeight();
+
+    //
+
 
     private OrthographicCamera cam;
 

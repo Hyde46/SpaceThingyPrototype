@@ -116,7 +116,7 @@ public class HangarScreen implements Screen {
             equipButton.initialize(new Vector2(width - 200, posY), 250, 200, "equip_button.png", i);
             InputManager.get.register(equipButton);
             InfoButton infoButton = new InfoButton();
-            infoButton.initialize(new Vector2(width - 500, posY), 250, 200, "info_button.png", i);
+            infoButton.initialize(new Vector2(width - 500, posY), 250, 200, "info_button.png", i, 4);
             InputManager.get.register(infoButton);
             posY -= 200;
             itemSlots.add(slot);

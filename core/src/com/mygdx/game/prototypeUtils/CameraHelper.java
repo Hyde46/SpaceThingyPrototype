@@ -37,6 +37,7 @@ public class CameraHelper extends ARenderableObject implements IInputHandler {
         hitbox = new Rectangle();
         isUpdate = false;
     }
+
     public void setCameraManager(CameraManager cM, DialogManager dialogManager, int screenType){
         this.cM = cM;
         hitbox.set(0,0, MainMenuScreen.camFixed.viewportWidth, MainMenuScreen.camFixed.viewportHeight);

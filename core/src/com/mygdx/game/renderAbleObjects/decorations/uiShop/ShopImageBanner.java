@@ -12,7 +12,7 @@ import com.mygdx.game.renderAbleObjects.decorations.Decoration;
  * Created by ilost on 04.08.2016.
  */
 
-public class ShopImageBanner extends ARenderableObject
+public class ShopImageBanner extends Decoration
 {
     private int idItem;
 
