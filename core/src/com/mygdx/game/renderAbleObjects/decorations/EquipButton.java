@@ -13,13 +13,15 @@ import com.mygdx.game.screens.MyGdxGame;
  * Created by Vali on 12.07.2016.
  */
 public class EquipButton extends Decoration implements IInputHandler{
-    private int id;
+    private int orderId;
+    private int itemId;
 
-    public void initialize(Vector2 position, int width, int height, String pathToTexture, int id){
+    public void initialize(Vector2 position, int width, int height, String pathToTexture, int orderId, int itemId){
         initializePositions(position);
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
         this.spriteDimension = new Vector2(width, height);
-        this.id = id;
+        this.orderId = orderId;
+        this.itemId = itemId;
         initializeTexture(spriteDimension, 0, pathToTexture);
     }
 
@@ -32,14 +34,16 @@ public class EquipButton extends Decoration implements IInputHandler{
     public void OnTouch(TouchData td) {
         HangarScreen screen = (HangarScreen) MyGdxGame.game.current;
         Array<Slot> itemSlots = screen.getItemSlots();
-        int currentId = screen.getCurrentId();
+        int currentId = screen.getCurrentOrderId();
         //reinitialize the last item slot, so that it is now deactivated again
         if(currentId != -1){
             itemSlots.get(currentId).initialize(itemSlots.get(currentId).getPosition(), (int) itemSlots.get(currentId).getSpriteDimensions().x, (int) itemSlots.get(currentId).getSpriteDimensions().y, "item_slot.png");
         }
         //initialize the object again with a different texture path
-        itemSlots.get(id).initialize(itemSlots.get(id).getPosition(), (int) itemSlots.get(id).getSpriteDimensions().x, (int) itemSlots.get(id).getSpriteDimensions().y, "item_slot_activated.png");
-        screen.setCurrentId(id);
+        itemSlots.get(orderId).initialize(itemSlots.get(orderId).getPosition(), (int) itemSlots.get(orderId).getSpriteDimensions().x, (int) itemSlots.get(orderId).getSpriteDimensions().y, "item_slot_activated.png");
+        screen.setCurrentOrderId(orderId);
+        screen.setCurrentItemId(itemId);
+        screen.setShowPopUp(true);
     }
 
     @Override

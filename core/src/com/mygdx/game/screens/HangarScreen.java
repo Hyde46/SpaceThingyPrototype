@@ -5,10 +5,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.InputManager;
-import com.mygdx.game.Items.Item;
+import com.mygdx.game.dataPersistence.DataPers;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.prototypeUtils.CameraHelper;
@@ -17,7 +16,10 @@ import com.mygdx.game.renderAbleObjects.decorations.EquipButton;
 import com.mygdx.game.renderAbleObjects.decorations.InfoButton;
 
 import com.mygdx.game.renderAbleObjects.decorations.Slot;
+import com.mygdx.game.renderAbleObjects.decorations.SlotIcon;
 import com.mygdx.game.renderAbleObjects.decorations.uiItemDisplay.ItemDisplayImage;
+
+import java.util.ArrayList;
 
 /**
  * Created by Vali on 10.07.2016.
@@ -35,10 +37,14 @@ public class HangarScreen implements Screen {
     private Array<Slot> particleSlots;
     private ArrowButton particlesArrowUp;
     private ArrowButton particlesArrowDown;
+    private ItemDisplayImage popUp;
+    private boolean showPopUp;
+    private SlotIcon slot1;
+    private SlotIcon slot2;
     // private Array<Slot> itemSlots;
     private ParallaxBackgroundManager backgroundManager;
-    private ScrollPane scrollPane;
-    private int currentId;
+    private int currentOrderId;
+    private int currentItemId;
     private int currentSkin;
     private int currentParticles;
     public static OrthographicCamera camFixed;
@@ -47,6 +53,10 @@ public class HangarScreen implements Screen {
     CameraManager cameraManager;
 
     public HangarScreen(){
+        System.out.println("Slot 1: " + DataPers.dataH().getSlot1());
+        System.out.println("Slot 2: " + DataPers.dataH().getSlot2());
+
+
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080,1920);
         camFixed = new OrthographicCamera();
@@ -56,6 +66,18 @@ public class HangarScreen implements Screen {
         backgroundManager = new ParallaxBackgroundManager();
         backgroundManager.setLayers(2, false);
 
+        //create pop up functionality
+        popUp = new ItemDisplayImage();
+        //we want to center it on screen
+        popUp.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 400, MyGdxGame.game.screenHeight / 2 - 400), 800, 800, "hangar_pop_up.png");
+        slot1 = new SlotIcon();
+        slot1.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 350, MyGdxGame.game.screenHeight / 2 - 150), 300, 300, "slot1_icon.png");
+        slot2 = new SlotIcon();
+        slot2.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 + 50, MyGdxGame.game.screenHeight / 2 - 150), 300, 300, "slot2_icon.png");
+        InputManager.get.register(slot1);
+        InputManager.get.register(slot2);
+
+        showPopUp = false;
         //create skin functionality
         Slot skinSlot1 = new Slot();
         skinSlot1.initialize(new Vector2(100, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_skin.png");
@@ -97,26 +119,27 @@ public class HangarScreen implements Screen {
         InputManager.get.register(particlesArrowDown);
 
 
-        int numberOfItems = 12;
         //add all of the item slots to array
         itemSlots = new Array<Slot>();
         equipButtons = new Array<EquipButton>();
         infoButtons = new Array<InfoButton>();
         itemIcons = new Array<ItemDisplayImage>();
+        ArrayList<Integer> itemsInPossession = DataPers.dataP().idsItemsPlayer;
 
         int width = MyGdxGame.game.screenWidth - 200;
         int posY = 800;
-        for(int i = 0; i < numberOfItems; i++){
+        for(int i = 0; i < itemsInPossession.size(); i++){
+            System.out.println("Item id: " + itemsInPossession.get(i));
             Slot slot = new Slot();
-            //intialize item slot
+            //initialize item slot
             slot.initialize(new Vector2(100, posY), width, 200, "item_slot.png");
             ItemDisplayImage itemIcon = new ItemDisplayImage();
-            itemIcon.initialize(new Vector2(120, posY), 200, 200, "item_image.png");
+            itemIcon.initialize(new Vector2(120, posY), 200, 200, "item_icon.png");
             EquipButton equipButton = new EquipButton();
-            equipButton.initialize(new Vector2(width - 200, posY), 250, 200, "equip_button.png", i);
+            equipButton.initialize(new Vector2(width - 200, posY), 250, 200, "equip_button.png", i, itemsInPossession.get(i));
             InputManager.get.register(equipButton);
             InfoButton infoButton = new InfoButton();
-            infoButton.initialize(new Vector2(width - 500, posY), 250, 200, "info_button.png", i, 4);
+            infoButton.initialize(new Vector2(width - 500, posY), 250, 200, "info_button.png", i, itemsInPossession.get(i), 4);
             InputManager.get.register(infoButton);
             posY -= 200;
             itemSlots.add(slot);
@@ -125,13 +148,14 @@ public class HangarScreen implements Screen {
             infoButtons.add(infoButton);
         }
 
-        currentId = -1;
+        currentOrderId = -1;
         cameraManager = new CameraManager();
         cameraHelper = new CameraHelper();
         cameraManager.setCam(cam);
         cameraManager.addPBM(backgroundManager);
         cameraHelper.setCameraManager(cameraManager, null, 4);
         InputManager.get.register(cameraHelper);
+
 
     }
 
@@ -166,7 +190,16 @@ public class HangarScreen implements Screen {
         particleSlots.get(currentParticles).render(game.batch);
         particlesArrowUp.render(game.batch);
         particlesArrowDown.render(game.batch);
+
         game.batch.end();
+        game.uiBatch.setProjectionMatrix(camFixed.combined);
+        game.uiBatch.begin();
+        if(showPopUp){
+            popUp.render(game.uiBatch);
+            slot1.render(game.uiBatch);
+            slot2.render(game.uiBatch);
+        }
+        game.uiBatch.end();
         camFixed.update();
         update(delta);
     }
@@ -179,6 +212,11 @@ public class HangarScreen implements Screen {
         InputManager.get.update(delta);
     }
 
+
+    public void saveSettings(){
+        DataPers.dataH().setSlot1(slot1.getItemId());
+        DataPers.dataH().setSlot2(slot2.getItemId());
+    }
     /**
      * getter for item slots
      * @return
@@ -191,16 +229,32 @@ public class HangarScreen implements Screen {
      * getter for previous id
      * @return
      */
-    public int getCurrentId(){
-        return currentId;
+    public int getCurrentOrderId(){
+        return currentOrderId;
     }
 
     /**
      * setter for previous id
      * @param id
      */
-    public void setCurrentId(int id){
-        this.currentId = id;
+    public void setCurrentOrderId(int id){
+        this.currentOrderId = id;
+    }
+
+    /**
+     * getter for the item id that was just chosen
+     * @return item id
+     */
+    public int getCurrentItemId() {
+        return currentItemId;
+    }
+
+    /**
+     * setter for the item id that was just chosen
+     * @param currentItemId
+     */
+    public void setCurrentItemId(int currentItemId) {
+        this.currentItemId = currentItemId;
     }
 
     /**
@@ -250,8 +304,31 @@ public class HangarScreen implements Screen {
     public int getNumberParticles(){
         return particleSlots.size;
     }
+
+    /**
+     * setter for boolean, if pop up should be shown -> used in equip button class
+     * @param show
+     */
+    public void setShowPopUp(boolean show){
+        this.showPopUp = show;
+    }
     @Override
     public void dispose()    {
+        itemSlots.clear();
+        itemIcons.clear();
+        equipButtons.clear();
+        infoButtons.clear();
+        skinSlots.clear();
+        skinArrowUp = null;
+        skinArrowDown = null;
+        particleSlots.clear();
+        particlesArrowDown = null;
+        particlesArrowUp = null;
+        popUp = null;
+        slot1 = null;
+        slot2 = null;
+        backgroundManager = null;
+
 
     }
     @Override

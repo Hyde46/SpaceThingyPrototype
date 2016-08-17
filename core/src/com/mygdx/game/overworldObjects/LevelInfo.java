@@ -1,33 +1,30 @@
-package com.mygdx.game.renderAbleObjects.decorations;
+package com.mygdx.game.overworldObjects;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.IInputHandler;
 import com.mygdx.game.InputManager.TouchData;
+import com.mygdx.game.dataPersistence.DataPers;
+import com.mygdx.game.renderAbleObjects.ARenderableObject;
 import com.mygdx.game.screens.HangarScreen;
-import com.mygdx.game.screens.ItemScreen;
 import com.mygdx.game.screens.MyGdxGame;
 
 /**
- * Created by Vali on 12.07.2016.
+ * Created by Vali on 17.08.2016.
  */
-public class InfoButton extends Decoration implements IInputHandler
-{
-    private int orderId;
-    private int itemId;
-    private int idReturn;
+public class LevelInfo extends ARenderableObject implements IInputHandler {
 
-    public void initialize(Vector2 position, int width, int height, String pathToTexture, int orderId, int itemId, int idReturn)
+    private int levelId;
+    private boolean isExpanded;
+
+    public void initialize(Vector2 position, int width, int height, String pathToTexture, int levelId)
     {
         initializePositions(position);
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
         this.spriteDimension = new Vector2(width, height);
-        //we hold the item slot the button belongs to so that we can change its color
-        this.orderId = orderId;
-        this.itemId = itemId;
-        this.idReturn = idReturn;
+        this.levelId = levelId;
+        this.isExpanded = false;
         initializeTexture(spriteDimension, 0, pathToTexture);
     }
 
@@ -36,10 +33,16 @@ public class InfoButton extends Decoration implements IInputHandler
 
     }
 
+
     @Override
-    public void OnTouch(TouchData td)
-    {
-        MyGdxGame.game.openScreen(new ItemScreen(itemId, idReturn));
+    public void OnTouch(TouchData td){
+        if(isExpanded){
+            initialize(position, 300, 100, "level_info.png", levelId);
+            isExpanded = false;
+        }else{
+            initialize(position, 300, 500, "level_info_expanded.png", levelId);
+            isExpanded = true;
+        }
     }
 
     @Override

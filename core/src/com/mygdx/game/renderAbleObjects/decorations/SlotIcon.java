@@ -3,32 +3,26 @@ package com.mygdx.game.renderAbleObjects.decorations;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.IInputHandler;
 import com.mygdx.game.InputManager.TouchData;
+import com.mygdx.game.dataPersistence.DataPers;
 import com.mygdx.game.screens.HangarScreen;
-import com.mygdx.game.screens.ItemScreen;
 import com.mygdx.game.screens.MyGdxGame;
 
 /**
- * Created by Vali on 12.07.2016.
+ * Created by Vali on 17.08.2016.
  */
-public class InfoButton extends Decoration implements IInputHandler
-{
-    private int orderId;
-    private int itemId;
-    private int idReturn;
+public class SlotIcon extends Decoration implements IInputHandler{
 
-    public void initialize(Vector2 position, int width, int height, String pathToTexture, int orderId, int itemId, int idReturn)
+    private int itemId;
+
+    public void initialize(Vector2 position, int width, int height, String pathToTexture)
     {
         initializePositions(position);
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
         this.spriteDimension = new Vector2(width, height);
-        //we hold the item slot the button belongs to so that we can change its color
-        this.orderId = orderId;
-        this.itemId = itemId;
-        this.idReturn = idReturn;
         initializeTexture(spriteDimension, 0, pathToTexture);
+        itemId = 0;
     }
 
     @Override
@@ -36,10 +30,23 @@ public class InfoButton extends Decoration implements IInputHandler
 
     }
 
+    /**
+     * getter for id of item, used in Hangarscreen
+     * @return id
+     */
+    public int getItemId(){
+        return  itemId;
+    }
+
+
+
     @Override
-    public void OnTouch(TouchData td)
-    {
-        MyGdxGame.game.openScreen(new ItemScreen(itemId, idReturn));
+    public void OnTouch(TouchData td){
+        HangarScreen screen = (HangarScreen) MyGdxGame.game.current;
+        itemId = screen.getCurrentItemId();
+        screen.setShowPopUp(false);
+        screen.saveSettings();
+        DataPers.saveH();
     }
 
     @Override
@@ -63,3 +70,5 @@ public class InfoButton extends Decoration implements IInputHandler
     }
 
 }
+
+

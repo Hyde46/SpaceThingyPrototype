@@ -25,4 +25,6 @@ public class DataSavableProgress extends DataSavable
         idsItemsPlayer = new ArrayList<Integer>();
         credits = 1000;
     }
+
+
 }

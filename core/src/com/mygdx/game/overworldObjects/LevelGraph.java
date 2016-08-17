@@ -13,11 +13,13 @@ public class LevelGraph {
     //array that holds all the levels
     private Array<LevelBeacon> levelBeacons;
     private LevelBeacon currentLevel;
+    private Array<LevelInfo> levelInfos;
     /**
      * Constructor for LevelGraph class
      */
     public LevelGraph(){
         levelBeacons = new Array<LevelBeacon>();
+        levelInfos = new Array<LevelInfo>();
     }
 
     /**
@@ -74,6 +76,31 @@ public class LevelGraph {
         addBeacon(levelBeacon7);
         addBeacon(levelBeacon8);
         addBeacon(levelBeacon9);
+
+        LevelInfo levelInfo1 = new LevelInfo();
+        LevelInfo levelInfo2 = new LevelInfo();
+        LevelInfo levelInfo3 = new LevelInfo();
+        LevelInfo levelInfo4 = new LevelInfo();
+        LevelInfo levelInfo5 = new LevelInfo();
+        LevelInfo levelInfo6 = new LevelInfo();
+        LevelInfo levelInfo7 = new LevelInfo();
+        LevelInfo levelInfo8 = new LevelInfo();
+        LevelInfo levelInfo9 = new LevelInfo();
+
+        levelInfo1.initialize(new Vector2(300, 620), 300, 100, "level_info.png", 1);
+        levelInfo2.initialize(new Vector2(700, 1020), 300, 100, "level_info.png", 2);
+        levelInfo3.initialize(new Vector2(300, 1320), 300, 100, "level_info.png", 3);
+        levelInfo4.initialize(new Vector2(800, 1520), 300, 100, "level_info.png", 4);
+        levelInfo5.initialize(new Vector2(500, 1920), 300, 100, "level_info.png", 5);
+        levelInfo6.initialize(new Vector2(500, 2320), 300, 100, "level_info.png", 6);
+        levelInfo7.initialize(new Vector2(100, 2320), 300, 100, "level_info.png", 7);
+        levelInfo8.initialize(new Vector2(-300, 2220), 300, 100, "level_info.png", 8);
+        levelInfo9.initialize(new Vector2(-300, 2620), 300, 100, "level_info.png", 9);
+
+        //add infos to array
+        levelInfos.addAll(levelInfo1, levelInfo2, levelInfo3, levelInfo4, levelInfo5, levelInfo6, levelInfo7, levelInfo8, levelInfo9);
+
+
         //if game was just started (finished level = 0) set the current level to 1
         if(level == 0){
             setCurrentLevel(levelBeacon1);
@@ -90,6 +117,16 @@ public class LevelGraph {
         InputManager.get.register(levelBeacon7);
         InputManager.get.register(levelBeacon8);
         InputManager.get.register(levelBeacon9);
+        InputManager.get.register(levelInfo1);
+        InputManager.get.register(levelInfo2);
+        InputManager.get.register(levelInfo3);
+        InputManager.get.register(levelInfo4);
+        InputManager.get.register(levelInfo5);
+        InputManager.get.register(levelInfo6);
+        InputManager.get.register(levelInfo7);
+        InputManager.get.register(levelInfo8);
+        InputManager.get.register(levelInfo9);
+
 
     }
 
@@ -127,6 +164,16 @@ public class LevelGraph {
     public void renderEdges(ShapeRenderer shapeRenderer){
         for(LevelBeacon beacon : levelBeacons){
             beacon.renderEdges(shapeRenderer);
+        }
+    }
+
+    /**
+     * renders infos above beacons
+     * @param batch
+     */
+    public void renderInfos(SpriteBatch batch){
+        for(LevelInfo info : levelInfos){
+            info.render(batch);
         }
     }
 
