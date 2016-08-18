@@ -15,12 +15,11 @@ public class Break extends Item
 {
 
     private final static float maxCooldown = 5000;
-    private final static float maxBoostTime = 1000;
+    private final static float maxBoostTime = 500;
 
     private float boostTime;
     private float boostScl;
 
-    private boolean isActivated;
 
     public Break(int itemPos,int sideToAdd, ItemManager itemManager)
     {
@@ -28,7 +27,6 @@ public class Break extends Item
         this.level = 2;
         this.levelPos = itemPos;
         //this.iM = itemManager;
-        isActivated = false;
         sideInHud = sideToAdd;
     }
 
@@ -37,7 +35,7 @@ public class Break extends Item
         Vector2 posToRender = SpaceMath.getPosToRender(levelPos);
         initialize("break_200x200.png",200,posToRender);
         boostTime = maxBoostTime;
-        boostScl = -1.1f;
+        boostScl = -1.4f;
         name = "Break";
         maxUses = 3;
         uses = maxUses;
@@ -73,22 +71,20 @@ public class Break extends Item
 
     @Override
     public void OnRelease(TouchData td) {
-        isActivated = false;
     }
 
     @Override
     public void OnHold(TouchData td) {
-        isActivated = true;
+
     }
 
     public void update(float delta)
     {
         if(stateItem == StateItem.ACTIVATED){
             stateItem = StateItem.EFFECT;
-
             timeCooldown = maxCooldown;
         }
-        if(stateItem == StateItem.EFFECT && isActivated){
+        if(stateItem == StateItem.EFFECT ){
             player.boost(boostScl,delta);
             boostTime-=1000*delta;
             if(boostTime <= 0){
