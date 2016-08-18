@@ -35,7 +35,7 @@ public class Break extends Item
         Vector2 posToRender = SpaceMath.getPosToRender(levelPos);
         initialize("break_200x200.png",200,posToRender);
         boostTime = maxBoostTime;
-        boostScl = -1.4f;
+        boostScl = -1.3f;
         name = "Break";
         maxUses = 3;
         uses = maxUses;
