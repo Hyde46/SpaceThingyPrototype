@@ -15,14 +15,16 @@ import com.mygdx.game.screens.MyGdxGame;
 public class SlotIcon extends Decoration implements IInputHandler{
 
     private int itemId;
+    private int slotId;
 
-    public void initialize(Vector2 position, int width, int height, String pathToTexture)
+    public void initialize(Vector2 position, int width, int height, String pathToTexture, int slotId)
     {
         initializePositions(position);
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
         this.spriteDimension = new Vector2(width, height);
         initializeTexture(spriteDimension, 0, pathToTexture);
         itemId = 0;
+        this.slotId = slotId;
     }
 
     @Override
@@ -38,15 +40,33 @@ public class SlotIcon extends Decoration implements IInputHandler{
         return  itemId;
     }
 
-
+    /**
+     * setter for item id, used in EquipButton
+     * @param itemId
+     */
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
+    }
 
     @Override
     public void OnTouch(TouchData td){
         HangarScreen screen = (HangarScreen) MyGdxGame.game.current;
+        int previousItemId = itemId;
         itemId = screen.getCurrentItemId();
+        if(slotId == 1){
+            screen.getSelectedSlot1().changeTexture("item" + itemId + "_icon.png");
+            //if the slot was previously occupied by another item we need to find that item and change the Unequip button
+            for(EquipButton button : screen.getEquipButtons()){
+                if(button.getItemId() == previousItemId){
+                    button.changeTexture("equip_button.png");
+                    break;
+                }
+            }
+        }else{
+            screen.getSelectedSlot2().changeTexture("item" + itemId + "_icon.png");
+        }
         screen.setShowPopUp(false);
         screen.saveSettings();
-        DataPers.saveH();
     }
 
     @Override
