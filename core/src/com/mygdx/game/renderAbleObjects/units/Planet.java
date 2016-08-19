@@ -174,4 +174,13 @@ public class Planet extends Unit implements IInputHandler {
     public float getGravity(){
         return gravity;
     }
+
+
+    public void dispose(){
+        sprite.getTexture().dispose();
+        sprite = null;
+        orbitSprite.getTexture().dispose();
+        orbitSprite = null;
+    }
+
 }

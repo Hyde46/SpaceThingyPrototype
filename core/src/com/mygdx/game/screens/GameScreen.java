@@ -385,7 +385,7 @@ public class GameScreen implements Screen{
             uM.resetUnits();
             hasFinishedLevel = false;
             hasWonLevel = false;
-
+            pbM.dispose();
             InputManager.get.clearAll();
             MyGdxGame.game.openScreen(new MainMenuScreen(level,hasWonLevel));
             //MyGdxGame.game.setScreen(new MainMenuScreen(level,hasWonLevel));
@@ -466,6 +466,7 @@ public class GameScreen implements Screen{
 
     @Override
     public void dispose() {
+        uM.resetUnits();
     }
 
     public void finishLevelImidiate(){

@@ -246,7 +246,7 @@ public class SpaceShip extends Unit {
 
 
     public boolean isItemPickerActive(){
-        return itemPickerOrbit.isActive();
+        return itemPickerOrbit != null ? itemPickerOrbit.isActive() : false;
     }
 
     public Circle getPickerCollisionHitbox(){
@@ -257,6 +257,5 @@ public class SpaceShip extends Unit {
         this.itemPickerOrbit = itemPickerOrbit;
         isItemPickerActive = true;
     }
-
 
 }

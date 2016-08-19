@@ -42,6 +42,10 @@ public class UnitManager {
     }
 
     public void resetUnits(){
+        for(Unit u : units)
+            u.dispose();
+        for(Decoration d : decos)
+            d.dispose();
         units.clear();
         decos.clear();
         //TODO
