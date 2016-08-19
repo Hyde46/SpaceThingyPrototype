@@ -48,6 +48,8 @@ public class SpacePhysiX {
     public void update(float delta) {
         //update all target locations of units, what they want to do
         updateUnits(delta);
+
+        resolveItemLogic(delta);
         //resolve all collisions
         resolveCollisions();
         //check if player in worldbounds.
@@ -58,6 +60,23 @@ public class SpacePhysiX {
         moveAllUnits();
         //check if player has reached some goal planet
         resolveFinishLogic();
+    }
+
+    private void resolveItemLogic(float delta){
+        //ItemPicker Target
+        if(playerShip.isItemPickerActive()){
+            if(playerShip.getItemPickerOrbit().isPickingItem()) {
+                Vector2 pickingItemCoordinate = playerShip.getItemPickerOrbit().getPickedCoordinate();
+                for(Unit u : units){
+                    if(u.getUnitType() == Unit.UnitType.PICKABLE_ITEM){
+                        if( ((PickableItem)u).getTouchableHitbox().contains(pickingItemCoordinate)) {
+                            ((PickableItem) u).pickUpItem(gs.getLevelState());
+                        }
+                    }
+                    playerShip.getItemPickerOrbit().resetIsPickingItem();
+                }
+            }
+        }
     }
 
     private void updateUnits(float delta) {

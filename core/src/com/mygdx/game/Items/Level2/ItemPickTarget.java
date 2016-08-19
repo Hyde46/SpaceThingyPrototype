@@ -25,7 +25,7 @@ public class ItemPickTarget extends Item
     private Vector2 spaceShipPosition;
 
     private final static float maxCooldown = 5000;
-    private final static float maxPickTime = 2500;
+    private final static float maxPickTime = 3500;
 
     private float pickerTime;
 

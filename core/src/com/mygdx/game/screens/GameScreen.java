@@ -262,9 +262,11 @@ public class GameScreen implements Screen{
         uM.addUnit(p12);
         uM.addUnit(playerShip);
 
+        /*
         Unit item1 = new CurrencyPickable();
         ((CurrencyPickable)item1).initialize(0,new Vector2(100,670),100);
         uM.addUnit(item1);
+            */
         Unit item2 = new CurrencyPickable();
         ((CurrencyPickable)item2).initialize(0,new Vector2(700,1720),200);
         uM.addUnit(item2);

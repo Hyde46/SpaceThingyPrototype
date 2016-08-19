@@ -18,8 +18,11 @@ public class ItemPickerOrbit extends Unit implements IInputHandler{
     private int pickerOrbitType;
     private float pickerOrbitRadius;
 
-    public ItemPickerOrbit(){
+    private Vector2 pickedCoordinate;
+    private boolean isPickingItem;
 
+    public ItemPickerOrbit(){
+        pickedCoordinate = null;
     }
 
     public void initialize(int type, float radius, Vector2 position, String pathToTexture){
@@ -38,7 +41,7 @@ public class ItemPickerOrbit extends Unit implements IInputHandler{
             InputManager.get.register(this);
             this.touchHitbox = new Circle(position.x, position.y, radius);
         }
-
+        isPickingItem = false;
     }
 
     @Override
@@ -55,6 +58,15 @@ public class ItemPickerOrbit extends Unit implements IInputHandler{
     public void updatePosition(Vector2 posUpdate){
         sprite.setPosition(posUpdate.x-spriteDimension.x/2,posUpdate.y-spriteDimension.y/2);
         ((Circle)collisionHitbox).setPosition(posUpdate);
+        ((Circle)touchHitbox).setPosition(posUpdate);
+    }
+
+    public boolean isPickingItem(){
+        return isPickingItem;
+    }
+
+    public Vector2 getPickedCoordinate(){
+        return pickedCoordinate;
     }
 
     @Override
@@ -72,7 +84,10 @@ public class ItemPickerOrbit extends Unit implements IInputHandler{
     }
 
     public void OnTouch(TouchData td) {
-        System.out.println("touched");
+        if(!isActive() || pickerOrbitType == 0) return;
+        //pickedCoordinate = td.getPosCurrent().cpy();
+        pickedCoordinate = td.getPosCurrentUnprojected().cpy();
+        isPickingItem = true;
     }
 
     public void OnRelease(TouchData td) {
@@ -87,5 +102,10 @@ public class ItemPickerOrbit extends Unit implements IInputHandler{
 
     public void OnSwipe(TouchData td) {
 
+    }
+
+    public void resetIsPickingItem(){
+        isPickingItem = false;
+        pickedCoordinate = null;
     }
 }

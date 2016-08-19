@@ -253,6 +253,10 @@ public class SpaceShip extends Unit {
         return (Circle)(itemPickerOrbit.getCollisionHitbox());
     }
 
+    public ItemPickerOrbit getItemPickerOrbit(){
+        return itemPickerOrbit;
+    }
+
     public void setItemPickerOrbit(ItemPickerOrbit itemPickerOrbit){
         this.itemPickerOrbit = itemPickerOrbit;
         isItemPickerActive = true;

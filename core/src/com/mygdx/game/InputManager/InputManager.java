@@ -183,14 +183,11 @@ public class InputManager implements InputProcessor
                 }
             }
         }
-
+        posTouchUnproj.set(cam.unproject(new Vector3(screenX,screenY,0)));
         if(objsHit.size == 0)
         {
             return true; // there is no interesting object touched
         }
-
-        Vector3 vecTouch = new Vector3(screenX, screenY, 0);
-
         TouchData td = new TouchData();
         td.setPosWorldOrigin(cam.unproject(new Vector3(screenX,screenY,0)));
         td.setPosWorldCurrent(cam.unproject(new Vector3(screenX,screenY,0)));
