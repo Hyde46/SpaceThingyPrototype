@@ -152,8 +152,6 @@ public class InputManager implements InputProcessor
         Vector3 posTouch = new Vector3(screenX,screenY,0);
 
 
-        Vector3 posUnproj = cam.unproject(posTouch);
-
         //screenY = ((int)cam.viewportHeight) -screenY;
         Vector3 posTouchUnproj = new Vector3(screenX,screenY,0);
         //cam.unproject(posTouch);
@@ -170,13 +168,13 @@ public class InputManager implements InputProcessor
                 ARenderableObject obj = objsOfGroup.get(i);
                 if (obj instanceof IInputHandler)
                 {
-                    //cam.unproject(posTouch);
+                    cam.unproject(posTouch);
 
                     if
-                    (
-                        (!obj.isUI() && (obj.getHitbox().contains(posTouch.x, posTouch.y))) ||
-                        (obj.isUI() && (obj.getHitbox().contains(posTouchUnproj.x, posTouchUnproj.y)))
-                    )
+                            (
+                            (!obj.isUI() && (obj.getHitbox().contains(posTouch.x, posTouch.y))) ||
+                                    (obj.isUI() && (obj.getHitbox().contains(posTouchUnproj.x, posTouchUnproj.y)))
+                            )
                     {
                         objsHit.add((IInputHandler) obj);
                     }
@@ -233,7 +231,7 @@ public class InputManager implements InputProcessor
             Vector3 vecTouch = new Vector3(screenX, screenY, 0);
             //screenY = ((int)cam.viewportHeight) - screenY;
             Vector3 vecUnPro = new Vector3(screenX, screenY, 0);
-           // cam.unproject(vecTouch);
+            // cam.unproject(vecTouch);
 
             TouchData td = touchData.get(pointer);
 
