@@ -27,11 +27,11 @@ public class UnitManager {
 
     public void render(SpriteBatch g){
 
-        for(Decoration d : decos){
-            d.render(g);
-        }
         for(Unit u :units){
             u.render(g);
+        }
+        for(Decoration d : decos){
+            d.render(g);
         }
     }
 
@@ -63,7 +63,7 @@ public class UnitManager {
 
     public SpaceShip getPlayerShip(){
         for(Unit u : units){
-            if(u.getUnitType() == 0 )
+            if(u.getUnitType() == Unit.UnitType.SPACE_SHIP )
                 return (SpaceShip)u;
         }
         return null;

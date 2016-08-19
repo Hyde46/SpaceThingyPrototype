@@ -36,7 +36,7 @@ public class SpacePhysiX {
         this.gs = gs;
         this.units = units;
         for(Unit u : units){
-            if(u.getUnitType() == 0)
+            if(u.getUnitType() == Unit.UnitType.SPACE_SHIP)
                 playerShip = (SpaceShip)u;
         }
     }
@@ -68,17 +68,24 @@ public class SpacePhysiX {
 
     private void resolveCollisions() {
         for(Unit u : units){
-            if(u.getUnitType() != 0){ //0 = playership
-                //player crashes into planet
-                if(((Circle)u.getCollisionHitbox()).overlaps(playerShip.getTargetHitbox()) && !playerShip.isPhasedOut() && u.isActive()){
-                    if(u.getUnitType() != 2) { // if not colliding with an item
-                        playerShip.collide();
-                    }else{
+            if(u.getUnitType() != Unit.UnitType.SPACE_SHIP && u.getUnitType() != Unit.UnitType.ITEM_PICKER){ //0 = playership
+
+                //ItemPicker
+                if(u.isActive() && playerShip.isItemPickerActive() && u.getUnitType() == Unit.UnitType.PICKABLE_ITEM){
+                    if((playerShip.getPickerCollisionHitbox()).overlaps((Circle)u.getCollisionHitbox())){
                         ((PickableItem)u).pickUpItem(gs.getLevelState());
-                        //logic to add the picked up item to the players inventory
-                        // [...]
                     }
                 }
+                //player crashes into planet
+                if(((Circle)u.getCollisionHitbox()).overlaps(playerShip.getTargetHitbox()) && !playerShip.isPhasedOut() && u.isActive()){
+                    if(u.getUnitType() == Unit.UnitType.PLANET  ) { // if not colliding with an item
+                        playerShip.collide();
+                    }else if(u.getUnitType() == Unit.UnitType.PICKABLE_ITEM){
+                        ((PickableItem)u).pickUpItem(gs.getLevelState());
+
+                    }
+                }
+
             }
         }
     }
@@ -94,7 +101,7 @@ public class SpacePhysiX {
             if (!playerShip.isInOrbit() && !playerShip.isCollided() && !playerShip.isPhasedOut()) {
                 for (Unit u : units) {
                     //resolve planet collision
-                    if (u.getUnitType() == 1) { // 0 = SpaceShip
+                    if (u.getUnitType() == Unit.UnitType.PLANET) {
                         //if player is in range, check if he should dock
                         if (playerShip.getPosition().cpy().sub(u.getPosition()).len() <= ((Planet) u).getOrbitRadius()) { // u = moveableobject
                             Vector2 v = u.getPosition().cpy();
