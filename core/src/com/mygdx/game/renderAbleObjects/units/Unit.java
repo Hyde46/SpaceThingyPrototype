@@ -20,10 +20,9 @@ public abstract class Unit extends AUpdateableObject {
     1 - Planet
     2 - Pickable Item
     3 - ItemPicker
-    4 -
      */
 
-    public enum UnitType {SPACE_SHIP, PLANET, PICKABLE_ITEM, ITEM_PICKER};
+    public enum UnitType {SPACE_SHIP, PLANET, PICKABLE_ITEM, ITEM_PICKER, ITEM_PICKER_ON_CLICK};
 
     private int unitID;
     protected Vector2 deltaMovement;

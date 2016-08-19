@@ -292,7 +292,7 @@ public class GameScreen implements Screen{
         levelBGColor[1] = 31.0f/255.0f;
         levelBGColor[2] = 39.0f/255.0f;
 
-        ItemManager.get.setItems(0,1);
+        ItemManager.get.setItems(5,1);
 
         System.out.println("Done!");
     }
@@ -467,6 +467,7 @@ public class GameScreen implements Screen{
     @Override
     public void dispose() {
         uM.resetUnits();
+        ItemManager.get.dispose();
     }
 
     public void finishLevelImidiate(){

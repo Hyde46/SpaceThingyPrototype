@@ -23,8 +23,8 @@ public class SpacePhysiX {
 
     private GameScreen gs;
 
-    //tune this down, if the game lags too much
-    private final static int PHYSIC_TICKS = 20;
+    //tune this down, if the game starts running slower
+    private final static int PHYSIC_TICKS = 70;
     private final static float DOTPRODUCT_BOUNDARIES = 30.0f;
 
     public final static float PI = 3.141592653f;
@@ -71,7 +71,7 @@ public class SpacePhysiX {
             if(u.getUnitType() != Unit.UnitType.SPACE_SHIP && u.getUnitType() != Unit.UnitType.ITEM_PICKER){ //0 = playership
 
                 //ItemPicker
-                if(u.isActive() && playerShip.isItemPickerActive() && u.getUnitType() == Unit.UnitType.PICKABLE_ITEM){
+                if(u.getUnitType() == Unit.UnitType.ITEM_PICKER && u.isActive() && playerShip.isItemPickerActive() && u.getUnitType() == Unit.UnitType.PICKABLE_ITEM){
                     if((playerShip.getPickerCollisionHitbox()).overlaps((Circle)u.getCollisionHitbox())){
                         ((PickableItem)u).pickUpItem(gs.getLevelState());
                     }

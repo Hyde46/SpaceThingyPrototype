@@ -1,15 +1,12 @@
 package com.mygdx.game.Items.Level1;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.Items.Item;
 import com.mygdx.game.Items.ItemManager;
-import com.mygdx.game.renderAbleObjects.decorations.Decoration;
 import com.mygdx.game.renderAbleObjects.decorations.ItemPickerOrbit;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
-import com.mygdx.game.renderAbleObjects.units.Unit;
 import com.mygdx.game.screens.MyGdxGame;
 import com.mygdx.game.utils.SpaceMath;
 
@@ -47,7 +44,7 @@ public class ItemPickerRadius extends Item
         pickerMaxRadius = 190;
         player = ItemManager.get.getPlayer();
         spaceShipPosition = player.getPosition();
-        itemPickerOrbit.initialize(pickerMaxRadius,spaceShipPosition,"orbit2_"+(int)(pickerMaxRadius*2)+ "x" + (int) (pickerMaxRadius * 2) + ".png");
+        itemPickerOrbit.initialize(0,pickerMaxRadius,spaceShipPosition,"orbit2_"+(int)(pickerMaxRadius*2)+ "x" + (int) (pickerMaxRadius * 2) + ".png");
         name = "Item Picker";
         uses = 3;
         ItemManager.get.addUnitToManager(itemPickerOrbit);

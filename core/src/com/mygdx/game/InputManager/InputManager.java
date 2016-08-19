@@ -151,8 +151,6 @@ public class InputManager implements InputProcessor
         // das brauchen wir für UI elemente, auch mit swipe, so wies aussieht
         Vector3 posTouch = new Vector3(screenX,screenY,0);
 
-        System.out.println("touch " + posTouch);
-        System.out.println("touch unpro start" + cam.unproject(posTouch));
 
         Vector3 posUnproj = cam.unproject(posTouch);
 
@@ -173,7 +171,6 @@ public class InputManager implements InputProcessor
                 if (obj instanceof IInputHandler)
                 {
                     //cam.unproject(posTouch);
-                    System.out.println("unpro inside " + cam.unproject(posTouch));
 
                     if
                     (
