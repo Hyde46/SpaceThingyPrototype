@@ -15,6 +15,8 @@ import com.mygdx.game.renderAbleObjects.decorations.ArrowButton;
 import com.mygdx.game.renderAbleObjects.decorations.EquipButton;
 import com.mygdx.game.renderAbleObjects.decorations.InfoButton;
 
+import com.mygdx.game.renderAbleObjects.decorations.ReturnToMenuButton;
+import com.mygdx.game.renderAbleObjects.decorations.SkinSlot;
 import com.mygdx.game.renderAbleObjects.decorations.Slot;
 import com.mygdx.game.renderAbleObjects.decorations.SlotIcon;
 import com.mygdx.game.renderAbleObjects.decorations.uiItemDisplay.ItemDisplayImage;
@@ -31,7 +33,7 @@ public class HangarScreen implements Screen {
     private Array<ItemDisplayImage> itemIcons;
     private Array<EquipButton> equipButtons;
     private Array<InfoButton> infoButtons;
-    private Array<Slot> skinSlots;
+    private Array<SkinSlot> skinSlots;
     private ArrowButton skinArrowUp;
     private ArrowButton skinArrowDown;
     private Array<Slot> particleSlots;
@@ -43,6 +45,7 @@ public class HangarScreen implements Screen {
     private boolean showPopUp;
     private SlotIcon slot1;
     private SlotIcon slot2;
+    private ReturnToMenuButton returnButton;
     // private Array<Slot> itemSlots;
     private ParallaxBackgroundManager backgroundManager;
     private int currentOrderId;
@@ -55,10 +58,14 @@ public class HangarScreen implements Screen {
     CameraManager cameraManager;
 
     public HangarScreen(){
-
+        DataPers.saveH();
         System.out.println("Slot 1: " + DataPers.dataH().getSlot1());
         System.out.println("Slot 2: " + DataPers.dataH().getSlot2());
 
+        DataPers.dataH().addToSkins(1);
+        DataPers.dataH().addToSkins(2);
+        DataPers.dataH().addToSkins(3);
+        DataPers.saveH();
 
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080,1920);
@@ -73,6 +80,7 @@ public class HangarScreen implements Screen {
         popUp = new ItemDisplayImage();
         //we want to center it on screen
         popUp.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 400, MyGdxGame.game.screenHeight / 2 - 400), 800, 800, "hangar_pop_up.png");
+
         slot1 = new SlotIcon();
         slot1.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 350, MyGdxGame.game.screenHeight / 2 - 150), 300, 300, "slot1_icon.png", 1);
         slot2 = new SlotIcon();
@@ -82,17 +90,19 @@ public class HangarScreen implements Screen {
 
         showPopUp = false;
         //create skin functionality
-        Slot skinSlot1 = new Slot();
-        skinSlot1.initialize(new Vector2(100, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_skin.png");
+        ArrayList<Integer> skinsInPossession = DataPers.dataH().getIdsSkinsPlayer();
+        skinSlots = new Array<SkinSlot>();
+        for(Integer skinId : skinsInPossession){
+            SkinSlot skinSlot = new SkinSlot();
+            if(skinId == 1 || skinId == 2 || skinId == 3){
+                skinSlot.initialize(new Vector2(100, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_skin" + skinId + ".png", skinId);
+            }else{
+                skinSlot.initialize(new Vector2(100, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_skin.png", skinId);
+            }
+            skinSlots.add(skinSlot);
+        }
 
-        Slot skinSlot2 = new Slot();
-        skinSlot2.initialize(new Vector2(100, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_skin2.png");
 
-        Slot skinSlot3 = new Slot();
-        skinSlot3.initialize(new Vector2(100, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_skin3.png");
-
-        skinSlots = new Array<Slot>();
-        skinSlots.addAll(skinSlot1, skinSlot2, skinSlot3);
         currentSkin = 0;
         skinArrowUp = new ArrowButton();
         skinArrowUp.initialize(new Vector2(200, MyGdxGame.game.screenHeight - 200), 200, 200, "arrow_up.png", true, true);    //true for up, true for skin
@@ -175,6 +185,10 @@ public class HangarScreen implements Screen {
             infoButtons.add(infoButton);
         }
 
+        returnButton = new ReturnToMenuButton();
+        returnButton.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 200, posY - 100), 400, 200, "return_button.png");
+        InputManager.get.register(returnButton);
+
         currentOrderId = -1;
         cameraManager = new CameraManager();
         cameraHelper = new CameraHelper();
@@ -219,6 +233,7 @@ public class HangarScreen implements Screen {
         particlesArrowDown.render(game.batch);
         selectedSlot1.render(game.batch);
         selectedSlot2.render(game.batch);
+        returnButton.render(game.batch);
 
         game.batch.end();
         game.uiBatch.setProjectionMatrix(camFixed.combined);
@@ -242,10 +257,17 @@ public class HangarScreen implements Screen {
     }
 
 
+    /**
+     * saving the selected items to persistent data
+     */
     public void saveSettings(){
+        //save items
         DataPers.dataH().setSlot1(slot1.getItemId());
         DataPers.dataH().setSlot2(slot2.getItemId());
+        //get the skin id of the skin that is currently showing
+        DataPers.dataH().setCurrentSkin(skinSlots.get(currentSkin).getSkinId());
         DataPers.saveH();
+        System.out.println("Settings saved... current skin: " + DataPers.dataH().getCurrentSkin());
     }
     /**
      * getter for item slots
@@ -376,6 +398,15 @@ public class HangarScreen implements Screen {
     public void setShowPopUp(boolean show){
         this.showPopUp = show;
     }
+
+    /**
+     * getter for if pop up is shown right now, used in Equipbutton, Arrow etc
+     * @return showPopUp
+     */
+    public boolean getShowPopUp(){
+        return showPopUp;
+    }
+
     @Override
     public void dispose()    {
         itemSlots.clear();

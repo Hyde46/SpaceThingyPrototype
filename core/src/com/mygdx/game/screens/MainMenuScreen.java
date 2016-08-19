@@ -169,7 +169,9 @@ public class MainMenuScreen implements Screen {
         //render LevelGraph, which in turn renders LevelBeacons
         levelGraph.renderBeacons(game.batch);
         //render infos above beacons
-        levelGraph.renderInfos(game.batch);
+        if(ship.getInOrbit()){
+            levelGraph.renderInfos(game.batch);
+        }
         //render ship
         ship.render(game.batch);
         game.batch.end();

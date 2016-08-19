@@ -54,31 +54,33 @@ public class EquipButton extends Decoration implements IInputHandler{
     @Override
     public void OnTouch(TouchData td) {
         HangarScreen screen = (HangarScreen) MyGdxGame.game.current;
-        if(!isEquipped) {
-            Array<Slot> itemSlots = screen.getItemSlots();
-            int currentId = screen.getCurrentOrderId();
-            //reinitialize the last item slot, so that it is now deactivated again
-            if (currentId != -1) {
-                itemSlots.get(currentId).initialize(itemSlots.get(currentId).getPosition(), (int) itemSlots.get(currentId).getSpriteDimensions().x, (int) itemSlots.get(currentId).getSpriteDimensions().y, "item_slot.png");
+        if(!screen.getShowPopUp()) {
+            if (!isEquipped) {
+                Array<Slot> itemSlots = screen.getItemSlots();
+                int currentId = screen.getCurrentOrderId();
+                //reinitialize the last item slot, so that it is now deactivated again
+                if (currentId != -1) {
+                    itemSlots.get(currentId).initialize(itemSlots.get(currentId).getPosition(), (int) itemSlots.get(currentId).getSpriteDimensions().x, (int) itemSlots.get(currentId).getSpriteDimensions().y, "item_slot.png");
+                }
+                //initialize the object again with a different texture path
+                itemSlots.get(orderId).initialize(itemSlots.get(orderId).getPosition(), (int) itemSlots.get(orderId).getSpriteDimensions().x, (int) itemSlots.get(orderId).getSpriteDimensions().y, "item_slot_activated.png");
+                screen.setCurrentOrderId(orderId);
+                screen.setCurrentItemId(itemId);
+                screen.setShowPopUp(true);
+                changeTexture("unequip_button.png");
+                isEquipped = true;
+            } else {
+                if (DataPers.dataH().getSlot1() == itemId) {
+                    screen.getSelectedSlot1().changeTexture("item_icon.png");
+                    screen.getSlot1().setItemId(-1);
+                } else {
+                    screen.getSelectedSlot2().changeTexture("item_icon.png");
+                    screen.getSlot2().setItemId(-1);
+                }
+                screen.saveSettings();
+                changeTexture("equip_button.png");
+                isEquipped = false;
             }
-            //initialize the object again with a different texture path
-            itemSlots.get(orderId).initialize(itemSlots.get(orderId).getPosition(), (int) itemSlots.get(orderId).getSpriteDimensions().x, (int) itemSlots.get(orderId).getSpriteDimensions().y, "item_slot_activated.png");
-            screen.setCurrentOrderId(orderId);
-            screen.setCurrentItemId(itemId);
-            screen.setShowPopUp(true);
-            changeTexture("unequip_button.png");
-            isEquipped = true;
-        }else{
-            if(DataPers.dataH().getSlot1() == itemId){
-                screen.getSelectedSlot1().changeTexture("item_icon.png");
-                screen.getSlot1().setItemId(-1);
-            }else{
-                screen.getSelectedSlot2().changeTexture("item_icon.png");
-                screen.getSlot2().setItemId(-1);
-            }
-            screen.saveSettings();
-            changeTexture("equip_button.png");
-            isEquipped = false;
         }
     }
 

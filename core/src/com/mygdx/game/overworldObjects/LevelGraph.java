@@ -172,9 +172,11 @@ public class LevelGraph {
      * @param batch
      */
     public void renderInfos(SpriteBatch batch){
-        for(LevelInfo info : levelInfos){
+      /*  for(LevelInfo info : levelInfos){
             info.render(batch);
-        }
+        } */
+        //not sure yet, if we want to render all of the infos or just the one, where the ship is
+        levelInfos.get(currentLevel.getLevelId() - 1).render(batch);
     }
 
     /**

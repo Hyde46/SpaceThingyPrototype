@@ -36,44 +36,46 @@ public class ArrowButton extends Decoration implements IInputHandler{
     @Override
     public void OnTouch(TouchData td) {
         HangarScreen screen = (HangarScreen) MyGdxGame.game.getScreen();
-        if(isSkin){     //skins
-            if(isUp){
-                if(screen.getCurrentSkin() == 0){
-                    //in this case we set the last skin
-                    screen.setCurrentSkin(screen.getNumberSkins() - 1);
-                }else{
-                    //otherwise the skin before
-                    screen.setCurrentSkin(screen.getCurrentSkin() - 1);
+        if(!screen.getShowPopUp()) {
+            if (isSkin) {     //skins
+                if (isUp) {
+                    if (screen.getCurrentSkin() == 0) {
+                        //in this case we set the last skin
+                        screen.setCurrentSkin(screen.getNumberSkins() - 1);
+                    } else {
+                        //otherwise the skin before
+                        screen.setCurrentSkin(screen.getCurrentSkin() - 1);
+                    }
+                } else {
+                    if (screen.getCurrentSkin() == screen.getNumberSkins() - 1) {
+                        //it was the last skin, now we set the first
+                        screen.setCurrentSkin(0);
+                    } else {
+                        //otherwise the skin after
+                        screen.setCurrentSkin(screen.getCurrentSkin() + 1);
+                    }
                 }
-            }else{
-                if(screen.getCurrentSkin() == screen.getNumberSkins() - 1){
-                    //it was the last skin, now we set the first
-                    screen.setCurrentSkin(0);
-                }else{
-                    //otherwise the skin after
-                    screen.setCurrentSkin(screen.getCurrentSkin() + 1);
+            } else {      //Particles
+                if (isUp) {
+                    if (screen.getCurrentParticles() == 0) {
+                        //in this case we set the last skin
+                        screen.setCurrentParticles(screen.getNumberParticles() - 1);
+                    } else {
+                        //otherwise the skin before
+                        screen.setCurrentParticles(screen.getCurrentParticles() - 1);
+                    }
+                } else {
+                    if (screen.getCurrentParticles() == screen.getNumberParticles() - 1) {
+                        //it was the last skin, now we set the first
+                        screen.setCurrentParticles(0);
+                    } else {
+                        //otherwise the skin after
+                        screen.setCurrentParticles(screen.getCurrentParticles() + 1);
+                    }
                 }
             }
-        }else{      //Particles
-            if(isUp){
-                if(screen.getCurrentParticles() == 0){
-                    //in this case we set the last skin
-                    screen.setCurrentParticles(screen.getNumberParticles() - 1);
-                }else{
-                    //otherwise the skin before
-                    screen.setCurrentParticles(screen.getCurrentParticles() - 1);
-                }
-            }else{
-                if(screen.getCurrentParticles() == screen.getNumberParticles() - 1){
-                    //it was the last skin, now we set the first
-                    screen.setCurrentParticles(0);
-                }else{
-                    //otherwise the skin after
-                    screen.setCurrentParticles(screen.getCurrentParticles() + 1);
-                }
-            }
+            screen.saveSettings();
         }
-
     }
 
     @Override
