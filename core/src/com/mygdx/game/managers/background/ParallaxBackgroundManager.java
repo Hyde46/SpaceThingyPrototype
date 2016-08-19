@@ -56,4 +56,9 @@ public class ParallaxBackgroundManager {
         layers.get(2).getSprite().translate(translation.x*layerDamp[2],translation.y*layerDamp[2]);
         */
     }
+
+    public void dispose(){
+        for(BackGround bg : layers)
+            bg.dispose();
+    }
 }

@@ -101,4 +101,9 @@ public abstract class ARenderableObject
     }
 
     public Sprite getSprite(){ return sprite; }
+
+    public void dispose(){
+        sprite.getTexture().dispose();
+        sprite = null;
+    }
 }
