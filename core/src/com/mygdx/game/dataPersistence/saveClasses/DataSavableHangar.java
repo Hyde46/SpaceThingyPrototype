@@ -9,8 +9,6 @@ public class DataSavableHangar extends DataSavable
 {
         // arrays needs to be saved as ArrayList ... so java.io.serializable can handle it
 
-    //we want to move this to DataProgress when possible
-    private ArrayList<Integer> idsSkinsPlayer;
 
     private int currentSkin;
     public int nthGame = 0;
@@ -18,9 +16,6 @@ public class DataSavableHangar extends DataSavable
     private int slot2;
 
 
-    public DataSavableHangar(){
-        idsSkinsPlayer = new ArrayList<Integer>();
-    }
 
         /**
          * setter for slot1, used in Hangar screen
@@ -70,20 +65,6 @@ public class DataSavableHangar extends DataSavable
                 return currentSkin;
         }
 
-    /**
-     * getter for ids of skins
-     * @return array of ids
-     */
-    public ArrayList<Integer> getIdsSkinsPlayer() {
-        return idsSkinsPlayer;
-    }
 
-    /**
-     * add an id to the skins array
-     * @param id
-     */
-    public void addToSkins(int id){
-        idsSkinsPlayer.add(id);
-    }
 
 }

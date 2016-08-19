@@ -58,14 +58,9 @@ public class HangarScreen implements Screen {
     CameraManager cameraManager;
 
     public HangarScreen(){
-        DataPers.saveH();
         System.out.println("Slot 1: " + DataPers.dataH().getSlot1());
         System.out.println("Slot 2: " + DataPers.dataH().getSlot2());
 
-        DataPers.dataH().addToSkins(1);
-        DataPers.dataH().addToSkins(2);
-        DataPers.dataH().addToSkins(3);
-        DataPers.saveH();
 
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080,1920);
@@ -90,7 +85,7 @@ public class HangarScreen implements Screen {
 
         showPopUp = false;
         //create skin functionality
-        ArrayList<Integer> skinsInPossession = DataPers.dataH().getIdsSkinsPlayer();
+        ArrayList<Integer> skinsInPossession = DataPers.dataP().getIdsSkinsPlayer();
         skinSlots = new Array<SkinSlot>();
         for(Integer skinId : skinsInPossession){
             SkinSlot skinSlot = new SkinSlot();

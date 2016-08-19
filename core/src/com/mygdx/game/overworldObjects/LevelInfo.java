@@ -8,7 +8,9 @@ import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.dataPersistence.DataPers;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
 import com.mygdx.game.screens.HangarScreen;
+import com.mygdx.game.screens.MainMenuScreen;
 import com.mygdx.game.screens.MyGdxGame;
+
 
 /**
  * Created by Vali on 17.08.2016.
@@ -36,12 +38,16 @@ public class LevelInfo extends ARenderableObject implements IInputHandler {
 
     @Override
     public void OnTouch(TouchData td){
-        if(isExpanded){
-            initialize(position, 300, 100, "level_info.png", levelId);
-            isExpanded = false;
-        }else{
-            initialize(position, 300, 500, "level_info_expanded.png", levelId);
-            isExpanded = true;
+        MainMenuScreen screen = (MainMenuScreen) MyGdxGame.game.current;
+        //only react to touch if dialog is not shown
+        if(!screen.getDialogManager().getShowDialog()){
+            if(isExpanded){
+                initialize(position, 300, 100, "level_info.png", levelId);
+                isExpanded = false;
+            }else{
+                initialize(position, 300, 500, "level_info_expanded.png", levelId);
+                isExpanded = true;
+            }
         }
     }
 
