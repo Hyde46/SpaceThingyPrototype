@@ -63,7 +63,7 @@ public class ItemPickTarget extends Item
             uses--;
         }else if(stateItem == StateItem.EFFECT){
 
-            itemPickerOrbit.switchActive();
+            itemPickerOrbit.switchActive(false);
             effectEndSuper();
         }
     }
@@ -102,13 +102,13 @@ public class ItemPickTarget extends Item
         if(stateItem == StateItem.ACTIVATED){
             stateItem = StateItem.EFFECT;
             timeCooldown = maxCooldown;
-            itemPickerOrbit.switchActive();
+            itemPickerOrbit.switchActive(true);
         }
         if(stateItem == StateItem.EFFECT ){
             itemPickerOrbit.updatePosition(player.getPosition());
             pickerTime -= 1000*delta;
             if(pickerTime <= 0){
-                itemPickerOrbit.switchActive();
+                itemPickerOrbit.switchActive(false);
                 effectEndSuper();
             }
         }

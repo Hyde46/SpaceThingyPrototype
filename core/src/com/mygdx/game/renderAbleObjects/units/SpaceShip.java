@@ -229,6 +229,8 @@ public class SpaceShip extends Unit {
     //ITEM Stuff
     private boolean isItemPickerActive;
     private ItemPickerOrbit itemPickerOrbit;
+    private boolean isItemPickerActiveRadius;
+    private ItemPickerOrbit itemPickerOrbitRadius;
 
     public void boost(float boostScl,float delta){
         float scaledBoost = 1.0f+boostScl*delta;
@@ -248,9 +250,12 @@ public class SpaceShip extends Unit {
     public boolean isItemPickerActive(){
         return itemPickerOrbit != null ? itemPickerOrbit.isActive() : false;
     }
+    public boolean isItemPickerActiveRadius(){
+        return itemPickerOrbitRadius != null ? itemPickerOrbitRadius.isActive() : false;
+    }
 
     public Circle getPickerCollisionHitbox(){
-        return (Circle)(itemPickerOrbit.getCollisionHitbox());
+        return (Circle)(itemPickerOrbitRadius.getCollisionHitbox());
     }
 
     public ItemPickerOrbit getItemPickerOrbit(){
@@ -261,5 +266,8 @@ public class SpaceShip extends Unit {
         this.itemPickerOrbit = itemPickerOrbit;
         isItemPickerActive = true;
     }
-
+    public void setItemPickerOrbitRadius(ItemPickerOrbit itemPickerOrbit){
+        this.itemPickerOrbitRadius = itemPickerOrbit;
+        isItemPickerActiveRadius = true;
+    }
 }

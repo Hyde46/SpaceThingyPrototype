@@ -34,12 +34,12 @@ public class ItemPickerOrbit extends Unit implements IInputHandler{
         isUI = false;
         isActive = true;
         this.collisionHitbox = new Circle(position.x, position.y, radius);
+        this.touchHitbox = new Circle(position.x, position.y, radius);
         if(type == 0)
             unitType = UnitType.ITEM_PICKER;
         else {
             unitType = UnitType.ITEM_PICKER_ON_CLICK;
             InputManager.get.register(this);
-            this.touchHitbox = new Circle(position.x, position.y, radius);
         }
         isPickingItem = false;
     }
@@ -74,13 +74,12 @@ public class ItemPickerOrbit extends Unit implements IInputHandler{
 
     }
 
-    public void switchActive(){
+    /*public void switchActive(){
         isActive = !isActive;
-
-    }
+    }*/
 
     public void switchActive(boolean b){
-        isActive = false;
+        isActive = b;
     }
 
     public void OnTouch(TouchData td) {

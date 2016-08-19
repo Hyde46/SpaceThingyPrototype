@@ -69,6 +69,7 @@ public class SpacePhysiX {
                 Vector2 pickingItemCoordinate = playerShip.getItemPickerOrbit().getPickedCoordinate();
                 for(Unit u : units){
                     if(u.getUnitType() == Unit.UnitType.PICKABLE_ITEM){
+
                         if( ((PickableItem)u).getTouchableHitbox().contains(pickingItemCoordinate)) {
                             ((PickableItem) u).pickUpItem(gs.getLevelState());
                         }
@@ -89,9 +90,11 @@ public class SpacePhysiX {
         for(Unit u : units){
             if(u.getUnitType() != Unit.UnitType.SPACE_SHIP && u.getUnitType() != Unit.UnitType.ITEM_PICKER){ //0 = playership
 
-                //ItemPicker
-                if(u.getUnitType() == Unit.UnitType.ITEM_PICKER && u.isActive() && playerShip.isItemPickerActive() && u.getUnitType() == Unit.UnitType.PICKABLE_ITEM){
+                //ItemPickerRadius
+                if(u.isActive() && playerShip.isItemPickerActiveRadius() && u.getUnitType() == Unit.UnitType.PICKABLE_ITEM){
+                    System.out.println("hier");
                     if((playerShip.getPickerCollisionHitbox()).overlaps((Circle)u.getCollisionHitbox())){
+                        System.out.println("hier nich");
                         ((PickableItem)u).pickUpItem(gs.getLevelState());
                     }
                 }

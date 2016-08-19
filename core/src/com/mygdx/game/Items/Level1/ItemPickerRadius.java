@@ -48,8 +48,9 @@ public class ItemPickerRadius extends Item
         name = "Item Picker";
         uses = 3;
         ItemManager.get.addUnitToManager(itemPickerOrbit);
-        player.setItemPickerOrbit(itemPickerOrbit);
+        player.setItemPickerOrbitRadius(itemPickerOrbit);
         pickerTime = maxPickTime;
+        itemPickerOrbit.switchActive(false);
     }
 
     @Override
@@ -86,7 +87,7 @@ public class ItemPickerRadius extends Item
             uses--;
         }else if(stateItem == StateItem.EFFECT){
 
-            itemPickerOrbit.switchActive();
+            itemPickerOrbit.switchActive(false);
             effectEndSuper();
         }
     }
@@ -97,13 +98,13 @@ public class ItemPickerRadius extends Item
         if(stateItem == StateItem.ACTIVATED){
             stateItem = StateItem.EFFECT;
             timeCooldown = maxCooldown;
-            itemPickerOrbit.switchActive();
+            itemPickerOrbit.switchActive(true);
         }
         if(stateItem == StateItem.EFFECT ){
             itemPickerOrbit.updatePosition(player.getPosition());
             pickerTime -= 1000*delta;
             if(pickerTime <= 0){
-                itemPickerOrbit.switchActive();
+                itemPickerOrbit.switchActive(false);
                 effectEndSuper();
             }
         }
@@ -128,8 +129,8 @@ public class ItemPickerRadius extends Item
         //Debug
         MyGdxGame.game.debugFont.draw(sB,"Pick Time: "+(int)pickerTime, (sideInHud *400)+350, 1800);
         MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown/100), (sideInHud *400)+350, 1750);
-        MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (sideInHud *400)+350, 1700);
-
+        //MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (sideInHud *400)+350, 1700);
+        MyGdxGame.game.debugFont.draw(sB,"Uses: "+itemPickerOrbit.isActive(), (sideInHud *400)+350, 1700);
     }
 
 }
