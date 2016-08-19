@@ -39,7 +39,7 @@ abstract public class PickableItem extends Unit{
                 pickableType == 2 ? CURRENCY_TYPE_TEXTURE_PATH : (
                         pickableType == 0 ? VISUAL_TYPE_TEXTURE_PATH : ITEM_TYPE_TEXTURE_PATH
                         ));
-        this.unitType = 2;
+        this.unitType = UnitType.PICKABLE_ITEM;
         isUI = false;
         hasBeenPickedUp = false;
         this.pickableType = pickableType;

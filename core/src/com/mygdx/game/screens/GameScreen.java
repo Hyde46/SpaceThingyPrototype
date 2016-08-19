@@ -22,6 +22,7 @@ import com.mygdx.game.managers.levels.LevelFactory;
 import com.mygdx.game.managers.levels.LevelState;
 import com.mygdx.game.prototypeUtils.CameraHelper;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
+import com.mygdx.game.renderAbleObjects.decorations.Decoration;
 import com.mygdx.game.renderAbleObjects.units.CurrencyPickable;
 import com.mygdx.game.renderAbleObjects.units.Planet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
@@ -265,7 +266,7 @@ public class GameScreen implements Screen{
         ((CurrencyPickable)item1).initialize(0,new Vector2(100,670),100);
         uM.addUnit(item1);
         Unit item2 = new CurrencyPickable();
-        ((CurrencyPickable)item2).initialize(0,new Vector2(300,670),200);
+        ((CurrencyPickable)item2).initialize(0,new Vector2(700,1720),200);
         uM.addUnit(item2);
 
         spX.initializePhysics(uM.getUnits(),this);
@@ -291,7 +292,7 @@ public class GameScreen implements Screen{
         levelBGColor[1] = 31.0f/255.0f;
         levelBGColor[2] = 39.0f/255.0f;
 
-        ItemManager.get.setItems(1,6);
+        ItemManager.get.setItems(0,1);
 
         System.out.println("Done!");
     }
@@ -398,7 +399,13 @@ public class GameScreen implements Screen{
     //////////////
     //Item Methods
     //////////////
+    public void addUnitToManager(Unit u){
+        uM.addUnit(u);
+    }
 
+    public void addDecoToManager(Decoration d){
+        uM.addDeco(d);
+    }
     public SpaceShip getPlayerShip(){
         return uM.getPlayerShip();
     }
