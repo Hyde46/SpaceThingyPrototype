@@ -17,13 +17,13 @@ public class ShopTabSell extends Decoration implements IInputHandler
 {
     private ScreenShop ss;
 
-    public void initialize(Vector2 position, int width, int height, String pathToTexture, ScreenShop ss){
+    public void initialize(Vector2 position, int width, int height, ScreenShop ss){
         initializePositions(position);
         this.ss = ss;
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
         this.spriteDimension = new Vector2(width, height);
-        this.setUI(true);
-        initializeTexture(spriteDimension, 0, pathToTexture);
+ //       this.setUI(true);
+        initializeTexture(spriteDimension, 0, "shop-tab-sell-225-150.png");
     }
 
     @Override

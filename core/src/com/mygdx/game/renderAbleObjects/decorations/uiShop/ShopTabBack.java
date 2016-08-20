@@ -6,36 +6,34 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.IInputHandler;
 import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.renderAbleObjects.decorations.Decoration;
+import com.mygdx.game.screens.MainMenuScreen;
+import com.mygdx.game.screens.MyGdxGame;
 import com.mygdx.game.screens.ScreenShop;
 
 /**
  * Created by ilost on 04.08.2016.
  */
 
-public class ShopTabBuy extends Decoration implements IInputHandler
+public class ShopTabBack extends Decoration implements IInputHandler
 {
-    private ScreenShop ss;
-
-    public void initialize(Vector2 position, int width, int height, ScreenShop ss){
+    public void initialize(Vector2 position, int width, int height){
         initializePositions(position);
-        this.ss = ss;
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
         this.spriteDimension = new Vector2(width, height);
  //       this.setUI(true);
-        initializeTexture(spriteDimension, 0, "shop-tab-buy-225-150.png");
+        initializeTexture(spriteDimension, 0, "shop-tab-back-225-150.png");
     }
 
     @Override
-    public void renderHitboxes(ShapeRenderer d) {
+    public void renderHitboxes(ShapeRenderer d)
+    {
 
     }
 
     @Override
     public void OnTouch(TouchData td)
     {
-        ss.toggleBuyMode();
-        System.out.println("pressed buy tab");
-        //MyGdxGame.game.openScreen(new MainMenuScreen());
+        MyGdxGame.game.openScreen(new MainMenuScreen());
     }
 
     @Override

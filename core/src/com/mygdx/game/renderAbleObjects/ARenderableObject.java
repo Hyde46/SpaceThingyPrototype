@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.InputManager.IInputListener;
 
 /**
  * Created by denis on 5/13/16.
@@ -38,6 +40,7 @@ public abstract class ARenderableObject
         isDebug = true;
         currentRotDrawingAngle = 0;
         isUI = false;
+        listeners = new Array<IInputListener>();
     }
 
     //lots of initialize methods will have a different header?
@@ -101,4 +104,22 @@ public abstract class ARenderableObject
     }
 
     public Sprite getSprite(){ return sprite; }
+
+
+    private Array<IInputListener> listeners;
+
+    public void registerListener(IInputListener listener)
+    {
+        listeners.add(listener);
+    }
+
+    public void notifyPress()
+    {
+        for(int i = 0; i < listeners.size; i++) listeners.get(i).OnPress();
+    }
+
+    public void notifyDrag()
+    {
+
+    }
 }

@@ -151,10 +151,11 @@ public class InputManager implements InputProcessor
         // das brauchen wir für UI elemente, auch mit swipe, so wies aussieht
         Vector3 posTouch = new Vector3(screenX,screenY,0);
 
-        System.out.println("touch " + posTouch);
-        System.out.println("touch unpro start" + cam.unproject(posTouch));
+ //       System.out.println("touch " + posTouch);
+ //       System.out.println("touch unpro start" + cam.unproject(posTouch));
 
-        Vector3 posUnproj = cam.unproject(posTouch);
+//        cam.unproject(posTouch);
+//        Vector3 posUnproj = cam.unproject(posTouch);
 
         //screenY = ((int)cam.viewportHeight) -screenY;
         Vector3 posTouchUnproj = new Vector3(screenX,screenY,0);
@@ -169,20 +170,30 @@ public class InputManager implements InputProcessor
 
             for (int i = 0; i < objsOfGroup.size; i++)
             {
-                ARenderableObject obj = objsOfGroup.get(i);
+                ARenderableObject obj = (ARenderableObject)objsOfGroup.get(i);
                 if (obj instanceof IInputHandler)
                 {
-                    //cam.unproject(posTouch);
-                    System.out.println("unpro inside " + cam.unproject(posTouch));
+                    cam.unproject(posTouch);
+       //             System.out.println("unpro inside " + cam.unproject(posTouch));
 
-                    if
-                    (
-                        (!obj.isUI() && (obj.getHitbox().contains(posTouch.x, posTouch.y))) ||
-                        (obj.isUI() && (obj.getHitbox().contains(posTouchUnproj.x, posTouchUnproj.y)))
-                    )
+                    if(!obj.isUI() && (obj.getHitbox().contains(posTouch.x, posTouch.y)))
                     {
                         objsHit.add((IInputHandler) obj);
                     }
+
+                    if(obj.isUI() && (obj.getHitbox().contains(posTouchUnproj.x, posTouchUnproj.y)))
+                    {
+                        objsHit.add((IInputHandler) obj);
+                    }
+
+//                    if
+//                    (
+//                        (!obj.isUI() && (obj.getHitbox().contains(posTouch.x, posTouch.y))) ||
+//                        (obj.isUI() && (obj.getHitbox().contains(posTouchUnproj.x, posTouchUnproj.y)))
+//                    )
+//                    {
+//                        objsHit.add((IInputHandler) obj);
+//                    }
 
                     posTouch.set(posTouchUnproj);
                 }
@@ -304,6 +315,11 @@ public class InputManager implements InputProcessor
         for(int i = 0; i < objsOrigin.size; i++)
         {
             objsOrigin.get(i).OnTouch(td);
+
+            if(objsOrigin.get(i) instanceof ARenderableObject)
+            {
+                ((ARenderableObject)objsOrigin.get(i)).notifyPress();
+            }
         }
     }
 
@@ -342,7 +358,6 @@ public class InputManager implements InputProcessor
             objsOrigin.get(i).OnSwipe(td);
         }
     }
-
     // unsused keyboard calls
     @Override public boolean keyDown(int keycode) { return false; }
     @Override public boolean keyUp(int keycode) { return false; }
