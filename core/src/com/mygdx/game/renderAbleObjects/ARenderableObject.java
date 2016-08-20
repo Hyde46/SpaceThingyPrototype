@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.IInputListener;
+import com.mygdx.game.InputManager.TouchData;
 
 /**
  * Created by denis on 5/13/16.
@@ -40,7 +41,6 @@ public abstract class ARenderableObject
         isDebug = true;
         currentRotDrawingAngle = 0;
         isUI = false;
-        listeners = new Array<IInputListener>();
     }
 
     //lots of initialize methods will have a different header?
@@ -105,21 +105,26 @@ public abstract class ARenderableObject
 
     public Sprite getSprite(){ return sprite; }
 
-
-    private Array<IInputListener> listeners;
-
-    public void registerListener(IInputListener listener)
+    public void dispose()
     {
-        listeners.add(listener);
+        //??
     }
 
-    public void notifyPress()
+    // prototype listener mechanic
+    // we can
+    public IInputListener listener;
+
+    public void setListener(IInputListener listener)
     {
-        for(int i = 0; i < listeners.size; i++) listeners.get(i).OnPress();
+        this.listener = listener;
     }
 
-    public void notifyDrag()
+    public boolean hasListener()
     {
+        return this.listener != null;
+    }
 
+    public IInputListener getListener() {
+        return listener;
     }
 }

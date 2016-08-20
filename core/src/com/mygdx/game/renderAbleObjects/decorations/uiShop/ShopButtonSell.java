@@ -13,50 +13,22 @@ import com.mygdx.game.screens.ScreenShop;
  * Created by ilost on 04.08.2016.
  */
 
-public class ShopButtonSell extends Decoration implements IInputHandler
+public class ShopButtonSell extends Decoration
 {
     private ScreenShop ss;
-    private int levelShop;
     private int idItem;
 
-    public void initialize(Vector2 position, int width, int height, String pathToTexture, int levelShop, int idItem, ScreenShop ss){
+    public void initialize(Vector2 position, int width, int height, int idItem, ScreenShop ss){
         initializePositions(position);
         this.ss = ss;
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
         this.spriteDimension = new Vector2(width, height);
-        this.levelShop = levelShop;
         this.idItem = idItem;
-        initializeTexture(spriteDimension, 0, pathToTexture);
+        initializeTexture(spriteDimension, 0, "shop-panel-sell-207-100.png");
     }
 
     @Override
     public void renderHitboxes(ShapeRenderer d) {
-
-    }
-
-    @Override
-    public void OnTouch(TouchData td)
-    {
-        ss.sellItem(idItem);
-    }
-
-    @Override
-    public void OnRelease(TouchData td) {
-
-    }
-
-    @Override
-    public void OnDrag(TouchData td) {
-
-    }
-
-    @Override
-    public void OnHold(TouchData td) {
-
-    }
-
-    @Override
-    public void OnSwipe(TouchData td) {
 
     }
 }

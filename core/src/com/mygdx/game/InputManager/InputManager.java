@@ -119,14 +119,14 @@ public class InputManager implements InputProcessor
         }
         else
         {
-            if(!objects.get(name).contains(obj, false))
+            if(!objects.get(name).contains(obj, true))
                 objects.get(name).add(obj);
         }
     }
 
     private void unRegisterIntern(String name, ARenderableObject obj)
     {
-        if(objects.get(name).contains(obj,false)) objects.get(name).removeValue(obj, false);
+        if(objects.get(name).contains(obj,false)) objects.get(name).removeValue(obj, true);
         if(objects.get(name).size == 0) objects.remove(name);
     }
 
@@ -148,55 +148,38 @@ public class InputManager implements InputProcessor
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
-        // das brauchen wir für UI elemente, auch mit swipe, so wies aussieht
         Vector3 posTouch = new Vector3(screenX,screenY,0);
 
- //       System.out.println("touch " + posTouch);
- //       System.out.println("touch unpro start" + cam.unproject(posTouch));
-
-//        cam.unproject(posTouch);
-//        Vector3 posUnproj = cam.unproject(posTouch);
+        cam.unproject(posTouch);
+        Vector3 posUnproj = cam.unproject(posTouch);
 
         //screenY = ((int)cam.viewportHeight) -screenY;
         Vector3 posTouchUnproj = new Vector3(screenX,screenY,0);
         //cam.unproject(posTouch);
 
-        Array<IInputHandler> objsHit = new Array<IInputHandler>();
+        Array<ARenderableObject> objsHit = new Array<ARenderableObject>();
 
         ArrayList<String> keys = new ArrayList<String>(objects.keySet());
         for (int idxGroup = 0; idxGroup < keys.size(); idxGroup++)
         {
             Array<ARenderableObject> objsOfGroup = getObjectsGroup(keys.get(idxGroup));
-
             for (int i = 0; i < objsOfGroup.size; i++)
             {
-                ARenderableObject obj = (ARenderableObject)objsOfGroup.get(i);
-                if (obj instanceof IInputHandler)
+                ARenderableObject obj = objsOfGroup.get(i);
+                cam.unproject(posTouch);
+
+                if(!obj.isUI() && (obj.getHitbox().contains(posTouch.x, posTouch.y)))
                 {
-                    cam.unproject(posTouch);
-       //             System.out.println("unpro inside " + cam.unproject(posTouch));
-
-                    if(!obj.isUI() && (obj.getHitbox().contains(posTouch.x, posTouch.y)))
-                    {
-                        objsHit.add((IInputHandler) obj);
-                    }
-
-                    if(obj.isUI() && (obj.getHitbox().contains(posTouchUnproj.x, posTouchUnproj.y)))
-                    {
-                        objsHit.add((IInputHandler) obj);
-                    }
-
-//                    if
-//                    (
-//                        (!obj.isUI() && (obj.getHitbox().contains(posTouch.x, posTouch.y))) ||
-//                        (obj.isUI() && (obj.getHitbox().contains(posTouchUnproj.x, posTouchUnproj.y)))
-//                    )
-//                    {
-//                        objsHit.add((IInputHandler) obj);
-//                    }
-
-                    posTouch.set(posTouchUnproj);
+                    if(obj.listener != null) System.out.println("GOT THE LISTENER");
+                    objsHit.add(obj);
                 }
+                else if(obj.isUI() && (obj.getHitbox().contains(posTouchUnproj.x, posTouchUnproj.y)))
+                {
+                    objsHit.add(obj);
+                }
+                posTouch.set(posTouchUnproj);
+
+                //System.out.println("group: " + keys.get(idxGroup) + " obj: " + obj.getPosition().x + " " + ((obj.hasListener())? "has listener" : ""));
             }
         }
 
@@ -224,6 +207,16 @@ public class InputManager implements InputProcessor
         touchData.put(pointer, td);
         notifyObjectsTouchAnywhere(td);
         notifyObjectsTouch(td);
+
+        //
+
+        System.out.println("SIZE" + objsHit.size);
+        for (int i = 0; i < objsHit.size; i++) {
+
+            System.out.println("has origin" + objsHit.get(i).getPosition().x);
+            if(objsHit.get(i).listener != null) System.out.println("hello im still here listener 22");
+        }
+        //
 
         return true;
     }
@@ -311,51 +304,66 @@ public class InputManager implements InputProcessor
 
     private void notifyObjectsTouch(TouchData td)
     {
-        Array<IInputHandler> objsOrigin = td.getObjsOrigin();
+        Array<ARenderableObject> objsOrigin = td.getObjsOrigin();
         for(int i = 0; i < objsOrigin.size; i++)
         {
-            objsOrigin.get(i).OnTouch(td);
-
-            if(objsOrigin.get(i) instanceof ARenderableObject)
+            if(objsOrigin.get(i).hasListener())
             {
-                ((ARenderableObject)objsOrigin.get(i)).notifyPress();
+                objsOrigin.get(i).getListener().OnTouch(td);
+            }
+
+            if(objsOrigin.get(i) instanceof IInputHandler)
+            {
+                ((IInputHandler)objsOrigin.get(i)).OnTouch(td);
             }
         }
     }
 
     private void notifyObjectsRelease(TouchData td)
     {
-        Array<IInputHandler> objsOrigin = td.getObjsOrigin();
+        Array<ARenderableObject> objsOrigin = td.getObjsOrigin();
         for(int i = 0; i < objsOrigin.size; i++)
         {
-            objsOrigin.get(i).OnRelease(td);
+            if(objsOrigin.get(i) instanceof IInputHandler)
+            {
+                ((IInputHandler)objsOrigin.get(i)).OnRelease(td);
+            }
         }
     }
 
     private void notifyObjectsDrag(TouchData td)
     {
-        Array<IInputHandler> objsOrigin = td.getObjsOrigin();
+        Array<ARenderableObject> objsOrigin = td.getObjsOrigin();
         for(int i = 0; i < objsOrigin.size; i++)
         {
-            objsOrigin.get(i).OnDrag(td);
+            if(objsOrigin.get(i) instanceof IInputHandler)
+            {
+                ((IInputHandler)objsOrigin.get(i)).OnDrag(td);
+            }
         }
     }
 
     private void notifyObjectsHold(TouchData td)
     {
-        Array<IInputHandler> objsOrigin = td.getObjsOrigin();
+        Array<ARenderableObject> objsOrigin = td.getObjsOrigin();
         for(int i = 0; i < objsOrigin.size; i++)
         {
-            objsOrigin.get(i).OnHold(td);
+            if(objsOrigin.get(i) instanceof IInputHandler)
+            {
+                ((IInputHandler)objsOrigin.get(i)).OnHold(td);
+            }
         }
     }
 
     private void notifyObjectsSwipe(TouchData td)
     {
-        Array<IInputHandler> objsOrigin = td.getObjsOrigin();
+        Array<ARenderableObject> objsOrigin = td.getObjsOrigin();
         for(int i = 0; i < objsOrigin.size; i++)
         {
-            objsOrigin.get(i).OnSwipe(td);
+            if(objsOrigin.get(i) instanceof IInputHandler)
+            {
+                ((IInputHandler)objsOrigin.get(i)).OnSwipe(td);
+            }
         }
     }
     // unsused keyboard calls

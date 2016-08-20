@@ -13,7 +13,7 @@ import com.mygdx.game.screens.ScreenShop;
  * Created by ilost on 04.08.2016.
  */
 
-public class ShopTabSell extends Decoration implements IInputHandler
+public class ShopTabSell extends Decoration
 {
     private ScreenShop ss;
 
@@ -27,35 +27,7 @@ public class ShopTabSell extends Decoration implements IInputHandler
     }
 
     @Override
-    public void renderHitboxes(ShapeRenderer d)
-    {
-
-    }
-
-    @Override
-    public void OnTouch(TouchData td) {
-        // TODO
-        System.out.println("pressed sell tab");
-        ss.toggleBuyMode();
-    }
-
-    @Override
-    public void OnRelease(TouchData td) {
-
-    }
-
-    @Override
-    public void OnDrag(TouchData td) {
-
-    }
-
-    @Override
-    public void OnHold(TouchData td) {
-
-    }
-
-    @Override
-    public void OnSwipe(TouchData td) {
+    public void renderHitboxes(ShapeRenderer d) {
 
     }
 }
