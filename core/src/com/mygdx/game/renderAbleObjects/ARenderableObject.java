@@ -107,7 +107,8 @@ public abstract class ARenderableObject
 
     public void dispose()
     {
-        //??
+        sprite.getTexture().dispose();
+        sprite = null;
     }
 
     // prototype listener mechanic
