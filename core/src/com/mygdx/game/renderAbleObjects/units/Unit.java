@@ -14,14 +14,15 @@ public abstract class Unit extends AUpdateableObject {
 
     private static int UID = 0;
 
-    protected int unitType;
+    protected Unit.UnitType unitType;
     /*
     0 - SpaceShip
     1 - Planet
     2 - Pickable Item
-    3 -
-    4 -
+    3 - ItemPicker
      */
+
+    public enum UnitType {SPACE_SHIP, PLANET, PICKABLE_ITEM, ITEM_PICKER, ITEM_PICKER_ON_CLICK};
 
     private int unitID;
     protected Vector2 deltaMovement;
@@ -65,7 +66,7 @@ public abstract class Unit extends AUpdateableObject {
     public int getUnitID(){
         return unitID;
     }
-    public int getUnitType(){ return unitType; }
+    public UnitType getUnitType(){ return unitType; }
 
     public Vector2 getDeltaMovement(){
         return deltaMovement;

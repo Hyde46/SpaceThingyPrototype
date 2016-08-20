@@ -10,7 +10,7 @@ import com.mygdx.game.managers.levels.LevelState;
  */
 abstract public class PickableItem extends Unit{
 
-    private final static float PICKABLE_ITEM_RADIUS = 32.0f;
+    protected final static float PICKABLE_ITEM_RADIUS = 32.0f;
     private final static String VISUAL_TYPE_TEXTURE_PATH = "VisualPickable64x64.png";
     private final static String ITEM_TYPE_TEXTURE_PATH = "ItemPickable64x64.png";
     private final static String CURRENCY_TYPE_TEXTURE_PATH = "CurrencyPickable64x64.png";
@@ -19,6 +19,7 @@ abstract public class PickableItem extends Unit{
 
     private boolean hasBeenPickedUp;
 
+    private Circle touchableHitbox;
     /*
     0 - Visual Type
     1 - ship upgrade
@@ -39,10 +40,12 @@ abstract public class PickableItem extends Unit{
                 pickableType == 2 ? CURRENCY_TYPE_TEXTURE_PATH : (
                         pickableType == 0 ? VISUAL_TYPE_TEXTURE_PATH : ITEM_TYPE_TEXTURE_PATH
                         ));
-        this.unitType = 2;
+        this.unitType = UnitType.PICKABLE_ITEM;
         isUI = false;
         hasBeenPickedUp = false;
         this.pickableType = pickableType;
+
+        touchableHitbox = new Circle(pos.x, pos.y,2.5f*PICKABLE_ITEM_RADIUS);
     }
 
     public void pickUpItem(LevelState levelState) {
@@ -67,4 +70,10 @@ abstract public class PickableItem extends Unit{
     public void renderHitboxes(ShapeRenderer d) {
         return;
     }
+
+    public Circle getTouchableHitbox(){
+         return touchableHitbox;
+    }
+
+
 }

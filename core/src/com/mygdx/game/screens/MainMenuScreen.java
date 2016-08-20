@@ -168,6 +168,10 @@ public class MainMenuScreen implements Screen {
         cameraManager.update(delta);
         //render LevelGraph, which in turn renders LevelBeacons
         levelGraph.renderBeacons(game.batch);
+        //render infos above beacons
+        if(ship.getInOrbit()){
+            levelGraph.renderInfos(game.batch);
+        }
         //render ship
         ship.render(game.batch);
         game.batch.end();

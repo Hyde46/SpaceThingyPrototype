@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.renderAbleObjects.Animation;
+import com.mygdx.game.renderAbleObjects.decorations.ItemPickerOrbit;
 import com.mygdx.game.utils.SpaceMath;
 import com.mygdx.game.utils.SpacePhysiX;
 
@@ -36,13 +37,12 @@ public class SpaceShip extends Unit {
 
     public SpaceShip(){
         super();
-        unitType = 0;
         deltaMovement = new Vector2();
         isPhasedOut = false;
     }
 
     public void initialize(Vector2 position,Vector2 deltaMovement,Planet connectedPlanet, float currentOrbitRadius, Vector2 spriteDimensions, String texturePath, int spriteId){
-        unitType = 0;
+        unitType = UnitType.SPACE_SHIP;
         isCollided = false;
         isLost = false;
         hasReachedGoal = false;
@@ -69,6 +69,8 @@ public class SpaceShip extends Unit {
 
         deathAnimation = new Animation();
         deathAnimation.setAnimation(9,0.06f,new Vector2(64,64),false,"player_death_f",this);
+
+        isItemPickerActive = false;
 
     }
 
@@ -224,7 +226,12 @@ public class SpaceShip extends Unit {
 
     public boolean isPhasedOut(){ return isPhasedOut; }
 
-    //METHODS FOR ITEMS
+    //ITEM Stuff
+    private boolean isItemPickerActive;
+    private ItemPickerOrbit itemPickerOrbit;
+    private boolean isItemPickerActiveRadius;
+    private ItemPickerOrbit itemPickerOrbitRadius;
+
     public void boost(float boostScl,float delta){
         float scaledBoost = 1.0f+boostScl*delta;
         rotationSpeed = rotationSpeed * scaledBoost;
@@ -240,4 +247,27 @@ public class SpaceShip extends Unit {
     }
 
 
+    public boolean isItemPickerActive(){
+        return itemPickerOrbit != null ? itemPickerOrbit.isActive() : false;
+    }
+    public boolean isItemPickerActiveRadius(){
+        return itemPickerOrbitRadius != null ? itemPickerOrbitRadius.isActive() : false;
+    }
+
+    public Circle getPickerCollisionHitbox(){
+        return (Circle)(itemPickerOrbitRadius.getCollisionHitbox());
+    }
+
+    public ItemPickerOrbit getItemPickerOrbit(){
+        return itemPickerOrbit;
+    }
+
+    public void setItemPickerOrbit(ItemPickerOrbit itemPickerOrbit){
+        this.itemPickerOrbit = itemPickerOrbit;
+        isItemPickerActive = true;
+    }
+    public void setItemPickerOrbitRadius(ItemPickerOrbit itemPickerOrbit){
+        this.itemPickerOrbitRadius = itemPickerOrbit;
+        isItemPickerActiveRadius = true;
+    }
 }

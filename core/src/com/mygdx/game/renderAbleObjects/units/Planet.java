@@ -37,7 +37,7 @@ public class Planet extends Unit implements IInputHandler {
 
     public void initialize(Vector2 pos, float orbitRadius, float planetRadius,
                            boolean isGoalPlanet, String texturePath, int spriteId, float initialRotation, float gravity) {
-        unitType = 1;
+        unitType = UnitType.PLANET;
         this.orbitRadius = orbitRadius;
         this.planetRadius = planetRadius;
         this.isGoalPlanet = isGoalPlanet;
@@ -174,4 +174,13 @@ public class Planet extends Unit implements IInputHandler {
     public float getGravity(){
         return gravity;
     }
+
+
+    public void dispose(){
+        sprite.getTexture().dispose();
+        sprite = null;
+        orbitSprite.getTexture().dispose();
+        orbitSprite = null;
+    }
+
 }

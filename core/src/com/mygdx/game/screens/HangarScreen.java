@@ -5,10 +5,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.InputManager;
-import com.mygdx.game.Items.Item;
+import com.mygdx.game.dataPersistence.DataPers;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.prototypeUtils.CameraHelper;
@@ -16,8 +15,13 @@ import com.mygdx.game.renderAbleObjects.decorations.ArrowButton;
 import com.mygdx.game.renderAbleObjects.decorations.EquipButton;
 import com.mygdx.game.renderAbleObjects.decorations.InfoButton;
 
+import com.mygdx.game.renderAbleObjects.decorations.ReturnToMenuButton;
+import com.mygdx.game.renderAbleObjects.decorations.SkinSlot;
 import com.mygdx.game.renderAbleObjects.decorations.Slot;
+import com.mygdx.game.renderAbleObjects.decorations.SlotIcon;
 import com.mygdx.game.renderAbleObjects.decorations.uiItemDisplay.ItemDisplayImage;
+
+import java.util.ArrayList;
 
 /**
  * Created by Vali on 10.07.2016.
@@ -29,16 +33,23 @@ public class HangarScreen implements Screen {
     private Array<ItemDisplayImage> itemIcons;
     private Array<EquipButton> equipButtons;
     private Array<InfoButton> infoButtons;
-    private Array<Slot> skinSlots;
+    private Array<SkinSlot> skinSlots;
     private ArrowButton skinArrowUp;
     private ArrowButton skinArrowDown;
     private Array<Slot> particleSlots;
     private ArrowButton particlesArrowUp;
     private ArrowButton particlesArrowDown;
+    private ItemDisplayImage popUp;
+    private ItemDisplayImage selectedSlot1;
+    private ItemDisplayImage selectedSlot2;
+    private boolean showPopUp;
+    private SlotIcon slot1;
+    private SlotIcon slot2;
+    private ReturnToMenuButton returnButton;
     // private Array<Slot> itemSlots;
     private ParallaxBackgroundManager backgroundManager;
-    private ScrollPane scrollPane;
-    private int currentId;
+    private int currentOrderId;
+    private int currentItemId;
     private int currentSkin;
     private int currentParticles;
     public static OrthographicCamera camFixed;
@@ -47,6 +58,10 @@ public class HangarScreen implements Screen {
     CameraManager cameraManager;
 
     public HangarScreen(){
+        System.out.println("Slot 1: " + DataPers.dataH().getSlot1());
+        System.out.println("Slot 2: " + DataPers.dataH().getSlot2());
+
+
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080,1920);
         camFixed = new OrthographicCamera();
@@ -56,18 +71,33 @@ public class HangarScreen implements Screen {
         backgroundManager = new ParallaxBackgroundManager();
         backgroundManager.setLayers(2, false);
 
+        //create pop up functionality
+        popUp = new ItemDisplayImage();
+        //we want to center it on screen
+        popUp.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 400, MyGdxGame.game.screenHeight / 2 - 400), 800, 800, "hangar_pop_up.png");
+
+        slot1 = new SlotIcon();
+        slot1.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 350, MyGdxGame.game.screenHeight / 2 - 150), 300, 300, "slot1_icon.png", 1);
+        slot2 = new SlotIcon();
+        slot2.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 + 50, MyGdxGame.game.screenHeight / 2 - 150), 300, 300, "slot2_icon.png", 2);
+        InputManager.get.register(slot2);
+        InputManager.get.register(slot1);
+
+        showPopUp = false;
         //create skin functionality
-        Slot skinSlot1 = new Slot();
-        skinSlot1.initialize(new Vector2(100, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_skin.png");
+        ArrayList<Integer> skinsInPossession = DataPers.dataP().getIdsSkinsPlayer();
+        skinSlots = new Array<SkinSlot>();
+        for(Integer skinId : skinsInPossession){
+            SkinSlot skinSlot = new SkinSlot();
+            if(skinId == 1 || skinId == 2 || skinId == 3){
+                skinSlot.initialize(new Vector2(100, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_skin" + skinId + ".png", skinId);
+            }else{
+                skinSlot.initialize(new Vector2(100, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_skin.png", skinId);
+            }
+            skinSlots.add(skinSlot);
+        }
 
-        Slot skinSlot2 = new Slot();
-        skinSlot2.initialize(new Vector2(100, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_skin2.png");
 
-        Slot skinSlot3 = new Slot();
-        skinSlot3.initialize(new Vector2(100, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_skin3.png");
-
-        skinSlots = new Array<Slot>();
-        skinSlots.addAll(skinSlot1, skinSlot2, skinSlot3);
         currentSkin = 0;
         skinArrowUp = new ArrowButton();
         skinArrowUp.initialize(new Vector2(200, MyGdxGame.game.screenHeight - 200), 200, 200, "arrow_up.png", true, true);    //true for up, true for skin
@@ -97,26 +127,51 @@ public class HangarScreen implements Screen {
         InputManager.get.register(particlesArrowDown);
 
 
-        int numberOfItems = 12;
+        //show the selected items
+        selectedSlot1 = new ItemDisplayImage();
+        if(DataPers.dataH().getSlot1() == 2 || DataPers.dataH().getSlot1() == 4 || DataPers.dataH().getSlot1() == 9 || DataPers.dataH().getSlot1() == 12){
+            selectedSlot1.initialize(new Vector2(200, 800), 200, 200, "item" + DataPers.dataH().getSlot1() + "_icon.png");
+        }else{
+            selectedSlot1.initialize(new Vector2(200, 800), 200, 200, "item_icon.png");
+        }
+        selectedSlot2 = new ItemDisplayImage();
+        if(DataPers.dataH().getSlot2() == 2 || DataPers.dataH().getSlot2() == 4 || DataPers.dataH().getSlot2() == 9 || DataPers.dataH().getSlot2() == 12){
+            selectedSlot2.initialize(new Vector2(MyGdxGame.game.screenWidth - 400, 800), 200, 200, "item" + DataPers.dataH().getSlot2() + "_icon.png");
+        }else{
+            selectedSlot2.initialize(new Vector2(MyGdxGame.game.screenWidth - 400, 800), 200, 200, "item_icon.png");
+        }
+
         //add all of the item slots to array
         itemSlots = new Array<Slot>();
         equipButtons = new Array<EquipButton>();
         infoButtons = new Array<InfoButton>();
         itemIcons = new Array<ItemDisplayImage>();
+        ArrayList<Integer> itemsInPossession = DataPers.dataP().idsItemsPlayer;
 
         int width = MyGdxGame.game.screenWidth - 200;
-        int posY = 800;
-        for(int i = 0; i < numberOfItems; i++){
+        int posY = 500;
+        boolean isEquipped;
+        String path;
+        for(int i = 0; i < itemsInPossession.size(); i++){
             Slot slot = new Slot();
-            //intialize item slot
+            //initialize item slot
             slot.initialize(new Vector2(100, posY), width, 200, "item_slot.png");
             ItemDisplayImage itemIcon = new ItemDisplayImage();
-            itemIcon.initialize(new Vector2(120, posY), 200, 200, "item_image.png");
+            if(itemsInPossession.get(i) == 2 || itemsInPossession.get(i) == 4 || itemsInPossession.get(i) == 9 || itemsInPossession.get(i) == 12){
+                itemIcon.initialize(new Vector2(120, posY), 200, 200, "item" + itemsInPossession.get(i) + "_icon.png");
+            }else{
+                itemIcon.initialize(new Vector2(120, posY), 200, 200, "item_icon.png");
+            }
             EquipButton equipButton = new EquipButton();
-            equipButton.initialize(new Vector2(width - 200, posY), 250, 200, "equip_button.png", i);
+            //check if this item is equipped (in one of the two slots)
+            isEquipped = DataPers.dataH().getSlot1() == itemsInPossession.get(i) || DataPers.dataH().getSlot2() == itemsInPossession.get(i);
+            //depending on whether it is equipped we have different textures
+            path = isEquipped ? "unequip_button.png" : "equip_button.png";
+            System.out.println("Item id: " + itemsInPossession.get(i) + ", is equipped: " + isEquipped);
+            equipButton.initialize(new Vector2(width - 200, posY), 250, 200, path, i, itemsInPossession.get(i), isEquipped);
             InputManager.get.register(equipButton);
             InfoButton infoButton = new InfoButton();
-            infoButton.initialize(new Vector2(width - 500, posY), 250, 200, "info_button.png", i, 4);
+            infoButton.initialize(new Vector2(width - 500, posY), 250, 200, "info_button.png", i, itemsInPossession.get(i), 4);
             InputManager.get.register(infoButton);
             posY -= 200;
             itemSlots.add(slot);
@@ -125,13 +180,18 @@ public class HangarScreen implements Screen {
             infoButtons.add(infoButton);
         }
 
-        currentId = -1;
+        returnButton = new ReturnToMenuButton();
+        returnButton.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 200, posY - 100), 400, 200, "return_button.png");
+        InputManager.get.register(returnButton);
+
+        currentOrderId = -1;
         cameraManager = new CameraManager();
         cameraHelper = new CameraHelper();
         cameraManager.setCam(cam);
         cameraManager.addPBM(backgroundManager);
         cameraHelper.setCameraManager(cameraManager, null, 4);
         InputManager.get.register(cameraHelper);
+
 
     }
 
@@ -166,7 +226,19 @@ public class HangarScreen implements Screen {
         particleSlots.get(currentParticles).render(game.batch);
         particlesArrowUp.render(game.batch);
         particlesArrowDown.render(game.batch);
+        selectedSlot1.render(game.batch);
+        selectedSlot2.render(game.batch);
+        returnButton.render(game.batch);
+
         game.batch.end();
+        game.uiBatch.setProjectionMatrix(camFixed.combined);
+        game.uiBatch.begin();
+        if(showPopUp){
+            popUp.render(game.uiBatch);
+            slot1.render(game.uiBatch);
+            slot2.render(game.uiBatch);
+        }
+        game.uiBatch.end();
         camFixed.update();
         update(delta);
     }
@@ -179,6 +251,19 @@ public class HangarScreen implements Screen {
         InputManager.get.update(delta);
     }
 
+
+    /**
+     * saving the selected items to persistent data
+     */
+    public void saveSettings(){
+        //save items
+        DataPers.dataH().setSlot1(slot1.getItemId());
+        DataPers.dataH().setSlot2(slot2.getItemId());
+        //get the skin id of the skin that is currently showing
+        DataPers.dataH().setCurrentSkin(skinSlots.get(currentSkin).getSkinId());
+        DataPers.saveH();
+        System.out.println("Settings saved... current skin: " + DataPers.dataH().getCurrentSkin());
+    }
     /**
      * getter for item slots
      * @return
@@ -191,16 +276,32 @@ public class HangarScreen implements Screen {
      * getter for previous id
      * @return
      */
-    public int getCurrentId(){
-        return currentId;
+    public int getCurrentOrderId(){
+        return currentOrderId;
     }
 
     /**
      * setter for previous id
      * @param id
      */
-    public void setCurrentId(int id){
-        this.currentId = id;
+    public void setCurrentOrderId(int id){
+        this.currentOrderId = id;
+    }
+
+    /**
+     * getter for the item id that was just chosen
+     * @return item id
+     */
+    public int getCurrentItemId() {
+        return currentItemId;
+    }
+
+    /**
+     * setter for the item id that was just chosen
+     * @param currentItemId
+     */
+    public void setCurrentItemId(int currentItemId) {
+        this.currentItemId = currentItemId;
     }
 
     /**
@@ -250,8 +351,74 @@ public class HangarScreen implements Screen {
     public int getNumberParticles(){
         return particleSlots.size;
     }
+
+
+    /**
+     * getter for selected slot 1, used in SlotIcon
+     * @return selected slot1
+     */
+    public ItemDisplayImage getSelectedSlot1(){
+        return selectedSlot1;
+    }
+
+    /**
+     * getter for selected slot 2, used in SlotIcon
+     * @return selected slot 2
+     */
+    public ItemDisplayImage getSelectedSlot2() {
+        return selectedSlot2;
+    }
+
+
+    public SlotIcon getSlot1() {
+        return slot1;
+    }
+
+    public SlotIcon getSlot2() {
+        return slot2;
+    }
+
+    /**
+     * getter for equip buttons, used in SlotIcon
+     * @return
+     */
+    public Array<EquipButton> getEquipButtons() {
+        return equipButtons;
+    }
+
+    /**
+     * setter for boolean, if pop up should be shown -> used in equip button class
+     * @param show
+     */
+    public void setShowPopUp(boolean show){
+        this.showPopUp = show;
+    }
+
+    /**
+     * getter for if pop up is shown right now, used in Equipbutton, Arrow etc
+     * @return showPopUp
+     */
+    public boolean getShowPopUp(){
+        return showPopUp;
+    }
+
     @Override
     public void dispose()    {
+        itemSlots.clear();
+        itemIcons.clear();
+        equipButtons.clear();
+        infoButtons.clear();
+        skinSlots.clear();
+        skinArrowUp = null;
+        skinArrowDown = null;
+        particleSlots.clear();
+        particlesArrowDown = null;
+        particlesArrowUp = null;
+        popUp = null;
+        slot1 = null;
+        slot2 = null;
+        backgroundManager = null;
+        InputManager.get.clearAll();
 
     }
     @Override

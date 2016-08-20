@@ -23,9 +23,9 @@ public class SpacePhysiX {
 
     private GameScreen gs;
 
-    //tune this down, if the game lags too much
-    private final static int PHYSIC_TICKS = 20;
-    private final static float DOTPRODUCT_BOUNDARIES = 30.0f;
+    //tune this down, if the game starts running slower
+    private final static int PHYSIC_TICKS = 70;
+    private final static float DOT_PRODUCT_BOUNDARIES = 30.0f;
 
     public final static float PI = 3.141592653f;
 
@@ -36,7 +36,7 @@ public class SpacePhysiX {
         this.gs = gs;
         this.units = units;
         for(Unit u : units){
-            if(u.getUnitType() == 0)
+            if(u.getUnitType() == Unit.UnitType.SPACE_SHIP)
                 playerShip = (SpaceShip)u;
         }
     }
@@ -48,6 +48,8 @@ public class SpacePhysiX {
     public void update(float delta) {
         //update all target locations of units, what they want to do
         updateUnits(delta);
+
+        resolveItemLogic(delta);
         //resolve all collisions
         resolveCollisions();
         //check if player in worldbounds.
@@ -60,6 +62,24 @@ public class SpacePhysiX {
         resolveFinishLogic();
     }
 
+    private void resolveItemLogic(float delta){
+        //ItemPicker Target
+        if(playerShip.isItemPickerActive()){
+            if(playerShip.getItemPickerOrbit().isPickingItem()) {
+                Vector2 pickingItemCoordinate = playerShip.getItemPickerOrbit().getPickedCoordinate();
+                for(Unit u : units){
+                    if(u.getUnitType() == Unit.UnitType.PICKABLE_ITEM){
+
+                        if( ((PickableItem)u).getTouchableHitbox().contains(pickingItemCoordinate)) {
+                            ((PickableItem) u).pickUpItem(gs.getLevelState());
+                        }
+                    }
+                    playerShip.getItemPickerOrbit().resetIsPickingItem();
+                }
+            }
+        }
+    }
+
     private void updateUnits(float delta) {
         for(Unit u : units){
             u.update(delta);
@@ -68,17 +88,26 @@ public class SpacePhysiX {
 
     private void resolveCollisions() {
         for(Unit u : units){
-            if(u.getUnitType() != 0){ //0 = playership
-                //player crashes into planet
-                if(((Circle)u.getCollisionHitbox()).overlaps(playerShip.getTargetHitbox()) && !playerShip.isPhasedOut() && u.isActive()){
-                    if(u.getUnitType() != 2) { // if not colliding with an item
-                        playerShip.collide();
-                    }else{
+            if(u.getUnitType() != Unit.UnitType.SPACE_SHIP && u.getUnitType() != Unit.UnitType.ITEM_PICKER){ //0 = playership
+
+                //ItemPickerRadius
+                if(u.isActive() && playerShip.isItemPickerActiveRadius() && u.getUnitType() == Unit.UnitType.PICKABLE_ITEM){
+                    System.out.println("hier");
+                    if((playerShip.getPickerCollisionHitbox()).overlaps((Circle)u.getCollisionHitbox())){
+                        System.out.println("hier nich");
                         ((PickableItem)u).pickUpItem(gs.getLevelState());
-                        //logic to add the picked up item to the players inventory
-                        // [...]
                     }
                 }
+                //player crashes into planet
+                if(((Circle)u.getCollisionHitbox()).overlaps(playerShip.getTargetHitbox()) && !playerShip.isPhasedOut() && u.isActive()){
+                    if(u.getUnitType() == Unit.UnitType.PLANET  ) { // if not colliding with an item
+                        playerShip.collide();
+                    }else if(u.getUnitType() == Unit.UnitType.PICKABLE_ITEM){
+                        ((PickableItem)u).pickUpItem(gs.getLevelState());
+
+                    }
+                }
+
             }
         }
     }
@@ -94,7 +123,7 @@ public class SpacePhysiX {
             if (!playerShip.isInOrbit() && !playerShip.isCollided() && !playerShip.isPhasedOut()) {
                 for (Unit u : units) {
                     //resolve planet collision
-                    if (u.getUnitType() == 1) { // 0 = SpaceShip
+                    if (u.getUnitType() == Unit.UnitType.PLANET) {
                         //if player is in range, check if he should dock
                         if (playerShip.getPosition().cpy().sub(u.getPosition()).len() <= ((Planet) u).getOrbitRadius()) { // u = moveableobject
                             Vector2 v = u.getPosition().cpy();
@@ -119,7 +148,7 @@ public class SpacePhysiX {
         for(int i = 0; i <= ticks; i++){
             Vector2 tickpos = startPosition.cpy().add(deltaPosition.cpy().scl((float)i/(float)ticks));
             Vector2 vts = planetPos.cpy().sub(tickpos);
-            if (vts.dot(playerShip.getDeltaMovement().cpy().scl(0.1f)) <= DOTPRODUCT_BOUNDARIES && vts.dot(playerShip.getDeltaMovement().cpy().scl(0.1f)) >= -DOTPRODUCT_BOUNDARIES) {
+            if (vts.dot(playerShip.getDeltaMovement().cpy().scl(0.1f)) <= DOT_PRODUCT_BOUNDARIES && vts.dot(playerShip.getDeltaMovement().cpy().scl(0.1f)) >= -DOT_PRODUCT_BOUNDARIES) {
                 vecToShip.set(vts.cpy());
                 return true;
             }

@@ -22,6 +22,7 @@ import com.mygdx.game.managers.levels.LevelFactory;
 import com.mygdx.game.managers.levels.LevelState;
 import com.mygdx.game.prototypeUtils.CameraHelper;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
+import com.mygdx.game.renderAbleObjects.decorations.Decoration;
 import com.mygdx.game.renderAbleObjects.units.CurrencyPickable;
 import com.mygdx.game.renderAbleObjects.units.Planet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
@@ -261,11 +262,13 @@ public class GameScreen implements Screen{
         uM.addUnit(p12);
         uM.addUnit(playerShip);
 
+        /*
         Unit item1 = new CurrencyPickable();
         ((CurrencyPickable)item1).initialize(0,new Vector2(100,670),100);
         uM.addUnit(item1);
+            */
         Unit item2 = new CurrencyPickable();
-        ((CurrencyPickable)item2).initialize(0,new Vector2(300,670),200);
+        ((CurrencyPickable)item2).initialize(0,new Vector2(700,1720),200);
         uM.addUnit(item2);
 
         spX.initializePhysics(uM.getUnits(),this);
@@ -291,7 +294,7 @@ public class GameScreen implements Screen{
         levelBGColor[1] = 31.0f/255.0f;
         levelBGColor[2] = 39.0f/255.0f;
 
-        ItemManager.get.setItems(9,6);
+        ItemManager.get.setItems(0,1);
 
         System.out.println("Done!");
     }
@@ -384,7 +387,7 @@ public class GameScreen implements Screen{
             uM.resetUnits();
             hasFinishedLevel = false;
             hasWonLevel = false;
-
+            pbM.dispose();
             InputManager.get.clearAll();
             MyGdxGame.game.openScreen(new MainMenuScreen(level,hasWonLevel));
             //MyGdxGame.game.setScreen(new MainMenuScreen(level,hasWonLevel));
@@ -398,7 +401,13 @@ public class GameScreen implements Screen{
     //////////////
     //Item Methods
     //////////////
+    public void addUnitToManager(Unit u){
+        uM.addUnit(u);
+    }
 
+    public void addDecoToManager(Decoration d){
+        uM.addDeco(d);
+    }
     public SpaceShip getPlayerShip(){
         return uM.getPlayerShip();
     }
@@ -459,6 +468,8 @@ public class GameScreen implements Screen{
 
     @Override
     public void dispose() {
+        uM.resetUnits();
+        ItemManager.get.dispose();
     }
 
     public void finishLevelImidiate(){

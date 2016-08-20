@@ -25,7 +25,8 @@ public class SpaceMath {
     }
 
     public static Vector2 getPosToRender(int levelPos){
-        Vector2 screenDimensions = new Vector2(GameScreen.camFixed.viewportWidth, GameScreen.camFixed.viewportHeight);
+        //Vector2 screenDimensions = new Vector2(GameScreen.camFixed.viewportWidth, GameScreen.camFixed.viewportHeight);
+        Vector2 screenDimensions = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Vector2 posToRender = new Vector2();
         posToRender.y = screenDimensions.y * 0.1f;
         if(levelPos == 2){

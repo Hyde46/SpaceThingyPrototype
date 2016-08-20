@@ -2,12 +2,16 @@ package com.mygdx.game.Items;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.InputManager.InputManager;
+import com.mygdx.game.Items.Level1.ItemPickerRadius;
 import com.mygdx.game.Items.Level1.SpeedBooser;
 import com.mygdx.game.Items.Level2.Break;
+import com.mygdx.game.Items.Level2.ItemPickTarget;
 import com.mygdx.game.Items.Level3.ArtificialPlanet;
 import com.mygdx.game.Items.Level3.DestroyTarget;
 import com.mygdx.game.Items.Level3.PhaseOut;
+import com.mygdx.game.renderAbleObjects.decorations.Decoration;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
+import com.mygdx.game.renderAbleObjects.units.Unit;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.screens.MyGdxGame;
 
@@ -76,8 +80,14 @@ public class ItemManager
         int itemPos = isOneItem ? 2 : sideToAdd;
 
         switch (itemId) {
+            case 0:
+                items[sideToAdd] = new ItemPickerRadius(itemPos, sideToAdd);
+                break;
             case 1:
                 items[sideToAdd] = new SpeedBooser(itemPos, sideToAdd, this);
+                break;
+            case 5:
+                items[sideToAdd] = new ItemPickTarget(itemPos, sideToAdd);
                 break;
             case 6:
                 items[sideToAdd] = new Break(itemPos, sideToAdd, this);
@@ -146,6 +156,22 @@ public class ItemManager
 
     public boolean hasLevelEnded() {
         return gs.isLevelFinished();
+    }
+
+    public void addUnitToManager(Unit u){
+        gs.addUnitToManager(u);
+    }
+    public void addDecoToManager(Decoration u){
+        gs.addDecoToManager(u);
+    }
+
+    public void dispose(){
+        if(items[0] != null){
+            items[0].dispose();
+        }
+        if(items[1] != null){
+            items[1].dispose();
+        }
     }
 }
 
