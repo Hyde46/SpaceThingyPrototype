@@ -4,7 +4,7 @@ package com.mygdx.game.InputManager;
  * Created by ilost on 20.08.2016.
  */
 
-public class IInputListener implements IInputHandler
+public class InputListener implements IInputHandler
 {
     @Override
     public void OnTouch(TouchData td) {

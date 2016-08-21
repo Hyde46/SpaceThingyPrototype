@@ -7,9 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.InputManager.IInputListener;
-import com.mygdx.game.InputManager.TouchData;
+import com.mygdx.game.InputManager.InputListener;
 
 /**
  * Created by denis on 5/13/16.
@@ -107,25 +105,30 @@ public abstract class ARenderableObject
 
     public void dispose()
     {
-        sprite.getTexture().dispose();
-        sprite = null;
+        // problem ... sprite texture ist bei mir öfters null
+        // vll direkt die tex clearen?
+
+        if(tex != null)
+        {
+            //sprite.getTexture().dispose();
+            tex.dispose();
+            tex = null;
+            sprite = null;
+        }
     }
 
-    // prototype listener mechanic
-    // we can
-    public IInputListener listener;
+    // listener mechanic
+    private InputListener listener;
 
-    public void setListener(IInputListener listener)
+    public void setListener(InputListener listener)
     {
         this.listener = listener;
     }
-
     public boolean hasListener()
     {
         return this.listener != null;
     }
-
-    public IInputListener getListener() {
+    public InputListener getListener() {
         return listener;
     }
 }

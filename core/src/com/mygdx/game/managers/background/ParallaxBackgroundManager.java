@@ -16,7 +16,6 @@ public class ParallaxBackgroundManager {
 
     public ParallaxBackgroundManager(){
         layers = new Array<BackGround>();
-
     }
 
     public void setLayers(int numlayers, boolean isHexgridRendered){

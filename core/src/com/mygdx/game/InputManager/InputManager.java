@@ -170,7 +170,6 @@ public class InputManager implements InputProcessor
 
                 if(!obj.isUI() && (obj.getHitbox().contains(posTouch.x, posTouch.y)))
                 {
-                    if(obj.listener != null) System.out.println("GOT THE LISTENER");
                     objsHit.add(obj);
                 }
                 else if(obj.isUI() && (obj.getHitbox().contains(posTouchUnproj.x, posTouchUnproj.y)))
@@ -207,16 +206,6 @@ public class InputManager implements InputProcessor
         touchData.put(pointer, td);
         notifyObjectsTouchAnywhere(td);
         notifyObjectsTouch(td);
-
-        //
-
-        System.out.println("SIZE" + objsHit.size);
-        for (int i = 0; i < objsHit.size; i++) {
-
-            System.out.println("has origin" + objsHit.get(i).getPosition().x);
-            if(objsHit.get(i).listener != null) System.out.println("hello im still here listener 22");
-        }
-        //
 
         return true;
     }
@@ -307,15 +296,8 @@ public class InputManager implements InputProcessor
         Array<ARenderableObject> objsOrigin = td.getObjsOrigin();
         for(int i = 0; i < objsOrigin.size; i++)
         {
-            if(objsOrigin.get(i).hasListener())
-            {
-                objsOrigin.get(i).getListener().OnTouch(td);
-            }
-
-            if(objsOrigin.get(i) instanceof IInputHandler)
-            {
-                ((IInputHandler)objsOrigin.get(i)).OnTouch(td);
-            }
+            if(objsOrigin.get(i).hasListener()) objsOrigin.get(i).getListener().OnTouch(td);
+            if(objsOrigin.get(i) instanceof IInputHandler)((IInputHandler)objsOrigin.get(i)).OnTouch(td);
         }
     }
 
@@ -324,10 +306,8 @@ public class InputManager implements InputProcessor
         Array<ARenderableObject> objsOrigin = td.getObjsOrigin();
         for(int i = 0; i < objsOrigin.size; i++)
         {
-            if(objsOrigin.get(i) instanceof IInputHandler)
-            {
-                ((IInputHandler)objsOrigin.get(i)).OnRelease(td);
-            }
+            if(objsOrigin.get(i).hasListener()) objsOrigin.get(i).getListener().OnRelease(td);
+            if(objsOrigin.get(i) instanceof IInputHandler)((IInputHandler)objsOrigin.get(i)).OnRelease(td);
         }
     }
 
@@ -336,10 +316,8 @@ public class InputManager implements InputProcessor
         Array<ARenderableObject> objsOrigin = td.getObjsOrigin();
         for(int i = 0; i < objsOrigin.size; i++)
         {
-            if(objsOrigin.get(i) instanceof IInputHandler)
-            {
-                ((IInputHandler)objsOrigin.get(i)).OnDrag(td);
-            }
+            if(objsOrigin.get(i).hasListener()) objsOrigin.get(i).getListener().OnDrag(td);
+            if(objsOrigin.get(i) instanceof IInputHandler)((IInputHandler)objsOrigin.get(i)).OnDrag(td);
         }
     }
 
@@ -348,10 +326,8 @@ public class InputManager implements InputProcessor
         Array<ARenderableObject> objsOrigin = td.getObjsOrigin();
         for(int i = 0; i < objsOrigin.size; i++)
         {
-            if(objsOrigin.get(i) instanceof IInputHandler)
-            {
-                ((IInputHandler)objsOrigin.get(i)).OnHold(td);
-            }
+            if(objsOrigin.get(i).hasListener()) objsOrigin.get(i).getListener().OnHold(td);
+            if(objsOrigin.get(i) instanceof IInputHandler)((IInputHandler)objsOrigin.get(i)).OnHold(td);
         }
     }
 
@@ -360,10 +336,8 @@ public class InputManager implements InputProcessor
         Array<ARenderableObject> objsOrigin = td.getObjsOrigin();
         for(int i = 0; i < objsOrigin.size; i++)
         {
-            if(objsOrigin.get(i) instanceof IInputHandler)
-            {
-                ((IInputHandler)objsOrigin.get(i)).OnSwipe(td);
-            }
+            if(objsOrigin.get(i).hasListener()) objsOrigin.get(i).getListener().OnSwipe(td);
+            if(objsOrigin.get(i) instanceof IInputHandler)((IInputHandler)objsOrigin.get(i)).OnSwipe(td);
         }
     }
     // unsused keyboard calls
