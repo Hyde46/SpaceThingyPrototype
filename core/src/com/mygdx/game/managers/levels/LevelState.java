@@ -1,6 +1,7 @@
 package com.mygdx.game.managers.levels;
 
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.dataPersistence.DataPers;
 
 /**
  * Created by denis on 8/12/16.
@@ -17,11 +18,16 @@ public class LevelState {
 
     private int hops;
 
+    private int currentLevel;
 
     public void resetState(){
         currencyCollected = 0;
-        hops = -1;
+        hops = 0;
         itemIdsCollected.clear();
+    }
+
+    public void setCurrentLevel(int level){
+        this.currentLevel = level;
     }
 
     public void addCurrency(int amount){
@@ -48,7 +54,17 @@ public class LevelState {
         return itemIdsCollected;
     }
 
-    public void safeState(){
 
+    public void safeState(){
+        DataPers.dataP().credits += currencyCollected;
+        for(Integer i : itemIdsCollected){
+            if(!DataPers.dataP().idsItemsPlayer.contains(i)){
+                DataPers.dataP().idsItemsPlayer.add(i);
+            }
+        }
+        if(DataPers.dataP().hopsPerLevel.get(currentLevel) > hops ){
+            DataPers.dataP().hopsPerLevel.put(currentLevel,hops);
+        }
+        DataPers.saveP();
     }
 }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.JsonValue;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Mechandrius on 05.07.2016.
@@ -16,6 +17,7 @@ public class DataSavableProgress extends DataSavable
 
     public ArrayList<Integer> idsItemsPlayer;
     private ArrayList<Integer> idsSkinsPlayer;
+    public HashMap<Integer,Integer> hopsPerLevel;
     public int credits;
 
     public int nthGame = 0;
@@ -25,7 +27,7 @@ public class DataSavableProgress extends DataSavable
     {
         idsItemsPlayer = new ArrayList<Integer>();
         idsSkinsPlayer = new ArrayList<Integer>();
-        credits = 1000;
+        credits = 0;
     }
 
     /**

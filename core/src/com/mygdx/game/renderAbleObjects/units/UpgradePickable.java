@@ -1,6 +1,7 @@
 package com.mygdx.game.renderAbleObjects.units;
 
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.dataPersistence.DataPers;
 import com.mygdx.game.managers.levels.LevelState;
 
 /**
@@ -17,6 +18,6 @@ public class UpgradePickable extends PickableItem {
         initializeItem(itemID, pos, 1);
     }
     protected void updateLevelState(LevelState levelState){
-
+        levelState.addCollectedItemId(itemID);
     }
 }

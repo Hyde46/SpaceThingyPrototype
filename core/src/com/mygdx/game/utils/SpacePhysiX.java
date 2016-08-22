@@ -92,9 +92,7 @@ public class SpacePhysiX {
 
                 //ItemPickerRadius
                 if(u.isActive() && playerShip.isItemPickerActiveRadius() && u.getUnitType() == Unit.UnitType.PICKABLE_ITEM){
-                    System.out.println("hier");
                     if((playerShip.getPickerCollisionHitbox()).overlaps((Circle)u.getCollisionHitbox())){
-                        System.out.println("hier nich");
                         ((PickableItem)u).pickUpItem(gs.getLevelState());
                     }
                 }

@@ -27,6 +27,7 @@ import com.mygdx.game.renderAbleObjects.units.CurrencyPickable;
 import com.mygdx.game.renderAbleObjects.units.Planet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
+import com.mygdx.game.renderAbleObjects.units.UpgradePickable;
 import com.mygdx.game.utils.SpacePhysiX;
 
 import java.util.Random;
@@ -49,6 +50,7 @@ public class GameScreen implements Screen{
 
     private int finishCounter;
     public static boolean hasFinishedLevel;
+    private boolean isShowingFinishScreen;
     private boolean hasWonLevel;
     private boolean isOutOfBounds;
     private float[] levelBGColor;
@@ -59,6 +61,7 @@ public class GameScreen implements Screen{
 
     public GameScreen(int levelToStart)
     {
+        System.out.println(DataPers.dataP().credits);
         this.level = levelToStart;
         // create the camera and the SpriteBatch
         OrthographicCamera camera = new OrthographicCamera();
@@ -102,6 +105,10 @@ public class GameScreen implements Screen{
         Gdx.gl.glClearColor(levelBGColor[0],levelBGColor[1],levelBGColor[2], 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
+        if(isShowingFinishScreen){
+            renderFinishScreen(delta);
+        }
         //draw parallax background
 
         game.uiBatch.begin();
@@ -146,6 +153,10 @@ public class GameScreen implements Screen{
         update(delta);
     }
 
+    private void renderFinishScreen(float delta){
+
+    }
+
     private void renderFinishedGameState(MyGdxGame game) {
         if(hasFinishedLevel) {
             if(hasWonLevel) {
@@ -183,6 +194,7 @@ public class GameScreen implements Screen{
     public void setLevel(int levelId)
     {
         levelState.resetState();
+        isShowingFinishScreen = false;
         switch(levelId) {
             case 1:
                 initPrototypeLevel();
@@ -262,11 +274,11 @@ public class GameScreen implements Screen{
         uM.addUnit(p12);
         uM.addUnit(playerShip);
 
-        /*
-        Unit item1 = new CurrencyPickable();
-        ((CurrencyPickable)item1).initialize(0,new Vector2(100,670),100);
+
+        Unit item1 = new UpgradePickable();
+        ((UpgradePickable)item1).initialize(5,new Vector2(100,670));
         uM.addUnit(item1);
-            */
+
         Unit item2 = new CurrencyPickable();
         ((CurrencyPickable)item2).initialize(0,new Vector2(700,1720),200);
         uM.addUnit(item2);
@@ -294,7 +306,7 @@ public class GameScreen implements Screen{
         levelBGColor[1] = 31.0f/255.0f;
         levelBGColor[2] = 39.0f/255.0f;
 
-        ItemManager.get.setItems(0,1);
+        ItemManager.get.setItems(0,9);
 
         System.out.println("Done!");
     }
@@ -384,6 +396,8 @@ public class GameScreen implements Screen{
         hasWonLevel = b;
         this.isOutOfBounds = isOutOfBounds;
         if(finishCounter <= 0) {
+            if(hasWonLevel)
+                levelState.safeState();
             uM.resetUnits();
             hasFinishedLevel = false;
             hasWonLevel = false;
