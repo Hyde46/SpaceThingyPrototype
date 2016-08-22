@@ -108,6 +108,8 @@ public class GameScreen implements Screen{
 
         if(isShowingFinishScreen){
             renderFinishScreen(delta);
+            update(delta);
+            return;
         }
         //draw parallax background
 
