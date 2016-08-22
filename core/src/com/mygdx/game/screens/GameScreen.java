@@ -404,7 +404,6 @@ public class GameScreen implements Screen{
             pbM.dispose();
             InputManager.get.clearAll();
             MyGdxGame.game.openScreen(new MainMenuScreen(level,hasWonLevel));
-            //MyGdxGame.game.setScreen(new MainMenuScreen(level,hasWonLevel));
         }
     }
 
@@ -436,14 +435,12 @@ public class GameScreen implements Screen{
 
     public boolean tryDestroyTarget(Vector2 posWorld)
     {
-        System.out.println("try destroy");
         boolean hasFound = false;
         Array<Unit> units = uM.getUnits();
         for (Unit unit: units)
         {
             if(((ARenderableObject)unit).getCollisionHitbox().contains(posWorld))
             {
-                System.out.println("destroy xx");
                 uM.deleteUnit(unit);
                 InputManager.get.unRegister(unit);
                 hasFound = true;
