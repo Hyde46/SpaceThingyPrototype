@@ -430,9 +430,6 @@ public class GameScreen implements Screen{
     {
         Planet planetTemp = new Planet();
         planetTemp.initialize(posWorld,320,64,false,"artificial-planet-sprite-128.png",1,(new Random()).nextInt(360),10.0f);
-
-        System.out.println("planet set to " + posWorld);
-
         uM.addUnit(planetTemp);
         InputManager.get.register(planetTemp);
     }
