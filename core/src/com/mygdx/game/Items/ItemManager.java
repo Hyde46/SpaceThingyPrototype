@@ -6,6 +6,7 @@ import com.mygdx.game.Items.Level1.ItemPickerRadius;
 import com.mygdx.game.Items.Level1.SpeedBooser;
 import com.mygdx.game.Items.Level2.Break;
 import com.mygdx.game.Items.Level2.ItemPickTarget;
+import com.mygdx.game.Items.Level2.TeleportRandom;
 import com.mygdx.game.Items.Level3.ArtificialPlanet;
 import com.mygdx.game.Items.Level3.DestroyTarget;
 import com.mygdx.game.Items.Level3.PhaseOut;
@@ -101,6 +102,9 @@ public class ItemManager
                 break;
             case 9:
                 items[sideToAdd] = new PhaseOut(itemPos, sideToAdd, this);
+                break;
+            case 14:
+                items[sideToAdd] = new TeleportRandom(itemPos, sideToAdd);
                 break;
             case 15:
                 items[sideToAdd] = new Teleport(itemPos, sideToAdd);

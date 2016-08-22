@@ -66,10 +66,14 @@ public class SpacePhysiX {
         //Teleport
         if(playerShip.isTeleportActive()){
             if(playerShip.getTeleportRangeDetector().isTeleporting()){
-                System.out.println(playerShip.getPosition());
-                System.out.println(playerShip.getTeleportRangeDetector().getPickedCoordinate());
                 playerShip.teleport(playerShip.getTeleportRangeDetector().getPickedCoordinate());
                 playerShip.getTeleportRangeDetector().resetIsTelePorting();
+            }
+        }
+        if(playerShip.isRandomTeleportActive()){
+            if(playerShip.getRandomTeleportRangeDetector().isTeleporting()){
+                playerShip.teleport(playerShip.getRandomTeleportRangeDetector().getPickedCoordinate());
+                playerShip.getRandomTeleportRangeDetector().resetIsTelePorting();
             }
         }
         //ItemPicker Target

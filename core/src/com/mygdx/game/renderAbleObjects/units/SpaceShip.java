@@ -234,6 +234,8 @@ public class SpaceShip extends Unit {
     private ItemPickerOrbit itemPickerOrbitRadius;
     private boolean isTeleportActive;
     private TeleportRangeDetector teleportRangeDetector;
+    private boolean isRandomTeleportActive;
+    private TeleportRangeDetector teleportRangeDetectorR;
 
     public void boost(float boostScl,float delta){
         float scaledBoost = 1.0f+boostScl*delta;
@@ -259,6 +261,9 @@ public class SpaceShip extends Unit {
     public boolean isTeleportActive(){
         return teleportRangeDetector != null ? teleportRangeDetector.isActive() : false;
     }
+    public boolean isRandomTeleportActive(){
+        return teleportRangeDetectorR != null ? teleportRangeDetectorR.isActive() : false;
+    }
     public Circle getPickerCollisionHitbox(){
         return (Circle)(itemPickerOrbitRadius.getCollisionHitbox());
     }
@@ -268,6 +273,7 @@ public class SpaceShip extends Unit {
     }
 
     public TeleportRangeDetector getTeleportRangeDetector(){ return teleportRangeDetector;}
+    public TeleportRangeDetector getRandomTeleportRangeDetector(){ return teleportRangeDetectorR;}
 
     public void setItemPickerOrbit(ItemPickerOrbit itemPickerOrbit){
         this.itemPickerOrbit = itemPickerOrbit;
@@ -281,6 +287,11 @@ public class SpaceShip extends Unit {
     public void setTeleportRangeDetector(TeleportRangeDetector tprd){
         this.teleportRangeDetector = tprd;
         isTeleportActive = true;
+    }
+
+    public void setTeleportRangeDetectorRandom(TeleportRangeDetector tprd){
+        this.teleportRangeDetectorR = tprd;
+        isRandomTeleportActive = true;
     }
 
     public void teleport(Vector2 teleportPosition){

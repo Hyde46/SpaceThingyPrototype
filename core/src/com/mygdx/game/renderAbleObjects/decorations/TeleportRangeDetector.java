@@ -15,12 +15,14 @@ public class TeleportRangeDetector extends Unit implements IInputHandler {
     private Vector2 pickedCoordinate;
     private boolean isTeleporting;
     private boolean isTeleportingDone;
+    private boolean isRandomizing;
+    private float teleportErrorMargin;
 
     public TeleportRangeDetector(){
         pickedCoordinate =null;
     }
 
-    public void initialize( float radius, Vector2 position, String pathToTexture){
+    public void initialize( boolean isRandomizing, float radius, Vector2 position, String pathToTexture){
         initializePositions(position);
         spriteDimension = new Vector2(radius*2,radius*2);
         initializeTexture(spriteDimension,0,pathToTexture);
@@ -33,6 +35,8 @@ public class TeleportRangeDetector extends Unit implements IInputHandler {
         isTeleporting = false;
         isTeleportingDone = false;
         pickedCoordinate = new Vector2();
+        this.isRandomizing = isRandomizing;
+        teleportErrorMargin = radius/2;
     }
 
     @Override
@@ -75,6 +79,14 @@ public class TeleportRangeDetector extends Unit implements IInputHandler {
         //pickedCoordinate = td.getPosCurrent().cpy();
         pickedCoordinate.set(td.getPosWorldCurrent().x,td.getPosWorldCurrent().y);
         isTeleporting = true;
+        if(isRandomizing)
+            randomizePickedCoordinate();
+    }
+
+    private void randomizePickedCoordinate(){
+        double rndX = Math.random()*teleportErrorMargin - teleportErrorMargin/2;
+        double rndY = Math.random()*teleportErrorMargin - teleportErrorMargin/2;
+        pickedCoordinate.add((float)rndX,(float)rndY);
     }
 
     public void OnRelease(TouchData td) {
