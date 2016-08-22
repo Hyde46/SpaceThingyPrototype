@@ -4,44 +4,34 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.IInputHandler;
-import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.InputManager.TouchData;
-import com.mygdx.game.Items.Item;
 import com.mygdx.game.renderAbleObjects.units.Unit;
-import com.mygdx.game.screens.GameScreen;
 
 /**
- * Created by denis on 8/19/16.
+ * Created by denis on 8/22/16.
  */
-public class ItemPickerOrbit extends Unit implements IInputHandler{
-
-    private int pickerOrbitType;
-    private float pickerOrbitRadius;
+public class TeleportRangeDetector extends Unit implements IInputHandler {
 
     private Vector2 pickedCoordinate;
-    private boolean isPickingItem;
+    private boolean isTeleporting;
+    private boolean isTeleportingDone;
 
-    public ItemPickerOrbit(){
-        pickedCoordinate = null;
+    public TeleportRangeDetector(){
+        pickedCoordinate =null;
     }
 
-    public void initialize(int type, float radius, Vector2 position, String pathToTexture){
+    public void initialize( float radius, Vector2 position, String pathToTexture){
         initializePositions(position);
-        this.pickerOrbitRadius = radius;
-        this.pickerOrbitType = type;
-        this.spriteDimension = new Vector2(radius*2, radius*2);
-        initializeTexture(spriteDimension, 0, pathToTexture);
+        spriteDimension = new Vector2(radius*2,radius*2);
+        initializeTexture(spriteDimension,0,pathToTexture);
         isUI = false;
-        isActive = true;
-        this.collisionHitbox = new Circle(position.x, position.y, radius);
-        this.touchHitbox = new Circle(position.x, position.y, radius);
-        if(type == 0)
-            unitType = UnitType.ITEM_PICKER;
-        else {
-            unitType = UnitType.ITEM_PICKER_ON_CLICK;
-            InputManager.get.register(this);
-        }
-        isPickingItem = false;
+        isActive =true;
+        this.collisionHitbox = null;
+        this.touchHitbox = new Circle(position.x,position.y,radius);
+        this.collisionHitbox= new Circle(position.x,position.y,radius);
+        unitType = UnitType.TELEPORT_PICKER;
+        isTeleporting = false;
+        isTeleportingDone = false;
         pickedCoordinate = new Vector2();
     }
 
@@ -62,8 +52,9 @@ public class ItemPickerOrbit extends Unit implements IInputHandler{
         ((Circle)touchHitbox).setPosition(posUpdate);
     }
 
-    public boolean isPickingItem(){
-        return isPickingItem;
+
+    public boolean isTeleporting(){
+        return isTeleporting;
     }
 
     public Vector2 getPickedCoordinate(){
@@ -75,19 +66,15 @@ public class ItemPickerOrbit extends Unit implements IInputHandler{
 
     }
 
-    /*public void switchActive(){
-        isActive = !isActive;
-    }*/
-
     public void switchActive(boolean b){
         isActive = b;
     }
 
     public void OnTouch(TouchData td) {
-        if(!isActive() || pickerOrbitType == 0) return;
+        if(!isActive()) return;
         //pickedCoordinate = td.getPosCurrent().cpy();
         pickedCoordinate.set(td.getPosWorldCurrent().x,td.getPosWorldCurrent().y);
-        isPickingItem = true;
+        isTeleporting = true;
     }
 
     public void OnRelease(TouchData td) {
@@ -104,8 +91,20 @@ public class ItemPickerOrbit extends Unit implements IInputHandler{
 
     }
 
-    public void resetIsPickingItem(){
-        isPickingItem = false;
+    public void resetIsTelePorting(){
+        isTeleporting = false;
         pickedCoordinate = new Vector2();
+        isTeleportingDone = true;
     }
+
+    public boolean isDoneTeleporting(){
+        return isTeleportingDone;
+    }
+
+    public void resetState(){
+        isTeleporting = false;
+        pickedCoordinate = new Vector2();
+        isTeleportingDone = false;
+    }
+
 }

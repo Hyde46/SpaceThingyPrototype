@@ -207,6 +207,10 @@ public class InputManager implements InputProcessor
         notifyObjectsTouchAnywhere(td);
         notifyObjectsTouch(td);
 
+        /*
+        System.out.println(td.getPosCurrentUnprojected());
+        System.out.println(td.getPosCurrent());
+        System.out.println("---------------");*/
         return true;
     }
 

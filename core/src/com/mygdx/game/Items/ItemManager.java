@@ -9,6 +9,7 @@ import com.mygdx.game.Items.Level2.ItemPickTarget;
 import com.mygdx.game.Items.Level3.ArtificialPlanet;
 import com.mygdx.game.Items.Level3.DestroyTarget;
 import com.mygdx.game.Items.Level3.PhaseOut;
+import com.mygdx.game.Items.Level3.Teleport;
 import com.mygdx.game.renderAbleObjects.decorations.Decoration;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
@@ -100,6 +101,9 @@ public class ItemManager
                 break;
             case 9:
                 items[sideToAdd] = new PhaseOut(itemPos, sideToAdd, this);
+                break;
+            case 15:
+                items[sideToAdd] = new Teleport(itemPos, sideToAdd);
                 break;
             default:
                 break;

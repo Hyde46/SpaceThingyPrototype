@@ -63,6 +63,15 @@ public class SpacePhysiX {
     }
 
     private void resolveItemLogic(float delta){
+        //Teleport
+        if(playerShip.isTeleportActive()){
+            if(playerShip.getTeleportRangeDetector().isTeleporting()){
+                System.out.println(playerShip.getPosition());
+                System.out.println(playerShip.getTeleportRangeDetector().getPickedCoordinate());
+                playerShip.teleport(playerShip.getTeleportRangeDetector().getPickedCoordinate());
+                playerShip.getTeleportRangeDetector().resetIsTelePorting();
+            }
+        }
         //ItemPicker Target
         if(playerShip.isItemPickerActive()){
             if(playerShip.getItemPickerOrbit().isPickingItem()) {
@@ -88,7 +97,8 @@ public class SpacePhysiX {
 
     private void resolveCollisions() {
         for(Unit u : units){
-            if(u.getUnitType() != Unit.UnitType.SPACE_SHIP && u.getUnitType() != Unit.UnitType.ITEM_PICKER){ //0 = playership
+            if(u.getUnitType() != Unit.UnitType.SPACE_SHIP && u.getUnitType() != Unit.UnitType.ITEM_PICKER
+                    && u.getUnitType() != Unit.UnitType.TELEPORT_PICKER){ //0 = playership
 
                 //ItemPickerRadius
                 if(u.isActive() && playerShip.isItemPickerActiveRadius() && u.getUnitType() == Unit.UnitType.PICKABLE_ITEM){
