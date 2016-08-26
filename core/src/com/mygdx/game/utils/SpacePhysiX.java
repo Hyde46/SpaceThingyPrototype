@@ -24,7 +24,7 @@ public class SpacePhysiX {
     private GameScreen gs;
 
     //tune this down, if the game starts running slower
-    private final static int PHYSIC_TICKS = 70;
+    private final static int PHYSIC_TICKS = 30;
     private final static float DOT_PRODUCT_BOUNDARIES = 30.0f;
 
     public final static float PI = 3.141592653f;

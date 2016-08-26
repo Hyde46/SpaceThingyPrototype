@@ -62,8 +62,8 @@ public class LevelState {
                 DataPers.dataP().idsItemsPlayer.add(i);
             }
         }
-        if(DataPers.dataP().hopsPerLevel.get(currentLevel) > hops ){
-            DataPers.dataP().hopsPerLevel.put(currentLevel,hops);
+        if(DataPers.dataP().hopsPerLevel[currentLevel] > hops ){
+            DataPers.dataP().hopsPerLevel[currentLevel] = hops;
         }
         DataPers.saveP();
     }

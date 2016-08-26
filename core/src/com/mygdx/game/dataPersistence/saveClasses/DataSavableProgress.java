@@ -15,9 +15,9 @@ public class DataSavableProgress extends DataSavable
 {
     // arrays needs to be saved as ArrayList ... so java.io.serializable can handle it
 
-    public ArrayList<Integer> idsItemsPlayer;
-    private ArrayList<Integer> idsSkinsPlayer;
-    public HashMap<Integer,Integer> hopsPerLevel;
+    public ArrayList<Integer> idsItemsPlayer = new ArrayList<Integer>();
+    private ArrayList<Integer> idsSkinsPlayer = new ArrayList<Integer>();
+    public int[] hopsPerLevel;
     public int credits;
 
     public int nthGame = 0;
@@ -27,6 +27,7 @@ public class DataSavableProgress extends DataSavable
     {
         idsItemsPlayer = new ArrayList<Integer>();
         idsSkinsPlayer = new ArrayList<Integer>();
+        hopsPerLevel = new int[15];
         credits = 0;
     }
 

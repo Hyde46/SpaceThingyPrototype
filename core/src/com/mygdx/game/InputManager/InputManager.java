@@ -149,10 +149,10 @@ public class InputManager implements InputProcessor
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
         Vector3 posTouch = new Vector3(screenX,screenY,0);
-
+    /*
         cam.unproject(posTouch);
         Vector3 posUnproj = cam.unproject(posTouch);
-
+*/
         //screenY = ((int)cam.viewportHeight) -screenY;
         Vector3 posTouchUnproj = new Vector3(screenX,screenY,0);
         //cam.unproject(posTouch);
