@@ -31,13 +31,16 @@ public class ItemManager
 
     public static ItemManager get;
 
+    public enum ItemNames {NONE,ITEM_PICKER_TARGET,ITEM_PICKER_RANGE,SPEED_BOOSTER,TRACEJTORY_CHANGER45,TRAJECTORY_CHANGER90,TRAJECTORY_INDICATOR,BREAK,DESTROY_RADIUS,
+                            FORWARD_SHOOT,MANUAL_CONTROL,SHIELD_CONTROLABLE,SHIELD_ROTATION,STABILIZER,TELEPORT_RANDOM,ARTIFICIAL_PLANET,DESTROY_TARGET,PHASE_OUT,SHIELD_FULL,TELEPORT};
+
     public boolean isOneItemActive() {
         // is item 0, 1 == activated
         return true;
     }
 
     private Item[] items;
-    private int[] itemIds;
+    private ItemNames[] itemIds;
 
     private int itemCounter;
 
@@ -45,11 +48,11 @@ public class ItemManager
 
     public ItemManager() {
         items = new Item[2];
-        itemIds = new int[2];
+        itemIds = new ItemNames[2];
         items[0] = null;
         items[1] = null;
-        itemIds[0] = -1;
-        itemIds[1] = -1;
+        itemIds[0] = ItemNames.NONE;
+        itemIds[1] = ItemNames.NONE;
     }
 
     public static void initialize(GameScreen gs) {
@@ -57,16 +60,16 @@ public class ItemManager
         get.gs = gs;
     }
 
-    public boolean setItems(int itemIdLeft, int itemIdRight) {
-        if (itemIdLeft == -1 && itemIdRight != -1) {
+    public boolean setItems(ItemNames itemIdLeft, ItemNames itemIdRight) {
+        if (itemIdLeft == ItemNames.NONE && itemIdRight != ItemNames.NONE) {
             addItem(itemIdRight, 1, true);
             return true;
         }
-        if (itemIdLeft != -1 && itemIdRight == -1) {
+        if (itemIdLeft != ItemNames.NONE && itemIdRight == ItemNames.NONE) {
             addItem(itemIdLeft, 0, true);
             return true;
         }
-        if (itemIdLeft != -1 && itemIdRight != -1) {
+        if (itemIdLeft != ItemNames.NONE && itemIdRight != ItemNames.NONE) {
             addItem(itemIdLeft, 0, false);
             addItem(itemIdRight, 1, false);
             return true;
@@ -74,45 +77,45 @@ public class ItemManager
         return false;
     }
 
-    public boolean addItem(int itemId, int sideToAdd, boolean isOneItem) {
-        if (itemId == itemIds[0] || itemId == itemIds[1]) {
+    public boolean addItem(ItemManager.ItemNames itemname, int sideToAdd, boolean isOneItem) {
+        if (itemname == itemIds[0] || itemname == itemIds[1]) {
             return false;
         }
         // int itemPos = getItemPos(sideToAdd);
         int itemPos = isOneItem ? 2 : sideToAdd;
 
-        switch (itemId) {
-            case 0:
+        switch (itemname) {
+            case ITEM_PICKER_RANGE:
                 items[sideToAdd] = new ItemPickerRadius(itemPos, sideToAdd);
                 break;
-            case 1:
+            case SPEED_BOOSTER:
                 items[sideToAdd] = new SpeedBooser(itemPos, sideToAdd, this);
                 break;
-            case 5:
+            case ITEM_PICKER_TARGET:
                 items[sideToAdd] = new ItemPickTarget(itemPos, sideToAdd);
                 break;
-            case 6:
+            case BREAK:
                 items[sideToAdd] = new Break(itemPos, sideToAdd, this);
                 break;
-            case 7:
+            case ARTIFICIAL_PLANET:
                 items[sideToAdd] = new ArtificialPlanet(itemPos, sideToAdd, this, gs);
                 break;
-            case 8:
+            case DESTROY_TARGET:
                 items[sideToAdd] = new DestroyTarget(itemPos, sideToAdd, this, gs);
                 break;
-            case 9:
+            case PHASE_OUT:
                 items[sideToAdd] = new PhaseOut(itemPos, sideToAdd, this);
                 break;
-            case 14:
+            case TELEPORT_RANDOM:
                 items[sideToAdd] = new TeleportRandom(itemPos, sideToAdd);
                 break;
-            case 15:
+            case TELEPORT:
                 items[sideToAdd] = new Teleport(itemPos, sideToAdd);
                 break;
             default:
                 break;
         }
-        itemIds[sideToAdd] = itemId;
+        itemIds[sideToAdd] = itemname;
 
         items[sideToAdd].initialize();
 

@@ -42,7 +42,7 @@ public class ItemPickTarget extends Item
     @Override
     public void initialize(){
         Vector2 posToRender = SpaceMath.getPosToRender(levelPos);
-        initialize("break_200x200.png",200,posToRender);
+        initialize("itempickertarget_200x200.png",200,posToRender);
         pickerMaxRadius = 240;
         player = ItemManager.get.getPlayer();
         spaceShipPosition = player.getPosition();
