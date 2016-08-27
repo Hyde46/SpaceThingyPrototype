@@ -409,14 +409,22 @@ public class HangarScreen implements Screen {
         equipButtons.clear();
         infoButtons.clear();
         skinSlots.clear();
+        skinArrowUp.dispose();
         skinArrowUp = null;
+        skinArrowDown.dispose();
         skinArrowDown = null;
         particleSlots.clear();
+        particlesArrowDown.dispose();
         particlesArrowDown = null;
+        particlesArrowUp.dispose();
         particlesArrowUp = null;
+        popUp.dispose();
         popUp = null;
+        slot1.dispose();
         slot1 = null;
+        slot2.dispose();
         slot2 = null;
+        backgroundManager.dispose();
         backgroundManager = null;
         InputManager.get.clearAll();
 

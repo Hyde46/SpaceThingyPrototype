@@ -194,4 +194,16 @@ public class LevelGraph {
     public Array<LevelBeacon> getLevelBeaconArray(){
         return levelBeacons;
     }
+
+    /**
+     * clean up stuff, called in MainMenuScreen
+     */
+    public void dispose(){
+        for(LevelBeacon beacon : levelBeacons){
+            beacon.dispose();
+        }
+        for(LevelInfo info : levelInfos){
+            info.dispose();
+        }
+    }
 }

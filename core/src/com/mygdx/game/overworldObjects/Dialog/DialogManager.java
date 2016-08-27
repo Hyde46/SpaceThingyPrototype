@@ -195,4 +195,22 @@ public class DialogManager {
     public void skipDialog(){
         showDialog = false;
     }
+
+    /**
+     * clean up stuff, called in MainMenuScreen
+     */
+    public void dispose(){
+        dialogArray = null;
+        currentDialog = null;
+        dialogBox1.dispose();
+        dialogBox1 = null;
+        dialogBox2.dispose();
+        dialogBox2 = null;
+        dialogAvatar1.dispose();
+        dialogAvatar1 = null;
+        dialogAvatar2.dispose();
+        dialogAvatar2 = null;
+        skipButton.dispose();
+        skipButton = null;
+    }
 }

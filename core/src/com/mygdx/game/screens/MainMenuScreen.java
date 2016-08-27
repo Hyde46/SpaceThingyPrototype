@@ -215,6 +215,18 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void dispose()    {
+        levelGraph.dispose();
+        levelGraph = null;
+        ship.dispose();
+        ship = null;
+        pathNavigationManager = null;
+        overlay.dispose();
+        overlay = null;
+        dialogManager.dispose();
+        dialogManager = null;
+        backgroundManager.dispose();
+        backgroundManager = null;
+
 
     }
     @Override
