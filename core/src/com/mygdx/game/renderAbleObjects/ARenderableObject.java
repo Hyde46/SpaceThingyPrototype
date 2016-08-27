@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.InputManager.InputListener;
 
 /**
  * Created by denis on 5/13/16.
@@ -102,8 +103,32 @@ public abstract class ARenderableObject
 
     public Sprite getSprite(){ return sprite; }
 
-    public void dispose(){
-        sprite.getTexture().dispose();
-        sprite = null;
+    public void dispose()
+    {
+        // problem ... sprite texture ist bei mir öfters null
+        // vll direkt die tex clearen?
+
+        if(tex != null)
+        {
+            //sprite.getTexture().dispose();
+            tex.dispose();
+            tex = null;
+            sprite = null;
+        }
+    }
+
+    // listener mechanic
+    private InputListener listener;
+
+    public void setListener(InputListener listener)
+    {
+        this.listener = listener;
+    }
+    public boolean hasListener()
+    {
+        return this.listener != null;
+    }
+    public InputListener getListener() {
+        return listener;
     }
 }

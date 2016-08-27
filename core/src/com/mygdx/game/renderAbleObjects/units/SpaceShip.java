@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.renderAbleObjects.Animation;
 import com.mygdx.game.renderAbleObjects.decorations.ItemPickerOrbit;
+import com.mygdx.game.renderAbleObjects.decorations.TeleportRangeDetector;
 import com.mygdx.game.utils.SpaceMath;
 import com.mygdx.game.utils.SpacePhysiX;
 
@@ -41,7 +42,7 @@ public class SpaceShip extends Unit {
         isPhasedOut = false;
     }
 
-    public void initialize(Vector2 position,Vector2 deltaMovement,Planet connectedPlanet, float currentOrbitRadius, Vector2 spriteDimensions, String texturePath, int spriteId){
+    public void initialize(Vector2 position,Vector2 deltaMovement,Planet connectedPlanet, float currentOrbitRadius, Vector2 spriteDimensions, String texturePath, int spriteId, int skinID){
         unitType = UnitType.SPACE_SHIP;
         isCollided = false;
         isLost = false;
@@ -68,7 +69,7 @@ public class SpaceShip extends Unit {
         initializeTexture(spriteDimensions, spriteId, texturePath);
 
         deathAnimation = new Animation();
-        deathAnimation.setAnimation(9,0.06f,new Vector2(64,64),false,"player_death_f",this);
+        deathAnimation.setAnimation(9,0.06f,new Vector2(64,64),false,"player_death"+skinID+"_f",this);
 
         isItemPickerActive = false;
 
@@ -231,6 +232,10 @@ public class SpaceShip extends Unit {
     private ItemPickerOrbit itemPickerOrbit;
     private boolean isItemPickerActiveRadius;
     private ItemPickerOrbit itemPickerOrbitRadius;
+    private boolean isTeleportActive;
+    private TeleportRangeDetector teleportRangeDetector;
+    private boolean isRandomTeleportActive;
+    private TeleportRangeDetector teleportRangeDetectorR;
 
     public void boost(float boostScl,float delta){
         float scaledBoost = 1.0f+boostScl*delta;
@@ -253,7 +258,12 @@ public class SpaceShip extends Unit {
     public boolean isItemPickerActiveRadius(){
         return itemPickerOrbitRadius != null ? itemPickerOrbitRadius.isActive() : false;
     }
-
+    public boolean isTeleportActive(){
+        return teleportRangeDetector != null ? teleportRangeDetector.isActive() : false;
+    }
+    public boolean isRandomTeleportActive(){
+        return teleportRangeDetectorR != null ? teleportRangeDetectorR.isActive() : false;
+    }
     public Circle getPickerCollisionHitbox(){
         return (Circle)(itemPickerOrbitRadius.getCollisionHitbox());
     }
@@ -261,6 +271,9 @@ public class SpaceShip extends Unit {
     public ItemPickerOrbit getItemPickerOrbit(){
         return itemPickerOrbit;
     }
+
+    public TeleportRangeDetector getTeleportRangeDetector(){ return teleportRangeDetector;}
+    public TeleportRangeDetector getRandomTeleportRangeDetector(){ return teleportRangeDetectorR;}
 
     public void setItemPickerOrbit(ItemPickerOrbit itemPickerOrbit){
         this.itemPickerOrbit = itemPickerOrbit;
@@ -270,4 +283,20 @@ public class SpaceShip extends Unit {
         this.itemPickerOrbitRadius = itemPickerOrbit;
         isItemPickerActiveRadius = true;
     }
+
+    public void setTeleportRangeDetector(TeleportRangeDetector tprd){
+        this.teleportRangeDetector = tprd;
+        isTeleportActive = true;
+    }
+
+    public void setTeleportRangeDetectorRandom(TeleportRangeDetector tprd){
+        this.teleportRangeDetectorR = tprd;
+        isRandomTeleportActive = true;
+    }
+
+    public void teleport(Vector2 teleportPosition){
+        targetPosition.set(teleportPosition.cpy());
+        moveUnit();
+    }
+
 }

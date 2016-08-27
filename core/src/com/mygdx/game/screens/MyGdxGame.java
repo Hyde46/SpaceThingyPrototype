@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.game.Items.ItemManager;
+import com.mygdx.game.dataPersistence.DataPers;
 import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.utils.FPSLimiter;
 
@@ -54,12 +56,18 @@ public class MyGdxGame extends Game
 		//font.getData().scale(1.0f);
 		shapeRenderer = new ShapeRenderer();
 		fpsLimit = new FPSLimiter(60);
-		currentVersion = "Prototype v0.2.0";
+		currentVersion = "Prototype v0.2.3";
 
 		font.setColor(Color.WHITE);
 		debugFont.setColor(Color.WHITE);
 		dialogFont.setColor(Color.BLACK);
 		showOverlay = true;
+		DataPers.dataP().addToSkins(0);
+		DataPers.dataP().addToSkins(1);
+		DataPers.saveP();
+		DataPers.dataH().setSlot1(ItemManager.ItemNames.TELEPORT.ordinal());
+		DataPers.dataH().setSlot2(ItemManager.ItemNames.BREAK.ordinal());
+		DataPers.saveH();
 		openScreen(new MainMenuScreen(0,true));
 
 	}

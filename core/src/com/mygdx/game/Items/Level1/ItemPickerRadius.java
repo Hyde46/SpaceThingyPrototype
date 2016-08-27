@@ -40,7 +40,7 @@ public class ItemPickerRadius extends Item
     @Override
     public void initialize(){
         Vector2 posToRender = SpaceMath.getPosToRender(levelPos);
-        initialize("break_200x200.png",200,posToRender);
+        initialize("itempickerradius_200x200.png",200,posToRender);
         pickerMaxRadius = 190;
         player = ItemManager.get.getPlayer();
         spaceShipPosition = player.getPosition();

@@ -42,6 +42,7 @@ public class ItemPickerOrbit extends Unit implements IInputHandler{
             InputManager.get.register(this);
         }
         isPickingItem = false;
+        pickedCoordinate = new Vector2();
     }
 
     @Override
@@ -85,7 +86,7 @@ public class ItemPickerOrbit extends Unit implements IInputHandler{
     public void OnTouch(TouchData td) {
         if(!isActive() || pickerOrbitType == 0) return;
         //pickedCoordinate = td.getPosCurrent().cpy();
-        pickedCoordinate = td.getPosCurrentUnprojected().cpy();
+        pickedCoordinate.set(td.getPosWorldCurrent().x,td.getPosWorldCurrent().y);
         isPickingItem = true;
     }
 
@@ -105,6 +106,6 @@ public class ItemPickerOrbit extends Unit implements IInputHandler{
 
     public void resetIsPickingItem(){
         isPickingItem = false;
-        pickedCoordinate = null;
+        pickedCoordinate = new Vector2();
     }
 }

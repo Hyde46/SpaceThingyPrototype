@@ -18,6 +18,7 @@ import com.mygdx.game.managers.UnitManager;
 
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.camera.CameraManager;
+import com.mygdx.game.managers.levels.LevelBackgroundColor;
 import com.mygdx.game.managers.levels.LevelFactory;
 import com.mygdx.game.managers.levels.LevelState;
 import com.mygdx.game.prototypeUtils.CameraHelper;
@@ -27,6 +28,7 @@ import com.mygdx.game.renderAbleObjects.units.CurrencyPickable;
 import com.mygdx.game.renderAbleObjects.units.Planet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
+import com.mygdx.game.renderAbleObjects.units.UpgradePickable;
 import com.mygdx.game.utils.SpacePhysiX;
 
 import java.util.Random;
@@ -49,6 +51,7 @@ public class GameScreen implements Screen{
 
     private int finishCounter;
     public static boolean hasFinishedLevel;
+    private boolean isShowingFinishScreen;
     private boolean hasWonLevel;
     private boolean isOutOfBounds;
     private float[] levelBGColor;
@@ -59,6 +62,7 @@ public class GameScreen implements Screen{
 
     public GameScreen(int levelToStart)
     {
+        System.out.println(DataPers.dataP().credits);
         this.level = levelToStart;
         // create the camera and the SpriteBatch
         OrthographicCamera camera = new OrthographicCamera();
@@ -92,7 +96,6 @@ public class GameScreen implements Screen{
         DataPers.saveP();
 
         setLevel(levelToStart);
-
     }
 
     @Override
@@ -102,6 +105,12 @@ public class GameScreen implements Screen{
         Gdx.gl.glClearColor(levelBGColor[0],levelBGColor[1],levelBGColor[2], 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
+        if(isShowingFinishScreen){
+            renderFinishScreen(delta);
+            update(delta);
+            return;
+        }
         //draw parallax background
 
         game.uiBatch.begin();
@@ -146,6 +155,10 @@ public class GameScreen implements Screen{
         update(delta);
     }
 
+    private void renderFinishScreen(float delta){
+
+    }
+
     private void renderFinishedGameState(MyGdxGame game) {
         if(hasFinishedLevel) {
             if(hasWonLevel) {
@@ -183,19 +196,25 @@ public class GameScreen implements Screen{
     public void setLevel(int levelId)
     {
         levelState.resetState();
+        isShowingFinishScreen = false;
+        levelBGColor = LevelBackgroundColor.getBackGroundColor(levelId);
+        int currentSkin = DataPers.dataH().getCurrentSkin();
         switch(levelId) {
             case 1:
-                initPrototypeLevel();
+                initPrototypeLevel(currentSkin);
                 break;
             case 2:
-                initPrototypeLevelTwo();
+                initPrototypeLevelTwo(currentSkin);
                 break;
             default:
-                initPrototypeLevel();
+                initPrototypeLevel(currentSkin);
         }
+
+        ItemManager.get.setItems(ItemManager.convertOrdinalToItemName(DataPers.dataH().getSlot1()),
+                ItemManager.convertOrdinalToItemName(DataPers.dataH().getSlot2()));
     }
 
-    private void initPrototypeLevel(){
+    private void initPrototypeLevel(int skinID){
         uM.resetUnits();
         //InputManager.get.clear();
 
@@ -220,8 +239,7 @@ public class GameScreen implements Screen{
         System.out.println("Loading resources...");
 
         ((Planet)p1).initialize(new Vector2(200,670),320,36,false,"planet1_72x72.png",1,0,0);
-        ((SpaceShip)playerShip).initialize(new Vector2(360,670),new Vector2(0,400),(Planet)p1,150,new Vector2(40,40),"ship1_40x40.png",0);
-        //((SpaceShip)playerShip).initialize(new Vector2(350,200),new Vector2(0,0),null,150,new Vector2(40,40),"ship1_40x40.png",0);
+        ((SpaceShip)playerShip).initialize(new Vector2(360,670),new Vector2(0,400),(Planet)p1,150,new Vector2(40,40),"ship"+skinID+".png",0,skinID);
         ((Planet)p2).initialize(new Vector2(800,1720),320,50,false,"planet2_100x100.png",2,40,10.0f);
         ((Planet)p3).initialize(new Vector2(950,900),320,50,false,"planet9_100x100.png",1,30,10.0f);
         ((Planet)p4).initialize(new Vector2(-300,1700),320,50,false,"planet2_100x100.png",2,90,10.0f);
@@ -262,11 +280,11 @@ public class GameScreen implements Screen{
         uM.addUnit(p12);
         uM.addUnit(playerShip);
 
-        /*
-        Unit item1 = new CurrencyPickable();
-        ((CurrencyPickable)item1).initialize(0,new Vector2(100,670),100);
+
+        Unit item1 = new UpgradePickable();
+        ((UpgradePickable)item1).initialize(5,new Vector2(100,670));
         uM.addUnit(item1);
-            */
+
         Unit item2 = new CurrencyPickable();
         ((CurrencyPickable)item2).initialize(0,new Vector2(700,1720),200);
         uM.addUnit(item2);
@@ -289,17 +307,11 @@ public class GameScreen implements Screen{
         pbM.setLayers(4,true);
         cM.addPBM(pbM);
 
-        levelBGColor = new float[3];
-        levelBGColor[0] = 63.0f/255.0f;
-        levelBGColor[1] = 31.0f/255.0f;
-        levelBGColor[2] = 39.0f/255.0f;
-
-        ItemManager.get.setItems(0,1);
 
         System.out.println("Done!");
     }
 
-    private void initPrototypeLevelTwo(){
+    private void initPrototypeLevelTwo(int skinID){
         uM.resetUnits();
         //InputManager.get.clear();
 
@@ -329,7 +341,7 @@ public class GameScreen implements Screen{
         ((Planet)p6).initialize(new Vector2(800,4700),240,50,false,"planet2_100x100.png",2,10,10.0f);
         ((Planet)p7).initialize(new Vector2(1800,5300),240,50,true,"planet8_100x100.png",2,10,10.0f);
 
-        ((SpaceShip)playerShip).initialize(new Vector2(500,670),new Vector2(5,350),(Planet)p1,300,new Vector2(40,40),"ship1_40x40.png",0);
+        ((SpaceShip)playerShip).initialize(new Vector2(500,670),new Vector2(5,350),(Planet)p1,300,new Vector2(40,40),"ship+"+skinID+".png",0,skinID);
 
 
         //initialize moons
@@ -369,13 +381,6 @@ public class GameScreen implements Screen{
         pbM.setLayers(2,true);
         cM.addPBM(pbM);
 
-        levelBGColor = new float[3];
-        levelBGColor[0] = 33.0f/255.0f;
-        levelBGColor[1] = 49.0f/255.0f;
-        levelBGColor[2] = 41.0f/255.0f;
-
-        ItemManager.get.setItems(7,8);
-
         System.out.println("Done!");
     }
 
@@ -384,13 +389,14 @@ public class GameScreen implements Screen{
         hasWonLevel = b;
         this.isOutOfBounds = isOutOfBounds;
         if(finishCounter <= 0) {
+            if(hasWonLevel)
+                levelState.safeState();
             uM.resetUnits();
             hasFinishedLevel = false;
             hasWonLevel = false;
             pbM.dispose();
             InputManager.get.clearAll();
             MyGdxGame.game.openScreen(new MainMenuScreen(level,hasWonLevel));
-            //MyGdxGame.game.setScreen(new MainMenuScreen(level,hasWonLevel));
         }
     }
 
@@ -416,23 +422,18 @@ public class GameScreen implements Screen{
     {
         Planet planetTemp = new Planet();
         planetTemp.initialize(posWorld,320,64,false,"artificial-planet-sprite-128.png",1,(new Random()).nextInt(360),10.0f);
-
-        System.out.println("planet set to " + posWorld);
-
         uM.addUnit(planetTemp);
         InputManager.get.register(planetTemp);
     }
 
     public boolean tryDestroyTarget(Vector2 posWorld)
     {
-        System.out.println("try destroy");
         boolean hasFound = false;
         Array<Unit> units = uM.getUnits();
         for (Unit unit: units)
         {
             if(((ARenderableObject)unit).getCollisionHitbox().contains(posWorld))
             {
-                System.out.println("destroy xx");
                 uM.deleteUnit(unit);
                 InputManager.get.unRegister(unit);
                 hasFound = true;

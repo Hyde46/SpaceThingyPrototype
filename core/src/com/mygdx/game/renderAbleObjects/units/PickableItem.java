@@ -15,7 +15,7 @@ abstract public class PickableItem extends Unit{
     private final static String ITEM_TYPE_TEXTURE_PATH = "ItemPickable64x64.png";
     private final static String CURRENCY_TYPE_TEXTURE_PATH = "CurrencyPickable64x64.png";
 
-    private int itemID;
+    protected int itemID;
 
     private boolean hasBeenPickedUp;
 

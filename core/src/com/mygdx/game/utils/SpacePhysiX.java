@@ -24,7 +24,7 @@ public class SpacePhysiX {
     private GameScreen gs;
 
     //tune this down, if the game starts running slower
-    private final static int PHYSIC_TICKS = 70;
+    private final static int PHYSIC_TICKS = 30;
     private final static float DOT_PRODUCT_BOUNDARIES = 30.0f;
 
     public final static float PI = 3.141592653f;
@@ -63,6 +63,19 @@ public class SpacePhysiX {
     }
 
     private void resolveItemLogic(float delta){
+        //Teleport
+        if(playerShip.isTeleportActive()){
+            if(playerShip.getTeleportRangeDetector().isTeleporting()){
+                playerShip.teleport(playerShip.getTeleportRangeDetector().getPickedCoordinate());
+                playerShip.getTeleportRangeDetector().resetIsTelePorting();
+            }
+        }
+        if(playerShip.isRandomTeleportActive()){
+            if(playerShip.getRandomTeleportRangeDetector().isTeleporting()){
+                playerShip.teleport(playerShip.getRandomTeleportRangeDetector().getPickedCoordinate());
+                playerShip.getRandomTeleportRangeDetector().resetIsTelePorting();
+            }
+        }
         //ItemPicker Target
         if(playerShip.isItemPickerActive()){
             if(playerShip.getItemPickerOrbit().isPickingItem()) {
@@ -88,13 +101,12 @@ public class SpacePhysiX {
 
     private void resolveCollisions() {
         for(Unit u : units){
-            if(u.getUnitType() != Unit.UnitType.SPACE_SHIP && u.getUnitType() != Unit.UnitType.ITEM_PICKER){ //0 = playership
+            if(u.getUnitType() != Unit.UnitType.SPACE_SHIP && u.getUnitType() != Unit.UnitType.ITEM_PICKER
+                    && u.getUnitType() != Unit.UnitType.TELEPORT_PICKER){ //0 = playership
 
                 //ItemPickerRadius
                 if(u.isActive() && playerShip.isItemPickerActiveRadius() && u.getUnitType() == Unit.UnitType.PICKABLE_ITEM){
-                    System.out.println("hier");
                     if((playerShip.getPickerCollisionHitbox()).overlaps((Circle)u.getCollisionHitbox())){
-                        System.out.println("hier nich");
                         ((PickableItem)u).pickUpItem(gs.getLevelState());
                     }
                 }
