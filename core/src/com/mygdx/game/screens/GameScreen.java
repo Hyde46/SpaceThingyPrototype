@@ -18,6 +18,7 @@ import com.mygdx.game.managers.UnitManager;
 
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.camera.CameraManager;
+import com.mygdx.game.managers.levels.LevelBackgroundColor;
 import com.mygdx.game.managers.levels.LevelFactory;
 import com.mygdx.game.managers.levels.LevelState;
 import com.mygdx.game.prototypeUtils.CameraHelper;
@@ -197,6 +198,7 @@ public class GameScreen implements Screen{
     {
         levelState.resetState();
         isShowingFinishScreen = false;
+        levelBGColor = LevelBackgroundColor.getBackGroundColor(levelId);
         switch(levelId) {
             case 1:
                 initPrototypeLevel();
@@ -303,11 +305,6 @@ public class GameScreen implements Screen{
         pbM.setLayers(4,true);
         cM.addPBM(pbM);
 
-        levelBGColor = new float[3];
-        levelBGColor[0] = 63.0f/255.0f;
-        levelBGColor[1] = 31.0f/255.0f;
-        levelBGColor[2] = 39.0f/255.0f;
-
         ItemManager.get.setItems(ItemManager.ItemNames.TELEPORT, ItemManager.ItemNames.ITEM_PICKER_RANGE);
 
         System.out.println("Done!");
@@ -382,11 +379,6 @@ public class GameScreen implements Screen{
 
         pbM.setLayers(2,true);
         cM.addPBM(pbM);
-
-        levelBGColor = new float[3];
-        levelBGColor[0] = 33.0f/255.0f;
-        levelBGColor[1] = 49.0f/255.0f;
-        levelBGColor[2] = 41.0f/255.0f;
 
         ItemManager.get.setItems(ItemManager.ItemNames.ITEM_PICKER_TARGET, ItemManager.ItemNames.SPEED_BOOSTER);
 
