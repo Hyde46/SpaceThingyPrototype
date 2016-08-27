@@ -68,7 +68,7 @@ public class GameScreen implements Screen{
         /* Main and Game have different cams,
         main camera needs to be created in gdxgame and Inputmanger setup there */
         InputManager.get.setup(camera);
-
+        cM = new CameraManager();
         cH = new CameraHelper();
         cM.setCam(camera);
         cH.setCameraManager(cM, null, 0);
