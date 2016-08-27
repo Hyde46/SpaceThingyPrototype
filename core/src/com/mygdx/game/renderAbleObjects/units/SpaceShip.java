@@ -36,27 +36,28 @@ public class SpaceShip extends Unit {
     //flicker effect
     private boolean isFlickering;
 
+    private int skinID;
+
     public SpaceShip(){
         super();
         deltaMovement = new Vector2();
         isPhasedOut = false;
     }
 
-    public void initialize(Vector2 position,Vector2 deltaMovement,Planet connectedPlanet, float currentOrbitRadius, Vector2 spriteDimensions, String texturePath, int spriteId, int skinID){
+    public void initialize(Vector2 position,Vector2 deltaMovement,Planet connectedPlanet, float currentOrbitRadius, Vector2 spriteDimensions, int spriteId){
         unitType = UnitType.SPACE_SHIP;
         isCollided = false;
         isLost = false;
         hasReachedGoal = false;
         this.connectedPlanet = connectedPlanet;
         this.currentOrbitRadius = currentOrbitRadius;
-
+        this.spriteDimension.set(spriteDimensions);
         if(connectedPlanet != null){
             lastConnectedPlanetId = connectedPlanet.getUnitID();
             connectedPlanet.connectSpaceShip(this);
         }else{
             lastConnectedPlanetId = -1;
         }
-
 
         rotationSpeed = deltaMovement.len() / currentOrbitRadius;
         rotationSpeed = rotationSpeed*180.0f/3.141592653f;
@@ -66,13 +67,15 @@ public class SpaceShip extends Unit {
         targetHitbox = new Circle(position.x,position.y,20f);
 
         initializePositions(position,deltaMovement);
-        initializeTexture(spriteDimensions, spriteId, texturePath);
-
-        deathAnimation = new Animation();
-        deathAnimation.setAnimation(9,0.06f,new Vector2(64,64),false,"player_death"+skinID+"_f",this);
 
         isItemPickerActive = false;
 
+    }
+    public void setSkin(int skinId){
+        this.skinID = skinId;
+        initializeTexture(spriteDimension, 0, "ship"+skinId+".png");
+        deathAnimation = new Animation();
+        deathAnimation.setAnimation(9,0.06f,new Vector2(64,64),false,"player_death"+skinId+"_f",this);
     }
 
     public void launch(){
