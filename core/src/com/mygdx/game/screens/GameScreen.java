@@ -96,7 +96,6 @@ public class GameScreen implements Screen{
         DataPers.saveP();
 
         setLevel(levelToStart);
-
     }
 
     @Override
@@ -199,19 +198,20 @@ public class GameScreen implements Screen{
         levelState.resetState();
         isShowingFinishScreen = false;
         levelBGColor = LevelBackgroundColor.getBackGroundColor(levelId);
+        int currentSkin = DataPers.dataH().getCurrentSkin();
         switch(levelId) {
             case 1:
-                initPrototypeLevel();
+                initPrototypeLevel(currentSkin);
                 break;
             case 2:
-                initPrototypeLevelTwo();
+                initPrototypeLevelTwo(currentSkin);
                 break;
             default:
-                initPrototypeLevel();
+                initPrototypeLevel(currentSkin);
         }
     }
 
-    private void initPrototypeLevel(){
+    private void initPrototypeLevel(int skinID){
         uM.resetUnits();
         //InputManager.get.clear();
 
@@ -236,8 +236,7 @@ public class GameScreen implements Screen{
         System.out.println("Loading resources...");
 
         ((Planet)p1).initialize(new Vector2(200,670),320,36,false,"planet1_72x72.png",1,0,0);
-        ((SpaceShip)playerShip).initialize(new Vector2(360,670),new Vector2(0,400),(Planet)p1,150,new Vector2(40,40),"ship1_40x40.png",0);
-        //((SpaceShip)playerShip).initialize(new Vector2(350,200),new Vector2(0,0),null,150,new Vector2(40,40),"ship1_40x40.png",0);
+        ((SpaceShip)playerShip).initialize(new Vector2(360,670),new Vector2(0,400),(Planet)p1,150,new Vector2(40,40),"ship"+skinID+"_40x40.png",0,skinID);
         ((Planet)p2).initialize(new Vector2(800,1720),320,50,false,"planet2_100x100.png",2,40,10.0f);
         ((Planet)p3).initialize(new Vector2(950,900),320,50,false,"planet9_100x100.png",1,30,10.0f);
         ((Planet)p4).initialize(new Vector2(-300,1700),320,50,false,"planet2_100x100.png",2,90,10.0f);
@@ -310,7 +309,7 @@ public class GameScreen implements Screen{
         System.out.println("Done!");
     }
 
-    private void initPrototypeLevelTwo(){
+    private void initPrototypeLevelTwo(int skinID){
         uM.resetUnits();
         //InputManager.get.clear();
 
@@ -340,7 +339,7 @@ public class GameScreen implements Screen{
         ((Planet)p6).initialize(new Vector2(800,4700),240,50,false,"planet2_100x100.png",2,10,10.0f);
         ((Planet)p7).initialize(new Vector2(1800,5300),240,50,true,"planet8_100x100.png",2,10,10.0f);
 
-        ((SpaceShip)playerShip).initialize(new Vector2(500,670),new Vector2(5,350),(Planet)p1,300,new Vector2(40,40),"ship1_40x40.png",0);
+        ((SpaceShip)playerShip).initialize(new Vector2(500,670),new Vector2(5,350),(Planet)p1,300,new Vector2(40,40),"ship+"+skinID+"_40x40.png",0,skinID);
 
 
         //initialize moons

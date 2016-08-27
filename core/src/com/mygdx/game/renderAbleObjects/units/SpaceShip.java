@@ -42,7 +42,7 @@ public class SpaceShip extends Unit {
         isPhasedOut = false;
     }
 
-    public void initialize(Vector2 position,Vector2 deltaMovement,Planet connectedPlanet, float currentOrbitRadius, Vector2 spriteDimensions, String texturePath, int spriteId){
+    public void initialize(Vector2 position,Vector2 deltaMovement,Planet connectedPlanet, float currentOrbitRadius, Vector2 spriteDimensions, String texturePath, int spriteId, int skinID){
         unitType = UnitType.SPACE_SHIP;
         isCollided = false;
         isLost = false;
@@ -69,7 +69,7 @@ public class SpaceShip extends Unit {
         initializeTexture(spriteDimensions, spriteId, texturePath);
 
         deathAnimation = new Animation();
-        deathAnimation.setAnimation(9,0.06f,new Vector2(64,64),false,"player_death_f",this);
+        deathAnimation.setAnimation(9,0.06f,new Vector2(64,64),false,"player_death"+skinID+"_f",this);
 
         isItemPickerActive = false;
 

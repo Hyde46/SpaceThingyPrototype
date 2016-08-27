@@ -9,7 +9,7 @@ public class LevelBackgroundColor {
     public static float[] getBackGroundColor(int level){
         float r=0,g=0,b=0;
         switch(level){
-            case 0:
+            case 1:
                 r = 63.0f;
                 g = 31.0f;
                 b = 39.0f;
@@ -35,6 +35,9 @@ public class LevelBackgroundColor {
                 b = 142.0f;
                 break;
             case 6:
+                r = 0f;
+                g = 0f;
+                b = 0f;
                 break;
             case 7:
                 break;
