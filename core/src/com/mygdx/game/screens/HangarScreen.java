@@ -89,7 +89,7 @@ public class HangarScreen implements Screen {
         skinSlots = new Array<SkinSlot>();
         for(Integer skinId : skinsInPossession){
             SkinSlot skinSlot = new SkinSlot();
-            if(skinId == 1 || skinId == 2 || skinId == 3){
+            if(skinId == 0|| skinId == 1 || skinId == 2 || skinId == 3){
                 skinSlot.initialize(new Vector2(100, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_skin" + skinId + ".png", skinId);
             }else{
                 skinSlot.initialize(new Vector2(100, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_skin.png", skinId);
