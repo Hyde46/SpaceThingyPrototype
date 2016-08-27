@@ -98,7 +98,7 @@ public class MainMenuScreen implements Screen {
 
         //create ship object and initialize it (connected beacon)
         this.ship = new Ship();
-        ship.initialize(levelGraph.getCurrentLevel(), new Vector2(40,40),"ship1_40x40.png");
+        ship.initialize(levelGraph.getCurrentLevel(), new Vector2(40,40),"ship"+DataPers.dataH().getCurrentSkin()+".png");
 
         pathNavigationManager = new PathNavigationManager();
         pathNavigationManager.initialize(ship, levelGraph);
