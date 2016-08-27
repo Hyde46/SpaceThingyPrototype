@@ -209,6 +209,9 @@ public class GameScreen implements Screen{
             default:
                 initPrototypeLevel(currentSkin);
         }
+
+        ItemManager.get.setItems(ItemManager.convertOrdinalToItemName(DataPers.dataH().getSlot1()),
+                ItemManager.convertOrdinalToItemName(DataPers.dataH().getSlot2()));
     }
 
     private void initPrototypeLevel(int skinID){
@@ -304,7 +307,6 @@ public class GameScreen implements Screen{
         pbM.setLayers(4,true);
         cM.addPBM(pbM);
 
-        ItemManager.get.setItems(ItemManager.ItemNames.TELEPORT, ItemManager.ItemNames.ITEM_PICKER_RANGE);
 
         System.out.println("Done!");
     }
@@ -378,8 +380,6 @@ public class GameScreen implements Screen{
 
         pbM.setLayers(2,true);
         cM.addPBM(pbM);
-
-        ItemManager.get.setItems(ItemManager.ItemNames.ITEM_PICKER_TARGET, ItemManager.ItemNames.SPEED_BOOSTER);
 
         System.out.println("Done!");
     }

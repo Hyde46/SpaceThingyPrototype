@@ -31,8 +31,7 @@ public class ItemManager
 
     public static ItemManager get;
 
-    public enum ItemNames {NONE,ITEM_PICKER_TARGET,ITEM_PICKER_RANGE,SPEED_BOOSTER,TRACEJTORY_CHANGER45,TRAJECTORY_CHANGER90,TRAJECTORY_INDICATOR,BREAK,DESTROY_RADIUS,
-                            FORWARD_SHOOT,MANUAL_CONTROL,SHIELD_CONTROLABLE,SHIELD_ROTATION,STABILIZER,TELEPORT_RANDOM,ARTIFICIAL_PLANET,DESTROY_TARGET,PHASE_OUT,SHIELD_FULL,TELEPORT};
+
 
     public boolean isOneItemActive() {
         // is item 0, 1 == activated
@@ -184,6 +183,55 @@ public class ItemManager
             items[1].dispose();
         }
     }
+
+    public enum ItemNames {NONE,ITEM_PICKER_TARGET,ITEM_PICKER_RANGE,SPEED_BOOSTER,TRACEJTORY_CHANGER45,TRAJECTORY_CHANGER90,TRAJECTORY_INDICATOR,BREAK,DESTROY_RADIUS,
+        FORWARD_SHOOT,MANUAL_CONTROL,SHIELD_CONTROLABLE,SHIELD_ROTATION,STABILIZER,TELEPORT_RANDOM,ARTIFICIAL_PLANET,DESTROY_TARGET,PHASE_OUT,SHIELD_FULL,TELEPORT};
+
+    public static ItemNames convertOrdinalToItemName(int ordinal){
+        switch(ordinal){
+            case 0:
+                return ItemNames.NONE;
+            case 1:
+                return ItemNames.ITEM_PICKER_TARGET;
+            case 2:
+                return ItemNames.ITEM_PICKER_RANGE;
+            case 3:
+                return ItemNames.SPEED_BOOSTER;
+            case 4:
+                return ItemNames.TRACEJTORY_CHANGER45;
+            case 5:
+                return ItemNames.TRAJECTORY_CHANGER90;
+            case 6:
+                return ItemNames.TRAJECTORY_INDICATOR;
+            case 7:
+                return ItemNames.BREAK;
+            case 8:
+                return ItemNames.DESTROY_RADIUS;
+            case 9:
+                return ItemNames.FORWARD_SHOOT;
+            case 10:
+                return ItemNames.MANUAL_CONTROL;
+            case 11:
+                return ItemNames.SHIELD_CONTROLABLE;
+            case 12:
+                return ItemNames.SHIELD_ROTATION;
+            case 13:
+                return ItemNames.STABILIZER;
+            case 14:
+                return ItemNames.TELEPORT_RANDOM;
+            case 15:
+                return ItemNames.ARTIFICIAL_PLANET;
+            case 16:
+                return ItemNames.DESTROY_TARGET;
+            case 17:
+                return ItemNames.PHASE_OUT;
+            case 18:
+                return ItemNames.SHIELD_FULL;
+            case 19:
+                return ItemNames.TELEPORT;
+            default: return ItemNames.NONE;
+        }
+    }
 }
 
 //    public Item getItemFromId(int idItem) {
@@ -202,3 +250,4 @@ public class ItemManager
 //                return null;
 //        }
 //    }
+
