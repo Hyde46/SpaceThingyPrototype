@@ -6,6 +6,7 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
@@ -30,6 +31,7 @@ import com.mygdx.game.renderAbleObjects.units.Planet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
 import com.mygdx.game.renderAbleObjects.units.UpgradePickable;
+import com.mygdx.game.utils.JukeBox;
 import com.mygdx.game.utils.SpacePhysiX;
 
 import java.util.Random;
@@ -82,7 +84,6 @@ public class GameScreen implements Screen{
 
         DataPers.dataP().nthGame++;
         DataPers.saveP();
-
         setLevel(levelToStart);
     }
 
@@ -158,6 +159,7 @@ public class GameScreen implements Screen{
 
     public void update(float delta)
     {
+        JukeBox.update(delta);
         ItemManager.get.update(delta);
 
         levelContainer.spacePhysiX.update(delta);
@@ -179,6 +181,8 @@ public class GameScreen implements Screen{
         getPlayerShip().setSkin(currentSkin);
         ItemManager.get.setItems(ItemManager.convertOrdinalToItemName(DataPers.dataH().getSlot1()),
                 ItemManager.convertOrdinalToItemName(DataPers.dataH().getSlot2()));
+        JukeBox.initialize();
+        JukeBox.startBGM(levelId);
     }
 
     private int prepareLevelFields(int levelId) {

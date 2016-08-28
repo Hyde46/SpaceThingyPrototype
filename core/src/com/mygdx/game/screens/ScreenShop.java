@@ -18,11 +18,12 @@ import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.prototypeUtils.CameraHelper;
 import com.mygdx.game.renderAbleObjects.decorations.GenericElement;
+import com.mygdx.game.utils.JukeBox;
 
 import java.util.ArrayList;
 
 /**
- * Created by Vali on 23.05.2016.
+ * Created by Henri on 23.05.2016.
  */
 public class ScreenShop implements Screen
 {
@@ -110,7 +111,8 @@ public class ScreenShop implements Screen
     {
         this.levelShop = levelShop;
         isBuyMode = true;
-
+        JukeBox.initialize();
+        JukeBox.startBGM(-1);
         idsItemPlayer = DataPers.dataP().idsItemsPlayer;
         idsItemShop = DataPers.dataS().idsItemsShopOfLevel.get(levelShop);
         creditsPlayer = DataPers.dataP().credits;
@@ -311,7 +313,7 @@ public class ScreenShop implements Screen
     public void render(float delta)
     {
         cam.update();
-
+        JukeBox.update(delta);
         MyGdxGame game = MyGdxGame.game;
 
         Gdx.gl.glClearColor(0, 0.2f, 0.2f, 1);

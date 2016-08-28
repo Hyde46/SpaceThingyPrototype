@@ -40,6 +40,9 @@ public class LevelBackgroundColor {
                 b = 0f;
                 break;
             case 7:
+                r = 255f;
+                g = 255f;
+                b = 255f;
                 break;
             case 8:
                 break;

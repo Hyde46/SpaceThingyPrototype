@@ -20,6 +20,7 @@ import com.mygdx.game.renderAbleObjects.decorations.SkinSlot;
 import com.mygdx.game.renderAbleObjects.decorations.Slot;
 import com.mygdx.game.renderAbleObjects.decorations.SlotIcon;
 import com.mygdx.game.renderAbleObjects.decorations.uiItemDisplay.ItemDisplayImage;
+import com.mygdx.game.utils.JukeBox;
 
 import java.util.ArrayList;
 
@@ -60,7 +61,8 @@ public class HangarScreen implements Screen {
     public HangarScreen(){
         System.out.println("Slot 1: " + DataPers.dataH().getSlot1());
         System.out.println("Slot 2: " + DataPers.dataH().getSlot2());
-
+        JukeBox.initialize();
+        JukeBox.startBGM(-1);
 
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080,1920);
@@ -249,6 +251,7 @@ public class HangarScreen implements Screen {
      */
     private void update(float delta){
         InputManager.get.update(delta);
+        JukeBox.update(delta);
     }
 
 

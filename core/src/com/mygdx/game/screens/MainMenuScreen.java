@@ -17,6 +17,7 @@ import com.mygdx.game.overworldObjects.Overlay;
 import com.mygdx.game.overworldObjects.OverlayOverworldHUD;
 import com.mygdx.game.overworldObjects.Ship;
 import com.mygdx.game.prototypeUtils.CameraHelper;
+import com.mygdx.game.utils.JukeBox;
 
 /**
  * Created by denis on 5/6/16.
@@ -68,6 +69,7 @@ public class MainMenuScreen implements Screen {
         setupScreen();
         setupDialogs(true);
         cameraHelper.setCameraManager(cameraManager, dialogManager, 2);
+
     }
 
     /**
@@ -87,6 +89,8 @@ public class MainMenuScreen implements Screen {
      * method to set up everything needed for main menu screen, called in both constructors
      */
     private void setupScreen(){
+        JukeBox.initialize();
+        JukeBox.startBGM(0);
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080,1920);
         camFixed = new OrthographicCamera();
@@ -197,6 +201,7 @@ public class MainMenuScreen implements Screen {
      * @param delta
      */
     private void update(float delta){
+        JukeBox.update(delta);
         InputManager.get.update(delta);
         //process ship's movement
         ship.update(delta);
@@ -226,8 +231,6 @@ public class MainMenuScreen implements Screen {
         dialogManager = null;
         backgroundManager.dispose();
         backgroundManager = null;
-
-
     }
     @Override
     public void show()    {
