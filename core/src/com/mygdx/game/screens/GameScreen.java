@@ -181,7 +181,6 @@ public class GameScreen implements Screen{
         getPlayerShip().setSkin(currentSkin);
         ItemManager.get.setItems(ItemManager.convertOrdinalToItemName(DataPers.dataH().getSlot1()),
                 ItemManager.convertOrdinalToItemName(DataPers.dataH().getSlot2()));
-        JukeBox.initialize();
         JukeBox.startBGM(levelId);
     }
 

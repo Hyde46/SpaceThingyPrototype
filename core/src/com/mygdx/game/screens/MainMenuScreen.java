@@ -89,7 +89,6 @@ public class MainMenuScreen implements Screen {
      * method to set up everything needed for main menu screen, called in both constructors
      */
     private void setupScreen(){
-        JukeBox.initialize();
         JukeBox.startBGM(0);
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080,1920);

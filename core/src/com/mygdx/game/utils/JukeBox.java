@@ -21,8 +21,6 @@ public class JukeBox {
     private static boolean hasStopped;
 
     public static void initialize(){
-        if(isInitialized)
-            return;
         currentFadeinPercent = 0;
         isInitialized = true;
         fadeStep = 5f;
@@ -30,6 +28,8 @@ public class JukeBox {
     }
 
     public static void startBGM(int level){
+        if(!isInitialized)
+            initialize();
         nextBGMLevelID = level;
         currentFadeinPercent = minVolumePercent;
     }

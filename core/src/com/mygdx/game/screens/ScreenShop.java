@@ -111,7 +111,6 @@ public class ScreenShop implements Screen
     {
         this.levelShop = levelShop;
         isBuyMode = true;
-        JukeBox.initialize();
         JukeBox.startBGM(-1);
         idsItemPlayer = DataPers.dataP().idsItemsPlayer;
         idsItemShop = DataPers.dataS().idsItemsShopOfLevel.get(levelShop);

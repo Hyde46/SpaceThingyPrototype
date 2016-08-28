@@ -61,7 +61,6 @@ public class HangarScreen implements Screen {
     public HangarScreen(){
         System.out.println("Slot 1: " + DataPers.dataH().getSlot1());
         System.out.println("Slot 2: " + DataPers.dataH().getSlot2());
-        JukeBox.initialize();
         JukeBox.startBGM(-1);
 
         cam = new OrthographicCamera();
