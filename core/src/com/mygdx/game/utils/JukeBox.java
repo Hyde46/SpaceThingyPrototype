@@ -71,7 +71,7 @@ public class JukeBox {
                 pathToBGM += "level7_1";
                 break;
             case 2:
-                pathToBGM += "level2_2";
+                pathToBGM += "level7_2";
                 break;
             case 3:
             default:
