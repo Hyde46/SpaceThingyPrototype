@@ -209,7 +209,9 @@ public class GameScreen implements Screen{
             hasWonLevel = false;
             levelContainer.parallaxBackgroundManager.dispose();
             InputManager.get.clearAll();
-            MyGdxGame.game.openScreen(new MainMenuScreen(level,hasWonLevel));
+
+            //MyGdxGame.game.openScreen(new MainMenuScreen(level,hasWonLevel));
+            MyGdxGame.game.openScreen(new ScreenResult());
         }
     }
 
