@@ -20,6 +20,8 @@ public class LevelState {
 
     private int currentLevel;
 
+    private String levelName;
+
     public void resetState(){
         currencyCollected = 0;
         hops = 0;
@@ -46,6 +48,8 @@ public class LevelState {
         return hops;
     }
 
+    public int getCurrentLevel(){ return currentLevel; }
+
     public void addCollectedItemId(int itemId){
         itemIdsCollected.add(itemId);
     }
@@ -66,5 +70,13 @@ public class LevelState {
             DataPers.dataP().hopsPerLevel[currentLevel] = hops;
         }
         DataPers.saveP();
+    }
+
+    public void setLevelName(String lN){
+        this.levelName = lN;
+    }
+
+    public String getLevelName(){
+        return levelName;
     }
 }

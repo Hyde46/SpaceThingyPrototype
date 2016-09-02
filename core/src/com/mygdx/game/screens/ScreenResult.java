@@ -2,6 +2,7 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
@@ -14,6 +15,7 @@ import com.mygdx.game.Items.Level1.ItemPickerRadius;
 import com.mygdx.game.Items.Level2.ItemPickTarget;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.camera.CameraManager;
+import com.mygdx.game.managers.levels.LevelState;
 import com.mygdx.game.prototypeUtils.CameraHelper;
 import com.mygdx.game.renderAbleObjects.decorations.GenericElement;
 import com.mygdx.game.utils.JukeBox;
@@ -72,18 +74,20 @@ public class ScreenResult implements Screen
     private int level;
     private String name;
     private Array<Item> itemsFound;
-    private String time;
+    private int currency;
     private int steps;
 
-    public ScreenResult()
+    private LevelState levelState;
+
+    public ScreenResult(LevelState levelState)
     {
         setBase();
-
+        this.levelState = levelState;
         result = true;
-        level = 2;
-        name = "Level 2";
-        time = "2:11";
-        steps = 20;
+        level = levelState.getCurrentLevel();
+        name = levelState.getLevelName();
+        currency = levelState.getCurrency();
+        steps = levelState.getHops();
 
         itemsFound = new Array<Item>();
         itemsFound.add(new ItemPickerRadius(1,1));
@@ -130,7 +134,7 @@ public class ScreenResult implements Screen
         JukeBox.update(delta);
 
         MyGdxGame game = MyGdxGame.game;
-
+        game.font.setColor(Color.WHITE);
         Gdx.gl.glClearColor(0, 0.2f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -146,8 +150,8 @@ public class ScreenResult implements Screen
         game.font.draw(game.batch, "Level:", offsetText0 , offsetHMiddleAvail + getOffsetHElementMiddle(2, hMiddleAvail, 3, 5));
         game.font.draw(game.batch, name, offsetText1 , offsetHMiddleAvail + getOffsetHElementMiddle(2, hMiddleAvail, 3, 5));
 
-        game.font.draw(game.batch, "Time:", offsetText0 , offsetHMiddleAvail + getOffsetHElementMiddle(1, hMiddleAvail, 3, 5));
-        game.font.draw(game.batch, time, offsetText1 , offsetHMiddleAvail + getOffsetHElementMiddle(1, hMiddleAvail, 3, 5));
+        game.font.draw(game.batch, "Currency:", offsetText0 , offsetHMiddleAvail + getOffsetHElementMiddle(1, hMiddleAvail, 3, 5));
+        game.font.draw(game.batch, ""+currency, offsetText1 , offsetHMiddleAvail + getOffsetHElementMiddle(1, hMiddleAvail, 3, 5));
 
         game.font.draw(game.batch, "Steps:", offsetText0 , offsetHMiddleAvail + getOffsetHElementMiddle(0, hMiddleAvail, 3, 5));
         game.font.draw(game.batch, steps + "", offsetText1 , offsetHMiddleAvail + getOffsetHElementMiddle(0, hMiddleAvail, 3, 5));

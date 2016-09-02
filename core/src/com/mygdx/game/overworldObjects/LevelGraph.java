@@ -35,36 +35,52 @@ public class LevelGraph {
         LevelBeacon levelBeacon7 = new LevelBeacon();
         LevelBeacon levelBeacon8 = new LevelBeacon();
         LevelBeacon levelBeacon9 = new LevelBeacon();
+        LevelBeacon levelBeacon10 = new LevelBeacon();
+        LevelBeacon levelBeacon11= new LevelBeacon();
+        LevelBeacon levelBeacon12 = new LevelBeacon();
+        LevelBeacon levelBeacon13 = new LevelBeacon();
 
         //create arrays for the connected beacons and add the corresponding beacons -> the arrays are passed to the initialize method of LevelBeacon
         Array<LevelBeacon> array1 = new Array<LevelBeacon>();
         array1.add(levelBeacon2);
         Array<LevelBeacon> array2 = new Array<LevelBeacon>();
-        array2.addAll(levelBeacon1, levelBeacon3, levelBeacon4);
+        array2.addAll(levelBeacon1, levelBeacon5);
         Array<LevelBeacon> array3 = new Array<LevelBeacon>();
-        array3.addAll(levelBeacon2, levelBeacon5);
+        array3.addAll(levelBeacon5);
         Array<LevelBeacon> array4 = new Array<LevelBeacon>();
-        array4.addAll(levelBeacon2, levelBeacon5);
+        array4.addAll(levelBeacon6);
         Array<LevelBeacon> array5 = new Array<LevelBeacon>();
-        array5.addAll(levelBeacon3, levelBeacon4, levelBeacon6);
+        array5.addAll(levelBeacon6, levelBeacon7, levelBeacon9 , levelBeacon3, levelBeacon2);
         Array<LevelBeacon> array6 = new Array<LevelBeacon>();
-        array6.addAll(levelBeacon5, levelBeacon7);
+        array6.addAll(levelBeacon5, levelBeacon4);
         Array<LevelBeacon> array7 = new Array<LevelBeacon>();
-        array7.addAll(levelBeacon6, levelBeacon8);
+        array7.addAll(levelBeacon5, levelBeacon8);
         Array<LevelBeacon> array8 = new Array<LevelBeacon>();
-        array8.addAll(levelBeacon7, levelBeacon9);
+        array8.addAll(levelBeacon7);
         Array<LevelBeacon> array9 = new Array<LevelBeacon>();
-        array9.add(levelBeacon8);
+        array9.add(levelBeacon5);
+        Array<LevelBeacon> array10 = new Array<LevelBeacon>();
+        array10.add(levelBeacon9);
+        Array<LevelBeacon> array11 = new Array<LevelBeacon>();
+        array11.addAll(levelBeacon5,levelBeacon12);
+        Array<LevelBeacon> array12 = new Array<LevelBeacon>();
+        array12.addAll(levelBeacon11,levelBeacon13);
+        Array<LevelBeacon> array13 = new Array<LevelBeacon>();
+        array13.add(levelBeacon12);
         //initialize beacons: position, size, id, array of connected beacons, type of beacon (1=level, 2=shop, 3=hangar), is already activated
         levelBeacon1.initialize(new Vector2(300, 300), 300, 300, 1, array1, 1, true);
-        levelBeacon2.initialize(new Vector2(700, 700), 300, 300, 2, array2, 1, true);
-        levelBeacon3.initialize(new Vector2(300, 1000), 300, 300, 3, array3, 2, true);
-        levelBeacon4.initialize(new Vector2(800, 1200), 300, 300, 4, array4, 3, true);
-        levelBeacon5.initialize(new Vector2(500, 1600), 300, 300, 5, array5, 1, false);
-        levelBeacon6.initialize(new Vector2(500, 2000), 300, 300, 6, array6, 1, false);
-        levelBeacon7.initialize(new Vector2(100, 2000), 300, 300, 7, array7, 1, false);
-        levelBeacon8.initialize(new Vector2(-300, 1900), 300, 300, 8, array8, 1, false);
-        levelBeacon9.initialize(new Vector2(-300, 2300), 300, 300, 9, array9, 1, false);
+        levelBeacon2.initialize(new Vector2(300, 900), 300, 300, 2, array2, 1, true);
+        levelBeacon3.initialize(new Vector2(1100, 1950), 300, 300, 3, array3, 2, true);
+        levelBeacon4.initialize(new Vector2(-450, 1050), 300, 300, 4, array4, 3, true);
+        levelBeacon5.initialize(new Vector2(500, 1500), 300, 300, 5, array5, 1, true);
+        levelBeacon6.initialize(new Vector2(-50, 1350), 300, 300, 6, array6, 1, true);
+        levelBeacon7.initialize(new Vector2(1050, 1400), 300, 300, 7, array7, 1, false);
+        levelBeacon8.initialize(new Vector2(1550, 1275), 300, 300, 8, array8, 1, false);
+        levelBeacon9.initialize(new Vector2(0, 2000), 300, 300, 9, array9, 1, false);
+        levelBeacon10.initialize(new Vector2(-350, 2250), 300, 300, 10, array10, 1, false);
+        levelBeacon11.initialize(new Vector2(600, 1950), 300, 300, 11, array11, 1, false);
+        levelBeacon12.initialize(new Vector2(950, 2300), 300, 300, 12, array12, 1, false);
+        levelBeacon13.initialize(new Vector2(0, 2550), 300, 300, 13, array13, 1, false);
 
         //add beacons to array of this LevelGraph object
         addBeacon(levelBeacon1);
@@ -76,6 +92,10 @@ public class LevelGraph {
         addBeacon(levelBeacon7);
         addBeacon(levelBeacon8);
         addBeacon(levelBeacon9);
+        addBeacon(levelBeacon10);
+        addBeacon(levelBeacon11);
+        addBeacon(levelBeacon12);
+        addBeacon(levelBeacon13);
 
         LevelInfo levelInfo1 = new LevelInfo();
         LevelInfo levelInfo2 = new LevelInfo();
@@ -86,19 +106,28 @@ public class LevelGraph {
         LevelInfo levelInfo7 = new LevelInfo();
         LevelInfo levelInfo8 = new LevelInfo();
         LevelInfo levelInfo9 = new LevelInfo();
+        LevelInfo levelInfo10 = new LevelInfo();
+        LevelInfo levelInfo11 = new LevelInfo();
+        LevelInfo levelInfo12 = new LevelInfo();
+        LevelInfo levelInfo13 = new LevelInfo();
 
-        levelInfo1.initialize(new Vector2(300, 620), 300, 100, "level_info.png", 1);
-        levelInfo2.initialize(new Vector2(700, 1020), 300, 100, "level_info.png", 2);
-        levelInfo3.initialize(new Vector2(300, 1320), 300, 100, "level_info.png", 3);
-        levelInfo4.initialize(new Vector2(800, 1520), 300, 100, "level_info.png", 4);
-        levelInfo5.initialize(new Vector2(500, 1920), 300, 100, "level_info.png", 5);
-        levelInfo6.initialize(new Vector2(500, 2320), 300, 100, "level_info.png", 6);
-        levelInfo7.initialize(new Vector2(100, 2320), 300, 100, "level_info.png", 7);
-        levelInfo8.initialize(new Vector2(-300, 2220), 300, 100, "level_info.png", 8);
-        levelInfo9.initialize(new Vector2(-300, 2620), 300, 100, "level_info.png", 9);
+        levelInfo1.initialize(levelBeacon1.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 1);
+        levelInfo2.initialize(levelBeacon2.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 2);
+        levelInfo3.initialize(levelBeacon3.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 3);
+        levelInfo4.initialize(levelBeacon4.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 4);
+        levelInfo5.initialize(levelBeacon5.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 5);
+        levelInfo6.initialize(levelBeacon6.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 6);
+        levelInfo7.initialize(levelBeacon7.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 7);
+        levelInfo8.initialize(levelBeacon8.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 8);
+        levelInfo9.initialize(levelBeacon9.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 9);
+        levelInfo10.initialize(levelBeacon10.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 10);
+        levelInfo11.initialize(levelBeacon11.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 11);
+        levelInfo12.initialize(levelBeacon12.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 12);
+        levelInfo13.initialize(levelBeacon13.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 13);
 
         //add infos to array
-        levelInfos.addAll(levelInfo1, levelInfo2, levelInfo3, levelInfo4, levelInfo5, levelInfo6, levelInfo7, levelInfo8, levelInfo9);
+        levelInfos.addAll(levelInfo1, levelInfo2, levelInfo3, levelInfo4, levelInfo5, levelInfo6, levelInfo7, levelInfo8, levelInfo9
+        ,levelInfo10,levelInfo11,levelInfo12,levelInfo13);
 
 
         //if game was just started (finished level = 0) set the current level to 1
@@ -117,6 +146,10 @@ public class LevelGraph {
         InputManager.get.register(levelBeacon7);
         InputManager.get.register(levelBeacon8);
         InputManager.get.register(levelBeacon9);
+        InputManager.get.register(levelBeacon10);
+        InputManager.get.register(levelBeacon11);
+        InputManager.get.register(levelBeacon12);
+        InputManager.get.register(levelBeacon13);
         InputManager.get.register(levelInfo1);
         InputManager.get.register(levelInfo2);
         InputManager.get.register(levelInfo3);
@@ -126,6 +159,10 @@ public class LevelGraph {
         InputManager.get.register(levelInfo7);
         InputManager.get.register(levelInfo8);
         InputManager.get.register(levelInfo9);
+        InputManager.get.register(levelInfo10);
+        InputManager.get.register(levelInfo11);
+        InputManager.get.register(levelInfo12);
+        InputManager.get.register(levelInfo13);
 
 
     }

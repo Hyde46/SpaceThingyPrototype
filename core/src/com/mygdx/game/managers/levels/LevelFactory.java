@@ -134,6 +134,8 @@ public class LevelFactory {
         lvl.parallaxBackgroundManager = pbM;
         lvl.spacePhysiX = spX;
 
+        lvl.levelName = "Beginning";
+
         return lvl;
     }
     private static Level generateLevelOne(GameScreen gs){
@@ -202,6 +204,7 @@ public class LevelFactory {
         level.parallaxBackgroundManager = pbM;
         level.unitManager = uM;
         level.spacePhysiX = spX;
+        level.levelName = "First Steps";
         return level;
     }
 }

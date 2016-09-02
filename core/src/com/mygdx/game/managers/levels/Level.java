@@ -14,9 +14,12 @@ public class Level {
     public SpacePhysiX spacePhysiX;
     public ParallaxBackgroundManager parallaxBackgroundManager;
 
+    public String levelName;
+
     public Level(){
         unitManager = new UnitManager();
         spacePhysiX = new SpacePhysiX();
         parallaxBackgroundManager = new ParallaxBackgroundManager();
+        levelName = "";
     }
 }
