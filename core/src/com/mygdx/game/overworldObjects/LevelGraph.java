@@ -79,7 +79,7 @@ public class LevelGraph {
         levelBeacon9.initialize(new Vector2(0, 2000), 300, 300, 9, array9, 1, false);
         levelBeacon10.initialize(new Vector2(-350, 2250), 300, 300, 10, array10, 1, false);
         levelBeacon11.initialize(new Vector2(600, 1950), 300, 300, 11, array11, 1, false);
-        levelBeacon12.initialize(new Vector2(950, 2300), 300, 300, 12, array12, 1, false);
+        levelBeacon12.initialize(new Vector2(750, 2300), 300, 300, 12, array12, 1, false);
         levelBeacon13.initialize(new Vector2(0, 2550), 300, 300, 13, array13, 1, false);
 
         //add beacons to array of this LevelGraph object

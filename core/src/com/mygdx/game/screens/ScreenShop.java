@@ -107,7 +107,9 @@ public class ScreenShop implements Screen
     int offsetButton1 = wOffsetScreen + 2 * marginButtonsX + wButton;
     int offsetButton2 = wOffsetScreen + 3 * marginButtonsX + 2 * wButton;
 
-    public ScreenShop(int levelShop)
+    int levelId;
+
+    public ScreenShop(int levelShop,int levelId)
     {
         this.levelShop = levelShop;
         isBuyMode = true;
@@ -124,6 +126,7 @@ public class ScreenShop implements Screen
 
         setShopStatics();
         buildShop();
+        this.levelId = levelId;
     }
 
     public void setBuyMode(boolean isBuyMode)
@@ -226,7 +229,7 @@ public class ScreenShop implements Screen
         tabBack.initialize(new Vector2(offsetWScreenRed + 2 * wTab + 2 * marginTabsW, yTabs), wTab, hTab, "shop-tab-back-225-150.png");
         tabBack.setListener(new InputListener(){
             public void OnTouch(TouchData td){
-                MyGdxGame.game.openScreen(new MainMenuScreen());
+                MyGdxGame.game.openScreen(new MainMenuScreen(levelId,true));
             }
         });
         InputManager.get.register(nameDynamic, tabBack);
@@ -277,7 +280,7 @@ public class ScreenShop implements Screen
         panelsInfo.add(btnInfo);
         btnInfo.setListener(new InputListener(){
             public void OnTouch(TouchData td){
-                MyGdxGame.game.openScreen(new ItemScreen(idItemTemp, levelShop));
+                MyGdxGame.game.openScreen(new ItemScreen(idItemTemp, levelShop,levelId));
             }
         });
         InputManager.get.register(nameDynamic, btnInfo);

@@ -137,11 +137,11 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
             if (levelId == lg.getCurrentLevel().getLevelId() && sh.getInOrbit()) {
                 if (type == 2) {
                     InputManager.get.clearAll();
-                    game.openScreen(new ScreenShop(levelOfShop));
+                    game.openScreen(new ScreenShop(1,levelId));
                 }
                 else if(type == 3){
                     InputManager.get.clearAll();
-                    game.openScreen(new HangarScreen());
+                    game.openScreen(new HangarScreen(levelId));
                 }
                 else
                 {

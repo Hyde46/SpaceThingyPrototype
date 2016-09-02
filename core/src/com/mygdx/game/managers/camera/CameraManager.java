@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
+import com.mygdx.game.overworldObjects.Ship;
 import com.mygdx.game.renderAbleObjects.units.Planet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.screens.MainMenuScreen;
@@ -36,6 +37,7 @@ public class CameraManager
     private float translationDamp;
 
     private SpaceShip player;
+    private Ship overWorldShip;
 
     private ParallaxBackgroundManager pBM;
 
@@ -61,11 +63,16 @@ public class CameraManager
         initfields(player);
         instantFocusCamera(positionToFocus);
     }
-    public void initializeCamera(SpaceShip player){
+    public void initializeCamera(Ship player,Vector2 positionToFocus){
         initfields(player);
-        instantFocusCamera(player.getPosition());
+        instantFocusCamera(positionToFocus);
     }
-
+    private void initfields(Ship player){
+        this.overWorldShip = player;
+        this.screenDim.set(new Vector2(MainMenuScreen.camFixed.viewportWidth,MainMenuScreen.camFixed.viewportHeight));
+        screenCenter.set(screenDim.x/2,screenDim.y/2,0);
+        translationDamp = 35.0f;
+    }
     private void initfields(SpaceShip player){
         this.player = player;
         this.screenDim.set(new Vector2(MainMenuScreen.camFixed.viewportWidth,MainMenuScreen.camFixed.viewportHeight));
@@ -110,11 +117,25 @@ public class CameraManager
 
                 focusCamOnPos(player.getPosition());
 
-            }else if(player.isInOrbit() && !isPlayerVisible() || player.isInOrbit() && isFocusingPlayerInOrbit) {
+            }else if(player.isInOrbit() && !isPlayerVisible(false) || player.isInOrbit() && isFocusingPlayerInOrbit) {
                 isFocusingPlayerInOrbit = true;
                 cameraDelayCounter -= 1;
                 if (cameraDelayCounter <= 0) {
                     focusCamOnPos(player.getConnectedPlanet().getPosition());
+                    cameraDelayCounter = 0;
+                }
+            }
+        }
+        if(overWorldShip != null) {
+            if (!overWorldShip.getInOrbit()) {
+
+                focusCamOnPos(overWorldShip.getPosition());
+
+            } else if (overWorldShip.getInOrbit() && !isPlayerVisible(true) || overWorldShip.getInOrbit() && isFocusingPlayerInOrbit) {
+                isFocusingPlayerInOrbit = true;
+                cameraDelayCounter -= 1;
+                if (cameraDelayCounter <= 0) {
+                    focusCamOnPos(overWorldShip.getPosition());
                     cameraDelayCounter = 0;
                 }
             }
@@ -178,8 +199,12 @@ public class CameraManager
         isFocusingPlayerInOrbit = false;
     }
 
-    private boolean isPlayerVisible(){
-        Vector2 playerPosWorldSpace = player.getPosition().cpy();
+    private boolean isPlayerVisible(boolean isInOverworld){
+        Vector2 playerPosWorldSpace;
+        if(!isInOverworld)
+            playerPosWorldSpace = player.getPosition().cpy();
+        else
+            playerPosWorldSpace = overWorldShip.getPosition().cpy();
         Vector3 cameraCenterWorldSpace = cam.position.cpy();
         Vector2 cameraMargins = new Vector2(screenDim.x/2,screenDim.y/2);
         Rectangle cameraView = new Rectangle(cameraCenterWorldSpace.x - cameraMargins.x,cameraCenterWorldSpace.y - cameraMargins.y,

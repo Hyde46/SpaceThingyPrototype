@@ -182,6 +182,7 @@ public class GameScreen implements Screen{
         ItemManager.get.setItems(ItemManager.convertOrdinalToItemName(DataPers.dataH().getSlot1()),
                 ItemManager.convertOrdinalToItemName(DataPers.dataH().getSlot2()));
         JukeBox.startBGM(levelId);
+        levelState.setCurrentLevel(levelId);
         levelState.setLevelName(levelContainer.levelName);
     }
 
@@ -206,11 +207,11 @@ public class GameScreen implements Screen{
             if(hasWonLevel)
                 levelState.safeState();
             levelContainer.unitManager.resetUnits();
+            levelState.setWon(hasWonLevel);
             hasFinishedLevel = false;
             hasWonLevel = false;
             levelContainer.parallaxBackgroundManager.dispose();
             InputManager.get.clearAll();
-
             //MyGdxGame.game.openScreen(new MainMenuScreen(level,hasWonLevel));
             MyGdxGame.game.openScreen(new ScreenResult(levelState));
         }

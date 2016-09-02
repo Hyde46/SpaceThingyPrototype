@@ -17,10 +17,12 @@ import com.mygdx.game.screens.ScreenShop;
 public class ItemDisplayButtonReturn extends Decoration implements IInputHandler
 {
     private int idReturn;
+    private int idLevelReturn;
 
-    public void initialize(Vector2 position, int width, int height, String pathToTexture, int idReturn){
+    public void initialize(Vector2 position, int width, int height, String pathToTexture, int idReturn, int levelReturn){
         initializePositions(position);
         this.idReturn = idReturn;
+        this.idLevelReturn = levelReturn;
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
         this.spriteDimension = new Vector2(width, height);
         initializeTexture(spriteDimension, 0, pathToTexture);
@@ -36,8 +38,8 @@ public class ItemDisplayButtonReturn extends Decoration implements IInputHandler
     {
         //TODO
         System.out.println("item display return " + idReturn);
-        if(idReturn == 1 || idReturn == 2 ||idReturn == 3) MyGdxGame.game.openScreen(new ScreenShop(idReturn));
-        else if(idReturn == 4) MyGdxGame.game.openScreen(new HangarScreen());
+        if(idReturn == 1 || idReturn == 2 ||idReturn == 3) MyGdxGame.game.openScreen(new ScreenShop(idReturn,idLevelReturn));
+        else if(idReturn == 4) MyGdxGame.game.openScreen(new HangarScreen(idReturn));
     }
 
     @Override

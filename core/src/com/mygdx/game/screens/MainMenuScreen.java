@@ -125,8 +125,7 @@ public class MainMenuScreen implements Screen {
         cameraHelper = new CameraHelper();
         cameraManager.setCam(cam);
         cameraManager.addPBM(backgroundManager);
-
-
+        //cameraManager.initializeCamera(ship,ship.getPosition());
         //register overlay and cameraHelper to InputManager
         InputManager.get.register(overlay);
         InputManager.get.register(cameraHelper);

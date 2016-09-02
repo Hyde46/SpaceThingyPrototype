@@ -79,7 +79,7 @@ public class ScreenResult implements Screen
 
     private LevelState levelState;
 
-    public ScreenResult(LevelState levelState)
+    public ScreenResult(final LevelState levelState)
     {
         setBase();
         this.levelState = levelState;
@@ -101,7 +101,7 @@ public class ScreenResult implements Screen
         btnBack.initialize(new Vector2(offsetFrameW, offsetFrameH), wInfoResult, hInfoResult, "shop-banner-shop-900-200.png");
         btnBack.setListener(new InputListener(){
             public void OnTouch(TouchData td){
-                MyGdxGame.game.openScreen(new MainMenuScreen());
+                MyGdxGame.game.openScreen(new MainMenuScreen(levelState.getCurrentLevel(),levelState.getHasWon()));
             }
         });
         InputManager.get.register(btnBack);

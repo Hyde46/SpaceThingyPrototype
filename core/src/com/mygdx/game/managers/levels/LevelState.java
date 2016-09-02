@@ -22,6 +22,8 @@ public class LevelState {
 
     private String levelName;
 
+    private boolean hasWon;
+
     public void resetState(){
         currencyCollected = 0;
         hops = 0;
@@ -79,4 +81,7 @@ public class LevelState {
     public String getLevelName(){
         return levelName;
     }
+
+    public void setWon(boolean b){ this.hasWon = b;}
+    public boolean getHasWon(){ return hasWon;}
 }
