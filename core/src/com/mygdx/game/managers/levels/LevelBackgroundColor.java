@@ -20,9 +20,9 @@ public class LevelBackgroundColor {
                 b = 51.0f;
                 break;
             case 3:
-                r = 33.0f;
-                g = 49.0f;
-                b = 41.0f;
+                r = 64.0f;
+                g = 104.0f;
+                b = 176.0f;
                 break;
             case 4:
                 r = 153.0f;
@@ -30,9 +30,9 @@ public class LevelBackgroundColor {
                 b = 51.0f;
                 break;
             case 5:
-                r = 64.0f;
-                g = 104.0f;
-                b = 176.0f;
+                r = 33.0f;
+                g = 49.0f;
+                b = 41.0f;
                 break;
             case 6:
                 r = 98.0f;
