@@ -64,7 +64,6 @@ public class LevelFactory {
         Unit p2 = new Planet();
         Unit p3 = new Planet();
         Unit p4 = new Planet();
-        Unit p5 = new Planet();
 
 
         ((Planet)p1).initialize(new Vector2(200,670),320,36,false,"planet1_72x72.png",1,0,0);
@@ -72,17 +71,13 @@ public class LevelFactory {
         ((Planet)p2).initialize(new Vector2(-220,1450),320,50,false,"planet2_100x100.png",2,40,5.0f);
         ((Planet)p3).initialize(new Vector2(820,1600),480,50,false,"planet9_100x100.png",1,30,5.0f);
         ((Planet)p4).initialize(new Vector2(-100,2250),320,50,true,"planet7_100x100.png",2,90,5.0f);
-        ((Planet)p5).initialize(new Vector2(330,1600),190,18,false,"moon1_36x36.png",1,120,2.0f);
 
-        ((Planet)p5).connectToPlanet((Planet)p3);
-        ((Planet)p5).setRotationSpeed(20.0f,1);
 
         UnitManager uM = new UnitManager();
         uM.addUnit(p1);
         uM.addUnit(p2);
         uM.addUnit(p3);
         uM.addUnit(p4);
-        uM.addUnit(p5);
         uM.addUnit(playerShip);
 
         SpacePhysiX spX = new SpacePhysiX();
@@ -91,7 +86,6 @@ public class LevelFactory {
         InputManager.get.register(p2);
         InputManager.get.register(p3);
         InputManager.get.register(p4);
-        InputManager.get.register(p5);
 
         gs.cM.initializeCamera((SpaceShip)playerShip,p4.getPosition());
         spX.initWorldBounds(new Rectangle(-800,-300,2000,3000));
