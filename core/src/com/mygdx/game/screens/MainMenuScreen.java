@@ -66,7 +66,7 @@ public class MainMenuScreen implements Screen {
 
     public MainMenuScreen(){
         finishedLevel = 0;      //is beginning
-        setupScreen();
+        setupScreen(false);
         setupDialogs(true);
         cameraHelper.setCameraManager(cameraManager, dialogManager, 2);
 
@@ -79,16 +79,17 @@ public class MainMenuScreen implements Screen {
      */
     public MainMenuScreen(int level, boolean success){
         finishedLevel = level;
-        setupScreen();
+        setupScreen(success);
         //depending on success the boolean showDialog will be set to true of false
         setupDialogs(success);
         cameraHelper.setCameraManager(cameraManager, dialogManager, 2);
+
     }
 
     /**
      * method to set up everything needed for main menu screen, called in both constructors
      */
-    private void setupScreen(){
+    private void setupScreen(boolean hasFinishedLevel){
         JukeBox.startBGM(0);
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080,1920);
@@ -98,7 +99,8 @@ public class MainMenuScreen implements Screen {
         //create LevelGraph object and initialize it (creating beacons etc)
         this.levelGraph = new LevelGraph();
         levelGraph.initializeGraph(finishedLevel);
-
+        if(hasFinishedLevel)
+            levelGraph.unlockNewBeacons(finishedLevel);
         //create ship object and initialize it (connected beacon)
         this.ship = new Ship();
         ship.initialize(levelGraph.getCurrentLevel(), new Vector2(40,40),"ship"+DataPers.dataH().getCurrentSkin()+".png");
@@ -212,8 +214,6 @@ public class MainMenuScreen implements Screen {
     public DialogManager getDialogManager(){
         return dialogManager;
     }
-
-
 
 
     @Override

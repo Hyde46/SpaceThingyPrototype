@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.InputManager;
+import com.mygdx.game.dataPersistence.DataPers;
 
 /**
  * Created by Vali on 18.05.2016.
@@ -50,7 +51,7 @@ public class LevelGraph {
         Array<LevelBeacon> array4 = new Array<LevelBeacon>();
         array4.addAll(levelBeacon6);
         Array<LevelBeacon> array5 = new Array<LevelBeacon>();
-        array5.addAll(levelBeacon6, levelBeacon7, levelBeacon9 , levelBeacon3, levelBeacon2);
+        array5.addAll(levelBeacon6, levelBeacon7, levelBeacon9 , levelBeacon3, levelBeacon2,levelBeacon11);
         Array<LevelBeacon> array6 = new Array<LevelBeacon>();
         array6.addAll(levelBeacon5, levelBeacon4);
         Array<LevelBeacon> array7 = new Array<LevelBeacon>();
@@ -68,19 +69,20 @@ public class LevelGraph {
         Array<LevelBeacon> array13 = new Array<LevelBeacon>();
         array13.add(levelBeacon12);
         //initialize beacons: position, size, id, array of connected beacons, type of beacon (1=level, 2=shop, 3=hangar), is already activated
-        levelBeacon1.initialize(new Vector2(300, 300), 300, 300, 1, array1, 1, true);
-        levelBeacon2.initialize(new Vector2(300, 900), 300, 300, 2, array2, 1, true);
-        levelBeacon3.initialize(new Vector2(1100, 1950), 300, 300, 3, array3, 2, true);
-        levelBeacon4.initialize(new Vector2(-450, 1050), 300, 300, 4, array4, 3, true);
-        levelBeacon5.initialize(new Vector2(500, 1500), 300, 300, 5, array5, 1, true);
-        levelBeacon6.initialize(new Vector2(-50, 1350), 300, 300, 6, array6, 1, true);
-        levelBeacon7.initialize(new Vector2(1050, 1400), 300, 300, 7, array7, 1, false);
-        levelBeacon8.initialize(new Vector2(1550, 1275), 300, 300, 8, array8, 1, false);
-        levelBeacon9.initialize(new Vector2(0, 2000), 300, 300, 9, array9, 1, false);
-        levelBeacon10.initialize(new Vector2(-350, 2250), 300, 300, 10, array10, 1, false);
-        levelBeacon11.initialize(new Vector2(600, 1950), 300, 300, 11, array11, 1, false);
-        levelBeacon12.initialize(new Vector2(750, 2300), 300, 300, 12, array12, 1, false);
-        levelBeacon13.initialize(new Vector2(0, 2550), 300, 300, 13, array13, 1, false);
+        boolean[] playableLevel = DataPers.dataP().playableLevel;
+        levelBeacon1.initialize(new Vector2(300, 300), 300, 300, 1, array1, 1, playableLevel[1]);
+        levelBeacon2.initialize(new Vector2(300, 900), 300, 300, 2, array2, 1, playableLevel[2]);
+        levelBeacon3.initialize(new Vector2(1100, 1950), 300, 300, 3, array3, 2, playableLevel[3]);
+        levelBeacon4.initialize(new Vector2(-450, 1050), 300, 300, 4, array4, 3, playableLevel[4]);
+        levelBeacon5.initialize(new Vector2(500, 1500), 300, 300, 5, array5, 1, playableLevel[5]);
+        levelBeacon6.initialize(new Vector2(-50, 1350), 300, 300, 6, array6, 1, playableLevel[6]);
+        levelBeacon7.initialize(new Vector2(1050, 1400), 300, 300, 7, array7, 1, playableLevel[7]);
+        levelBeacon8.initialize(new Vector2(1550, 1275), 300, 300, 8, array8, 1, playableLevel[8]);
+        levelBeacon9.initialize(new Vector2(0, 2000), 300, 300, 9, array9, 1, playableLevel[9]);
+        levelBeacon10.initialize(new Vector2(-350, 2250), 300, 300, 10, array10, 1, playableLevel[10]);
+        levelBeacon11.initialize(new Vector2(600, 1950), 300, 300, 11, array11, 1, playableLevel[11]);
+        levelBeacon12.initialize(new Vector2(750, 2300), 300, 300, 12, array12, 1, playableLevel[12]);
+        levelBeacon13.initialize(new Vector2(0, 2550), 300, 300, 13, array13, 1, playableLevel[13]);
 
         //add beacons to array of this LevelGraph object
         addBeacon(levelBeacon1);
@@ -241,6 +243,18 @@ public class LevelGraph {
         }
         for(LevelInfo info : levelInfos){
             info.dispose();
+        }
+    }
+
+    public void unlockNewBeacons(int finishedLevel){
+        Array<LevelBeacon> levelsToUnlock = new Array<LevelBeacon>();
+        for(LevelBeacon lB : levelBeacons){
+            if(lB.getLevelId() == finishedLevel){
+                levelsToUnlock = lB.getConnectedBeacons();
+            }
+        }
+        for(LevelBeacon levelBeacon : levelsToUnlock){
+            levelBeacon.activate();
         }
     }
 }

@@ -15,40 +15,48 @@ public class LevelBackgroundColor {
                 b = 39.0f;
                 break;
             case 2:
+                r = 78.0f;
+                g = 46.0f;
+                b = 51.0f;
+                break;
+            case 3:
                 r = 33.0f;
                 g = 49.0f;
                 b = 41.0f;
                 break;
-            case 3:
+            case 4:
                 r = 153.0f;
                 g = 51.0f;
                 b = 51.0f;
                 break;
-            case 4:
+            case 5:
                 r = 64.0f;
                 g = 104.0f;
                 b = 176.0f;
                 break;
-            case 5:
+            case 6:
                 r = 98.0f;
                 g = 57.0f;
                 b = 142.0f;
                 break;
-            case 6:
+            case 7:
                 r = 0f;
                 g = 0f;
                 b = 0f;
                 break;
-            case 7:
+            case 8:
                 r = 255f;
                 g = 255f;
                 b = 255f;
                 break;
-            case 8:
+            case 9:
+                r = 18.0f;
+                g = 46.0f;
+                b = 51.0f;
                 break;
-            case 9 :
+            case 10 :
                 break;
-            case 10:
+            case 11:
                 break;
             default:
         }
