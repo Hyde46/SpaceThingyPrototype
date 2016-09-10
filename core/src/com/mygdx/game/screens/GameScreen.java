@@ -147,11 +147,11 @@ public class GameScreen implements Screen{
 
             }else if(!isOutOfBounds) {
 
-                game.font.draw(game.uiBatch, "You crashed your ship!", 180, 1000);
+                game.font.draw(game.uiBatch, "You crashed your ship!", 280, 1000);
 
             }else {
 
-                game.font.draw(game.uiBatch, "Your ship got lost!", 180, 1000);
+                game.font.draw(game.uiBatch, "Your ship got lost!", 280, 1000);
 
             }
         }
