@@ -1086,7 +1086,7 @@ public class LevelFactory {
         InputManager.get.register(p17);
 
         gs.cM.initializeCamera((SpaceShip)playerShip,playerShip.getPosition());
-        spX.initWorldBounds(new Rectangle(-700,-1100,4000,7000));
+        spX.initWorldBounds(new Rectangle(-3100,-400,6100,4500));
 
         ParallaxBackgroundManager pbM = new ParallaxBackgroundManager();
         pbM.setLayers(4,true);
