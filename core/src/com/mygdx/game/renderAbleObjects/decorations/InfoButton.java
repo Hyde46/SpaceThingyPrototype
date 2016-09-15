@@ -18,8 +18,9 @@ public class InfoButton extends Decoration implements IInputHandler
     private int orderId;
     private int itemId;
     private int idReturn;
+    private int levelidReturn;
 
-    public void initialize(Vector2 position, int width, int height, String pathToTexture, int orderId, int itemId, int idReturn)
+    public void initialize(Vector2 position, int width, int height, String pathToTexture, int orderId, int itemId, int idReturn,int leveidReturn)
     {
         initializePositions(position);
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
@@ -29,6 +30,7 @@ public class InfoButton extends Decoration implements IInputHandler
         this.itemId = itemId;
         this.idReturn = idReturn;
         initializeTexture(spriteDimension, 0, pathToTexture);
+        this.levelidReturn = leveidReturn;
     }
 
     @Override
@@ -41,7 +43,7 @@ public class InfoButton extends Decoration implements IInputHandler
     {
         HangarScreen screen = (HangarScreen) MyGdxGame.game.current;
         if(!screen.getShowPopUp()) {
-            MyGdxGame.game.openScreen(new ItemScreen(itemId, idReturn));
+            MyGdxGame.game.openScreen(new ItemScreen(itemId, idReturn,levelidReturn));
         }
     }
 

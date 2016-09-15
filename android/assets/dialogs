@@ -1,7 +1,8 @@
 Dialog Planet 1:
 Charactere:
 Jason(J)
-Roboter(R)
+Roboter(R)Spencer
+Jason an harry dutzen? sietzen?
 Pre:
 R: Hey Jason!
 J: ...
@@ -17,28 +18,138 @@ Post:
 J: Finally done! You wanted to go to the playhall right?
 R: Nice, maybe I'll let you win for once.
 BoardTelefon: *ring ring*
+H: Mr. Thirst, We have a new delivery specified for you.
+We, Gen.Corp. want you to go to the ___ system and drop of the package. We will load the cargo at our 
+Gen Corp facility on your route.
+*click*
+J:(Happy) Harry, always bugging me we want to relax. 
 
 ########################################################################
 Dialog Planet 2:
 Pre:
+R: Jason, we arrived at that stinky facility. Should we grab some coffee while they load our ship?
+Post:
+*ring ring*
+H: Mr. Thirst, We have gathered some information on your last delviery. Our Client was unsatisfied with the condition in which you
+	left the package. Please be more careful in the future. 
+
+########################################################################
+Dialog Planet 3 ( hub ):
+Pre:
+*ring ring*
+H: Hello Mr. Thirst, to pick up your package pass through the __system straight north.
+H(Happy): Don't lose too much time on sidetracking.
+*click*
+R: Jason, Jason! Screw that delivery, I picked up signals on my Radar! There's a Pawn Shop East of this cluster and 
+a Hangar somewhere west. Let's check that out!
 Post:
 
 ########################################################################
-Dialog Planet 3:
+Dialog Planet 4 ( Shop ) :
 Pre:
 Post:
-
-########################################################################
-Dialog Planet 4:
-Pre:
-Post:
+R: Shiny Stuff you got there! We can tinker around with them at the Hangar. 	
+R: But if you blow up the ship again, ill find me an other master. 
 
 ########################################################################
 Dialog Planet 5:
+Karl Krowbar( Smuggler, black market )
+Pre:
+K: Hello Jason its me Karl, long time no see. What brings you to the __ system?
+	I just saw you on the scanners.
+J: Yeah, its been a while, what do you got for me? 
+K: I recently have planned a heist, big money involved. If you want a share, help me out. 
+I Still need a  getaway Pilot. You need to bring me first to the x system and then help me dissappear. 
+R: I know you've always hated those kind of jobs, but this ship is falling apart. 
+J(mad): Lets get it over with. 
+
+Post:
+K: Okay just wait here. It won't take long. 
+
+########################################################################
+Dialog Planet 6 pt of planet 5:
+Pre:
+K: Start the engines. Go Go Go! We need to get out here! NOW !
+Post:
+K: I Know I always can count on you, when its about simple jobs. Here is your share. 
+ You won't hear from me anytime soon.
+J: I Don't want to hear what you just did. My concience is always bugging me after those kind of jobs.
+R: Don't beat yourself up, everyone has to lookout for himself. 
+
+########################################################################
+Dialog Planet 7 Puffer level vor hangar
+Pre:
+R: A friend of my told my the Hangar is right around this corner. 
+J: Euh....
+J: You don't have any friends.
+R: Fine, I read it online.
+Post:
+*Radio plays*
+Welcome welcome welcome, this is Radio Nox News. Tonight we've got a very special guest with us. 
+Professor Dr. Crane. a high profile Scientist will share his insight on the catastrophic event, when the Kerro Galaxy got completely wiped out. 
+His studies showed the definitive proof, that this horrible accident was cased by a natural anomaly. 
+J: Turned that down, I don't want to be reminded that everything  and everyone I knew ceased to exist.
+R: Strange how there's only one view. It's always the same with that damn radio show.  
+
+########################################################################
+Dialog Planet 8 Hangar
 Pre:
 Post:
 
 ########################################################################
-Dialog Planet 6:
+Dialog Planet 9 nordwest 1
+Mira Morgan
 Pre:
+R: Jason, Now you are quiet a specialist in navigating. We got lost. 
+*ring ring*
+M: Hey guys, I hope Im not disturbing you but i kinda... crashed my ship.
+I got my supplies left with me on (Planet name).
+Could you please help me out and deliver it to (an other planet name) including me. 
+Theres not much payment since i lost all of my Scraps during the crash.
+R: Finally a Woman on board.
+J(mad): ...
+Post:
+M: Thanks for picking me up. 
+R: Beep Boop.
+
+########################################################################
+Dialog Planet 10 nordwest 2
+Pre:
+M: So here's the deal. I need to get to (planet name). Its not far from here. 
+M(happy): If you manage to drop me off in one piece, You'll get a new casing for this ship.
+J: Don't worry we will get you there safe. 
+
+Post:
+M: I guess I'm in your debt.
+J: How about we figure that out over dinner tonight, i know of some nice restaurant two clusters away. 
+M(happy): ...
+M: You wish!
+R: Beep boop.
+
+
+
+######################################################################## Read at your own risk
+Dialog Planet 11
+Pre:
+*ring ring* 
+H: Mr. Thirst finally you made it. I've been waiting for you. There are plenty of shipments to be made, but first i want to ask you something. 
+J: What is it? 
+H: It's a small favor. Gen Corp got me a cloned Tiger as a bonus reward. Could you deliver it to my personal Storage on my homeplanet?
+J: A Tiger?
+H: In stasis of course
+R: I assume the cage is included?
+J: No Problem, Harry. I'll get right to it, and just call me Jason.
+Post:
+J: Harry ? The Tiger has landed. 
+H: Nicely done Jason. By the way i found some really well paid jobs for you by GenCorp.
+########################################################################
+Dialog Planet 12
+Pre:
+
+Post:
+
+########################################################################
+Dialog Planet 13
+Pre:
+
 Post:

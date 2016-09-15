@@ -18,7 +18,9 @@ public class DataSavableProgress extends DataSavable
     public ArrayList<Integer> idsItemsPlayer = new ArrayList<Integer>();
     private ArrayList<Integer> idsSkinsPlayer = new ArrayList<Integer>();
     public int[] hopsPerLevel;
+    public boolean[] playableLevel;
     public int credits;
+    public int currentLevel;
 
     public int nthGame = 0;
 
@@ -28,6 +30,7 @@ public class DataSavableProgress extends DataSavable
         idsItemsPlayer = new ArrayList<Integer>();
         idsSkinsPlayer = new ArrayList<Integer>();
         hopsPerLevel = new int[15];
+        playableLevel = new boolean[15];
         credits = 0;
     }
 

@@ -56,7 +56,7 @@ public class MyGdxGame extends Game
 		//font.getData().scale(1.0f);
 		shapeRenderer = new ShapeRenderer();
 		fpsLimit = new FPSLimiter(60);
-		currentVersion = "Prototype v0.2.3";
+		currentVersion = "Prototype v0.3.0";
 
 		font.setColor(Color.WHITE);
 		debugFont.setColor(Color.WHITE);
@@ -64,6 +64,7 @@ public class MyGdxGame extends Game
 		showOverlay = true;
 		DataPers.dataP().addToSkins(0);
 		DataPers.dataP().addToSkins(1);
+		DataPers.dataP().playableLevel[1] = true;
 		DataPers.saveP();
 		DataPers.dataP().idsItemsPlayer.add(ItemManager.ItemNames.TELEPORT.ordinal());
 		DataPers.dataP().idsItemsPlayer.add(ItemManager.ItemNames.BREAK.ordinal());

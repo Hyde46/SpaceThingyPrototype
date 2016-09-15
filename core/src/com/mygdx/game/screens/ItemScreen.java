@@ -30,8 +30,11 @@ public class ItemScreen implements Screen
 
     private int idItem;
 
-    public ItemScreen(int itemId, int idReturn)
+    private int levelidreturn;
+
+    public ItemScreen(int itemId, int idReturn, int levelidreturn)
     {
+        this.levelidreturn = levelidreturn;
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080,1920);
         InputManager.setup(cam);
@@ -52,7 +55,7 @@ public class ItemScreen implements Screen
         itemDescription.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 400, MyGdxGame.game.screenHeight - 1600), 800, 500, "item_description.png");
 
         returnButton = new ItemDisplayButtonReturn();
-        returnButton.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 200, 100), 400, 200, "return_button.png", idReturn);
+        returnButton.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 200, 100), 400, 200, "return_button.png", idReturn,levelidreturn);
         InputManager.get.register(returnButton);
 
         cameraManager = new CameraManager();

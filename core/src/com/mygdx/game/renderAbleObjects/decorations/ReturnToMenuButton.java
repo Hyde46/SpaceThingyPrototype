@@ -12,12 +12,19 @@ import com.mygdx.game.screens.MyGdxGame;
  * Created by Vali on 18.08.2016.
  */
 public class ReturnToMenuButton extends Decoration implements IInputHandler {
-
+    private int levelID;
     public void initialize(Vector2 position, int width, int height, String pathToTexture){
         initializePositions(position);
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
         this.spriteDimension = new Vector2(width, height);
         initializeTexture(spriteDimension, 0, pathToTexture);
+    }
+    public void initialize(Vector2 position, int width, int height, String pathToTexture,int levelID){
+        initializePositions(position);
+        this.touchHitbox = new Rectangle(position.x, position.y, width, height);
+        this.spriteDimension = new Vector2(width, height);
+        initializeTexture(spriteDimension, 0, pathToTexture);
+        this.levelID = levelID;
     }
 
     @Override
@@ -28,7 +35,7 @@ public class ReturnToMenuButton extends Decoration implements IInputHandler {
     @Override
     public void OnTouch(TouchData td)
     {
-        MyGdxGame.game.openScreen(new MainMenuScreen());
+        MyGdxGame.game.openScreen(new MainMenuScreen(levelID,true));
     }
 
     @Override

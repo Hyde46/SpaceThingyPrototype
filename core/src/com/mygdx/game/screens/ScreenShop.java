@@ -18,11 +18,12 @@ import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.prototypeUtils.CameraHelper;
 import com.mygdx.game.renderAbleObjects.decorations.GenericElement;
+import com.mygdx.game.utils.JukeBox;
 
 import java.util.ArrayList;
 
 /**
- * Created by Vali on 23.05.2016.
+ * Created by Henri on 23.05.2016.
  */
 public class ScreenShop implements Screen
 {
@@ -106,11 +107,13 @@ public class ScreenShop implements Screen
     int offsetButton1 = wOffsetScreen + 2 * marginButtonsX + wButton;
     int offsetButton2 = wOffsetScreen + 3 * marginButtonsX + 2 * wButton;
 
-    public ScreenShop(int levelShop)
+    int levelId;
+
+    public ScreenShop(int levelShop,int levelId)
     {
         this.levelShop = levelShop;
         isBuyMode = true;
-
+        JukeBox.startBGM(-1);
         idsItemPlayer = DataPers.dataP().idsItemsPlayer;
         idsItemShop = DataPers.dataS().idsItemsShopOfLevel.get(levelShop);
         creditsPlayer = DataPers.dataP().credits;
@@ -123,6 +126,7 @@ public class ScreenShop implements Screen
 
         setShopStatics();
         buildShop();
+        this.levelId = levelId;
     }
 
     public void setBuyMode(boolean isBuyMode)
@@ -225,7 +229,7 @@ public class ScreenShop implements Screen
         tabBack.initialize(new Vector2(offsetWScreenRed + 2 * wTab + 2 * marginTabsW, yTabs), wTab, hTab, "shop-tab-back-225-150.png");
         tabBack.setListener(new InputListener(){
             public void OnTouch(TouchData td){
-                MyGdxGame.game.openScreen(new MainMenuScreen());
+                MyGdxGame.game.openScreen(new MainMenuScreen(levelId,true));
             }
         });
         InputManager.get.register(nameDynamic, tabBack);
@@ -276,7 +280,7 @@ public class ScreenShop implements Screen
         panelsInfo.add(btnInfo);
         btnInfo.setListener(new InputListener(){
             public void OnTouch(TouchData td){
-                MyGdxGame.game.openScreen(new ItemScreen(idItemTemp, levelShop));
+                MyGdxGame.game.openScreen(new ItemScreen(idItemTemp, levelShop,levelId));
             }
         });
         InputManager.get.register(nameDynamic, btnInfo);
@@ -311,7 +315,7 @@ public class ScreenShop implements Screen
     public void render(float delta)
     {
         cam.update();
-
+        JukeBox.update(delta);
         MyGdxGame game = MyGdxGame.game;
 
         Gdx.gl.glClearColor(0, 0.2f, 0.2f, 1);

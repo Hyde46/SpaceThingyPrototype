@@ -20,6 +20,7 @@ import com.mygdx.game.renderAbleObjects.decorations.SkinSlot;
 import com.mygdx.game.renderAbleObjects.decorations.Slot;
 import com.mygdx.game.renderAbleObjects.decorations.SlotIcon;
 import com.mygdx.game.renderAbleObjects.decorations.uiItemDisplay.ItemDisplayImage;
+import com.mygdx.game.utils.JukeBox;
 
 import java.util.ArrayList;
 
@@ -57,10 +58,12 @@ public class HangarScreen implements Screen {
 
     CameraManager cameraManager;
 
-    public HangarScreen(){
+    int levelId;
+
+    public HangarScreen(int levelId){
         System.out.println("Slot 1: " + DataPers.dataH().getSlot1());
         System.out.println("Slot 2: " + DataPers.dataH().getSlot2());
-
+        JukeBox.startBGM(-1);
 
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080,1920);
@@ -176,7 +179,7 @@ public class HangarScreen implements Screen {
             equipButton.initialize(new Vector2(width - 200, posY), 250, 200, path, i, itemsInPossession.get(i), isEquipped);
             InputManager.get.register(equipButton);
             InfoButton infoButton = new InfoButton();
-            infoButton.initialize(new Vector2(width - 500, posY), 250, 200, "info_button.png", i, itemsInPossession.get(i), 4);
+            infoButton.initialize(new Vector2(width - 500, posY), 250, 200, "info_button.png", i, itemsInPossession.get(i), 4,levelId);
             InputManager.get.register(infoButton);
             posY -= 200;
             itemSlots.add(slot);
@@ -186,7 +189,7 @@ public class HangarScreen implements Screen {
         }
 
         returnButton = new ReturnToMenuButton();
-        returnButton.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 200, posY - 100), 400, 200, "return_button.png");
+        returnButton.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 200, posY - 100), 400, 200, "return_button.png",levelId);
         InputManager.get.register(returnButton);
 
         currentOrderId = -1;
@@ -196,7 +199,7 @@ public class HangarScreen implements Screen {
         cameraManager.addPBM(backgroundManager);
         cameraHelper.setCameraManager(cameraManager, null, 4);
         InputManager.get.register(cameraHelper);
-
+        this.levelId = levelId;
 
     }
 
@@ -254,6 +257,7 @@ public class HangarScreen implements Screen {
      */
     private void update(float delta){
         InputManager.get.update(delta);
+        JukeBox.update(delta);
     }
 
 

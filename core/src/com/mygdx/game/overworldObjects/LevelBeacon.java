@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.IInputHandler;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.InputManager.TouchData;
+import com.mygdx.game.dataPersistence.DataPers;
 import com.mygdx.game.managers.PathNavigationManager;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
 import com.mygdx.game.screens.GameScreen;
@@ -137,11 +138,11 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
             if (levelId == lg.getCurrentLevel().getLevelId() && sh.getInOrbit()) {
                 if (type == 2) {
                     InputManager.get.clearAll();
-                    game.openScreen(new ScreenShop(levelOfShop));
+                    game.openScreen(new ScreenShop(1,levelId));
                 }
                 else if(type == 3){
                     InputManager.get.clearAll();
-                    game.openScreen(new HangarScreen());
+                    game.openScreen(new HangarScreen(levelId));
                 }
                 else
                 {
@@ -211,5 +212,19 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
      */
     public int getHeight() {
         return height;
+    }
+    public void activate(){
+        if(!activated) {
+            activated = true;
+            DataPers.dataP().playableLevel[levelId] = true;
+            DataPers.saveP();
+            if(type == 2){
+                initializeTexture(new Vector2(width, height), 0, "beacon_shop.png");
+            }else if(type == 3){
+                initializeTexture(new Vector2(width, height), 0, "beacon_hangar.png");
+            }else{ //normal activated level
+                initializeTexture(new Vector2(width, height), 0, "beacon.png");
+            }
+        }
     }
 }

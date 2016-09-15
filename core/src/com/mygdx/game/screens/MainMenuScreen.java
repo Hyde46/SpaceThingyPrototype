@@ -17,6 +17,7 @@ import com.mygdx.game.overworldObjects.Overlay;
 import com.mygdx.game.overworldObjects.OverlayOverworldHUD;
 import com.mygdx.game.overworldObjects.Ship;
 import com.mygdx.game.prototypeUtils.CameraHelper;
+import com.mygdx.game.utils.JukeBox;
 
 /**
  * Created by denis on 5/6/16.
@@ -65,9 +66,10 @@ public class MainMenuScreen implements Screen {
 
     public MainMenuScreen(){
         finishedLevel = 0;      //is beginning
-        setupScreen();
+        setupScreen(false);
         setupDialogs(true);
         cameraHelper.setCameraManager(cameraManager, dialogManager, 2);
+
     }
 
     /**
@@ -77,16 +79,18 @@ public class MainMenuScreen implements Screen {
      */
     public MainMenuScreen(int level, boolean success){
         finishedLevel = level;
-        setupScreen();
+        setupScreen(success);
         //depending on success the boolean showDialog will be set to true of false
         setupDialogs(success);
         cameraHelper.setCameraManager(cameraManager, dialogManager, 2);
+
     }
 
     /**
      * method to set up everything needed for main menu screen, called in both constructors
      */
-    private void setupScreen(){
+    private void setupScreen(boolean hasFinishedLevel){
+        JukeBox.startBGM(0);
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080,1920);
         camFixed = new OrthographicCamera();
@@ -95,7 +99,8 @@ public class MainMenuScreen implements Screen {
         //create LevelGraph object and initialize it (creating beacons etc)
         this.levelGraph = new LevelGraph();
         levelGraph.initializeGraph(finishedLevel);
-
+        if(hasFinishedLevel)
+            levelGraph.unlockNewBeacons(finishedLevel);
         //create ship object and initialize it (connected beacon)
         this.ship = new Ship();
         ship.initialize(levelGraph.getCurrentLevel(), new Vector2(40,40),"ship"+DataPers.dataH().getCurrentSkin()+".png");
@@ -122,8 +127,7 @@ public class MainMenuScreen implements Screen {
         cameraHelper = new CameraHelper();
         cameraManager.setCam(cam);
         cameraManager.addPBM(backgroundManager);
-
-
+        //cameraManager.initializeCamera(ship,ship.getPosition());
         //register overlay and cameraHelper to InputManager
         InputManager.get.register(overlay);
         InputManager.get.register(cameraHelper);
@@ -197,6 +201,7 @@ public class MainMenuScreen implements Screen {
      * @param delta
      */
     private void update(float delta){
+        JukeBox.update(delta);
         InputManager.get.update(delta);
         //process ship's movement
         ship.update(delta);
@@ -209,8 +214,6 @@ public class MainMenuScreen implements Screen {
     public DialogManager getDialogManager(){
         return dialogManager;
     }
-
-
 
 
     @Override
@@ -226,8 +229,6 @@ public class MainMenuScreen implements Screen {
         dialogManager = null;
         backgroundManager.dispose();
         backgroundManager = null;
-
-
     }
     @Override
     public void show()    {
