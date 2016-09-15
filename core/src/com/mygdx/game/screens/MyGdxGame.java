@@ -65,6 +65,8 @@ public class MyGdxGame extends Game
 		DataPers.dataP().addToSkins(0);
 		DataPers.dataP().addToSkins(1);
 		DataPers.saveP();
+		DataPers.dataP().idsItemsPlayer.add(ItemManager.ItemNames.TELEPORT.ordinal());
+		DataPers.dataP().idsItemsPlayer.add(ItemManager.ItemNames.BREAK.ordinal());
 		DataPers.dataH().setSlot1(ItemManager.ItemNames.TELEPORT.ordinal());
 		DataPers.dataH().setSlot2(ItemManager.ItemNames.BREAK.ordinal());
 		DataPers.saveH();

@@ -78,8 +78,12 @@ public class HangarScreen implements Screen {
 
         slot1 = new SlotIcon();
         slot1.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 350, MyGdxGame.game.screenHeight / 2 - 150), 300, 300, "slot1_icon.png", 1);
+        //set the id of the item that is currently in slot1
+        slot1.setItemId(DataPers.dataH().getSlot1());
         slot2 = new SlotIcon();
         slot2.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 + 50, MyGdxGame.game.screenHeight / 2 - 150), 300, 300, "slot2_icon.png", 2);
+        //set id of the item that is currently in slot2
+        slot2.setItemId(DataPers.dataH().getSlot2());
         InputManager.get.register(slot2);
         InputManager.get.register(slot1);
 
@@ -140,6 +144,7 @@ public class HangarScreen implements Screen {
         }else{
             selectedSlot2.initialize(new Vector2(MyGdxGame.game.screenWidth - 400, 800), 200, 200, "item_icon.png");
         }
+
 
         //add all of the item slots to array
         itemSlots = new Array<Slot>();
