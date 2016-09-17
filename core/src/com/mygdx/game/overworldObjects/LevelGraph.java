@@ -59,7 +59,7 @@ public class LevelGraph {
         Array<LevelBeacon> array8 = new Array<LevelBeacon>();
         array8.addAll(levelBeacon7);
         Array<LevelBeacon> array9 = new Array<LevelBeacon>();
-        array9.add(levelBeacon5);
+        array9.addAll(levelBeacon5,levelBeacon10);
         Array<LevelBeacon> array10 = new Array<LevelBeacon>();
         array10.add(levelBeacon9);
         Array<LevelBeacon> array11 = new Array<LevelBeacon>();

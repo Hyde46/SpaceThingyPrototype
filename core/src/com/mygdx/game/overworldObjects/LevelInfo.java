@@ -1,5 +1,8 @@
 package com.mygdx.game.overworldObjects;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -18,6 +21,7 @@ import com.mygdx.game.screens.MyGdxGame;
 public class LevelInfo extends ARenderableObject implements IInputHandler {
 
     private int levelId;
+    private int hops;
     private boolean isExpanded;
 
     public void initialize(Vector2 position, int width, int height, String pathToTexture, int levelId)
@@ -26,6 +30,7 @@ public class LevelInfo extends ARenderableObject implements IInputHandler {
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
         this.spriteDimension = new Vector2(width, height);
         this.levelId = levelId;
+        this.hops = DataPers.dataP().hopsPerLevel[levelId];
         this.isExpanded = false;
         initializeTexture(spriteDimension, 0, pathToTexture);
     }
@@ -35,6 +40,19 @@ public class LevelInfo extends ARenderableObject implements IInputHandler {
 
     }
 
+    @Override
+    public void render(SpriteBatch batch){
+        if(!isActive || tex == null){
+            return;
+        }
+        sprite.draw(batch);
+        //if it is expanded right now we want to show the hops for this level
+        if(isExpanded){
+            MyGdxGame.game.font.setColor(Color.BLACK);
+            MyGdxGame.game.font.draw(batch, "Hops: " + hops, position.x + 10, position.y + spriteDimension.y - 100);
+            MyGdxGame.game.font.setColor(Color.WHITE);
+        }
+    }
 
     @Override
     public void OnTouch(TouchData td){

@@ -218,7 +218,13 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
             activated = true;
             DataPers.dataP().playableLevel[levelId] = true;
             DataPers.saveP();
-            initializeTexture(new Vector2(width, height), 0, "beacon.png");
+            if(type == 2){
+                initializeTexture(new Vector2(width, height), 0, "beacon_shop.png");
+            }else if(type == 3){
+                initializeTexture(new Vector2(width, height), 0, "beacon_hangar.png");
+            }else{ //normal activated level
+                initializeTexture(new Vector2(width, height), 0, "beacon.png");
+            }
         }
     }
 }
