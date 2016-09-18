@@ -24,7 +24,7 @@ import java.io.ObjectOutputStream;
 public class DataPers
 {
     // save names need to be changed every time variables are added or removed to a save class
-    private static final String[] NAME_SAFE = new String[]{ "save0-12", "save1-12", "save2-12", "save3-12" };
+    private static final String[] NAME_SAFE = new String[]{ "save0-14", "save1-14", "save2-14", "save3-14" };
     private static File file[] = new File[4];
     private static DataSavable data[] = new DataSavable[4];
     private static final String PATH = Gdx.files.getLocalStoragePath();
@@ -38,6 +38,11 @@ public class DataPers
     public static void saveS(){ save(1); }
     public static void saveH(){ save(2); }
     public static void saveM(){ save(3); }
+
+    public static void resetP(){ reset(0); }
+    public static void resetS(){ reset(1); }
+    public static void resetH(){ reset(2); }
+    public static void resetM(){ reset(3); }
 
     // local
     private static DataSavable data(int idSaveSlot)
@@ -62,6 +67,16 @@ public class DataPers
             }
         }
         return data[idSaveSlot];
+    }
+
+    private static void reset(int idSaveSlot)
+    {
+        data[0] = new DataSavableProgress();
+        data[1] = new DataSavableShop();
+        data[2] = new DataSavableHangar();
+        data[3] = new DataSavableMisc();
+
+        for(int i = 0; i < 4; i++) save(i);
     }
 
     private static void save(int idSaveSlot)

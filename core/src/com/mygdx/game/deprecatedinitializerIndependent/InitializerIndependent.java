@@ -1,4 +1,4 @@
-package com.mygdx.game.initializerIndependent;
+package com.mygdx.game.deprecatedinitializerIndependent;
 
 /**
  * Created by ilost on 04.08.2016.

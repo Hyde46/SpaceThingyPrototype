@@ -2,8 +2,6 @@ package com.mygdx.game.managers.levels;
 
 import com.mygdx.game.managers.UnitManager;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
-import com.mygdx.game.managers.camera.CameraManager;
-import com.mygdx.game.prototypeUtils.CameraHelper;
 import com.mygdx.game.utils.SpacePhysiX;
 
 /**
@@ -14,12 +12,13 @@ public class Level {
     public SpacePhysiX spacePhysiX;
     public ParallaxBackgroundManager parallaxBackgroundManager;
 
-    public String levelName;
+    public String nameLevel;
+    public String nameSystem;
 
     public Level(){
         unitManager = new UnitManager();
         spacePhysiX = new SpacePhysiX();
         parallaxBackgroundManager = new ParallaxBackgroundManager();
-        levelName = "";
+        nameLevel = "";
     }
 }

@@ -16,7 +16,7 @@ import com.mygdx.game.utils.SpaceMath;
  */
 public class DestroyTarget extends Item implements IInputAnywhere
 {
-    public DestroyTarget(int itemPos, int sideToAdd, ItemManager itemManager, GameScreen gs)
+    public DestroyTarget(int itemPos, int sideToAdd, GameScreen gs)
     {
         super();
         this.level = 3;

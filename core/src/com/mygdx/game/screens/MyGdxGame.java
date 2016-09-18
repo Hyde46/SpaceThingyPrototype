@@ -56,23 +56,25 @@ public class MyGdxGame extends Game
 		//font.getData().scale(1.0f);
 		shapeRenderer = new ShapeRenderer();
 		fpsLimit = new FPSLimiter(60);
-		currentVersion = "Prototype v0.3.0";
+		currentVersion = "Prototype v0.3.2";
 
 		font.setColor(Color.WHITE);
 		debugFont.setColor(Color.WHITE);
 		dialogFont.setColor(Color.BLACK);
 		showOverlay = true;
+
 		DataPers.dataP().addToSkins(0);
 		DataPers.dataP().addToSkins(1);
-		DataPers.dataP().playableLevel[1] = true;
-		DataPers.saveP();
-		DataPers.dataP().idsItemsPlayer.add(ItemManager.ItemNames.TELEPORT.ordinal());
-		DataPers.dataP().idsItemsPlayer.add(ItemManager.ItemNames.BREAK.ordinal());
+
+		// TODO this resets saves every start
+		DataPers.resetP();
+		DataPers.resetS();
+
 		DataPers.dataH().setSlot1(ItemManager.ItemNames.TELEPORT.ordinal());
 		DataPers.dataH().setSlot2(ItemManager.ItemNames.BREAK.ordinal());
 		DataPers.saveH();
-		openScreen(new MainMenuScreen(0,true));
 
+		openScreen(new MainMenuScreen(0,true));
 	}
 
 	public void openScreen(Screen screen)

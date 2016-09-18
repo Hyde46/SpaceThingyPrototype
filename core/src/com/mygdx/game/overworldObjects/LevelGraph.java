@@ -165,8 +165,6 @@ public class LevelGraph {
         InputManager.get.register(levelInfo11);
         InputManager.get.register(levelInfo12);
         InputManager.get.register(levelInfo13);
-
-
     }
 
     /**
