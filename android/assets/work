@@ -8,8 +8,6 @@ Henri:
 -level skizzen -> level ausgearbeitet
 
 Denis:
--asteroids
--bewegbare hindernisse
 -mond rotierung ebene 3
 
 
@@ -26,5 +24,9 @@ General:
 	smuggler Henri
 	mira Sindy
 	radio radio
-	
+
+
+Done:
+-asteroids ( 2 sprites )
+-bewegbare Hindernisse ( leider nur als Circle )
 	
