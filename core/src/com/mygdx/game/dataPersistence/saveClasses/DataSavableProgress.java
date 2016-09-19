@@ -3,6 +3,8 @@ package com.mygdx.game.dataPersistence.saveClasses;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
+import com.mygdx.game.Items.ItemManager;
+import com.mygdx.game.dataPersistence.DataPers;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -36,6 +38,25 @@ public class DataSavableProgress extends DataSavable
         hopsPerLevel = new int[15];
         playableLevel = new boolean[15];
         credits = 0;
+
+        //TODO remove later
+        unlockLevels();
+        setItems();
+    }
+
+    private void unlockLevels()
+    {
+        for(int i = 0; i < playableLevel.length; i++)
+        {
+            playableLevel[i] = true;
+        }
+    }
+
+    private void setItems()
+    {
+        credits = 100;
+        idsItemsPlayer.add(ItemManager.ItemNames.TELEPORT.ordinal());
+        idsItemsPlayer.add(ItemManager.ItemNames.BREAK.ordinal());
     }
 
     /**
@@ -53,5 +74,4 @@ public class DataSavableProgress extends DataSavable
     public void addToSkins(int id){
         idsSkinsPlayer.add(id);
     }
-
 }

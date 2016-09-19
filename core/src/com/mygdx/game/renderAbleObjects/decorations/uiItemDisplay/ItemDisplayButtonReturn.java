@@ -3,26 +3,20 @@ package com.mygdx.game.renderAbleObjects.decorations.uiItemDisplay;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.IInputHandler;
 import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.renderAbleObjects.decorations.Decoration;
 import com.mygdx.game.screens.HangarScreen;
 import com.mygdx.game.screens.MyGdxGame;
-import com.mygdx.game.screens.ScreenShop;
+import com.mygdx.game.screens.shop.ScreenShop;
 
 /**
  * Created by Vali on 22.07.2016.
  */
-public class ItemDisplayButtonReturn extends Decoration implements IInputHandler
+public class ItemDisplayButtonReturn extends Decoration
 {
-    private int idReturn;
-    private int idLevelReturn;
-
-    public void initialize(Vector2 position, int width, int height, String pathToTexture, int idReturn, int levelReturn){
+    public void initialize(Vector2 position, int width, int height, String pathToTexture){
         initializePositions(position);
-        this.idReturn = idReturn;
-        this.idLevelReturn = levelReturn;
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
         this.spriteDimension = new Vector2(width, height);
         initializeTexture(spriteDimension, 0, pathToTexture);
@@ -30,35 +24,6 @@ public class ItemDisplayButtonReturn extends Decoration implements IInputHandler
 
     @Override
     public void renderHitboxes(ShapeRenderer d) {
-
-    }
-
-    @Override
-    public void OnTouch(TouchData td)
-    {
-        //TODO
-        System.out.println("item display return " + idReturn);
-        if(idReturn == 1 || idReturn == 2 ||idReturn == 3) MyGdxGame.game.openScreen(new ScreenShop(idReturn,idLevelReturn));
-        else if(idReturn == 4) MyGdxGame.game.openScreen(new HangarScreen(idReturn));
-    }
-
-    @Override
-    public void OnRelease(TouchData td) {
-
-    }
-
-    @Override
-    public void OnDrag(TouchData td) {
-
-    }
-
-    @Override
-    public void OnHold(TouchData td) {
-
-    }
-
-    @Override
-    public void OnSwipe(TouchData td) {
 
     }
 }

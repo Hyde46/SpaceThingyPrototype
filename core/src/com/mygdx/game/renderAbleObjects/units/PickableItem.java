@@ -10,10 +10,10 @@ import com.mygdx.game.managers.levels.LevelState;
  */
 abstract public class PickableItem extends Unit{
 
-    protected final static float PICKABLE_ITEM_RADIUS = 32.0f;
+    protected final static float PICKABLE_ITEM_RADIUS = 50.0f;
     private final static String VISUAL_TYPE_TEXTURE_PATH = "VisualPickable64x64.png";
     private final static String ITEM_TYPE_TEXTURE_PATH = "ItemPickable64x64.png";
-    private final static String CURRENCY_TYPE_TEXTURE_PATH = "CurrencyPickable64x64.png";
+    private final static String CURRENCY_TYPE_TEXTURE_PATH = "CurrencyPickable.png";
 
     protected int itemID;
 

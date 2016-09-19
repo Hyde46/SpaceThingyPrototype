@@ -20,7 +20,7 @@ import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.screens.HangarScreen;
 import com.mygdx.game.screens.MainMenuScreen;
 import com.mygdx.game.screens.MyGdxGame;
-import com.mygdx.game.screens.ScreenShop;
+import com.mygdx.game.screens.shop.ScreenShop;
 
 /**
  * Created by Vali on 18.05.2016.
@@ -38,7 +38,6 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
 
     private boolean activated;
     private Color beaconColor;
-
 
     @Override
     public void renderHitboxes(ShapeRenderer d) {
@@ -138,7 +137,7 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
             if (levelId == lg.getCurrentLevel().getLevelId() && sh.getInOrbit()) {
                 if (type == 2) {
                     InputManager.get.clearAll();
-                    game.openScreen(new ScreenShop(1,levelId));
+                    game.openScreen(new ScreenShop(1,levelId, true));
                 }
                 else if(type == 3){
                     InputManager.get.clearAll();

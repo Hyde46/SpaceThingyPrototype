@@ -110,9 +110,9 @@ public class SpacePhysiX {
                         ((PickableItem)u).pickUpItem(gs.getLevelState());
                     }
                 }
-                //player crashes into planet
+                //player crashes into stuff
                 if(((Circle)u.getCollisionHitbox()).overlaps(playerShip.getTargetHitbox()) && !playerShip.isPhasedOut() && u.isActive()){
-                    if(u.getUnitType() == Unit.UnitType.PLANET  ) { // if not colliding with an item
+                    if(u.getUnitType() == Unit.UnitType.PLANET ||u.getUnitType() == Unit.UnitType.OBSTACLE ) { // if not colliding with an item
                         playerShip.collide();
                     }else if(u.getUnitType() == Unit.UnitType.PICKABLE_ITEM){
                         ((PickableItem)u).pickUpItem(gs.getLevelState());

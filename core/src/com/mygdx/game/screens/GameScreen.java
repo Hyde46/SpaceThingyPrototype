@@ -6,18 +6,14 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.Items.ItemManager;
 import com.mygdx.game.dataPersistence.DataPers;
-import com.mygdx.game.managers.UnitManager;
 
-import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.managers.levels.Level;
 import com.mygdx.game.managers.levels.LevelBackgroundColor;
@@ -26,13 +22,10 @@ import com.mygdx.game.managers.levels.LevelState;
 import com.mygdx.game.prototypeUtils.CameraHelper;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
 import com.mygdx.game.renderAbleObjects.decorations.Decoration;
-import com.mygdx.game.renderAbleObjects.units.CurrencyPickable;
 import com.mygdx.game.renderAbleObjects.units.Planet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
-import com.mygdx.game.renderAbleObjects.units.UpgradePickable;
 import com.mygdx.game.utils.JukeBox;
-import com.mygdx.game.utils.SpacePhysiX;
 
 import java.util.Random;
 
@@ -84,6 +77,7 @@ public class GameScreen implements Screen{
 
         DataPers.dataP().nthGame++;
         DataPers.saveP();
+
         setLevel(levelToStart);
     }
 
@@ -94,9 +88,8 @@ public class GameScreen implements Screen{
         Gdx.gl.glClearColor(levelBGColor[0],levelBGColor[1],levelBGColor[2], 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
         if(isShowingFinishScreen){
-            renderFinishScreen(delta);
+            //renderFinishScreen(delta);
             update(delta);
             return;
         }
@@ -135,9 +128,9 @@ public class GameScreen implements Screen{
         update(delta);
     }
 
-    private void renderFinishScreen(float delta){
-
-    }
+//    private void renderFinishScreen(float delta){
+//
+//    }
 
     private void renderFinishedGameState(MyGdxGame game) {
         if(hasFinishedLevel) {
@@ -179,11 +172,11 @@ public class GameScreen implements Screen{
         int currentSkin = prepareLevelFields(levelId);
         levelContainer = LevelFactory.loadLevel(levelId,this);
         getPlayerShip().setSkin(currentSkin);
-        ItemManager.get.setItems(ItemManager.convertOrdinalToItemName(DataPers.dataH().getSlot1()),
-                ItemManager.convertOrdinalToItemName(DataPers.dataH().getSlot2()));
+        ItemManager.get.setItems(ItemManager.getItemNameOfId(DataPers.dataH().getSlot1()),
+        ItemManager.getItemNameOfId(DataPers.dataH().getSlot2()));
         JukeBox.startBGM(levelId);
         levelState.setCurrentLevel(levelId);
-        levelState.setLevelName(levelContainer.levelName);
+        levelState.setLevelName(levelContainer.nameLevel);
     }
 
     private int prepareLevelFields(int levelId) {
@@ -192,7 +185,7 @@ public class GameScreen implements Screen{
         isShowingFinishScreen = false;
         levelBGColor = LevelBackgroundColor.getBackGroundColor(levelId);
         int currentSkin = DataPers.dataH().getCurrentSkin();
-        finishCounter = 200;
+        finishCounter = 100;
         hasFinishedLevel = false;
         hasWonLevel = false;
         isOutOfBounds = false;
@@ -267,23 +260,18 @@ public class GameScreen implements Screen{
     @Override
     public void resize(int width, int height) {
     }
-
     @Override
     public void show() {
     }
-
     @Override
     public void hide() {
     }
-
     @Override
     public void pause() {
     }
-
     @Override
     public void resume() {
     }
-
     @Override
     public void dispose() {
         levelContainer.unitManager.resetUnits();
@@ -293,7 +281,6 @@ public class GameScreen implements Screen{
     public void finishLevelImidiate(){
         finishCounter = 1;
     }
-
     public boolean isLevelFinished(){
         return hasFinishedLevel;
     }

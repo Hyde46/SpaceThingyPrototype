@@ -31,7 +31,6 @@ public class MainMenuScreen implements Screen {
     public static OrthographicCamera camFixed;
 
     CameraHelper cameraHelper;
-
     CameraManager cameraManager;
 
     public LevelGraph getLevelGraph() {
@@ -54,9 +53,7 @@ public class MainMenuScreen implements Screen {
 
     private Overlay overlay;
 
-    OverlayOverworldHUD overlayHUD;
-
-    //ButtonOptions boTest;
+//    OverlayOverworldHUD overlayHUD;
 
     private int finishedLevel;
 
@@ -89,7 +86,6 @@ public class MainMenuScreen implements Screen {
             dialogManager.startPostDialog(finishedLevel);
         }
         cameraHelper.setCameraManager(cameraManager, dialogManager, 2);
-
     }
 
     /**
@@ -159,13 +155,12 @@ public class MainMenuScreen implements Screen {
 
         //render static (fixed) elements such as background and option buttons
         game.batch.setProjectionMatrix(camFixed.combined);
+
         game.batch.begin();
+
         backgroundManager.render(game.batch);
-//        overlayHUD.render(game.batch);
-       // boTest.render(game.batch);
+
         game.font.draw(game.batch, game.currentVersion, 10 , 50);
-
-
         game.font.draw(game.batch, "nth start " + DataPers.dataP().nthGame, 600 , 50);
 
         game.batch.end();

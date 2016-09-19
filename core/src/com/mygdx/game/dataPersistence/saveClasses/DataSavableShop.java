@@ -7,29 +7,29 @@ import java.util.ArrayList;
  */
 public class DataSavableShop extends DataSavable
 {
-    public ArrayList<ArrayList<Integer>> idsItemsShopOfLevel;
-    public ArrayList<ArrayList<Integer>> idsItemsAvailable;
+    public ArrayList<Integer>[] idsItemsShopOfLevel;
+    public ArrayList<Integer>[] idsItemsAvailable;
 
     public DataSavableShop()
     {
-        idsItemsShopOfLevel = new ArrayList<ArrayList<Integer>>();
-        idsItemsAvailable = new ArrayList<ArrayList<Integer>>();
+        idsItemsShopOfLevel = (ArrayList<Integer>[])new ArrayList[3];
+        idsItemsAvailable = (ArrayList<Integer>[])new ArrayList[3];
 
         for (int i = 0; i < 3; i++)
         {
-            idsItemsShopOfLevel.add(new ArrayList<Integer>());
-            idsItemsAvailable.add(new ArrayList<Integer>());
+            idsItemsShopOfLevel[i] = new ArrayList<Integer>();
+            idsItemsAvailable[i] = new ArrayList<Integer>();
         }
 
         for (int i = 0; i < 4; i++)
         {
-            idsItemsShopOfLevel.get(0).add(1);
-            idsItemsShopOfLevel.get(1).add(7);
-            idsItemsShopOfLevel.get(2).add(8);
+            idsItemsShopOfLevel[0].add(1);
+            idsItemsShopOfLevel[1].add(7);
+            idsItemsShopOfLevel[2].add(8);
 
-            idsItemsAvailable.get(0).add(1);
-            idsItemsAvailable.get(1).add(7);
-            idsItemsAvailable.get(2).add(8);
+            idsItemsAvailable[0].add(1);
+            idsItemsAvailable[1].add(7);
+            idsItemsAvailable[2].add(8);
         }
     }
 }

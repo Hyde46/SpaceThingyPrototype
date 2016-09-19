@@ -60,7 +60,6 @@ public class LevelState {
         return itemIdsCollected;
     }
 
-
     public void safeState(){
         DataPers.dataP().credits += currencyCollected;
         for(Integer i : itemIdsCollected){

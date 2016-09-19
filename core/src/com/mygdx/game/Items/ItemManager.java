@@ -16,6 +16,7 @@ import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.screens.MyGdxGame;
+import com.mygdx.game.screens.shop.ShopItem;
 
 /**
  * Created by Denis on 27.06.2016.
@@ -30,8 +31,6 @@ public class ItemManager
     // when 1 item activated other gets deactivated ... activate has to go over manager
 
     public static ItemManager get;
-
-
 
     public boolean isOneItemActive() {
         // is item 0, 1 == activated
@@ -83,6 +82,11 @@ public class ItemManager
         // int itemPos = getItemPos(sideToAdd);
         int itemPos = isOneItem ? 2 : sideToAdd;
 
+        // Vorteil wenn Item ungebunden an pos/side erzeugbar .. nur 1 riesen switch benötigt
+        // Item itemTest = getItemOfName(nameItem);
+        // itemTest.setItemPos(0);
+        // itemTest.setSideToAdd(1);
+
         switch (itemname) {
             case ITEM_PICKER_RANGE:
                 items[sideToAdd] = new ItemPickerRadius(itemPos, sideToAdd);
@@ -100,7 +104,7 @@ public class ItemManager
                 items[sideToAdd] = new ArtificialPlanet(itemPos, sideToAdd, this, gs);
                 break;
             case DESTROY_TARGET:
-                items[sideToAdd] = new DestroyTarget(itemPos, sideToAdd, this, gs);
+                items[sideToAdd] = new DestroyTarget(itemPos, sideToAdd, gs);
                 break;
             case PHASE_OUT:
                 items[sideToAdd] = new PhaseOut(itemPos, sideToAdd, this);
@@ -122,6 +126,52 @@ public class ItemManager
 
         return true;
     }
+//
+//    public ShopItem extractDataShop(ItemNames itemName)
+//    {
+//        int posItem = 0;
+//        int sideToAdd = 0;
+//
+//        Item itemWanted = null;
+//
+//        switch (itemName) {
+//            case ITEM_PICKER_RANGE:
+//                itemWanted = new ItemPickerRadius(posItem, sideToAdd);
+//                break;
+//            case SPEED_BOOSTER:
+//                itemWanted = new SpeedBooser(posItem, sideToAdd, this);
+//                break;
+//            case ITEM_PICKER_TARGET:
+//                itemWanted = new ItemPickTarget(posItem, sideToAdd);
+//                break;
+//            case BREAK:
+//                itemWanted = new Break(posItem, sideToAdd, this);
+//                break;
+//            case ARTIFICIAL_PLANET:
+//                itemWanted = new ArtificialPlanet(posItem, sideToAdd, this, gs);
+//                break;
+//            case DESTROY_TARGET:
+//                itemWanted = new DestroyTarget(posItem, sideToAdd, gs);
+//                break;
+//            case PHASE_OUT:
+//                itemWanted = new PhaseOut(posItem, sideToAdd, this);
+//                break;
+//            case TELEPORT_RANDOM:
+//                itemWanted = new TeleportRandom(posItem, sideToAdd);
+//                break;
+//            case TELEPORT:
+//                itemWanted = new Teleport(posItem, sideToAdd);
+//                break;
+//            default:
+//                break;
+//        }
+//
+//
+//        if(itemWanted != null)
+//            return itemWanted.getDataShop();
+//        else
+//            return new ShopItem();
+//    }
 
     public boolean removeItemSlot(int sideToRemove) {
         return true;
@@ -163,11 +213,9 @@ public class ItemManager
     public SpaceShip getPlayer() {
         return gs.getPlayerShip();
     }
-
     public boolean hasLevelEnded() {
         return gs.isLevelFinished();
     }
-
     public void addUnitToManager(Unit u){
         gs.addUnitToManager(u);
     }
@@ -187,51 +235,59 @@ public class ItemManager
     public enum ItemNames {NONE,ITEM_PICKER_TARGET,ITEM_PICKER_RANGE,SPEED_BOOSTER,TRACEJTORY_CHANGER45,TRAJECTORY_CHANGER90,TRAJECTORY_INDICATOR,BREAK,DESTROY_RADIUS,
         FORWARD_SHOOT,MANUAL_CONTROL,SHIELD_CONTROLABLE,SHIELD_ROTATION,STABILIZER,TELEPORT_RANDOM,ARTIFICIAL_PLANET,DESTROY_TARGET,PHASE_OUT,SHIELD_FULL,TELEPORT};
 
-    public static ItemNames convertOrdinalToItemName(int ordinal){
-        switch(ordinal){
-            case 0:
-                return ItemNames.NONE;
-            case 1:
-                return ItemNames.ITEM_PICKER_TARGET;
-            case 2:
-                return ItemNames.ITEM_PICKER_RANGE;
-            case 3:
-                return ItemNames.SPEED_BOOSTER;
-            case 4:
-                return ItemNames.TRACEJTORY_CHANGER45;
-            case 5:
-                return ItemNames.TRAJECTORY_CHANGER90;
-            case 6:
-                return ItemNames.TRAJECTORY_INDICATOR;
-            case 7:
-                return ItemNames.BREAK;
-            case 8:
-                return ItemNames.DESTROY_RADIUS;
-            case 9:
-                return ItemNames.FORWARD_SHOOT;
-            case 10:
-                return ItemNames.MANUAL_CONTROL;
-            case 11:
-                return ItemNames.SHIELD_CONTROLABLE;
-            case 12:
-                return ItemNames.SHIELD_ROTATION;
-            case 13:
-                return ItemNames.STABILIZER;
-            case 14:
-                return ItemNames.TELEPORT_RANDOM;
-            case 15:
-                return ItemNames.ARTIFICIAL_PLANET;
-            case 16:
-                return ItemNames.DESTROY_TARGET;
-            case 17:
-                return ItemNames.PHASE_OUT;
-            case 18:
-                return ItemNames.SHIELD_FULL;
-            case 19:
-                return ItemNames.TELEPORT;
-            default: return ItemNames.NONE;
-        }
+    public static ItemNames getItemNameOfId(int idItem)
+    {
+        // :)
+        ItemNames[] names = ItemNames.values();
+        if(idItem >= names.length || idItem < 0) return ItemNames.NONE;
+        return ItemNames.values()[idItem];
     }
+
+//    public static ItemNames getItemNameOfId(int ordinal){
+//        switch(ordinal){
+//            case 0:
+//                return ItemNames.NONE;
+//            case 1:
+//                return ItemNames.ITEM_PICKER_TARGET;
+//            case 2:
+//                return ItemNames.ITEM_PICKER_RANGE;
+//            case 3:
+//                return ItemNames.SPEED_BOOSTER;
+//            case 4:
+//                return ItemNames.TRACEJTORY_CHANGER45;
+//            case 5:
+//                return ItemNames.TRAJECTORY_CHANGER90;
+//            case 6:
+//                return ItemNames.TRAJECTORY_INDICATOR;
+//            case 7:
+//                return ItemNames.BREAK;
+//            case 8:
+//                return ItemNames.DESTROY_RADIUS;
+//            case 9:
+//                return ItemNames.FORWARD_SHOOT;
+//            case 10:
+//                return ItemNames.MANUAL_CONTROL;
+//            case 11:
+//                return ItemNames.SHIELD_CONTROLABLE;
+//            case 12:
+//                return ItemNames.SHIELD_ROTATION;
+//            case 13:
+//                return ItemNames.STABILIZER;
+//            case 14:
+//                return ItemNames.TELEPORT_RANDOM;
+//            case 15:
+//                return ItemNames.ARTIFICIAL_PLANET;
+//            case 16:
+//                return ItemNames.DESTROY_TARGET;
+//            case 17:
+//                return ItemNames.PHASE_OUT;
+//            case 18:
+//                return ItemNames.SHIELD_FULL;
+//            case 19:
+//                return ItemNames.TELEPORT;
+//            default: return ItemNames.NONE;
+//        }
+//    }
 }
 
 //    public Item getItemFromId(int idItem) {
