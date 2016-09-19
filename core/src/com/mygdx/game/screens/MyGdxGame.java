@@ -65,6 +65,7 @@ public class MyGdxGame extends Game
 
 		DataPers.dataP().addToSkins(0);
 		DataPers.dataP().addToSkins(1);
+		DataPers.dataP().addToSkins(2);
 
 		// TODO this resets saves every start
 		DataPers.resetP();
@@ -72,6 +73,7 @@ public class MyGdxGame extends Game
 
 		DataPers.dataH().setSlot1(ItemManager.ItemNames.TELEPORT.ordinal());
 		DataPers.dataH().setSlot2(ItemManager.ItemNames.BREAK.ordinal());
+		DataPers.dataH().setCurrentSkin(6);
 		DataPers.saveH();
 
 		openScreen(new MainMenuScreen(0,true));

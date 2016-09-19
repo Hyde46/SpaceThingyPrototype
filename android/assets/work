@@ -14,7 +14,6 @@ Denis:
 General:
 -sprite geld / upgrade item
 -endscreen "okay" button
--2 ship skins
 -15 Planeten
 -3 Enemies
 -charactere bilder
@@ -29,4 +28,5 @@ General:
 Done:
 -asteroids ( 2 sprites )
 -bewegbare Hindernisse ( leider nur als Circle )
+-3 ship skins
 	
