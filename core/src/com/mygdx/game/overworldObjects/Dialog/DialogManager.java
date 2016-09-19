@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.InputManager;
+import com.mygdx.game.dataPersistence.DataPers;
 import com.mygdx.game.screens.MainMenuScreen;
 import com.mygdx.game.screens.MyGdxGame;
 
@@ -12,7 +13,8 @@ import com.mygdx.game.screens.MyGdxGame;
  */
 public class DialogManager {
 
-    private Array<Dialog> dialogArray;
+    private Array<Dialog> preDialogArray;
+    private Array<Dialog> postDialogArray;
     private Dialog currentDialog;
     private DialogTextArea dialogBox1;
     private DialogTextArea dialogBox2;
@@ -28,36 +30,163 @@ public class DialogManager {
      * Therefore dialog objects are created and added to that array.
      */
     public void createDialogs(){
-        Array<String> textArray1 = new Array<String>();
-        textArray1.addAll("Welcome to the game!!", "This dialog has two characters");
-        Array<Integer> avatarArray1 = new Array<Integer>();
-        avatarArray1.addAll(3, 5);
-        Dialog dialog1 = new Dialog(textArray1, avatarArray1);
-        Array<String> textArray2 = new Array<String>();
-        textArray2.addAll("This is the dialog after we successfully finished level 1!", "It has 2 characters. And the second character speaks a bit longer, cause he has to explain something really important.", "And the first one speaks twice");
-        Array<Integer> avatarArray2 = new Array<Integer>();
-        avatarArray2.addAll(3, 5, 3);
-        Dialog dialog2 = new Dialog(textArray2, avatarArray2);
-        dialogArray = new Array<Dialog>();
-        dialogArray.addAll(dialog1, dialog2);
+
+        //define pre level dialogs
+
+        Array<String> textArray = new Array<String>();
+        textArray.addAll("Hey Jason!", "...", "Listen to me!", "Can we finally take a break after this delivery so I can waste all of my money at the arcade?", "First of all you're not doing anything I'm the one flying the ship and second you're not getting paid, Spencer, that's me.", "Just because I'm a robot, right?",
+                "Quit playing around. Lets get it done.");
+        Array<Integer> avatarArray = new Array<Integer>();
+        avatarArray.addAll(2, 1, 2, 2, 1, 2, 1);
+        Dialog dialog1 = new Dialog(textArray, avatarArray);
+        textArray = new Array<String>();
+        textArray.addAll("Jason, we arrived at that stinky facility. Should we grab some coffee while they load our ship?");
+        avatarArray = new Array<Integer>();
+        avatarArray.add(2);
+        Dialog dialog2 = new Dialog(textArray, avatarArray);
+        textArray = new Array<String>();
+        textArray.addAll("*ring ring*", "Hello Mr. Thirst, to pick up your package pass through the __system straight north.", "Don't lose too much time on sidetracking.", "*click*", "Jason, Jason! Screw that delivery, I picked up signals on my Radar! There's a Pawn Shop East of this cluster and " +
+                "a Hangar somewhere west. Let's check that out!");
+        avatarArray = new Array<Integer>();
+        avatarArray.addAll(4, 3, 3, 4, 2);
+        Dialog dialog3 = new Dialog(textArray, avatarArray);
+        textArray = new Array<String>();
+        textArray.addAll("Hello Jason it's me Karl, long time no see. What brings you to the __ system?" +
+                "I just saw you on the scanners.", "Yeah, it's been a while, what do you got for me?", "I have recently planned a heist, big money involved. If you want a share, help me out. " +
+                "I still need a getaway Pilot. First, you need to bring me to the x system and then help me disappear.", "I know you've always hated those kind of jobs, but this ship is falling apart.", "Let's get it over with.");
+        avatarArray = new Array<Integer>();
+        avatarArray.addAll(3, 1, 3, 2, 1);
+        Dialog dialog4 = new Dialog(textArray, avatarArray);
+        textArray = new Array<String>();
+        textArray.add("Start the engines! Go Go Go! We need to get out of here! NOW!");
+        avatarArray = new Array<Integer>();
+        avatarArray.add(4);
+        Dialog dialog5 = new Dialog(textArray, avatarArray);
+        textArray = new Array<String>();
+        textArray.addAll("A friend of mine told my the Hangar is right around this corner.", "Euh...you don't have any friends.", "Fine, I read it online.");
+        avatarArray = new Array<Integer>();
+        avatarArray.addAll(2, 1, 2);
+        Dialog dialog6 = new Dialog(textArray, avatarArray);
+        textArray = new Array<String>();
+        textArray.addAll("Jason, now you are quite the specialist in navigating. We got lost.", "*ring ring", "Hey guys, I hope I'm not disturbing but I kinda... crashed my ship. I got my supplies left with me on (Planet name). ", "Could you please help me out and deliver it to (an other planet name) including me. \n" +
+                "There's not much payment since I lost all of my scraps during the crash.", "Finally a Woman on board.", "...");
+        avatarArray = new Array<Integer>();
+        avatarArray.addAll(2, 4, 3, 3, 2, 1);
+        Dialog dialog7 = new Dialog(textArray, avatarArray);
+        textArray = new Array<String>();
+        textArray.addAll("So here's the deal. I need to get to (planet name). It's not far from here.", "If you manage to drop me off in one piece, You'll get a new casing for this ship.", "Don't worry. We will get you there safe.");
+        avatarArray = new Array<Integer>();
+        avatarArray.addAll(3, 3, 1);
+        Dialog dialog8 = new Dialog(textArray, avatarArray);
+        preDialogArray = new Array<Dialog>();
+        preDialogArray.addAll(dialog1, dialog2, dialog3, dialog4, dialog5, dialog6, dialog7, dialog8);
+
+
+        //define post level dialogs
+
+        textArray = new Array<String>();
+        textArray.addAll("Finally done! You wanted to go to the arcade, right?", "Nice, maybe I'll let you win for once.", "*ring ring*", "Mr. Thirst, we have a new delivery specified for you.", "We, Gen.Corp. want you to go to the ___ system and drop off the package. We will load the cargo at our Gen Corp facility on your route.",
+                "*click*", "Harry, always bugging me, when we want to relax.");
+        avatarArray = new Array<Integer>();
+        avatarArray.addAll(1, 2, 4, 3, 3, 4, 1);
+        Dialog dialog9 = new Dialog(textArray, avatarArray);
+        textArray = new Array<String>();
+        textArray.addAll("*ring ring*", "Mr. Thirst, We have gathered some information on your last delivery. Our Client was unsatisfied with the condition in which you left the package. Please be more careful in the future. ");
+        avatarArray = new Array<Integer>();
+        avatarArray.addAll(4, 3);
+        textArray = new Array<String>();
+        textArray.addAll("Shiny stuff you got there! We can tinker around with it at the Hangar.", "But if you blow up the ship again, I'll find me another master.");
+        avatarArray = new Array<Integer>();
+        avatarArray.addAll(2, 2);
+        Dialog dialog10 = new Dialog(textArray, avatarArray);
+        textArray = new Array<String>();
+        textArray.addAll("Okay, just wait here. It won't take long. ");
+        avatarArray = new Array<Integer>();
+        avatarArray.addAll(3);
+        Dialog dialog11 = new Dialog(textArray, avatarArray);
+        textArray = new Array<String>();
+        textArray.addAll("I Know I always can count on you, when its about simple jobs. Here is your share. " +
+                " You won't hear from me anytime soon.", "I don't even want to know what you just did. My conscience is always bugging me after those kind of jobs.", "Don't beat yourself up, everyone has to look out for themselves.");
+        avatarArray = new Array<Integer>();
+        avatarArray.addAll(3, 1, 2);
+        Dialog dialog12 = new Dialog(textArray, avatarArray);
+        textArray = new Array<String>();
+        textArray.addAll("*Radio plays*", "Welcome welcome welcome, this is Radio Nox News. Tonight we've got a very special guest with us.", "Professor Dr. Crane. a high profile Scientist will share his insight on the catastrophic event, when the Kerro Galaxy got completely wiped out.",
+                "His studies showed the definitive proof, that this horrible accident was cased by a natural anomaly.", "Turned that down, I don't want to be reminded that everything and everyone I knew ceased to exist.", "Strange how there's only one view on the matter. It's always the same with that damn radio show.");
+        avatarArray = new Array<Integer>();
+        avatarArray.addAll(4, 4, 4, 4, 1, 2);
+        Dialog dialog13 = new Dialog(textArray, avatarArray);
+        textArray = new Array<String>();
+        textArray.addAll("Thanks for picking me up.", "Beep Boop.");
+        avatarArray = new Array<Integer>();
+        avatarArray.addAll(3, 2);
+        Dialog dialog14 = new Dialog(textArray, avatarArray);
+        textArray = new Array<String>();
+        textArray.addAll("I guess I'm in your debt.", "How about we figure that out over dinner tonight, I know a nice restaurant two clusters away.", "..." , "You wish!", "Beep Boop");
+        avatarArray = new Array<Integer>();
+        avatarArray.addAll(3, 1, 3, 3, 2);
+        Dialog dialog15 = new Dialog(textArray, avatarArray);
+        postDialogArray = new Array<Dialog>();
+        postDialogArray.addAll(dialog9, dialog10, dialog11, dialog12, dialog13, dialog14, dialog15);
+    }
+
+
+    /**
+     * function checks if there is a pre dialog and prepares it if necessary
+     * @param reachedLevel
+     */
+    public void startPreDialog(int reachedLevel){
+        System.out.println("pre played: " + DataPers.dataP().preDialogsPlayed);
+        System.out.println("Reached level: "+ reachedLevel);
+        //check if the dialog was played before by checking persistent data
+        if(!DataPers.dataP().preDialogsPlayed.contains(reachedLevel)){
+            int dialogIndex = getWhichPreDialog(reachedLevel);
+
+            //if there should not be a dialog displayed this time (dialogIndex = -1) no initialization
+            if(dialogIndex != -1){
+                showDialog = true;
+                //get the dialog which should be shown
+                currentDialog = preDialogArray.get(dialogIndex);
+                initializeDialog();
+                DataPers.dataP().preDialogsPlayed.add(reachedLevel);
+                DataPers.saveP();
+            }else{
+                showDialog = false;
+            }
+
+
+        }
+    }
+
+    /**
+     * function checks if there is a post dialog and prepares it if necessary
+     * @param finishedLevel
+     */
+    public void startPostDialog(int finishedLevel){
+        if(!DataPers.dataP().postDialogsPlayed.contains(finishedLevel)){
+            int dialogIndex = getWhichPostDialog(finishedLevel);
+
+            //if there should not be a dialog displayed this time (dialogIndex = -1) no initialization
+            if(dialogIndex != -1){
+                showDialog = true;
+                //get the dialog which should be shown
+                currentDialog = postDialogArray.get(dialogIndex);
+                initializeDialog();
+                DataPers.dataP().postDialogsPlayed.add(finishedLevel);
+                DataPers.saveP();
+            }else{
+                showDialog = false;
+            }
+
+
+        }
 
     }
 
     /**
-     * the function initalized everything for the current dialog
-     * @param finishedLevel
+     * the function initalizes everything for the current dialog
      */
-    public void initializeDialog(int finishedLevel, boolean success){
-        if(success){
-
-            int dialogIndex = getWhichDialog(finishedLevel);
-
-            //if there should not be a dialog displayed this time (dialogIndex = -1) no initialization
-            if(dialogIndex != -1) {
-                showDialog = true;
-                //get the dialog which should be shown
-                currentDialog = dialogArray.get(dialogIndex);
-
+    public void initializeDialog(){
                 //initialize dialog boxes
                 dialogBox1 = new DialogTextArea();
                 dialogBox2 = new DialogTextArea();
@@ -70,8 +199,10 @@ public class DialogManager {
                 dialogAvatar1 = new DialogAvatar();
                 dialogAvatar1.initialize(new Vector2(0, 400), 300, 400, getAvatarPath(currentDialog.getAvatarArray().get(0)));
 
-                dialogAvatar2 = new DialogAvatar();
-                dialogAvatar2.initialize(new Vector2(MyGdxGame.game.screenWidth - 300, 400), 300, 400, getAvatarPath(currentDialog.getAvatarArray().get(1)));
+                if(currentDialog.getAvatarArray().size > 1){
+                    dialogAvatar2 = new DialogAvatar();
+                    dialogAvatar2.initialize(new Vector2(MyGdxGame.game.screenWidth - 300, 400), 300, 400, getAvatarPath(currentDialog.getAvatarArray().get(1)));
+                }
 
                 skipButton = new SkipButton();
                 skipButton.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 200, 10), 400, 200, "skip_button.png", this);
@@ -82,46 +213,41 @@ public class DialogManager {
                 InputManager.get.register(skipButton);
 
                 currentDialogStep = 0;
-            }else{
-                showDialog = false;
-            }
-        }else{
-            showDialog = false;
-        }
+
     }
+
+
 
     /**
      * calls the rendering methods of the specific objects
      */
     public void renderDialog(){
         MyGdxGame game = MyGdxGame.game;
+        int firstCharacter = currentDialog.getAvatarArray().get(0);
         //if the current step is as big as the length of the current dialog we do not want to show the dialog any longer
         if(currentDialogStep >= currentDialog.getTextArray().size){
             showDialog = false;
         }else {
 
-
-            //draw text inside of textarea
+                    //draw text inside of textarea
 
             game.uiBatch.setProjectionMatrix(MainMenuScreen.camFixed.combined);
             game.uiBatch.begin();
             //if the first character speaks render the right dialog box, otherwise the left
-            if (currentDialogStep % 2 == 0) {
-                dialogBox1.render(game.uiBatch);
-            } else {
-                dialogBox2.render(game.uiBatch);
-            }
-            //depending on the step of the dialog the text inside of dialog box 1 or 2 is rendered
+            //depending on the character speaking the text inside of dialog box 1 or 2 is rendered
             //the text is extracted from the text array and rendered
-            if (currentDialogStep % 2 == 0) {
+            if (currentDialog.getAvatarArray().get(currentDialogStep) == firstCharacter) {
+                dialogBox1.render(game.uiBatch);
                 dialogBox1.renderText(game.uiBatch, currentDialog.getTextArray().get(currentDialogStep));
                 //render avatar sprite
                 dialogAvatar1.render(game.uiBatch);
             } else {
+                dialogBox2.render(game.uiBatch);
                 dialogBox2.renderText(game.uiBatch, currentDialog.getTextArray().get(currentDialogStep));
                 //render avatar sprite
                 dialogAvatar2.render(game.uiBatch);
             }
+
             skipButton.render(game.uiBatch);
             game.uiBatch.end();
         }
@@ -129,22 +255,59 @@ public class DialogManager {
 
 
     /**
-     * the function gets the currently finished level as parameter and maps this value to the index of the dialog array, so that the
+     * the function gets the currently finished level as parameter and maps this value to the index of the post dialog array, so that the
      * dialog which should be shown can be extracted from that array
      *
      * @param finishedLevel
-     * @return index in dialogArray, -1 if no dialog is shown
+     * @return index in post dialogArray, -1 if no dialog is shown
      */
-    public int getWhichDialog(int finishedLevel){
+    public int getWhichPostDialog(int finishedLevel){
         switch (finishedLevel){
+            case 1 :
+                return 0;
+            case 2 :
+                return 1;
+            case 4 :
+                return 2;
+            case 5 :
+                return 3;
+            case 6:
+                return 4;
+            case 7 :
+                return 5;
+            case 9:
+                return 6;
+            case 10:
+                return 7;
+            default:
+                return -1;
+        }
+    }
+    /**
+     * the function gets the currently finished level as parameter and maps this value to the index of the pre dialog array, so that the
+     * dialog which should be shown can be extracted from that array
+     *
+     * @param reachedLevel
+     * @return index in pre dialogArray, -1 if no dialog is shown
+     */
+    public int getWhichPreDialog(int reachedLevel){
+        switch (reachedLevel){
             case 0 :
                 return 0;
-            case 1 :
+            case 2 :
                 return 1;
-            case 6 :
+            case 3 :
                 return 2;
-            case 12 :
+            case 5 :
                 return 3;
+            case 6 :
+                return 4;
+            case 7 :
+                return 5;
+            case 9 :
+                return 6;
+            case 10:
+                return 7;
             default:
                 return -1;
         }
@@ -158,13 +321,13 @@ public class DialogManager {
     public String getAvatarPath(int avatar){
         switch (avatar){
             case 1:
-                return "char1.png";         //e.g. Jason
+                return "char3.png";         //Jason
             case 2:
-                return "char2.png";         //e.g. Harry
+                return "char6.png";         //Robot
             case 3:
-                return "char3.png";
+                return "char5.png";         //Harry
             case 4:
-                return "char4.png";
+                return "phone.jpg";          //phone
             case 5:
                 return "char5.png";
             case 6:
@@ -200,7 +363,8 @@ public class DialogManager {
      * clean up stuff, called in MainMenuScreen
      */
     public void dispose(){
-        dialogArray = null;
+        postDialogArray = null;
+        preDialogArray = null;
         currentDialog = null;
         dialogBox1.dispose();
         dialogBox1 = null;

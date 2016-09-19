@@ -71,7 +71,7 @@ public class MyGdxGame extends Game
 		DataPers.dataH().setSlot1(ItemManager.ItemNames.TELEPORT.ordinal());
 		DataPers.dataH().setSlot2(ItemManager.ItemNames.BREAK.ordinal());
 		DataPers.saveH();
-		openScreen(new MainMenuScreen(0,true));
+		openScreen(new MainMenuScreen());
 
 	}
 
