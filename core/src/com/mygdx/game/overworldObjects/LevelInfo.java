@@ -49,10 +49,10 @@ public class LevelInfo extends ARenderableObject implements IInputHandler {
         }
         sprite.draw(batch);
         MyGdxGame.game.font.setColor(Color.BLACK);
-        MyGdxGame.game.font.draw(batch, levelName, position.x + 10, position.y + spriteDimension.y - 10);
+        MyGdxGame.game.font.draw(batch, levelName, position.x + 10, position.y + spriteDimension.y - 30);
         //if it is expanded right now we want to show the hops for this level
         if(isExpanded){
-            MyGdxGame.game.font.draw(batch, "Hops: " + hops, position.x + 10, position.y + spriteDimension.y - 100);
+            MyGdxGame.game.font.draw(batch, "Hops: " + hops, position.x + 10, position.y + spriteDimension.y - 130);
         }
         MyGdxGame.game.font.setColor(Color.WHITE);
 
