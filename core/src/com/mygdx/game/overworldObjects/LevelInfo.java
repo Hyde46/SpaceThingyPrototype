@@ -22,14 +22,16 @@ public class LevelInfo extends ARenderableObject implements IInputHandler {
 
     private int levelId;
     private int hops;
+    private String levelName;
     private boolean isExpanded;
 
-    public void initialize(Vector2 position, int width, int height, String pathToTexture, int levelId)
+    public void initialize(Vector2 position, int width, int height, String pathToTexture, int levelId, String levelName)
     {
         initializePositions(position);
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
         this.spriteDimension = new Vector2(width, height);
         this.levelId = levelId;
+        this.levelName = levelName;
         this.hops = DataPers.dataP().hopsPerLevel[levelId];
         this.isExpanded = false;
         initializeTexture(spriteDimension, 0, pathToTexture);
@@ -46,12 +48,14 @@ public class LevelInfo extends ARenderableObject implements IInputHandler {
             return;
         }
         sprite.draw(batch);
+        MyGdxGame.game.font.setColor(Color.BLACK);
+        MyGdxGame.game.font.draw(batch, levelName, position.x + 10, position.y + spriteDimension.y - 10);
         //if it is expanded right now we want to show the hops for this level
         if(isExpanded){
-            MyGdxGame.game.font.setColor(Color.BLACK);
             MyGdxGame.game.font.draw(batch, "Hops: " + hops, position.x + 10, position.y + spriteDimension.y - 100);
-            MyGdxGame.game.font.setColor(Color.WHITE);
         }
+        MyGdxGame.game.font.setColor(Color.WHITE);
+
     }
 
     @Override
@@ -60,10 +64,10 @@ public class LevelInfo extends ARenderableObject implements IInputHandler {
         //only react to touch if dialog is not shown
         if(!screen.getDialogManager().getShowDialog()){
             if(isExpanded){
-                initialize(position, 300, 100, "level_info.png", levelId);
+                initialize(position, 300, 100, "level_info.png", levelId, levelName);
                 isExpanded = false;
             }else{
-                initialize(position, 300, 500, "level_info_expanded.png", levelId);
+                initialize(position, 300, 500, "level_info_expanded.png", levelId, levelName);
                 isExpanded = true;
             }
         }

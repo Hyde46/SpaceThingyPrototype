@@ -113,19 +113,19 @@ public class LevelGraph {
         LevelInfo levelInfo12 = new LevelInfo();
         LevelInfo levelInfo13 = new LevelInfo();
 
-        levelInfo1.initialize(levelBeacon1.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 1);
-        levelInfo2.initialize(levelBeacon2.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 2);
-        levelInfo3.initialize(levelBeacon3.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 3);
-        levelInfo4.initialize(levelBeacon4.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 4);
-        levelInfo5.initialize(levelBeacon5.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 5);
-        levelInfo6.initialize(levelBeacon6.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 6);
-        levelInfo7.initialize(levelBeacon7.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 7);
-        levelInfo8.initialize(levelBeacon8.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 8);
-        levelInfo9.initialize(levelBeacon9.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 9);
-        levelInfo10.initialize(levelBeacon10.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 10);
-        levelInfo11.initialize(levelBeacon11.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 11);
-        levelInfo12.initialize(levelBeacon12.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 12);
-        levelInfo13.initialize(levelBeacon13.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 13);
+        levelInfo1.initialize(levelBeacon1.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 1, "Tengo");
+        levelInfo2.initialize(levelBeacon2.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 2, "Bera");
+        levelInfo3.initialize(levelBeacon3.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 3, "Topoga");
+        levelInfo4.initialize(levelBeacon4.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 4, "Pero");
+        levelInfo5.initialize(levelBeacon5.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 5, "Mitaki");
+        levelInfo6.initialize(levelBeacon6.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 6, "Tentui");
+        levelInfo7.initialize(levelBeacon7.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 7, "Meku");
+        levelInfo8.initialize(levelBeacon8.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 8, "Loki");
+        levelInfo9.initialize(levelBeacon9.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 9, "Tau");
+        levelInfo10.initialize(levelBeacon10.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 10, "Cjebriev");
+        levelInfo11.initialize(levelBeacon11.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 11, "Indigo");
+        levelInfo12.initialize(levelBeacon12.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 12, "Beep");
+        levelInfo13.initialize(levelBeacon13.getPosition().cpy().add(0,320), 300, 100, "level_info.png", 13, "Boop");
 
         //add infos to array
         levelInfos.addAll(levelInfo1, levelInfo2, levelInfo3, levelInfo4, levelInfo5, levelInfo6, levelInfo7, levelInfo8, levelInfo9
