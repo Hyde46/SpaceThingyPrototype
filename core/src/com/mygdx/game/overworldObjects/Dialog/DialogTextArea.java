@@ -26,8 +26,9 @@ public class DialogTextArea extends Decoration implements IInputHandler
     private String currentText;
     private DialogManager dialogManager;
     private boolean isPressed;
+    private boolean isActive;
 
-    public void initialize(Vector2 position, int width, int height, String texturePath, DialogManager dialogManager)
+    public void initialize(Vector2 position, int width, int height, String texturePath, DialogManager dialogManager, boolean isActive)
     {
         this.position = position.cpy();
 
@@ -44,6 +45,8 @@ public class DialogTextArea extends Decoration implements IInputHandler
         this.dialogManager = dialogManager;
 
         this.isPressed = false;
+
+        this.isActive = isActive;
 
         initializeTexture(spriteDimension, 0, texturePath);
 
@@ -72,18 +75,27 @@ public class DialogTextArea extends Decoration implements IInputHandler
         }
     }
 
+    /**
+     * setter for isActive
+     * @param isActive
+     */
+    public void setActive(boolean isActive){
+        this.isActive = isActive;
+    }
+
     @Override
     public void OnTouch(TouchData td) {
         //if the textposition is smaller than the dialog text that means, that not all of the text is shown
         //therefore we want to show the whole text in this case -> set textposition to length of string
         //ask if currentText is already set, because it can happen that the newly rendered dialog box gets the touch and the text is not set yet
         //Because of the same problem we have a boolean which checks, if this method was just called, isPressed is set to false in onRelease
-        if(currentText != null && !isPressed){
+        if(currentText != null && !isPressed && isActive){
             if(textPosition < currentText.length()){
                 textPosition = currentText.length();
             }else{
                 //otherwise the text is already displayed, therefore we want to increment the step of the dialog so that the next text will be rendered
                 dialogManager.incrementCurrentDialogStep();
+                System.out.println("Box wird getouched und step wird inkrementiert");
             }
             isPressed = true;
         }
@@ -92,6 +104,8 @@ public class DialogTextArea extends Decoration implements IInputHandler
     @Override
     public void OnRelease(TouchData td) {
         isPressed = false;
+        System.out.println("Box wird released");
+
     }
 
     @Override

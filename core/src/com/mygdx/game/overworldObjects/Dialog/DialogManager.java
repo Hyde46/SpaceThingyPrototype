@@ -46,7 +46,7 @@ public class DialogManager {
         Dialog dialog2 = new Dialog(textArray, avatarArray);
         textArray = new Array<String>();
         textArray.addAll("*ring ring*", "Hello Mr. Thirst, to pick up your package pass through the __system straight north.", "Don't lose too much time on sidetracking.", "*click*", "Jason, Jason! Screw that delivery, I picked up signals on my Radar! There's a Pawn Shop East of this cluster and " +
-                "a Hangar somewhere west. Let's check that out!");
+                "a Hahhngar somewhere west. Let's check that out!");
         avatarArray = new Array<Integer>();
         avatarArray.addAll(4, 3, 3, 4, 2);
         Dialog dialog3 = new Dialog(textArray, avatarArray);
@@ -191,9 +191,9 @@ public class DialogManager {
                 dialogBox1 = new DialogTextArea();
                 dialogBox2 = new DialogTextArea();
                 //the width of the first box should be almost the rest of the screen (meaning screen width minus the offset from left and a little
-                dialogBox1.initialize(new Vector2(300, 250), MyGdxGame.game.screenWidth - 300, 700, "dialogBox.png", this);
+                dialogBox1.initialize(new Vector2(300, 250), MyGdxGame.game.screenWidth - 300, 700, "dialogBox.png", this, true);
                 //the second box starts from left and leaves room to the right
-                dialogBox2.initialize(new Vector2(0, 250), MyGdxGame.game.screenWidth - 300, 700, "dialogBox.png", this);
+                dialogBox2.initialize(new Vector2(0, 250), MyGdxGame.game.screenWidth - 300, 700, "dialogBox.png", this, false);
 
                 //initalize dialog avatar with the avatar image of the first entry in the avatar array of this dialog
                 dialogAvatar1 = new DialogAvatar();
@@ -241,11 +241,15 @@ public class DialogManager {
                 dialogBox1.renderText(game.uiBatch, currentDialog.getTextArray().get(currentDialogStep));
                 //render avatar sprite
                 dialogAvatar1.render(game.uiBatch);
+                dialogBox1.setActive(true);
+                dialogBox2.setActive(false);
             } else {
                 dialogBox2.render(game.uiBatch);
                 dialogBox2.renderText(game.uiBatch, currentDialog.getTextArray().get(currentDialogStep));
                 //render avatar sprite
                 dialogAvatar2.render(game.uiBatch);
+                dialogBox2.setActive(true);
+                dialogBox1.setActive(false);
             }
 
             skipButton.render(game.uiBatch);
@@ -342,6 +346,7 @@ public class DialogManager {
      */
     public void incrementCurrentDialogStep(){
         currentDialogStep++;
+        System.out.println("Current Dialog Step: " + currentDialogStep);
     }
 
     /**
