@@ -1,22 +1,19 @@
 Valli:
--Dialogsystem nutzbar
--Dialoge eintragen
--level tags
+-Dialogsystem nutzbar (pre und post jetzt möglich, ist noch ein komischer Bug drin)
+-Dialoge eintragen (die meisten sind eingetragen, passen noch nicht genau zu den leveln)
+-level tags (jetzt über Font, passen aber evtl noch nicht zu den Leveln)
 
 Henri:
 -Shop system
 -level skizzen -> level ausgearbeitet
 
 Denis:
--asteroids
--bewegbare hindernisse
 -mond rotierung ebene 3
 
 
 General:
 -sprite geld / upgrade item
 -endscreen "okay" button
--2 ship skins
 -15 Planeten
 -3 Enemies
 -charactere bilder
@@ -26,5 +23,10 @@ General:
 	smuggler Henri
 	mira Sindy
 	radio radio
-	
+
+
+Done:
+-asteroids ( 2 sprites )
+-bewegbare Hindernisse ( leider nur als Circle )
+-3 ship skins
 	

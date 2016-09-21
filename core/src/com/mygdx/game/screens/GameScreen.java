@@ -185,7 +185,7 @@ public class GameScreen implements Screen{
         isShowingFinishScreen = false;
         levelBGColor = LevelBackgroundColor.getBackGroundColor(levelId);
         int currentSkin = DataPers.dataH().getCurrentSkin();
-        finishCounter = 200;
+        finishCounter = 100;
         hasFinishedLevel = false;
         hasWonLevel = false;
         isOutOfBounds = false;

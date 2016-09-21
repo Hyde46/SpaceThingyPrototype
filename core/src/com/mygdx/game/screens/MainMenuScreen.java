@@ -65,6 +65,7 @@ public class MainMenuScreen implements Screen {
         finishedLevel = 0;      //is beginning
         setupScreen(false);
         setupDialogs(true);
+        dialogManager.startPreDialog(0);
         cameraHelper.setCameraManager(cameraManager, dialogManager, 2);
     }
 
@@ -75,9 +76,15 @@ public class MainMenuScreen implements Screen {
      */
     public MainMenuScreen(int level, boolean success){
         finishedLevel = level;
+        System.out.println("Finished Level: " + finishedLevel);
+
         setupScreen(success);
         //depending on success the boolean showDialog will be set to true of false
         setupDialogs(success);
+        //show the dialog
+        if(success){
+            dialogManager.startPostDialog(finishedLevel);
+        }
         cameraHelper.setCameraManager(cameraManager, dialogManager, 2);
     }
 
@@ -135,8 +142,6 @@ public class MainMenuScreen implements Screen {
         //create the dialog manager and initialize the dialogs
         dialogManager = new DialogManager();
         dialogManager.createDialogs();
-        //show the dialog
-        dialogManager.initializeDialog(finishedLevel, success);
     }
 
     @Override

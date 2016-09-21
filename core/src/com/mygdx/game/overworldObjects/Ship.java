@@ -4,7 +4,10 @@ import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.overworldObjects.Dialog.DialogManager;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
+import com.mygdx.game.screens.MainMenuScreen;
+import com.mygdx.game.screens.MyGdxGame;
 import com.mygdx.game.utils.SpaceMath;
 
 import sun.rmi.runtime.Log;
@@ -72,6 +75,8 @@ public class Ship extends ARenderableObject{
                 travelsRoute = false;
                 //rotate ship again
                 sprite.setRotation(currentLevel.getPositionCenter().cpy().sub(position.cpy()).angle());
+                //now we want to show the pre dialog (we will check in the dialog manager if it should be shown
+                ((MainMenuScreen) MyGdxGame.game.current).getDialogManager().startPreDialog(currentLevel.getLevelId());
             }else if(travelsRoute && currentRoute.peek().getHitbox().contains(position)){  //second case: ship has reached next beacon on route
                 //in this case we tell the ship to fly to the next beacon in the route
                 System.out.println("The first beacon is reached");

@@ -19,6 +19,8 @@ public class DataSavableProgress extends DataSavable
 
     public ArrayList<Integer> idsItemsPlayer = new ArrayList<Integer>();
     private ArrayList<Integer> idsSkinsPlayer = new ArrayList<Integer>();
+    public ArrayList<Integer> preDialogsPlayed;
+    public ArrayList<Integer> postDialogsPlayed;
     public int[] hopsPerLevel;
     public boolean[] playableLevel;
     public int credits;
@@ -30,6 +32,8 @@ public class DataSavableProgress extends DataSavable
     {
         idsItemsPlayer = new ArrayList<Integer>();
         idsSkinsPlayer = new ArrayList<Integer>();
+        preDialogsPlayed = new ArrayList<Integer>();
+        postDialogsPlayed = new ArrayList<Integer>();
         hopsPerLevel = new int[15];
         playableLevel = new boolean[15];
         credits = 0;
