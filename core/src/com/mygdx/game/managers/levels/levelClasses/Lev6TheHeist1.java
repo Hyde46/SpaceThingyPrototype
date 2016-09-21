@@ -18,9 +18,9 @@ import com.mygdx.game.utils.SpacePhysiX;
  * Created by ilost on 18.09.2016.
  */
 
-public class Level6TheHeist1 extends Level
+public class Lev6TheHeist1 extends Level
 {
-    public Level6TheHeist1(GameScreen gs)
+    public Lev6TheHeist1(GameScreen gs)
     {
         nameLevel = "The Invitation";
         nameSystem = "Meku";

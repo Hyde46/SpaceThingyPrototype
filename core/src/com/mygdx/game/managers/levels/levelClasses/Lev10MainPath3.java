@@ -18,14 +18,13 @@ import com.mygdx.game.utils.SpacePhysiX;
  * Created by ilost on 18.09.2016.
  */
 
-public class Level5Mira2 extends Level
+public class Lev10MainPath3 extends Level
 {
-    public Level5Mira2(GameScreen gs)
+    public Lev10MainPath3(GameScreen gs)
     {
-        nameLevel = "Mira's Saviour";
-        nameSystem = "Tentui";
+        nameLevel = "End of an universe";
+        nameSystem = "Indigo";
 
-        //Units init
         Unit playerShip = new SpaceShip();
         Unit p1 = new Planet();
         Unit p2 = new Planet();

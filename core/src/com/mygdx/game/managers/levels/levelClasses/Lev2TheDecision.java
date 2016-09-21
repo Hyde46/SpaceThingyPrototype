@@ -18,12 +18,12 @@ import com.mygdx.game.utils.SpacePhysiX;
  * Created by ilost on 18.09.2016.
  */
 
-public class Level3WayToHangar extends Level
+public class Lev2TheDecision extends Level
 {
-    public Level3WayToHangar(GameScreen gs)
+    public Lev2TheDecision(GameScreen gs)
     {
-        nameLevel = "Way to Hangar";
-        nameSystem = "Pero";
+        nameLevel = "The Decision";
+        nameSystem = "Topoga";
 
         //Units init
         Unit playerShip = new SpaceShip();
@@ -49,7 +49,6 @@ public class Level3WayToHangar extends Level
         ((Planet)p6).initialize(new Vector2(-110,2800),320,50,false,"planet42_100x100.png",2,10,10.0f);
         ((Planet)p8).initialize(new Vector2(130,3800),320,50,true,"planet7_100x100.png",2,10,0.0f);
         ((Planet)p11).initialize(new Vector2(1230,3480),480,50,false,"planet7_100x100.png",2,10,10.0f);
-
 
         //Moons
         ((Planet)p7).initialize(new Vector2(-430,2800),190,18,false,"moon1_36x36.png",1,0,10.0f);
@@ -82,7 +81,6 @@ public class Level3WayToHangar extends Level
         uM.addUnit(p12);
         uM.addUnit(playerShip);
 
-
         Unit item1 = new UpgradePickable();
         ((UpgradePickable)item1).initialize(5,new Vector2(100,670));
         uM.addUnit(item1);
@@ -105,7 +103,7 @@ public class Level3WayToHangar extends Level
         InputManager.get.register(p12);
 
         gs.cM.initializeCamera((SpaceShip)playerShip,p8.getPosition());
-        spX.initWorldBounds(new Rectangle(-700,-1100,4000,7000));
+        spX.initWorldBounds(new Rectangle(-1100,-1100,4000,7000));
 
         ParallaxBackgroundManager pbM = new ParallaxBackgroundManager();
         pbM.setLayers(4,true);

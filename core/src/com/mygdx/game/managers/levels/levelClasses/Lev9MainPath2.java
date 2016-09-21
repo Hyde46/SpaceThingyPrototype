@@ -18,14 +18,13 @@ import com.mygdx.game.utils.SpacePhysiX;
  * Created by ilost on 18.09.2016.
  */
 
-public class Level2TheDecision extends Level
+public class Lev9MainPath2 extends Level
 {
-    public Level2TheDecision(GameScreen gs)
+    public Lev9MainPath2(GameScreen gs)
     {
-        nameLevel = "The Decision";
-        nameSystem = "Topoga";
+        nameLevel = "Everything must go";
+        nameSystem = "Cjebriev";
 
-        //Units init
         Unit playerShip = new SpaceShip();
         Unit p1 = new Planet();
         Unit p2 = new Planet();
@@ -54,7 +53,6 @@ public class Level2TheDecision extends Level
         ((Planet)p7).initialize(new Vector2(-430,2800),190,18,false,"moon1_36x36.png",1,0,10.0f);
         ((Planet)p7).connectToPlanet((Planet)p6);
         ((Planet)p7).setRotationSpeed(20.0f,1);
-
 
         ((Planet)p9).initialize(new Vector2(1680,3480),240,18,false,"moon2_36x36.png",1,0,10.0f);
         ((Planet)p9).connectToPlanet((Planet)p11);
@@ -103,11 +101,15 @@ public class Level2TheDecision extends Level
         InputManager.get.register(p12);
 
         gs.cM.initializeCamera((SpaceShip)playerShip,p8.getPosition());
-        spX.initWorldBounds(new Rectangle(-1100,-1100,4000,7000));
+        spX.initWorldBounds(new Rectangle(-700,-1100,4000,7000));
 
         ParallaxBackgroundManager pbM = new ParallaxBackgroundManager();
         pbM.setLayers(4,true);
         gs.cM.addPBM(pbM);
+
+        unitManager = uM;
+        parallaxBackgroundManager = pbM;
+        spacePhysiX = spX;
 
         unitManager = uM;
         parallaxBackgroundManager = pbM;

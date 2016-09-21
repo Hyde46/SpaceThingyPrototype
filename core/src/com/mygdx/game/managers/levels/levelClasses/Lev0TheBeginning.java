@@ -16,9 +16,9 @@ import com.mygdx.game.utils.SpacePhysiX;
  * Created by ilost on 18.09.2016.
  */
 
-public class Level0TheBeginning extends Level
+public class Lev0TheBeginning extends Level
 {
-    public Level0TheBeginning(GameScreen gs)
+    public Lev0TheBeginning(GameScreen gs)
     {
         nameLevel = "The Beginning";
         nameSystem = "Tengo";

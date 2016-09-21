@@ -18,9 +18,9 @@ import com.mygdx.game.utils.SpacePhysiX;
  * Created by ilost on 18.09.2016.
  */
 
-public class Level1TheDelivery extends Level
+public class Lev1TheDelivery extends Level
 {
-    public Level1TheDelivery(GameScreen gs)
+    public Lev1TheDelivery(GameScreen gs)
     {
         nameLevel = "The Delivery";
         nameSystem = "Bera";

@@ -18,14 +18,13 @@ import com.mygdx.game.utils.SpacePhysiX;
  * Created by ilost on 18.09.2016.
  */
 
-public class Level4Mira1 extends Level
+public class Lev7TheHeist2 extends Level
 {
-    public Level4Mira1(GameScreen gs)
+    public Lev7TheHeist2(GameScreen gs)
     {
-        nameLevel = "An Unexpected Encounter";
-        nameSystem = "Mitaki";
+        nameLevel = "The Heist";
+        nameSystem = "Loki";
 
-        //Units init
         Unit playerShip = new SpaceShip();
         Unit p1 = new Planet();
         Unit p2 = new Planet();
@@ -50,12 +49,10 @@ public class Level4Mira1 extends Level
         ((Planet)p8).initialize(new Vector2(130,3800),320,50,true,"planet7_100x100.png",2,10,0.0f);
         ((Planet)p11).initialize(new Vector2(1230,3480),480,50,false,"planet7_100x100.png",2,10,10.0f);
 
-
         //Moons
         ((Planet)p7).initialize(new Vector2(-430,2800),190,18,false,"moon1_36x36.png",1,0,10.0f);
         ((Planet)p7).connectToPlanet((Planet)p6);
         ((Planet)p7).setRotationSpeed(20.0f,1);
-
 
         ((Planet)p9).initialize(new Vector2(1680,3480),240,18,false,"moon2_36x36.png",1,0,10.0f);
         ((Planet)p9).connectToPlanet((Planet)p11);
@@ -81,7 +78,6 @@ public class Level4Mira1 extends Level
         uM.addUnit(p11);
         uM.addUnit(p12);
         uM.addUnit(playerShip);
-
 
         Unit item1 = new UpgradePickable();
         ((UpgradePickable)item1).initialize(5,new Vector2(100,670));
