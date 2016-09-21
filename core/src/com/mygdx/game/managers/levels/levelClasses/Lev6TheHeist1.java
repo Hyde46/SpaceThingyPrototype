@@ -22,7 +22,7 @@ public class Lev6TheHeist1 extends Level
 {
     public Lev6TheHeist1(GameScreen gs)
     {
-        nameLevel = "The Invitation";
+        nameLevel = "The Deal";
         nameSystem = "Meku";
 
         Unit playerShip = new SpaceShip();

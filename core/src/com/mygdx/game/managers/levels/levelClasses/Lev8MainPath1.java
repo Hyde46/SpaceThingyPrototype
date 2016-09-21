@@ -22,7 +22,7 @@ public class Lev8MainPath1 extends Level
 {
     public Lev8MainPath1(GameScreen gs)
     {
-        nameLevel = "No way to glory";
+        nameLevel = "Endless skies";
         nameSystem = "Tau";
 
         Unit playerShip = new SpaceShip();

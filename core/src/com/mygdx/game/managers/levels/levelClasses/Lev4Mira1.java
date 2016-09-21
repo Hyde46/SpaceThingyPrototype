@@ -82,7 +82,6 @@ public class Lev4Mira1 extends Level
         uM.addUnit(p12);
         uM.addUnit(playerShip);
 
-
         Unit item1 = new UpgradePickable();
         ((UpgradePickable)item1).initialize(5,new Vector2(100,670));
         uM.addUnit(item1);

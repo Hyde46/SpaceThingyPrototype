@@ -22,7 +22,7 @@ public class Lev10MainPath3 extends Level
 {
     public Lev10MainPath3(GameScreen gs)
     {
-        nameLevel = "End of an universe";
+        nameLevel = "Edge of an universe";
         nameSystem = "Indigo";
 
         Unit playerShip = new SpaceShip();
