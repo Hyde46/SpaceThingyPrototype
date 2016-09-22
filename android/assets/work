@@ -8,7 +8,6 @@ Henri:
 -level skizzen -> level ausgearbeitet
 
 Denis:
--mond rotierung ebene 3
 
 
 General:
@@ -16,6 +15,7 @@ General:
 -endscreen "okay" button
 -15 Planeten
 -3 Enemies
+-item descriptions..
 -charactere bilder
 	Harry Denis
 	jason Vali
@@ -30,3 +30,8 @@ Done:
 -bewegbare Hindernisse ( leider nur als Circle )
 -3 ship skins
 -new scrap sprite
+
+Sprites:
+Moons: 5
+Planets: 16
+Ships: 8

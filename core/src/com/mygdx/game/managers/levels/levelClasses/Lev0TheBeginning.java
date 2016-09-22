@@ -32,7 +32,7 @@ public class Lev0TheBeginning extends Level
         Unit p4 = new Planet();
 
 
-        Unit mObst = new MovingObstacle();
+        //Unit mObst = new MovingObstacle();
         Unit asteroid = new Asteroid();
 
         ((Planet)p1).initialize(new Vector2(200,670),320,36,false,"planet1_72x72.png",1,0,0);
@@ -44,7 +44,7 @@ public class Lev0TheBeginning extends Level
 
         ((Asteroid)asteroid).initialize(new Vector2(-600,670),new Vector2(3,2),40,"asteroid1_80x80.png",0.0f,1,0.2f, 300f);
 
-        ((MovingObstacle)mObst).initialize(new Vector2(-200,200), new Vector2(2,0),40,"asteroid2_80x80.png",0.0f,0.3f);
+       // ((MovingObstacle)mObst).initialize(new Vector2(-200,200), new Vector2(2,0),40,"asteroid2_80x80.png",0.0f,0.3f);
 
         UnitManager uM = new UnitManager();
         uM.addUnit(p1);
@@ -53,7 +53,7 @@ public class Lev0TheBeginning extends Level
         uM.addUnit(p4);
         uM.addUnit(playerShip);
         uM.addUnit(asteroid);
-        uM.addUnit(mObst);
+        //uM.addUnit(mObst);
 
         SpacePhysiX spX = new SpacePhysiX();
         spX.initializePhysics(uM.getUnits(),gs);
