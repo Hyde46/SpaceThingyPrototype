@@ -18,12 +18,12 @@ import com.mygdx.game.utils.SpacePhysiX;
  * Created by ilost on 18.09.2016.
  */
 
-public class Level9MainPath2 extends Level
+public class Lev10MainPath3 extends Level
 {
-    public Level9MainPath2(GameScreen gs)
+    public Lev10MainPath3(GameScreen gs)
     {
-        nameLevel = "Everything must go";
-        nameSystem = "Cjebriev";
+        nameLevel = "Edge of an universe";
+        nameSystem = "Indigo";
 
         Unit playerShip = new SpaceShip();
         Unit p1 = new Planet();
@@ -106,10 +106,6 @@ public class Level9MainPath2 extends Level
         ParallaxBackgroundManager pbM = new ParallaxBackgroundManager();
         pbM.setLayers(4,true);
         gs.cM.addPBM(pbM);
-
-        unitManager = uM;
-        parallaxBackgroundManager = pbM;
-        spacePhysiX = spX;
 
         unitManager = uM;
         parallaxBackgroundManager = pbM;

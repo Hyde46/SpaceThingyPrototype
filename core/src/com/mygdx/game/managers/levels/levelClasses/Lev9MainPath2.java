@@ -18,12 +18,12 @@ import com.mygdx.game.utils.SpacePhysiX;
  * Created by ilost on 18.09.2016.
  */
 
-public class Level8MainPath1 extends Level
+public class Lev9MainPath2 extends Level
 {
-    public Level8MainPath1(GameScreen gs)
+    public Lev9MainPath2(GameScreen gs)
     {
-        nameLevel = "No way to glory";
-        nameSystem = "Tau";
+        nameLevel = "Everything must go";
+        nameSystem = "Cjebriev";
 
         Unit playerShip = new SpaceShip();
         Unit p1 = new Planet();

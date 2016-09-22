@@ -18,12 +18,12 @@ import com.mygdx.game.utils.SpacePhysiX;
  * Created by ilost on 18.09.2016.
  */
 
-public class Level10MainPath3 extends Level
+public class Lev7TheHeist2 extends Level
 {
-    public Level10MainPath3(GameScreen gs)
+    public Lev7TheHeist2(GameScreen gs)
     {
-        nameLevel = "End of an universe";
-        nameSystem = "Indigo";
+        nameLevel = "The Heist";
+        nameSystem = "Loki";
 
         Unit playerShip = new SpaceShip();
         Unit p1 = new Planet();

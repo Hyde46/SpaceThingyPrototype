@@ -1,63 +1,53 @@
 package com.mygdx.game.managers.levels;
 
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.InputManager.InputManager;
-import com.mygdx.game.managers.UnitManager;
-import com.mygdx.game.managers.background.ParallaxBackgroundManager;
-import com.mygdx.game.managers.levels.levelClasses.Level0TheBeginning;
-import com.mygdx.game.managers.levels.levelClasses.Level10MainPath3;
-import com.mygdx.game.managers.levels.levelClasses.Level1TheDelivery;
-import com.mygdx.game.managers.levels.levelClasses.Level2TheDecision;
-import com.mygdx.game.managers.levels.levelClasses.Level3WayToHangar;
-import com.mygdx.game.managers.levels.levelClasses.Level4Mira1;
-import com.mygdx.game.managers.levels.levelClasses.Level5Mira2;
-import com.mygdx.game.managers.levels.levelClasses.Level6TheHeist1;
-import com.mygdx.game.managers.levels.levelClasses.Level7TheHeist2;
-import com.mygdx.game.managers.levels.levelClasses.Level8MainPath1;
-import com.mygdx.game.managers.levels.levelClasses.Level9MainPath2;
-import com.mygdx.game.renderAbleObjects.units.CurrencyPickable;
-import com.mygdx.game.renderAbleObjects.units.Planet;
-import com.mygdx.game.renderAbleObjects.units.SpaceShip;
-import com.mygdx.game.renderAbleObjects.units.Unit;
-import com.mygdx.game.renderAbleObjects.units.UpgradePickable;
+import com.mygdx.game.managers.levels.levelClasses.Lev0TheBeginning;
+import com.mygdx.game.managers.levels.levelClasses.Lev10MainPath3;
+import com.mygdx.game.managers.levels.levelClasses.Lev1TheDelivery;
+import com.mygdx.game.managers.levels.levelClasses.Lev2TheDecision;
+import com.mygdx.game.managers.levels.levelClasses.Lev3ATestOfFaith;
+import com.mygdx.game.managers.levels.levelClasses.Lev4Mira1;
+import com.mygdx.game.managers.levels.levelClasses.Lev5Mira2;
+import com.mygdx.game.managers.levels.levelClasses.Lev6TheHeist1;
+import com.mygdx.game.managers.levels.levelClasses.Lev7TheHeist2;
+import com.mygdx.game.managers.levels.levelClasses.Lev8MainPath1;
+import com.mygdx.game.managers.levels.levelClasses.Lev9MainPath2;
 import com.mygdx.game.screens.GameScreen;
-import com.mygdx.game.utils.SpacePhysiX;
 
 /**
  * Created by denis on 5/18/16.
  */
-public class LevelFactory {
-
-    private LevelLoader ll;
-
+public class LevelFactory
+{
     public LevelFactory(){}
 
-    public static Level loadLevel(int levelId, GameScreen gs){
-
+    public static Level loadLevel(int levelId, GameScreen gs)
+    {
         switch(levelId){
             case 1:
-                return new Level0TheBeginning(gs);
+                return new Lev0TheBeginning(gs);
             case 2:
-                return new Level1TheDelivery(gs);
+                return new Lev1TheDelivery(gs);
             case 6:
-                return new Level2TheDecision(gs);
+                return new Lev2TheDecision(gs);
             case 7:
-                return new Level3WayToHangar(gs);
+
+                return new Lev7TheHeist2(gs);
+
             case 8:
-                return new Level4Mira1(gs);
+                return new Lev4Mira1(gs);
             case 9:
-                return new Level5Mira2(gs);
+                return new Lev3ATestOfFaith(gs);
             case 10:
-                return new Level6TheHeist1(gs);
+                return new Lev6TheHeist1(gs);
             case 11:
-                return new Level7TheHeist2(gs);
+
+                return new Lev5Mira2(gs);
             case 12:
-                return new Level8MainPath1(gs);
+                return new Lev8MainPath1(gs);
             case 13:
-                return new Level9MainPath2(gs);
+                return new Lev9MainPath2(gs);
             case 5:
-                return new Level10MainPath3(gs);
+                return new Lev10MainPath3(gs);
             default:
                 return null;
         }

@@ -2,6 +2,7 @@ package com.mygdx.game.renderAbleObjects.units;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -12,15 +13,19 @@ public class Asteroid extends Unit {
     private boolean isMoving;
     private int rotationDirection;
     private float rotationSpeed;
+    private float distReset;
+    private Vector2 posStart;
 
     public Asteroid(){
         isMoving = false;
     }
 
-    public void initialize(Vector2 pos,Vector2 movement, float planetRadius, String texturePath, float initialRotation,int rotationDirection,float rotationSpeed){
+    public void initialize(Vector2 posStart,Vector2 movement, float planetRadius, String texturePath, float initialRotation,int rotationDirection,float rotationSpeed, float distReset){
         unitType = UnitType.OBSTACLE;
-        this.collisionHitbox = new Circle(pos.x, pos.y, planetRadius);
-        initializePositions(pos, new Vector2(0, 0));
+        this.posStart = posStart;
+        this.distReset = distReset;
+        this.collisionHitbox = new Circle(posStart.x, posStart.y, planetRadius);
+        initializePositions(posStart, new Vector2(0, 0));
         initializeTexture(new Vector2(planetRadius * 2, planetRadius * 2), 0, texturePath);
         sprite.rotate(initialRotation);
         isMoving = movement!=null;
@@ -28,8 +33,16 @@ public class Asteroid extends Unit {
         this.rotationDirection = rotationDirection;
         this.rotationSpeed = rotationSpeed;
     }
-    public void update(float delta){
-        this.targetPosition = position.cpy().add(deltaMovement);
+    public void update(float delta)
+    {
+        if(Vector2.dst(posStart.x, posStart.y, position.x, position.y) > distReset)
+        {
+            this.targetPosition = posStart;
+        }
+        else
+        {
+            this.targetPosition = position.cpy().add(deltaMovement);
+        }
         sprite.rotate(rotationDirection*rotationSpeed);
     }
 

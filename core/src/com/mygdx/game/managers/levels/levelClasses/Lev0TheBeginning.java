@@ -18,9 +18,9 @@ import com.mygdx.game.utils.SpacePhysiX;
  * Created by ilost on 18.09.2016.
  */
 
-public class Level0TheBeginning extends Level
+public class Lev0TheBeginning extends Level
 {
-    public Level0TheBeginning(GameScreen gs)
+    public Lev0TheBeginning(GameScreen gs)
     {
         nameLevel = "The Beginning";
         nameSystem = "Tengo";
@@ -31,17 +31,21 @@ public class Level0TheBeginning extends Level
         Unit p3 = new Planet();
         Unit p4 = new Planet();
 
-        Unit asteroid = new Asteroid();
+
         Unit mObst = new MovingObstacle();
+        Unit asteroid = new Asteroid();
 
         ((Planet)p1).initialize(new Vector2(200,670),320,36,false,"planet1_72x72.png",1,0,0);
         ((SpaceShip)playerShip).initialize(new Vector2(360,670),new Vector2(0,400),(Planet)p1,150,new Vector2(40,40),0);
+
         ((Planet)p2).initialize(new Vector2(-220,1450),320,50,false,"planet2_100x100.png",2,40,5.0f);
         ((Planet)p3).initialize(new Vector2(820,1600),480,50,false,"planet9_100x100.png",1,30,5.0f);
         ((Planet)p4).initialize(new Vector2(-100,2250),320,50,true,"planet7_100x100.png",2,90,5.0f);
 
-        ((Asteroid)asteroid).initialize(new Vector2(-600,670),new Vector2(3,2),40,"asteroid1_80x80.png",0.0f,1,0.2f);
+        ((Asteroid)asteroid).initialize(new Vector2(-600,670),new Vector2(3,2),40,"asteroid1_80x80.png",0.0f,1,0.2f, 300f);
+
         ((MovingObstacle)mObst).initialize(new Vector2(-200,200), new Vector2(2,0),40,"asteroid2_80x80.png",0.0f,0.3f);
+
         UnitManager uM = new UnitManager();
         uM.addUnit(p1);
         uM.addUnit(p2);

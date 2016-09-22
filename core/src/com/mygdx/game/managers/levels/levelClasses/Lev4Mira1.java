@@ -18,12 +18,12 @@ import com.mygdx.game.utils.SpacePhysiX;
  * Created by ilost on 18.09.2016.
  */
 
-public class Level3WayToHangar extends Level
+public class Lev4Mira1 extends Level
 {
-    public Level3WayToHangar(GameScreen gs)
+    public Lev4Mira1(GameScreen gs)
     {
-        nameLevel = "Way to Hangar";
-        nameSystem = "Pero";
+        nameLevel = "An Unexpected Encounter";
+        nameSystem = "Mitaki";
 
         //Units init
         Unit playerShip = new SpaceShip();
@@ -81,7 +81,6 @@ public class Level3WayToHangar extends Level
         uM.addUnit(p11);
         uM.addUnit(p12);
         uM.addUnit(playerShip);
-
 
         Unit item1 = new UpgradePickable();
         ((UpgradePickable)item1).initialize(5,new Vector2(100,670));

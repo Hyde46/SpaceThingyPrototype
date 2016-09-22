@@ -18,13 +18,14 @@ import com.mygdx.game.utils.SpacePhysiX;
  * Created by ilost on 18.09.2016.
  */
 
-public class Level6TheHeist1 extends Level
+public class Lev5Mira2 extends Level
 {
-    public Level6TheHeist1(GameScreen gs)
+    public Lev5Mira2(GameScreen gs)
     {
-        nameLevel = "The Invitation";
-        nameSystem = "Meku";
+        nameLevel = "At the Abyss";
+        nameSystem = "Tentui";
 
+        //Units init
         Unit playerShip = new SpaceShip();
         Unit p1 = new Planet();
         Unit p2 = new Planet();
