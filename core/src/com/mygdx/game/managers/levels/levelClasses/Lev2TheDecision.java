@@ -18,9 +18,9 @@ import com.mygdx.game.utils.SpacePhysiX;
  * Created by ilost on 18.09.2016.
  */
 
-public class Level2TheDecision extends Level
+public class Lev2TheDecision extends Level
 {
-    public Level2TheDecision(GameScreen gs)
+    public Lev2TheDecision(GameScreen gs)
     {
         nameLevel = "The Decision";
         nameSystem = "Topoga";

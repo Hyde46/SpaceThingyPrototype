@@ -95,10 +95,10 @@ public class ScreenResult implements Screen
         itemsFound.add(new ItemPickerRadius(1,1));
 
         infoResult = new GenericElement();
-        infoResult.initialize(new Vector2(offsetFrameW, offsetFrameH + hFrame - hInfoResult), wInfoResult, hInfoResult, "shop-banner-shop-900-200.png");
+        infoResult.initialize(new Vector2(offsetFrameW, offsetFrameH + hFrame - hInfoResult), wInfoResult, hInfoResult, "result_button.png");
 
         btnBack = new GenericElement();
-        btnBack.initialize(new Vector2(offsetFrameW, offsetFrameH), wInfoResult, hInfoResult, "shop-banner-shop-900-200.png");
+        btnBack.initialize(new Vector2(offsetFrameW, offsetFrameH), wInfoResult, hInfoResult, "okay_button.png");
         btnBack.setListener(new InputListener(){
             public void OnTouch(TouchData td){
                 MyGdxGame.game.openScreen(new MainMenuScreen(levelState.getCurrentLevel(),levelState.getHasWon()));

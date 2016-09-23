@@ -27,8 +27,7 @@ public class DataSavableProgress extends DataSavable
     public int currentLevel;
 
     public int nthGame = 0;
-
-
+    
     public DataSavableProgress()
     {
         idsItemsPlayer = new ArrayList<Integer>();

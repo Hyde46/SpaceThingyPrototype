@@ -18,12 +18,12 @@ import com.mygdx.game.utils.SpacePhysiX;
  * Created by ilost on 18.09.2016.
  */
 
-public class Level7TheHeist2 extends Level
+public class Lev8MainPath1 extends Level
 {
-    public Level7TheHeist2(GameScreen gs)
+    public Lev8MainPath1(GameScreen gs)
     {
-        nameLevel = "The Heist";
-        nameSystem = "Loki";
+        nameLevel = "Endless skies";
+        nameSystem = "Tau";
 
         Unit playerShip = new SpaceShip();
         Unit p1 = new Planet();
@@ -106,6 +106,10 @@ public class Level7TheHeist2 extends Level
         ParallaxBackgroundManager pbM = new ParallaxBackgroundManager();
         pbM.setLayers(4,true);
         gs.cM.addPBM(pbM);
+
+        unitManager = uM;
+        parallaxBackgroundManager = pbM;
+        spacePhysiX = spX;
 
         unitManager = uM;
         parallaxBackgroundManager = pbM;
