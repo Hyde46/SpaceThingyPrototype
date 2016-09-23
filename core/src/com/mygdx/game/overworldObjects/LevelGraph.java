@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.dataPersistence.DataPers;
+import com.mygdx.game.managers.levels.LevelBackgroundColor;
+import com.mygdx.game.managers.levels.levelClasses.Lev2TheDecision;
 
 /**
  * Created by Vali on 18.05.2016.
@@ -245,14 +247,30 @@ public class LevelGraph {
     }
 
     public void unlockNewBeacons(int finishedLevel){
-        Array<LevelBeacon> levelsToUnlock = new Array<LevelBeacon>();
-        for(LevelBeacon lB : levelBeacons){
-            if(lB.getLevelId() == finishedLevel){
-                levelsToUnlock = lB.getConnectedBeacons();
+        if(finishedLevel == 5){
+            for(LevelBeacon lB: levelBeacons){
+                if((lB.getLevelId() == 9 || lB.getLevelId() == 6 ) && Lev2TheDecision.lastFinishedSide == 0){
+                    lB.activate();
+                }
+                if((lB.getLevelId() == 7|| lB.getLevelId() == 3 ) && Lev2TheDecision.lastFinishedSide == 2){
+                    lB.activate();
+                }
+                if((lB.getLevelId() == 11 ) && Lev2TheDecision.lastFinishedSide == 1 ){
+                    lB.activate();
+                }
             }
-        }
-        for(LevelBeacon levelBeacon : levelsToUnlock){
-            levelBeacon.activate();
+            Lev2TheDecision.lastFinishedSide = -1;
+        }else {
+            Array<LevelBeacon> levelsToUnlock = new Array<LevelBeacon>();
+            for (LevelBeacon lB : levelBeacons) {
+                if (lB.getLevelId() == finishedLevel) {
+                    levelsToUnlock = lB.getConnectedBeacons();
+                }
+            }
+            for (LevelBeacon levelBeacon : levelsToUnlock) {
+                levelBeacon.activate();
+            }
+
         }
     }
 }

@@ -27,26 +27,25 @@ public class LevelFactory
                 return new Lev0TheBeginning(gs);
             case 2:
                 return new Lev1TheDelivery(gs);
-            case 6:
+            case 5:
                 return new Lev2TheDecision(gs);
-            case 7:
-
+            case 8:
                 return new Lev7TheHeist2(gs);
 
-            case 8:
-                return new Lev4Mira1(gs);
             case 9:
+                return new Lev4Mira1(gs);
+            case 6:
                 return new Lev3ATestOfFaith(gs);
-            case 10:
+            case 7:
                 return new Lev6TheHeist1(gs);
-            case 11:
+            case 10:
 
                 return new Lev5Mira2(gs);
-            case 12:
+            case 11:
                 return new Lev8MainPath1(gs);
-            case 13:
+            case 12:
                 return new Lev9MainPath2(gs);
-            case 5:
+            case 13:
                 return new Lev10MainPath3(gs);
             default:
                 return null;

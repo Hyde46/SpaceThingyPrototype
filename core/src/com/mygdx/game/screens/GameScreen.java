@@ -19,6 +19,7 @@ import com.mygdx.game.managers.levels.Level;
 import com.mygdx.game.managers.levels.LevelBackgroundColor;
 import com.mygdx.game.managers.levels.LevelFactory;
 import com.mygdx.game.managers.levels.LevelState;
+import com.mygdx.game.managers.levels.levelClasses.Lev2TheDecision;
 import com.mygdx.game.prototypeUtils.CameraHelper;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
 import com.mygdx.game.renderAbleObjects.decorations.Decoration;
@@ -197,6 +198,10 @@ public class GameScreen implements Screen{
         hasWonLevel = b;
         this.isOutOfBounds = isOutOfBounds;
         if(finishCounter <= 0) {
+            if(levelState.getCurrentLevel() == 5 &&hasWonLevel){//decsision level
+                Planet p = levelContainer.unitManager.getPlanetConnectedToPlayer();
+                Lev2TheDecision.lastFinishedSide = p.getDecisionPlanetID();
+            }
             if(hasWonLevel)
                 levelState.safeState();
             levelContainer.unitManager.resetUnits();

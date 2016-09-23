@@ -36,6 +36,9 @@ public class DataSavableProgress extends DataSavable
         postDialogsPlayed = new ArrayList<Integer>();
         hopsPerLevel = new int[15];
         playableLevel = new boolean[15];
+        playableLevel[1] = true;
+//        playableLevel[2] = true;
+//        playableLevel[5] = true;
         credits = 0;
 
         //TODO remove later
