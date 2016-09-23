@@ -160,8 +160,8 @@ public class MainMenuScreen implements Screen {
 
         backgroundManager.render(game.batch);
 
-        game.font.draw(game.batch, game.currentVersion, 10 , 50);
-        game.font.draw(game.batch, "nth start " + DataPers.dataP().nthGame, 600 , 50);
+//        game.font.draw(game.batch, game.currentVersion, 10 , 50);
+//        game.font.draw(game.batch, "nth start " + DataPers.dataP().nthGame, 600 , 50);
 
         game.batch.end();
 

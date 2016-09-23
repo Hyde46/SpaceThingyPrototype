@@ -112,12 +112,13 @@ public class GameScreen implements Screen{
 
         game.uiBatch.begin();
         game.uiBatch.setProjectionMatrix(camFixed.combined);
-        game.debugFont.draw(game.uiBatch, game.currentVersion, 5 , 1900);
-        game.debugFont.draw(game.uiBatch, "X: "+(int)(getPlayerShip().getPosition().x / 10),5,1850);
-        game.debugFont.draw(game.uiBatch, "Y: "+(int)(getPlayerShip().getPosition().y / 10),5,1800);
-        game.debugFont.draw(game.uiBatch, "vel: "+(int)(getPlayerShip().getDeltaMovement().len()),5,1750);
-        game.debugFont.draw(game.uiBatch, "Currency: "+levelState.getCurrency(), 5, 1700);
-        game.debugFont.draw(game.uiBatch, "Hops: "+levelState.getHops(), 5, 1650);
+
+//        game.debugFont.draw(game.uiBatch, game.currentVersion, 5 , 1900);
+//        game.debugFont.draw(game.uiBatch, "X: "+(int)(getPlayerShip().getPosition().x / 10),5,1850);
+//        game.debugFont.draw(game.uiBatch, "Y: "+(int)(getPlayerShip().getPosition().y / 10),5,1800);
+//        game.debugFont.draw(game.uiBatch, "vel: "+(int)(getPlayerShip().getDeltaMovement().len()),5,1750);
+//        game.debugFont.draw(game.uiBatch, "Currency: "+levelState.getCurrency(), 5, 1700);
+//        game.debugFont.draw(game.uiBatch, "Hops: "+levelState.getHops(), 5, 1650);
         ItemManager.get.render(game.uiBatch);
 
         renderFinishedGameState(game);

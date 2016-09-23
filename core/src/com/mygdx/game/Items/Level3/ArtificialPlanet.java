@@ -128,7 +128,7 @@ public class ArtificialPlanet extends Item implements IInputAnywhere
 
         //Debug
         //     MyGdxGame.game.debugFont.draw(sB,"Hello im Aritifical Planet item", (sideInHud*400)+350, 1800);
-        MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown), (sideInHud *400)+350, 1750);
-        MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (sideInHud *400)+350, 1700);
+//        MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown), (sideInHud *400)+350, 1750);
+//        MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (sideInHud *400)+350, 1700);
     }
 }
