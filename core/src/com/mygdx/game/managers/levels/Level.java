@@ -20,5 +20,6 @@ public class Level {
         spacePhysiX = new SpacePhysiX();
         parallaxBackgroundManager = new ParallaxBackgroundManager();
         nameLevel = "";
+        nameSystem = "";
     }
 }

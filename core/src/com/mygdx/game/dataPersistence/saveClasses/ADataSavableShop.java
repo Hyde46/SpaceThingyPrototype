@@ -5,12 +5,12 @@ import java.util.ArrayList;
 /**
  * Created by Mechandrius on 05.07.2016.
  */
-public class DataSavableShop extends DataSavable
+public class ADataSavableShop extends ADataSavable
 {
     public ArrayList<Integer>[] idsItemsShopOfLevel;
     public ArrayList<Integer>[] idsItemsAvailable;
 
-    public DataSavableShop()
+    public ADataSavableShop()
     {
         idsItemsShopOfLevel = (ArrayList<Integer>[])new ArrayList[3];
         idsItemsAvailable = (ArrayList<Integer>[])new ArrayList[3];

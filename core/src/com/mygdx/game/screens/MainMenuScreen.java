@@ -14,7 +14,6 @@ import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.overworldObjects.Dialog.DialogManager;
 import com.mygdx.game.overworldObjects.LevelGraph;
 import com.mygdx.game.overworldObjects.Overlay;
-import com.mygdx.game.overworldObjects.OverlayOverworldHUD;
 import com.mygdx.game.overworldObjects.Ship;
 import com.mygdx.game.prototypeUtils.CameraHelper;
 import com.mygdx.game.utils.JukeBox;
@@ -105,7 +104,7 @@ public class MainMenuScreen implements Screen {
             levelGraph.unlockNewBeacons(finishedLevel);
         //create ship object and initialize it (connected beacon)
         this.ship = new Ship();
-        ship.initialize(levelGraph.getCurrentLevel(), new Vector2(40,40),"ship"+DataPers.dataH().getCurrentSkin()+".png");
+        ship.initialize(levelGraph.getBeaconCurrent(), new Vector2(40,40),"ship"+DataPers.dataH().getCurrentSkin()+".png");
 
         pathNavigationManager = new PathNavigationManager();
         pathNavigationManager.initialize(ship, levelGraph);

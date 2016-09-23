@@ -55,12 +55,13 @@ public class Lev0TheBeginning extends Level
         uM.addUnit(asteroid);
         //uM.addUnit(mObst);
 
-        SpacePhysiX spX = new SpacePhysiX();
-        spX.initializePhysics(uM.getUnits(),gs);
         InputManager.get.register(p1);
         InputManager.get.register(p2);
         InputManager.get.register(p3);
         InputManager.get.register(p4);
+
+        SpacePhysiX spX = new SpacePhysiX();
+        spX.initializePhysics(uM.getUnits(),gs);
 
         gs.cM.initializeCamera((SpaceShip)playerShip,p4.getPosition());
         spX.initWorldBounds(new Rectangle(-800,-300,2000,3000));

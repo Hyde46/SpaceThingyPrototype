@@ -1,5 +1,4 @@
 /*
-    - Render über ARenderable render Methode besser?
 
  */
 
@@ -25,15 +24,19 @@ import com.mygdx.game.screens.shop.ScreenShop;
 /**
  * Created by Vali on 18.05.2016.
  */
-public class LevelBeacon extends ARenderableObject implements IInputHandler{
+public class LevelBeacon extends ARenderableObject implements IInputHandler
+{
+    public static enum TypeLevel { SHOP, HANGAR, LEVEL };
 
-    private int levelId;
+    private TypeLevel typeLevel = TypeLevel.LEVEL;
+    private int idLevel;
+
     protected int height, width;
     protected Vector2 position;
     protected Vector2 positionCenter;
     //array that holds the levels that are connected to this on (to implement graph structure)
     private Array<LevelBeacon> connectedBeacons;
-    private int type;   //1 = normal level, 2 = shop, 3 = hangar
+//    private int type;   //1 = normal level, 2 = shop, 3 = hangar
     private int levelOfShop = 1; // if its a shop
 
     private boolean activated;
@@ -50,25 +53,36 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
      * @param height
      * @param width
      */
-    protected void initialize(Vector2 position, int height, int width, int levelId, Array<LevelBeacon> connectedBeacons, int type, boolean activated){
+
+    protected void initialize(Vector2 position, int height, int width, Array<LevelBeacon> connectedBeacons, TypeLevel typeLevel, int idLevel, boolean activated){
         initializePositions(position);
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
         this.height = height;
         this.width = width;
-        this.levelId = levelId;
+
         //compute position of the center of the rectangle
         positionCenter = new Vector2(position.x + width / 2, position.y + height / 2);
         this.connectedBeacons = connectedBeacons;
-        this.type = type;
+
+        this.typeLevel = typeLevel;
+        this.idLevel = idLevel;
+
         this.activated = activated;
         //color that the object shell have depends on whether it is shop, hangar or level
-        if(!activated){
+        if(!activated)
+        {
             initializeTexture(new Vector2(width, height), 0, "beacon_inactive.png");
-        }else if(type == 2){
+        }
+        else if(this.typeLevel == TypeLevel.SHOP)
+        {
             initializeTexture(new Vector2(width, height), 0, "beacon_shop.png");
-        }else if(type == 3){
+        }
+        else if(this.typeLevel == TypeLevel.HANGAR)
+        {
             initializeTexture(new Vector2(width, height), 0, "beacon_hangar.png");
-        }else{ //normal activated level
+        }
+        else if(this.typeLevel == TypeLevel.LEVEL)
+        {
             initializeTexture(new Vector2(width, height), 0, "beacon.png");
         }
     }
@@ -108,10 +122,15 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
 
     /**
      * getter for level id
-     * @return levelId
+     * @return idLevel
      */
-    public int getLevelId(){
-        return levelId;
+    public int getIdLevel(){
+        return idLevel;
+    }
+
+    public TypeLevel getTypeLevel()
+    {
+        return typeLevel;
     }
 
     /**
@@ -134,22 +153,23 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
             Ship sh = ((MainMenuScreen) game.current).getShip();
             PathNavigationManager pnm = ((MainMenuScreen) game.current).getPathNavigationManager();
 
-            if (levelId == lg.getCurrentLevel().getLevelId() && sh.getInOrbit()) {
-                if (type == 2) {
-                    InputManager.get.clearAll();
-                    game.openScreen(new ScreenShop(1,levelId, true));
+            if (this.idLevel == lg.getBeaconCurrent().getIdLevel() && this.typeLevel == lg.getBeaconCurrent().getTypeLevel() && sh.getInOrbit())
+            {
+                InputManager.get.clearAll();
+                if (this.typeLevel == TypeLevel.SHOP) {
+                    game.openScreen(new ScreenShop(idLevel, idLevel, true));
                 }
-                else if(type == 3){
-                    InputManager.get.clearAll();
-                    game.openScreen(new HangarScreen(levelId));
+                else if(this.typeLevel == TypeLevel.HANGAR){
+                    game.openScreen(new HangarScreen(idLevel));
                 }
-                else
+                else if(this.typeLevel == TypeLevel.LEVEL)
                 {
-                    InputManager.get.clearAll();
-                    game.openScreen(new GameScreen(levelId));
+                    game.openScreen(new GameScreen(idLevel));
                 }
-            } else {  //touched level is different from current level
-                if (!sh.getTravelsRoute()) {      //only call navigate function, if the ship is not already on route
+            }
+            else //touched level is different from current level
+            {
+                if (!sh.getTravelsRoute()) { //only call navigate function, if the ship is not already on route
                     //tell PathNavigationManager to navigate to this level
                     //only send ship to beacon if it has been activated
                     if (activated) {
@@ -185,9 +205,9 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
      * get, if this beacon leads to a shop, hangar or level
      * @return isShop
      */
-    public int getType(){
-        return type;
-    }
+//    public int getType(){
+//        return type;
+//    }
 
     /**
      * get if this beacon has already been activated -> reachable
@@ -197,31 +217,31 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler{
         return activated;
     }
 
-    /**
-     * getter for widht
-     * @return width
-     */
     public int getWidth() {
         return width;
     }
-
-    /**
-     * getter for height
-     * @return height
-     */
     public int getHeight() {
         return height;
     }
-    public void activate(){
-        if(!activated) {
+
+    public void activate()
+    {
+        if(!activated)
+        {
             activated = true;
-            DataPers.dataP().playableLevel[levelId] = true;
+            DataPers.dataP().levelsUnlocked[typeLevel.ordinal()][idLevel] = true;
             DataPers.saveP();
-            if(type == 2){
+
+            if(this.typeLevel == TypeLevel.SHOP)
+            {
                 initializeTexture(new Vector2(width, height), 0, "beacon_shop.png");
-            }else if(type == 3){
+            }
+            else if(this.typeLevel == TypeLevel.HANGAR)
+            {
                 initializeTexture(new Vector2(width, height), 0, "beacon_hangar.png");
-            }else{ //normal activated level
+            }
+            else if (this.typeLevel == TypeLevel.LEVEL)
+            {
                 initializeTexture(new Vector2(width, height), 0, "beacon.png");
             }
         }

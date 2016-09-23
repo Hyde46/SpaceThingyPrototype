@@ -7,6 +7,7 @@ import com.mygdx.game.managers.UnitManager;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.levels.Level;
 import com.mygdx.game.renderAbleObjects.units.CurrencyPickable;
+import com.mygdx.game.renderAbleObjects.units.MovingObstacle;
 import com.mygdx.game.renderAbleObjects.units.Planet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
@@ -25,90 +26,98 @@ public class Lev6TheHeist1 extends Level
         nameLevel = "The Deal";
         nameSystem = "Meku";
 
-        Unit playerShip = new SpaceShip();
+        //Units init
         Unit p1 = new Planet();
         Unit p2 = new Planet();
         Unit p3 = new Planet();
         Unit p4 = new Planet();
         Unit p5 = new Planet();
         Unit p6 = new Planet();
-        Unit p7 = new Planet();
         Unit p8 = new Planet();
-        Unit p9 = new Planet();
-        Unit p10 = new Planet();
         Unit p11 = new Planet();
-        Unit p12 = new Planet();
 
-        ((Planet)p1).initialize(new Vector2(200,670),320,36,false,"planet1_72x72.png",1,0,0);
-        ((SpaceShip)playerShip).initialize(new Vector2(360,670),new Vector2(0,400),(Planet)p1,150,new Vector2(40,40),0);
-        ((Planet)p2).initialize(new Vector2(800,1720),320,50,false,"planet2_100x100.png",2,40,10.0f);
-        ((Planet)p3).initialize(new Vector2(950,900),320,50,false,"planet9_100x100.png",1,30,10.0f);
-        ((Planet)p4).initialize(new Vector2(-300,1700),320,50,false,"planet2_100x100.png",2,90,10.0f);
-        ((Planet)p5).initialize(new Vector2(450,2530),240,36,false,"planet1_72x72.png",1,120,10.0f);
-        ((Planet)p6).initialize(new Vector2(-110,2800),320,50,false,"planet42_100x100.png",2,10,10.0f);
-        ((Planet)p8).initialize(new Vector2(130,3800),320,50,true,"planet7_100x100.png",2,10,0.0f);
-        ((Planet)p11).initialize(new Vector2(1230,3480),480,50,false,"planet7_100x100.png",2,10,10.0f);
-
-        //Moons
-        ((Planet)p7).initialize(new Vector2(-430,2800),190,18,false,"moon1_36x36.png",1,0,10.0f);
-        ((Planet)p7).connectToPlanet((Planet)p6);
-        ((Planet)p7).setRotationSpeed(20.0f,1);
-
-        ((Planet)p9).initialize(new Vector2(1680,3480),240,18,false,"moon2_36x36.png",1,0,10.0f);
-        ((Planet)p9).connectToPlanet((Planet)p11);
-        ((Planet)p9).setRotationSpeed(25.0f,1);
-        ((Planet)p12).initialize(new Vector2(950,3480),190,18,false,"moon1_36x36.png",1,0,10.0f);
-        ((Planet)p12).connectToPlanet((Planet)p11);
-        ((Planet)p12).setRotationSpeed(45.0f,-1);
-
-        ((Planet)p10).initialize(new Vector2(480,1720),190,18,false,"moon2_36x36.png",1,0,10.0f);
-        ((Planet)p10).connectToPlanet((Planet)p2);
-        ((Planet)p10).setRotationSpeed(15.0f,-1);
-        UnitManager uM = new UnitManager();
-        uM.addUnit(p1);
-        uM.addUnit(p2);
-        uM.addUnit(p3);
-        uM.addUnit(p4);
-        uM.addUnit(p5);
-        uM.addUnit(p6);
-        uM.addUnit(p7);
-        uM.addUnit(p8);
-        uM.addUnit(p9);
-        uM.addUnit(p10);
-        uM.addUnit(p11);
-        uM.addUnit(p12);
-        uM.addUnit(playerShip);
+        Unit mObst0 = new MovingObstacle();
+        Unit mObst1 = new MovingObstacle();
+        Unit mObst2 = new MovingObstacle();
+        Unit mObst3 = new MovingObstacle();
+        Unit mObst4 = new MovingObstacle();
+        Unit mObst5 = new MovingObstacle();
 
         Unit item1 = new UpgradePickable();
-        ((UpgradePickable)item1).initialize(5,new Vector2(100,670));
-        uM.addUnit(item1);
-
         Unit item2 = new CurrencyPickable();
-        ((CurrencyPickable)item2).initialize(0,new Vector2(700,1720),200);
-        uM.addUnit(item2);
-        SpacePhysiX spX = new SpacePhysiX();
-        spX.initializePhysics(uM.getUnits(),gs);
+        Unit item3 = new CurrencyPickable();
+        Unit item4 = new CurrencyPickable();
+        Unit item5 = new CurrencyPickable();
+
+        Unit playerShip = new SpaceShip();
+
+        // planets
+        ((Planet)p8).initialize(new Vector2(6000,6000),320,50,true,"planet7_100x100.png",2,10,0.0f);
+        ((Planet)p2).initialize(new Vector2(4800,4900),320,50,false,"planet2_100x100.png",2,40,10.0f);
+        ((Planet)p3).initialize(new Vector2(3900,3760),320,50,false,"planet9_100x100.png",1,30,10.0f);
+        ((Planet)p4).initialize(new Vector2(3800,3200),320,50,false,"planet2_100x100.png",2,90,10.0f);
+        ((Planet)p5).initialize(new Vector2(2150,2650),240,36,false,"planet1_72x72.png",1,120,10.0f);
+        ((Planet)p6).initialize(new Vector2(1200,2400),320,50,false,"planet42_100x100.png",2,10,10.0f);
+        ((Planet)p11).initialize(new Vector2(1700,1350),480,50,false,"planet7_100x100.png",2,10,10.0f);
+        ((Planet)p1).initialize(new Vector2(0,0),320,36,false,"planet1_72x72.png",1,0,0);
+        ((SpaceShip)playerShip).initialize(new Vector2(180,0),new Vector2(0,400),(Planet)p1,180,new Vector2(40,40),0);
+
+        // obstacles
+        ((MovingObstacle)mObst0).initialize(new Vector2(3000,2150), new Vector2(2,3),40,"asteroid2_80x80.png",12.0f,4);
+        ((MovingObstacle)mObst1).initialize(new Vector2(2150,3900), new Vector2(5,6),40,"asteroid2_80x80.png",333.0f,7);
+        ((MovingObstacle)mObst2).initialize(new Vector2(1800,3400), new Vector2(2,5),40,"asteroid2_80x80.png",12.0f,4);
+        ((MovingObstacle)mObst3).initialize(new Vector2(3600,1200), new Vector2(2,4),40,"asteroid2_80x80.png",223.0f,5);
+        ((MovingObstacle)mObst4).initialize(new Vector2(2240,3900), new Vector2(2,2),40,"asteroid2_80x80.png",11.0f,4);
+        ((MovingObstacle)mObst5).initialize(new Vector2(3900,1500), new Vector2(5,0),40,"asteroid2_80x80.png",44.0f,5);
+
+        ((UpgradePickable)item1).initialize(5,new Vector2(2900,2670));
+        ((CurrencyPickable)item2).initialize(0,new Vector2(2700,1720),200);
+        ((CurrencyPickable)item3).initialize(0,new Vector2(2400,1320),200);
+        ((CurrencyPickable)item4).initialize(0,new Vector2(1200,1120),200);
+        ((CurrencyPickable)item5).initialize(0,new Vector2(1100,1120),200);
+
+        unitManager = new UnitManager();
+        unitManager.addUnit(p1);
+        unitManager.addUnit(p2);
+        unitManager.addUnit(p3);
+        unitManager.addUnit(p4);
+        unitManager.addUnit(p5);
+        unitManager.addUnit(p6);
+        unitManager.addUnit(p8);
+        unitManager.addUnit(p11);
+
+        unitManager.addUnit(mObst0);
+        unitManager.addUnit(mObst1);
+        unitManager.addUnit(mObst2);
+        unitManager.addUnit(mObst3);
+        unitManager.addUnit(mObst4);
+        unitManager.addUnit(mObst5);
+
+        unitManager.addUnit(item1);
+        unitManager.addUnit(item2);
+        unitManager.addUnit(item3);
+        unitManager.addUnit(item4);
+        unitManager.addUnit(item5);
+
+        unitManager.addUnit(playerShip);
+
         InputManager.get.register(p1);
         InputManager.get.register(p2);
         InputManager.get.register(p3);
         InputManager.get.register(p4);
         InputManager.get.register(p5);
         InputManager.get.register(p6);
-        InputManager.get.register(p7);
-        InputManager.get.register(p9);
-        InputManager.get.register(p10);
         InputManager.get.register(p11);
-        InputManager.get.register(p12);
+
+        spacePhysiX = new SpacePhysiX();
+        spacePhysiX.initializePhysics(unitManager.getUnits(),gs);
 
         gs.cM.initializeCamera((SpaceShip)playerShip,p8.getPosition());
-        spX.initWorldBounds(new Rectangle(-700,-1100,4000,7000));
 
-        ParallaxBackgroundManager pbM = new ParallaxBackgroundManager();
-        pbM.setLayers(4,true);
-        gs.cM.addPBM(pbM);
+        spacePhysiX.initWorldBounds(new Rectangle(-1000,-1000,7000,7000));
 
-        unitManager = uM;
-        parallaxBackgroundManager = pbM;
-        spacePhysiX = spX;
+        parallaxBackgroundManager = new ParallaxBackgroundManager();
+        parallaxBackgroundManager.setLayers(4,true);
+        gs.cM.addPBM(parallaxBackgroundManager);
     }
 }

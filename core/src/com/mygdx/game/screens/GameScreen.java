@@ -170,7 +170,7 @@ public class GameScreen implements Screen{
     public void setLevel(int levelId)
     {
         int currentSkin = prepareLevelFields(levelId);
-        levelContainer = LevelFactory.loadLevel(levelId,this);
+        levelContainer = LevelFactory.getLevel(levelId,this);
         getPlayerShip().setSkin(currentSkin);
         ItemManager.get.setItems(ItemManager.getItemNameOfId(DataPers.dataH().getSlot1()),
         ItemManager.getItemNameOfId(DataPers.dataH().getSlot2()));

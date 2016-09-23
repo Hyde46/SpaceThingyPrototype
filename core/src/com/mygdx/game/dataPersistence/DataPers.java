@@ -6,11 +6,11 @@
 package com.mygdx.game.dataPersistence;
 
 import com.badlogic.gdx.Gdx;
-import com.mygdx.game.dataPersistence.saveClasses.DataSavable;
-import com.mygdx.game.dataPersistence.saveClasses.DataSavableHangar;
-import com.mygdx.game.dataPersistence.saveClasses.DataSavableMisc;
-import com.mygdx.game.dataPersistence.saveClasses.DataSavableProgress;
-import com.mygdx.game.dataPersistence.saveClasses.DataSavableShop;
+import com.mygdx.game.dataPersistence.saveClasses.ADataSavable;
+import com.mygdx.game.dataPersistence.saveClasses.ADataSavableHangar;
+import com.mygdx.game.dataPersistence.saveClasses.ADataSavableMisc;
+import com.mygdx.game.dataPersistence.saveClasses.ADataSavableProgress;
+import com.mygdx.game.dataPersistence.saveClasses.ADataSavableShop;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,15 +24,15 @@ import java.io.ObjectOutputStream;
 public class DataPers
 {
     // save names need to be changed every time variables are added or removed to a save class
-    private static final String[] NAME_SAFE = new String[]{ "save0-15", "save1-15", "save2-15", "save3-15" };
+    private static final String[] NAME_SAFE = new String[]{ "save0-18", "save1-18", "save2-18", "save3-18" };
     private static File file[] = new File[4];
-    private static DataSavable data[] = new DataSavable[4];
+    private static ADataSavable data[] = new ADataSavable[4];
     private static final String PATH = Gdx.files.getLocalStoragePath();
 
-    public static DataSavableProgress dataP(){ return (DataSavableProgress)data(0); }
-    public static DataSavableShop dataS(){ return (DataSavableShop)data(1); }
-    public static DataSavableHangar dataH(){ return (DataSavableHangar)data(2); }
-    public static DataSavableMisc dataM(){ return (DataSavableMisc)data(3); }
+    public static ADataSavableProgress dataP(){ return (ADataSavableProgress)data(0); }
+    public static ADataSavableShop dataS(){ return (ADataSavableShop)data(1); }
+    public static ADataSavableHangar dataH(){ return (ADataSavableHangar)data(2); }
+    public static ADataSavableMisc dataM(){ return (ADataSavableMisc)data(3); }
 
     public static void saveP(){ save(0); }
     public static void saveS(){ save(1); }
@@ -45,7 +45,7 @@ public class DataPers
     public static void resetM(){ reset(3); }
 
     // local
-    private static DataSavable data(int idSaveSlot)
+    private static ADataSavable data(int idSaveSlot)
     {
         if(data[idSaveSlot] == null)
         {
@@ -54,10 +54,10 @@ public class DataPers
             {
                 switch(idSaveSlot)
                 {
-                    case 0: data[0] = new DataSavableProgress(); break;
-                    case 1: data[1] = new DataSavableShop(); break;
-                    case 2: data[2] = new DataSavableHangar(); break;
-                    case 3: data[3] = new DataSavableMisc(); break;
+                    case 0: data[0] = new ADataSavableProgress(); break;
+                    case 1: data[1] = new ADataSavableShop(); break;
+                    case 2: data[2] = new ADataSavableHangar(); break;
+                    case 3: data[3] = new ADataSavableMisc(); break;
                 }
                 save(idSaveSlot);
             }
@@ -71,10 +71,10 @@ public class DataPers
 
     private static void reset(int idSaveSlot)
     {
-        data[0] = new DataSavableProgress();
-        data[1] = new DataSavableShop();
-        data[2] = new DataSavableHangar();
-        data[3] = new DataSavableMisc();
+        data[0] = new ADataSavableProgress();
+        data[1] = new ADataSavableShop();
+        data[2] = new ADataSavableHangar();
+        data[3] = new ADataSavableMisc();
 
         for(int i = 0; i < 4; i++) save(i);
     }
@@ -98,7 +98,7 @@ public class DataPers
         try
         {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file[idSaveSlot]));
-            data[idSaveSlot] = (DataSavable) ois.readObject();
+            data[idSaveSlot] = (ADataSavable) ois.readObject();
             ois.close();
         }
         catch(Exception e)

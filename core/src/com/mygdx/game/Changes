@@ -1,0 +1,11 @@
+Changes:
+
+23.09.16
+
+changed:
+- levelunlocked persistent = boolean[type.ordinal][instance(falls man mehrere shops hat, der erste = 0)]
+- levelgraph levelindexe geändert von 1 - x zu 0 - x damit stimmig mit array logik
+-
+
+problems:
+- level info ist noch verschoben wegen levelindex umstellung
