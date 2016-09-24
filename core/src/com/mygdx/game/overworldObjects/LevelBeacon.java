@@ -153,7 +153,7 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler
             Ship sh = ((MainMenuScreen) game.current).getShip();
             PathNavigationManager pnm = ((MainMenuScreen) game.current).getPathNavigationManager();
 
-            if (this.idLevel == lg.getBeaconCurrent().getIdLevel() && this.typeLevel == lg.getBeaconCurrent().getTypeLevel() && sh.getInOrbit())
+            if (this.idLevel == lg.getCurrentLevel().getIdLevel() && this.typeLevel == lg.getCurrentLevel().getTypeLevel() && sh.getInOrbit())
             {
                 InputManager.get.clearAll();
                 if (this.typeLevel == TypeLevel.SHOP) {

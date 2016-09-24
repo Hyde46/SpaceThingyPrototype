@@ -237,7 +237,7 @@ public class GameScreen implements Screen{
     public void addPlanet(Vector2 posWorld)
     {
         Planet planetTemp = new Planet();
-        planetTemp.initialize(posWorld,320,64,false,"artificial-planet-sprite-128.png",1,(new Random()).nextInt(360),10.0f);
+        planetTemp.initialize(posWorld, Planet.TypePlanet.P0, Planet.TypeOrbit.B240,(new Random()).nextInt(360),10.0f);
         levelContainer.unitManager.addUnit(planetTemp);
         InputManager.get.register(planetTemp);
     }

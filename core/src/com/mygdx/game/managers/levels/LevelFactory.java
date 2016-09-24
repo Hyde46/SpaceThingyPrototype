@@ -4,7 +4,7 @@ import com.mygdx.game.managers.levels.levelClasses.Lev0TheBeginning;
 import com.mygdx.game.managers.levels.levelClasses.Lev10MainPath3;
 import com.mygdx.game.managers.levels.levelClasses.Lev1TheDelivery;
 import com.mygdx.game.managers.levels.levelClasses.Lev2TheDecision;
-import com.mygdx.game.managers.levels.levelClasses.Lev3ATestOfFaith;
+import com.mygdx.game.managers.levels.levelClasses.Lev3LeapOfFaith;
 import com.mygdx.game.managers.levels.levelClasses.Lev4Mira1;
 import com.mygdx.game.managers.levels.levelClasses.Lev5Mira2;
 import com.mygdx.game.managers.levels.levelClasses.Lev6TheHeist1;
@@ -47,7 +47,7 @@ public class LevelFactory
                 return new Lev6TheHeist1(gs);
             case 7:
                 // left before hangar
-                return new Lev3ATestOfFaith(gs);
+                return new Lev3LeapOfFaith(gs);
             case 8:
                 return new Lev8MainPath1(gs);
             case 9:

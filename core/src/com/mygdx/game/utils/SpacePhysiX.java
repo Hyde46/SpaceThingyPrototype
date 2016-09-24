@@ -137,7 +137,7 @@ public class SpacePhysiX {
                     //resolve planet collision
                     if (u.getUnitType() == Unit.UnitType.PLANET) {
                         //if player is in range, check if he should dock
-                        if (playerShip.getPosition().cpy().sub(u.getPosition()).len() <= ((Planet) u).getOrbitRadius()) { // u = moveableobject
+                        if (playerShip.getPosition().cpy().sub(u.getPosition()).len() <= ((Planet) u).getDiameterOrbit()) { // u = moveableobject
                             Vector2 v = u.getPosition().cpy();
                             Vector2 vecToShip = playerShip.getPosition().cpy();
                             if(dotProductToShipTickCollision(PHYSIC_TICKS,vecToShip,v)){

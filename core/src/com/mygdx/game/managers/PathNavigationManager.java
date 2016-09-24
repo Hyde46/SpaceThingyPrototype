@@ -51,7 +51,7 @@ public class PathNavigationManager {
      * @param goalBeacon
      */
     public Array<LevelBeacon> computeRoute(LevelBeacon goalBeacon){
-        LevelBeacon currentLevel = levelGraph.getBeaconCurrent();
+        LevelBeacon currentLevel = levelGraph.getCurrentLevel();
         LevelBeacon node;
         int numberBeacons = levelGraph.getLevelBeaconArray().size;
         Array<Boolean> visited = new Array<Boolean>(numberBeacons);
