@@ -6,7 +6,7 @@
 package com.mygdx.game.dataPersistence;
 
 import com.badlogic.gdx.Gdx;
-import com.mygdx.game.dataPersistence.saveClasses.DataSavable;
+import com.mygdx.game.dataPersistence.saveClasses.ADataSavable;
 import com.mygdx.game.dataPersistence.saveClasses.DataSavableHangar;
 import com.mygdx.game.dataPersistence.saveClasses.DataSavableMisc;
 import com.mygdx.game.dataPersistence.saveClasses.DataSavableProgress;
@@ -24,9 +24,9 @@ import java.io.ObjectOutputStream;
 public class DataPers
 {
     // save names need to be changed every time variables are added or removed to a save class
-    private static final String[] NAME_SAFE = new String[]{ "save0-15", "save1-15", "save2-15", "save3-15" };
+    private static final String[] NAME_SAFE = new String[]{ "save0-16", "save1-16", "save2-16", "save3-16" };
     private static File file[] = new File[4];
-    private static DataSavable data[] = new DataSavable[4];
+    private static ADataSavable data[] = new ADataSavable[4];
     private static final String PATH = Gdx.files.getLocalStoragePath();
 
     public static DataSavableProgress dataP(){ return (DataSavableProgress)data(0); }
@@ -45,7 +45,7 @@ public class DataPers
     public static void resetM(){ reset(3); }
 
     // local
-    private static DataSavable data(int idSaveSlot)
+    private static ADataSavable data(int idSaveSlot)
     {
         if(data[idSaveSlot] == null)
         {
@@ -98,7 +98,7 @@ public class DataPers
         try
         {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file[idSaveSlot]));
-            data[idSaveSlot] = (DataSavable) ois.readObject();
+            data[idSaveSlot] = (ADataSavable) ois.readObject();
             ois.close();
         }
         catch(Exception e)

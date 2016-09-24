@@ -5,4 +5,4 @@ import java.io.Serializable;
 /**
  * Created by Mechandrius on 05.07.2016.
  */
-public abstract class DataSavable implements Serializable{}
+public abstract class ADataSavable implements Serializable{}

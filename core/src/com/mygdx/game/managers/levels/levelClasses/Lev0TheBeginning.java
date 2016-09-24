@@ -25,52 +25,16 @@ public class Lev0TheBeginning extends Level
         nameLevel = "The Beginning";
         nameSystem = "Tengo";
 
-        Unit playerShip = new SpaceShip();
-        Unit p1 = new Planet();
-        Unit p2 = new Planet();
-        Unit p3 = new Planet();
-        Unit p4 = new Planet();
+        Planet planet1 = setPlanet(0,0, Planet.TypeOrbit.B320);
 
+        Planet planet2 = setPlanet(-50, 900, Planet.TypeOrbit.B480);
+        setMoon(planet2, 480, 20);
 
-        //Unit mObst = new MovingObstacle();
-        Unit asteroid = new Asteroid();
+        setPlanet(200, 1800, Planet.TypeOrbit.B320);
+        Planet planet3 = setPlanet(-350, 2200, Planet.TypeOrbit.G320);
 
-        ((Planet)p1).initialize(new Vector2(200,670),320,36,false,"planet1_72x72.png",1,0,0);
-        ((SpaceShip)playerShip).initialize(new Vector2(360,670),new Vector2(0,400),(Planet)p1,150,new Vector2(40,40),0);
+        setPlayer(planet1);
 
-        ((Planet)p2).initialize(new Vector2(-220,1450),320,50,false,"planet2_100x100.png",2,40,5.0f);
-        ((Planet)p3).initialize(new Vector2(820,1600),480,50,false,"planet9_100x100.png",1,30,5.0f);
-        ((Planet)p4).initialize(new Vector2(-100,2250),320,50,true,"planet7_100x100.png",2,90,5.0f);
-
-        ((Asteroid)asteroid).initialize(new Vector2(-600,670),new Vector2(3,2),40,"asteroid1_80x80.png",0.0f,1,0.2f, 300f);
-
-       // ((MovingObstacle)mObst).initialize(new Vector2(-200,200), new Vector2(2,0),40,"asteroid2_80x80.png",0.0f,0.3f);
-
-        UnitManager uM = new UnitManager();
-        uM.addUnit(p1);
-        uM.addUnit(p2);
-        uM.addUnit(p3);
-        uM.addUnit(p4);
-        uM.addUnit(playerShip);
-        uM.addUnit(asteroid);
-        //uM.addUnit(mObst);
-
-        SpacePhysiX spX = new SpacePhysiX();
-        spX.initializePhysics(uM.getUnits(),gs);
-        InputManager.get.register(p1);
-        InputManager.get.register(p2);
-        InputManager.get.register(p3);
-        InputManager.get.register(p4);
-
-        gs.cM.initializeCamera((SpaceShip)playerShip,p4.getPosition());
-        spX.initWorldBounds(new Rectangle(-800,-300,2000,3000));
-
-        ParallaxBackgroundManager pbM = new ParallaxBackgroundManager();
-        pbM.setLayers(4,true);
-        gs.cM.addPBM(pbM);
-
-        unitManager = uM;
-        parallaxBackgroundManager = pbM;
-        spacePhysiX = spX;
+        setCamera(gs, planet3, new Rectangle(-400, -200, 1000, 2600));
     }
 }

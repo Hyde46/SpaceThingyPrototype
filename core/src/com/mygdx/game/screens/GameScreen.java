@@ -19,6 +19,7 @@ import com.mygdx.game.managers.levels.Level;
 import com.mygdx.game.managers.levels.LevelBackgroundColor;
 import com.mygdx.game.managers.levels.LevelFactory;
 import com.mygdx.game.managers.levels.LevelState;
+import com.mygdx.game.managers.levels.levelClasses.Lev2TheDecision;
 import com.mygdx.game.prototypeUtils.CameraHelper;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
 import com.mygdx.game.renderAbleObjects.decorations.Decoration;
@@ -111,12 +112,13 @@ public class GameScreen implements Screen{
 
         game.uiBatch.begin();
         game.uiBatch.setProjectionMatrix(camFixed.combined);
-        game.debugFont.draw(game.uiBatch, game.currentVersion, 5 , 1900);
-        game.debugFont.draw(game.uiBatch, "X: "+(int)(getPlayerShip().getPosition().x / 10),5,1850);
-        game.debugFont.draw(game.uiBatch, "Y: "+(int)(getPlayerShip().getPosition().y / 10),5,1800);
-        game.debugFont.draw(game.uiBatch, "vel: "+(int)(getPlayerShip().getDeltaMovement().len()),5,1750);
-        game.debugFont.draw(game.uiBatch, "Currency: "+levelState.getCurrency(), 5, 1700);
-        game.debugFont.draw(game.uiBatch, "Hops: "+levelState.getHops(), 5, 1650);
+
+//        game.debugFont.draw(game.uiBatch, game.currentVersion, 5 , 1900);
+//        game.debugFont.draw(game.uiBatch, "X: "+(int)(getPlayerShip().getPosition().x / 10),5,1850);
+//        game.debugFont.draw(game.uiBatch, "Y: "+(int)(getPlayerShip().getPosition().y / 10),5,1800);
+//        game.debugFont.draw(game.uiBatch, "vel: "+(int)(getPlayerShip().getDeltaMovement().len()),5,1750);
+//        game.debugFont.draw(game.uiBatch, "Currency: "+levelState.getCurrency(), 5, 1700);
+//        game.debugFont.draw(game.uiBatch, "Hops: "+levelState.getHops(), 5, 1650);
         ItemManager.get.render(game.uiBatch);
 
         renderFinishedGameState(game);
@@ -170,7 +172,7 @@ public class GameScreen implements Screen{
     public void setLevel(int levelId)
     {
         int currentSkin = prepareLevelFields(levelId);
-        levelContainer = LevelFactory.loadLevel(levelId,this);
+        levelContainer = LevelFactory.getLevel(levelId,this);
         getPlayerShip().setSkin(currentSkin);
         ItemManager.get.setItems(ItemManager.getItemNameOfId(DataPers.dataH().getSlot1()),
         ItemManager.getItemNameOfId(DataPers.dataH().getSlot2()));
@@ -197,6 +199,10 @@ public class GameScreen implements Screen{
         hasWonLevel = b;
         this.isOutOfBounds = isOutOfBounds;
         if(finishCounter <= 0) {
+            if(levelState.getCurrentLevel() == 5 &&hasWonLevel){//decsision level
+                Planet p = levelContainer.unitManager.getPlanetConnectedToPlayer();
+                Lev2TheDecision.lastFinishedSide = p.getDecisionPlanetID();
+            }
             if(hasWonLevel)
                 levelState.safeState();
             levelContainer.unitManager.resetUnits();
@@ -231,7 +237,7 @@ public class GameScreen implements Screen{
     public void addPlanet(Vector2 posWorld)
     {
         Planet planetTemp = new Planet();
-        planetTemp.initialize(posWorld,320,64,false,"artificial-planet-sprite-128.png",1,(new Random()).nextInt(360),10.0f);
+        planetTemp.initialize(posWorld, Planet.TypePlanet.P0, Planet.TypeOrbit.B240,(new Random()).nextInt(360),10.0f);
         levelContainer.unitManager.addUnit(planetTemp);
         InputManager.get.register(planetTemp);
     }

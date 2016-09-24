@@ -110,7 +110,7 @@ public class TeleportRandom extends Item
         sprite.draw(sB);
 
         //Debug
-        MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown/100), (sideInHud *400)+350, 1750);
-        MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (sideInHud *400)+350, 1700);
+//        MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown/100), (sideInHud *400)+350, 1750);
+//        MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (sideInHud *400)+350, 1700);
     }
 }

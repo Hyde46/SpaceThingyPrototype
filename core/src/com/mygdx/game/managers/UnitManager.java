@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.renderAbleObjects.decorations.Decoration;
+import com.mygdx.game.renderAbleObjects.units.Planet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.Unit;
 
@@ -69,6 +70,15 @@ public class UnitManager {
         for(Unit u : units){
             if(u.getUnitType() == Unit.UnitType.SPACE_SHIP )
                 return (SpaceShip)u;
+        }
+        return null;
+    }
+
+    public Planet getPlanetConnectedToPlayer(){
+        for(Unit u : units){
+            if(u.getUnitType() == Unit.UnitType.SPACE_SHIP){
+                return ((SpaceShip)u).getConnectedPlanet();
+            }
         }
         return null;
     }

@@ -179,17 +179,25 @@ public class ItemManager
 
     public void render(SpriteBatch batch) {
         //Debug
+//        if (items[0] != null) {
+//            MyGdxGame.game.debugFont.draw(batch, "Item 1: " + items[0].getName(), 350, 1900);
+//            MyGdxGame.game.debugFont.draw(batch, "Status: " + items[0].getState(), 350, 1850);
+//        } else {
+//            MyGdxGame.game.debugFont.draw(batch, "Item 1: NONE", 350, 1900);
+//        }
+//        if (items[1] != null) {
+//            MyGdxGame.game.debugFont.draw(batch, "Item 2: " + items[1].getName(), 750, 1900);
+//            MyGdxGame.game.debugFont.draw(batch, "Status: " + items[1].getState(), 750, 1850);
+//        } else {
+//            MyGdxGame.game.debugFont.draw(batch, "Item 2: NONE", 700, 1900);
+//        }
         if (items[0] != null) {
-            MyGdxGame.game.debugFont.draw(batch, "Item 1: " + items[0].getName(), 350, 1900);
-            MyGdxGame.game.debugFont.draw(batch, "Status: " + items[0].getState(), 350, 1850);
-        } else {
-            MyGdxGame.game.debugFont.draw(batch, "Item 1: NONE", 350, 1900);
+            MyGdxGame.game.debugFont.draw(batch,"Cooldown: "+(int)(items[0].timeCooldown/1000), (items[0].getSprite().getX()), items[0].getSprite().getY()-25);
+            MyGdxGame.game.debugFont.draw(batch,"Uses: "+items[0].getUses(), items[0].getSprite().getX(), items[0].getSprite().getY()-60);
         }
         if (items[1] != null) {
-            MyGdxGame.game.debugFont.draw(batch, "Item 2: " + items[1].getName(), 750, 1900);
-            MyGdxGame.game.debugFont.draw(batch, "Status: " + items[1].getState(), 750, 1850);
-        } else {
-            MyGdxGame.game.debugFont.draw(batch, "Item 2: NONE", 700, 1900);
+            MyGdxGame.game.debugFont.draw(batch,"Cooldown: "+(int)(items[1].timeCooldown/1000), (items[1].getSprite().getX()), items[1].getSprite().getY()-25);
+            MyGdxGame.game.debugFont.draw(batch,"Uses: "+items[1].getUses(), items[1].getSprite().getX(), items[1].getSprite().getY()-60);
         }
 
         //button render

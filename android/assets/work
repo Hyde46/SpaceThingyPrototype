@@ -12,8 +12,6 @@ Denis:
 
 General:
 -upgrade item
--endscreen "okay" button
--15 Planeten
 -3 Enemies
 -item descriptions..
 -charactere bilder
@@ -30,6 +28,8 @@ Done:
 -bewegbare Hindernisse ( leider nur als Circle )
 -3 ship skins
 -new scrap sprite
+-endscreen "okay" button
+-15 Planeten
 
 Sprites:
 Moons: 5

@@ -44,7 +44,7 @@ public class SpaceShip extends Unit {
         isPhasedOut = false;
     }
 
-    public void initialize(Vector2 position,Vector2 deltaMovement,Planet connectedPlanet, float currentOrbitRadius, Vector2 spriteDimensions, int spriteId){
+    public void initialize(Vector2 position,Vector2 deltaMovement,Planet connectedPlanet, float currentOrbitRadius, Vector2 spriteDimensions){
         unitType = UnitType.SPACE_SHIP;
         isCollided = false;
         isLost = false;

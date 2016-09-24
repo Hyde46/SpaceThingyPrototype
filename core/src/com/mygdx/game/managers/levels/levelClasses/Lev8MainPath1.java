@@ -25,94 +25,45 @@ public class Lev8MainPath1 extends Level
         nameLevel = "Endless skies";
         nameSystem = "Tau";
 
-        Unit playerShip = new SpaceShip();
-        Unit p1 = new Planet();
-        Unit p2 = new Planet();
-        Unit p3 = new Planet();
-        Unit p4 = new Planet();
-        Unit p5 = new Planet();
-        Unit p6 = new Planet();
-        Unit p7 = new Planet();
-        Unit p8 = new Planet();
-        Unit p9 = new Planet();
-        Unit p10 = new Planet();
-        Unit p11 = new Planet();
-        Unit p12 = new Planet();
+        Planet planet1 = setPlanet(0,0, Planet.TypeOrbit.B320);
 
-        ((Planet)p1).initialize(new Vector2(200,670),320,36,false,"planet1_72x72.png",1,0,0);
-        ((SpaceShip)playerShip).initialize(new Vector2(360,670),new Vector2(0,400),(Planet)p1,150,new Vector2(40,40),0);
-        ((Planet)p2).initialize(new Vector2(800,1720),320,50,false,"planet2_100x100.png",2,40,10.0f);
-        ((Planet)p3).initialize(new Vector2(950,900),320,50,false,"planet9_100x100.png",1,30,10.0f);
-        ((Planet)p4).initialize(new Vector2(-300,1700),320,50,false,"planet2_100x100.png",2,90,10.0f);
-        ((Planet)p5).initialize(new Vector2(450,2530),240,36,false,"planet1_72x72.png",1,120,10.0f);
-        ((Planet)p6).initialize(new Vector2(-110,2800),320,50,false,"planet42_100x100.png",2,10,10.0f);
-        ((Planet)p8).initialize(new Vector2(130,3800),320,50,true,"planet7_100x100.png",2,10,0.0f);
-        ((Planet)p11).initialize(new Vector2(1230,3480),480,50,false,"planet7_100x100.png",2,10,10.0f);
+        setCluster(100, 900, 2);
 
-        //Moons
-        ((Planet)p7).initialize(new Vector2(-430,2800),190,18,false,"moon1_36x36.png",1,0,10.0f);
-        ((Planet)p7).connectToPlanet((Planet)p6);
-        ((Planet)p7).setRotationSpeed(20.0f,1);
+        setCluster(-100, 2000, 3);
 
-        ((Planet)p9).initialize(new Vector2(1680,3480),240,18,false,"moon2_36x36.png",1,0,10.0f);
-        ((Planet)p9).connectToPlanet((Planet)p11);
-        ((Planet)p9).setRotationSpeed(25.0f,1);
-        ((Planet)p12).initialize(new Vector2(950,3480),190,18,false,"moon1_36x36.png",1,0,10.0f);
-        ((Planet)p12).connectToPlanet((Planet)p11);
-        ((Planet)p12).setRotationSpeed(45.0f,-1);
+        setItemCurrency(50, 2950, 100);
 
-        ((Planet)p10).initialize(new Vector2(480,1720),190,18,false,"moon2_36x36.png",1,0,10.0f);
-        ((Planet)p10).connectToPlanet((Planet)p2);
-        ((Planet)p10).setRotationSpeed(15.0f,-1);
-        UnitManager uM = new UnitManager();
-        uM.addUnit(p1);
-        uM.addUnit(p2);
-        uM.addUnit(p3);
-        uM.addUnit(p4);
-        uM.addUnit(p5);
-        uM.addUnit(p6);
-        uM.addUnit(p7);
-        uM.addUnit(p8);
-        uM.addUnit(p9);
-        uM.addUnit(p10);
-        uM.addUnit(p11);
-        uM.addUnit(p12);
-        uM.addUnit(playerShip);
+        setCluster(200, 3900, 1);
 
-        Unit item1 = new UpgradePickable();
-        ((UpgradePickable)item1).initialize(5,new Vector2(100,670));
-        uM.addUnit(item1);
+        setCluster(-150, 5100, 2);
 
-        Unit item2 = new CurrencyPickable();
-        ((CurrencyPickable)item2).initialize(0,new Vector2(700,1720),200);
-        uM.addUnit(item2);
-        SpacePhysiX spX = new SpacePhysiX();
-        spX.initializePhysics(uM.getUnits(),gs);
-        InputManager.get.register(p1);
-        InputManager.get.register(p2);
-        InputManager.get.register(p3);
-        InputManager.get.register(p4);
-        InputManager.get.register(p5);
-        InputManager.get.register(p6);
-        InputManager.get.register(p7);
-        InputManager.get.register(p9);
-        InputManager.get.register(p10);
-        InputManager.get.register(p11);
-        InputManager.get.register(p12);
+        setCluster(180, 6000, 3);
 
-        gs.cM.initializeCamera((SpaceShip)playerShip,p8.getPosition());
-        spX.initWorldBounds(new Rectangle(-700,-1100,4000,7000));
+        setItemCurrency(15, 6550, 100);
 
-        ParallaxBackgroundManager pbM = new ParallaxBackgroundManager();
-        pbM.setLayers(4,true);
-        gs.cM.addPBM(pbM);
+        setCluster(-150, 7100, 1);
 
-        unitManager = uM;
-        parallaxBackgroundManager = pbM;
-        spacePhysiX = spX;
+        setCluster(180, 9000, 3);
 
-        unitManager = uM;
-        parallaxBackgroundManager = pbM;
-        spacePhysiX = spX;
+        setItemCurrency(50, 1500, 100);
+
+        setCluster(-80, 12000, 3);
+
+        setCurrencyVolley(140, 13000, 100);
+
+        setCluster(360, 14000, 3);
+
+        setCluster(-260, 17000, 3);
+
+        setObstacleField(-1000, 500, 1000, 500, 10, 1000);
+        setObstacleField(-1000, 2000, 1000, 2000, 10, 1000);
+        setObstacleField(-1000, 4000, 1000, 4000, 10, 1000);
+        setObstacleField(-1000, 10000, 1000, 10000, 10, 1000);
+
+        Planet planetGoal = setPlanet(0, 19000, Planet.TypeOrbit.G240);
+
+        setPlayer(planet1);
+
+        setCamera(gs, planetGoal, new Rectangle(-2500, -500, 5000, 20000));
     }
 }

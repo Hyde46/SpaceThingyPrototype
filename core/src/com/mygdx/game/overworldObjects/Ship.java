@@ -1,16 +1,12 @@
 package com.mygdx.game.overworldObjects;
 
-import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.overworldObjects.Dialog.DialogManager;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
 import com.mygdx.game.screens.MainMenuScreen;
 import com.mygdx.game.screens.MyGdxGame;
 import com.mygdx.game.utils.SpaceMath;
-
-import sun.rmi.runtime.Log;
 
 /**
  * Created by Vali on 18.05.2016.
@@ -59,7 +55,7 @@ public class Ship extends ARenderableObject{
         //if ship is currently circling around planet the circling movement shell be made
         if(isInOrbit){
             //set new position, which will be rendered in next frame
-            //System.out.println("Current level id in update method: " +  currentLevel.getLevelId());
+            //System.out.println("Current level id in update method: " +  currentLevel.getIdLevel());
             position = SpaceMath.rotatePoint(position, currentLevel.getPositionCenter(), rotationSpeed * delta, rotationDirection);
 
             //rotate the sprite so that it looks like the ship actually circles around beacon (just like ingame)
@@ -76,7 +72,7 @@ public class Ship extends ARenderableObject{
                 //rotate ship again
                 sprite.setRotation(currentLevel.getPositionCenter().cpy().sub(position.cpy()).angle());
                 //now we want to show the pre dialog (we will check in the dialog manager if it should be shown
-                ((MainMenuScreen) MyGdxGame.game.current).getDialogManager().startPreDialog(currentLevel.getLevelId());
+                ((MainMenuScreen) MyGdxGame.game.current).getDialogManager().startPreDialog(currentLevel.getIdLevel());
             }else if(travelsRoute && currentRoute.peek().getHitbox().contains(position)){  //second case: ship has reached next beacon on route
                 //in this case we tell the ship to fly to the next beacon in the route
                 System.out.println("The first beacon is reached");
@@ -94,7 +90,7 @@ public class Ship extends ARenderableObject{
      */
     public void startRoute(){
         System.out.println("size of route: " + currentRoute.size);
-        System.out.println("Current level in ship: " + currentLevel.getLevelId());
+        System.out.println("Current level in ship: " + currentLevel.getIdLevel());
         flyToBeacon(currentRoute.peek()); //peek returns the last item (without deleting)
     }
 
@@ -107,7 +103,7 @@ public class Ship extends ARenderableObject{
         System.out.println("Angle: " + vectorToBeacon.angle());
         System.out.println("Travels route: " + travelsRoute);
         System.out.println("Is in orbit: " + isInOrbit);
-        System.out.println("Level id: " + beacon.getLevelId());
+        System.out.println("Level id: " + beacon.getIdLevel());
         //rotate the ship so that it aims at the new beacon
         //therefore we need get the angle of the vector to the beacon
         sprite.setRotation(vectorToBeacon.angle() - 90);

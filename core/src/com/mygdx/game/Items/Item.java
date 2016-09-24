@@ -132,4 +132,5 @@ public abstract class Item extends Decoration implements IInputHandler
         return stateItem;
     }
     public String getName() { return name; }
+    public int getUses(){return uses;};
 }

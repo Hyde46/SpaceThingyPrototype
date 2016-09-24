@@ -14,7 +14,6 @@ import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.overworldObjects.Dialog.DialogManager;
 import com.mygdx.game.overworldObjects.LevelGraph;
 import com.mygdx.game.overworldObjects.Overlay;
-import com.mygdx.game.overworldObjects.OverlayOverworldHUD;
 import com.mygdx.game.overworldObjects.Ship;
 import com.mygdx.game.prototypeUtils.CameraHelper;
 import com.mygdx.game.utils.JukeBox;
@@ -160,8 +159,8 @@ public class MainMenuScreen implements Screen {
 
         backgroundManager.render(game.batch);
 
-        game.font.draw(game.batch, game.currentVersion, 10 , 50);
-        game.font.draw(game.batch, "nth start " + DataPers.dataP().nthGame, 600 , 50);
+//        game.font.draw(game.batch, game.currentVersion, 10 , 50);
+//        game.font.draw(game.batch, "nth start " + DataPers.dataP().nthGame, 600 , 50);
 
         game.batch.end();
 
