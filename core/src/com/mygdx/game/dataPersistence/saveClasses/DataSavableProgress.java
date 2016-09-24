@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Created by Mechandrius on 05.07.2016.
  */
-public class ADataSavableProgress extends ADataSavable
+public class DataSavableProgress extends ADataSavable
 {
     // arrays needs to be saved as ArrayList ... so java.io.serializable can handle it
 
@@ -25,16 +25,24 @@ public class ADataSavableProgress extends ADataSavable
 
     public int nthGame = 0;
     
-    public ADataSavableProgress()
+    public DataSavableProgress()
     {
         idsItemsPlayer = new ArrayList<Integer>();
         idsSkinsPlayer = new ArrayList<Integer>();
         preDialogsPlayed = new ArrayList<Integer>();
         postDialogsPlayed = new ArrayList<Integer>();
+<<<<<<< HEAD:core/src/com/mygdx/game/dataPersistence/saveClasses/ DataSavableProgress.java
         hopsPerLevel = new int[104];
 
         levelsUnlocked = new boolean[3][100];
 
+=======
+        hopsPerLevel = new int[15];
+        playableLevel = new boolean[15];
+        playableLevel[1] = true;
+//        playableLevel[2] = true;
+//        playableLevel[5] = true;
+>>>>>>> e47659d73af1fb3663d204a4f541534218f4a5c0:core/src/com/mygdx/game/dataPersistence/saveClasses/ com.mygdx.game.dataPersistence.saveClasses.DataSavableProgress.java
         credits = 0;
 
         //TODO remove later

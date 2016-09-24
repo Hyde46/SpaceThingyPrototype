@@ -29,6 +29,9 @@ public class Planet extends Unit implements IInputHandler {
     private int rotationDirection;
     private Vector2 translation;
 
+    private boolean isDecisionPlanet;
+    private int decisionPlanetID;
+
     private float gravity;
 
     public Planet() {
@@ -52,6 +55,8 @@ public class Planet extends Unit implements IInputHandler {
         rotationDirection = 0;
         translation = new Vector2();
         this.gravity = gravity;
+        isDecisionPlanet = false;
+        decisionPlanetID = -1;
     }
 
     private void initializeOrbitTex(boolean isGoalPlanet) {
@@ -183,4 +188,15 @@ public class Planet extends Unit implements IInputHandler {
         orbitSprite = null;
     }
 
+    public void setDecisionPlanet(int id){
+        this.isDecisionPlanet = true;
+        this.decisionPlanetID = id;
+    }
+
+    public boolean isDecisionPlanet(){
+        return isDecisionPlanet;
+    }
+    public int getDecisionPlanetID(){
+        return decisionPlanetID;
+    }
 }

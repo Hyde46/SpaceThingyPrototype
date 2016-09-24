@@ -56,7 +56,7 @@ public class MyGdxGame extends Game
 		//font.getData().scale(1.0f);
 		shapeRenderer = new ShapeRenderer();
 		fpsLimit = new FPSLimiter(60);
-		currentVersion = "Prototype v0.4.0";
+		currentVersion = "Prototype v0.5.0";
 
 		font.setColor(Color.WHITE);
 		debugFont.setColor(Color.WHITE);
@@ -68,11 +68,9 @@ public class MyGdxGame extends Game
 		DataPers.dataP().addToSkins(2);
 
 		// TODO this resets saves every start
-		DataPers.resetP();
-		DataPers.resetS();
+//		DataPers.resetP();
+//		DataPers.resetS();
 
-		DataPers.dataH().setSlot1(ItemManager.ItemNames.TELEPORT.ordinal());
-		DataPers.dataH().setSlot2(ItemManager.ItemNames.BREAK.ordinal());
 		DataPers.dataH().setCurrentSkin(1);
 		DataPers.saveH();
 		openScreen(new MainMenuScreen());

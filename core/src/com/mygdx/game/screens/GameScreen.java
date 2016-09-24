@@ -19,6 +19,7 @@ import com.mygdx.game.managers.levels.Level;
 import com.mygdx.game.managers.levels.LevelBackgroundColor;
 import com.mygdx.game.managers.levels.LevelFactory;
 import com.mygdx.game.managers.levels.LevelState;
+import com.mygdx.game.managers.levels.levelClasses.Lev2TheDecision;
 import com.mygdx.game.prototypeUtils.CameraHelper;
 import com.mygdx.game.renderAbleObjects.ARenderableObject;
 import com.mygdx.game.renderAbleObjects.decorations.Decoration;
@@ -111,12 +112,13 @@ public class GameScreen implements Screen{
 
         game.uiBatch.begin();
         game.uiBatch.setProjectionMatrix(camFixed.combined);
-        game.debugFont.draw(game.uiBatch, game.currentVersion, 5 , 1900);
-        game.debugFont.draw(game.uiBatch, "X: "+(int)(getPlayerShip().getPosition().x / 10),5,1850);
-        game.debugFont.draw(game.uiBatch, "Y: "+(int)(getPlayerShip().getPosition().y / 10),5,1800);
-        game.debugFont.draw(game.uiBatch, "vel: "+(int)(getPlayerShip().getDeltaMovement().len()),5,1750);
-        game.debugFont.draw(game.uiBatch, "Currency: "+levelState.getCurrency(), 5, 1700);
-        game.debugFont.draw(game.uiBatch, "Hops: "+levelState.getHops(), 5, 1650);
+
+//        game.debugFont.draw(game.uiBatch, game.currentVersion, 5 , 1900);
+//        game.debugFont.draw(game.uiBatch, "X: "+(int)(getPlayerShip().getPosition().x / 10),5,1850);
+//        game.debugFont.draw(game.uiBatch, "Y: "+(int)(getPlayerShip().getPosition().y / 10),5,1800);
+//        game.debugFont.draw(game.uiBatch, "vel: "+(int)(getPlayerShip().getDeltaMovement().len()),5,1750);
+//        game.debugFont.draw(game.uiBatch, "Currency: "+levelState.getCurrency(), 5, 1700);
+//        game.debugFont.draw(game.uiBatch, "Hops: "+levelState.getHops(), 5, 1650);
         ItemManager.get.render(game.uiBatch);
 
         renderFinishedGameState(game);
@@ -197,6 +199,10 @@ public class GameScreen implements Screen{
         hasWonLevel = b;
         this.isOutOfBounds = isOutOfBounds;
         if(finishCounter <= 0) {
+            if(levelState.getCurrentLevel() == 5 &&hasWonLevel){//decsision level
+                Planet p = levelContainer.unitManager.getPlanetConnectedToPlayer();
+                Lev2TheDecision.lastFinishedSide = p.getDecisionPlanetID();
+            }
             if(hasWonLevel)
                 levelState.safeState();
             levelContainer.unitManager.resetUnits();
