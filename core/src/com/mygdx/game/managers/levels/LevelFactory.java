@@ -25,9 +25,10 @@ public class LevelFactory
         switch(levelId)
         {
             case 0:
-                return new Lev9MainPath2(gs);
+                //return new Lev2TheDecision(gs);
+                //return new Lev9MainPath2(gs);
                 //return new Lev8MainPath1(gs);
-                //return new Lev6TheHeist1(gs);
+                return new Lev6TheHeist1(gs);
                 //return new Lev4Mira1(gs);
 
                 //return new Lev6TheHeist1(gs);
@@ -39,9 +40,7 @@ public class LevelFactory
             case 2:
                 return new Lev2TheDecision(gs);
             case 3:
-
                 return new Lev7TheHeist2(gs);
-
             case 4:
                 return new Lev4Mira1(gs);
             case 5:
