@@ -22,9 +22,13 @@ public class LevelFactory
 
     public static Level getLevel(int levelId, GameScreen gs)
     {
-        switch(levelId){
+        switch(levelId)
+        {
             case 0:
-                return new Lev4Mira1(gs);
+                return new Lev9MainPath2(gs);
+                //return new Lev8MainPath1(gs);
+                //return new Lev6TheHeist1(gs);
+                //return new Lev4Mira1(gs);
 
                 //return new Lev6TheHeist1(gs);
                 //return new Lev3ATestOfFaith(gs);

@@ -20,7 +20,7 @@ public class Lev1337Test extends Level
 
         setPlayer(planet1);
 
-        setObstacleMoving(-100, 300, 100, 300, 2, 5);
+        setObstacleMoving(-100, 300, 100, 300, 2);
 
         setItemCurrency(0, 350, 100);
         setItemCurrency(0, 400, 100);

@@ -127,26 +127,49 @@ public class Level
         return null;
     }
 
-    protected MovingObstacle setObstacleMoving(int xStart, int yStart, int xEnd, int yEnd, float speed, float timeTurn)
+    protected MovingObstacle setObstacleMoving(int xStart, int yStart, int xEnd, int yEnd, float speed)
     {
         String pathTexture = "asteroid_80x80_" + (int)(Math.random() * 2) + ".png";
         float rotationRandom = (float)Math.random() * 360;
 
         float distance = Vector2.dst(xStart, yStart, xEnd, yEnd);
-        float lengthDeltaMove = distance / ((1/speed) * 0.2f);
-        float ratioOfDeltaMove = lengthDeltaMove / distance;
 
         Vector2 toGoal = new Vector2(xEnd - xStart, yEnd - yStart);
         toGoal.x /= distance * 1/speed;
         toGoal.y /= distance * 1/speed;
 
-        float step = distance / toGoal.x;
-
         MovingObstacle obstacle = new MovingObstacle();
-        obstacle.initialize(new Vector2(xStart,yStart), toGoal, 40, pathTexture, rotationRandom, timeTurn);
+        obstacle.initialize(new Vector2(xStart,yStart), toGoal, distance, 40, pathTexture, rotationRandom);
         unitManager.addUnit(obstacle);
 
         return obstacle;
+    }
+
+    protected void setObstacleField(int xStart, int yStart, int xEnd, int yEnd, int amount, float deviation)
+    {
+        for(int i = 0; i < amount; i++)
+        {
+            float xDeviation = (float)Math.random() * deviation;
+            float yDeviation = (float)Math.random() * deviation;
+
+            Vector2 posStart;
+            Vector2 posEnd;
+
+            if(i % 2 == 0)
+            {
+                posStart = new Vector2(xEnd + xDeviation, yEnd + yDeviation);
+                posEnd = new Vector2(xStart + xDeviation, yStart + yDeviation);
+            }
+            else
+            {
+                posStart = new Vector2(xStart + xDeviation, yStart + yDeviation);
+                posEnd = new Vector2(xEnd + xDeviation, yEnd + yDeviation);
+            }
+
+            float speed = 1 + (float)(Math.random() * 3.5);
+
+            setObstacleMoving((int)posStart.x, (int)posStart.y, (int)posEnd.y, (int)posEnd.y, speed);
+        }
     }
 
     protected SpaceShip setPlayer(Planet parent)
@@ -162,13 +185,14 @@ public class Level
 
     protected Planet setCluster(int x, int y, int nOrbiting)
     {
-        Planet parent = setPlanet(x, y, Planet.TypeOrbit.B480);
+        Planet.TypeOrbit typeOrbit = (Math.random() < 0.5)? Planet.TypeOrbit.B320 : Planet.TypeOrbit.B480;
+        Planet parent = setPlanet(x, y, typeOrbit);
 
         for(int i = 0; i < nOrbiting; i++)
         {
-            float radiusOrbiter = (float)(280 + i * 180 + Math.random() * 60);
+            float radiusOrbiter = (float)(280 + i * 240 + Math.random() * 260);
             float speedOrbiter = (float)(5 + Math.random() * 20);
-            Planet orbiter = setMoon(parent, radiusOrbiter, speedOrbiter);
+            setMoon(parent, radiusOrbiter, speedOrbiter);
         }
 
         return parent;

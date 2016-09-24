@@ -22,7 +22,7 @@ public class Lev5Mira2 extends Level
 {
     public Lev5Mira2(GameScreen gs)
     {
-        nameLevel = "At the Abyss";
+        nameLevel = "A Mistery";
         nameSystem = "Tentui";
 
         Planet planet1 = setPlanet(0,0, Planet.TypeOrbit.B320);
@@ -36,9 +36,9 @@ public class Lev5Mira2 extends Level
         setCurrencyVolley(-600, 700, 100);
         setCurrencyVolley(-2200, 2700, 100);
 
-        setObstacleMoving(-1000, 500, 0, 1000, 2, 5);
-        setObstacleMoving(0, 2000, -2000, 2000, 2, 5);
-        setObstacleMoving(-3000, 1000, 0, 3000, 2, 5);
+        setObstacleMoving(-1000, 500, 1, 1, 2);
+        setObstacleMoving(0, 2000, -1, -1, 2);
+        setObstacleMoving(-3000, 1000, 1, 1, 2);
 
         setCluster(-100, 2200, 2);
 
