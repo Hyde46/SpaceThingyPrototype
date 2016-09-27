@@ -171,6 +171,7 @@ public class GameScreen implements Screen{
      */
     public void setLevel(int levelId)
     {
+        System.out.println(levelId+"  hier");
         int currentSkin = prepareLevelFields(levelId);
         levelContainer = LevelFactory.getLevel(levelId,this);
         getPlayerShip().setSkin(currentSkin);
@@ -199,7 +200,7 @@ public class GameScreen implements Screen{
         hasWonLevel = b;
         this.isOutOfBounds = isOutOfBounds;
         if(finishCounter <= 0) {
-            if(levelState.getCurrentLevel() == 5 &&hasWonLevel){//decsision level
+            if(levelState.getCurrentLevel() == 4 &&hasWonLevel){//decsision level
                 Planet p = levelContainer.unitManager.getPlanetConnectedToPlayer();
                 Lev2TheDecision.lastFinishedSide = p.getDecisionPlanetID();
             }

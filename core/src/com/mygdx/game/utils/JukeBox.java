@@ -64,24 +64,42 @@ public class JukeBox {
             case -1://shop
                 pathToBGM += "shop";
                 break;
-            case 0: //overworld
+            case -2: //overworld
                 pathToBGM += "level2";
                 break;
-            case 1:
+            case 0:
                 pathToBGM += "level7_1";
                 break;
-            case 2:
+            case 1:
                 pathToBGM += "level7_2";
                 break;
-            case 3:
             case 4:
+                pathToBGM += "level3";
+                break;
             case 5:
+                pathToBGM += "level5";
+                break;
             case 6:
+                pathToBGM += "level5";
+                break;
             case 7:
+                pathToBGM += "level5";
+                break;
             case 8:
+                pathToBGM += "level1_1";
+                break;
             case 9:
+                pathToBGM += "level1_3";
+                break;
             case 10:
+                pathToBGM += "level4_1";
+                break;
             case 11:
+                pathToBGM += "level4_2";
+                break;
+            case 12:
+                pathToBGM += "level4_3";
+                break;
             default:
                 pathToBGM += "overworld";
         }
