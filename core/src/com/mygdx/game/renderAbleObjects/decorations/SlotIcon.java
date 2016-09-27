@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.IInputHandler;
 import com.mygdx.game.InputManager.TouchData;
+import com.mygdx.game.Items.ItemManager;
 import com.mygdx.game.dataPersistence.DataPers;
 import com.mygdx.game.screens.HangarScreen;
 import com.mygdx.game.screens.MyGdxGame;
@@ -54,7 +55,7 @@ public class SlotIcon extends Decoration implements IInputHandler{
         int previousItemId = itemId;
         itemId = screen.getCurrentItemId();
         if(slotId == 1){
-            screen.getSelectedSlot1().changeTexture("item" + itemId + "_icon.png");
+            screen.getSelectedSlot1().changeTexture(ItemManager.getItemTexturePath(itemId));
             //if the slot was previously occupied by another item we need to find that item and change the Unequip button
             for(EquipButton button : screen.getEquipButtons()){
                 if(button.getItemId() == previousItemId){
@@ -63,7 +64,7 @@ public class SlotIcon extends Decoration implements IInputHandler{
                 }
             }
         }else{
-            screen.getSelectedSlot2().changeTexture("item" + itemId + "_icon.png");
+            screen.getSelectedSlot2().changeTexture(ItemManager.getItemTexturePath(itemId));
         }
         screen.setShowPopUp(false);
         screen.saveSettings();

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.InputManager;
+import com.mygdx.game.Items.ItemManager;
 import com.mygdx.game.dataPersistence.DataPers;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.camera.CameraManager;
@@ -136,14 +137,14 @@ public class HangarScreen implements Screen {
 
         //show the selected items
         selectedSlot1 = new ItemDisplayImage();
-        if(DataPers.dataH().getSlot1() == 2 || DataPers.dataH().getSlot1() == 4 || DataPers.dataH().getSlot1() == 9 || DataPers.dataH().getSlot1() == 12){
-            selectedSlot1.initialize(new Vector2(200, 800), 200, 200, "item" + DataPers.dataH().getSlot1() + "_icon.png");
+        if(ItemManager.getItemTexturePath(DataPers.dataH().getSlot1()) != ""){
+            selectedSlot1.initialize(new Vector2(200, 800), 200, 200, ItemManager.getItemTexturePath(DataPers.dataH().getSlot1()));
         }else{
             selectedSlot1.initialize(new Vector2(200, 800), 200, 200, "item_icon.png");
         }
         selectedSlot2 = new ItemDisplayImage();
-        if(DataPers.dataH().getSlot2() == 2 || DataPers.dataH().getSlot2() == 4 || DataPers.dataH().getSlot2() == 9 || DataPers.dataH().getSlot2() == 12){
-            selectedSlot2.initialize(new Vector2(MyGdxGame.game.screenWidth - 400, 800), 200, 200, "item" + DataPers.dataH().getSlot2() + "_icon.png");
+        if(ItemManager.getItemTexturePath(DataPers.dataH().getSlot2()) != ""){
+            selectedSlot2.initialize(new Vector2(MyGdxGame.game.screenWidth - 400, 800), 200, 200, ItemManager.getItemTexturePath(DataPers.dataH().getSlot2()));
         }else{
             selectedSlot2.initialize(new Vector2(MyGdxGame.game.screenWidth - 400, 800), 200, 200, "item_icon.png");
         }
@@ -165,8 +166,8 @@ public class HangarScreen implements Screen {
             //initialize item slot
             slot.initialize(new Vector2(100, posY), width, 200, "item_slot.png");
             ItemDisplayImage itemIcon = new ItemDisplayImage();
-            if(itemsInPossession.get(i) == 2 || itemsInPossession.get(i) == 4 || itemsInPossession.get(i) == 9 || itemsInPossession.get(i) == 12){
-                itemIcon.initialize(new Vector2(120, posY), 200, 200, "item" + itemsInPossession.get(i) + "_icon.png");
+            if(ItemManager.getItemTexturePath(itemsInPossession.get(i)) != ""){
+                itemIcon.initialize(new Vector2(120, posY), 200, 200, ItemManager.getItemTexturePath(itemsInPossession.get(i)));
             }else{
                 itemIcon.initialize(new Vector2(120, posY), 200, 200, "item_icon.png");
             }

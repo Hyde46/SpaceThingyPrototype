@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.InputListener;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.InputManager.TouchData;
+import com.mygdx.game.Items.ItemManager;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.prototypeUtils.CameraHelper;
@@ -32,6 +33,7 @@ public class ItemScreen implements Screen
     private ItemDisplayButtonReturn returnButton;
 
     private int idItem;
+    private String descriptionItem;
 
     private int levelidreturn;
 
@@ -53,10 +55,12 @@ public class ItemScreen implements Screen
         backgroundManager.setLayers(2,false);
 
         this.idItem = itemId;
+        this.descriptionItem = ItemManager.getItemDescription(itemId);
         //icon of the item
         itemImage = new ItemDisplayImage();
         //center it horizontally
-        itemImage.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 400, MyGdxGame.game.screenHeight - 1000), 800, 800, "item_image.png");
+        String pathToIcon = ItemManager.getItemTexturePath(itemId) != "" ? ItemManager.getItemTexturePath(itemId) : "item_icon.png";
+        itemImage.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 100, MyGdxGame.game.screenHeight - 800), 200, 200, pathToIcon);
         //description of the item
         itemDescription = new ItemDisplayImage();
         itemDescription.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 400, MyGdxGame.game.screenHeight - 1600), 800, 500, "item_description.png");
@@ -97,6 +101,7 @@ public class ItemScreen implements Screen
         game.batch.begin();
             itemImage.render(game.batch);
             itemDescription.render(game.batch);
+            MyGdxGame.game.dialogFont.draw(game.batch, descriptionItem, itemDescription.getPosition().x + 20, itemDescription.getPosition().y + 450);
             returnButton.render(game.batch);
         game.batch.end();
 

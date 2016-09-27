@@ -251,6 +251,60 @@ public class ItemManager
         return ItemNames.values()[idItem];
     }
 
+    public static String getItemTexturePath(int idItem){
+        switch(idItem){
+            case 0:
+                return "";
+            case 1:
+                return "itempickertarget_200x200.png";
+            case 2:
+                return "itempickerradius_200x200.png";
+            case 3:
+                return "speedBooster_200x200.png";
+            case 7:
+                return "break_200x200.png";
+            case 8:
+                return "destroy-icon-256.png";
+            case 14:
+                return "teleportrandom_200x200.png";
+            case 15:
+                return "artifial-planet-icon-256.png";
+            case 17:
+                return "phaseOut_200x200.png";
+            case 19:
+                return "teleport_200x200.png";
+            default:
+                return "";
+        }
+    }
+
+    public static String getItemDescription(int idItem){
+        switch(idItem){
+            case 0:
+                return "";
+            case 1:
+                return "Pick an item";
+            case 2:
+                return "Pick an item radius";
+            case 3:
+                return "Boost your ship";
+            case 7:
+                return "Pull the breaks";
+            case 8:
+                return "Destroy stuff";
+            case 14:
+                return "Teleport randomly";
+            case 15:
+                return "Create an artificial planet";
+            case 17:
+                return "Phase out...";
+            case 19:
+                return "Teleport not randomly";
+            default:
+                return "";
+        }
+    }
+
 //    public static ItemNames getItemNameOfId(int ordinal){
 //        switch(ordinal){
 //            case 0:
