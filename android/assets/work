@@ -1,37 +1,20 @@
-Valli:
--Dialogsystem nutzbar (pre und post jetzt möglich, ist noch ein komischer Bug drin)
--Dialoge eintragen (die meisten sind eingetragen, passen noch nicht genau zu den leveln)
--level tags (jetzt über Font, passen aber evtl noch nicht zu den Leveln)
-
-Henri:
--Shop system
--level skizzen -> level ausgearbeitet
-
-Denis:
-
-
-General:
--upgrade item
--3 Enemies
--item descriptions..
--charactere bilder
-	Harry Denis
-	jason Vali
-	spencer google images
-	smuggler Henri
-	mira Sindy
-	radio radio
+TODO:
+-Shop:
+    item namen in listen
+    shop banner
+-item description screen
+    alles....
+-overworld
+    diesen bug mit dem dialog
+-sprites
+    character sprites für dialog
+-levels
+    teleport pickup item in level stecken
+    restlichen skins in leveln verteilen
+    2 letzten level erstellen
+    letzten  3 dialog ( 10, 11, 12) schreiben / eintragen
+-webseite + trailer
 
 
 Done:
--asteroids ( 2 sprites )
--bewegbare Hindernisse ( leider nur als Circle )
--3 ship skins
--new scrap sprite
--endscreen "okay" button
--15 Planeten
-
-Sprites:
-Moons: 5
-Planets: 16
-Ships: 8
+-dialoge richtig gesetzt
