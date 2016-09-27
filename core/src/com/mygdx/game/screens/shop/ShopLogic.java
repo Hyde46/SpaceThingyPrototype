@@ -101,7 +101,7 @@ public class ShopLogic
         {
             ShopItem item = ManagerShopItem.getShopItem(idItem);
 
-            creditsPlayer += item.getPrice();
+            creditsPlayer += (int)((double)item.getPrice()/2.0);
             idsItemPlayer.remove(new Integer(idItem));
             idsItemShop.add(idItem);
         }

@@ -38,33 +38,39 @@ public class ManagerShopItem
         ShopItem item;
 
         item = new ShopItem();
-        item.setName("Name1");
-        item.setDesciption("Desc1");
-        item.setPrice(1);
+        item.setName("Booster");
+        item.setDesciption("Speeds up your ship");
+        item.setPrice(350);
         items.add(item);
 
         item = new ShopItem();
-        item.setName("Name2");
-        item.setDesciption("Desc2");
-        item.setPrice(2);
+        item.setName("Break");
+        item.setDesciption("Slows down your ship");
+        item.setPrice(400);
         items.add(item);
 
         item = new ShopItem();
-        item.setName("Name3");
-        item.setDesciption("Desc3");
-        item.setPrice(3);
+        item.setName("Phaseout");
+        item.setDesciption("Phases your ship out for a short time. Making it invinsible for the duration.");
+        item.setPrice(950);
         items.add(item);
 
         item = new ShopItem();
-        item.setName("Name4");
-        item.setDesciption("Desc4");
-        item.setPrice(4);
+        item.setName("ItemPicker");
+        item.setDesciption("Picks up any item in a radius after activation");
+        item.setPrice(250);
         items.add(item);
 
         item = new ShopItem();
-        item.setName("Name4");
-        item.setDesciption("Desc4");
-        item.setPrice(4);
+        item.setName("ItemHelper");
+        item.setDesciption("After activation gives you the possibility to pick up Items in a radius by touching them");
+        item.setPrice(250);
+        items.add(item);
+
+        item = new ShopItem();
+        item.setName("RTeleport");
+        item.setDesciption("Teleports your ship to a given destination with some random offset");
+        item.setPrice(1200);
         items.add(item);
     }
 }
