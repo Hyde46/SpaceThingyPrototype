@@ -25,7 +25,7 @@ public class MainMenuScreen implements Screen {
 
 //    final MyGdxGame game;
 
-    OrthographicCamera cam;
+    public static OrthographicCamera cam;
 
     public static OrthographicCamera camFixed;
 
