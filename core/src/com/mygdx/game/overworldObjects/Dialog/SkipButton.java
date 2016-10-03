@@ -8,6 +8,7 @@ import com.mygdx.game.InputManager.IInputHandler;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.renderAbleObjects.decorations.Decoration;
+import com.mygdx.game.screens.MyGdxGame;
 
 /**
  * Created by Vali on 13.06.2016.
@@ -25,7 +26,7 @@ public class SkipButton extends Decoration implements IInputHandler {
     {
         initializePositions(position);
         this.height = height;
-        this.touchHitbox = new Rectangle(position.x, position.y, width, height);
+        this.touchHitbox = new Rectangle(position.x, MyGdxGame.game.screenHeight-position.y-height, width, height);
         this.spriteDimension = new Vector2(width, height);
         this.dialogManager = dialogManager;
         skipButtonOverlay = new SkipButtonOverlay();
@@ -34,6 +35,7 @@ public class SkipButton extends Decoration implements IInputHandler {
         progress = 0;
         skipButtonOverlay.initialize(getPosition(), progress, height, overlayTexture);
         System.out.println(position);
+        isUI = true;
     }
 
     @Override

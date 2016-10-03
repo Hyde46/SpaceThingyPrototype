@@ -40,7 +40,12 @@ public class DataSavableProgress extends ADataSavable
 
         //TODO remove later
         unlockLevels();
-        setItems();
+        idsItemsPlayer.add(1);
+        idsItemsPlayer.add(2);
+        idsItemsPlayer.add(3);
+        idsItemsPlayer.add(14);
+        idsItemsPlayer.add(17);
+        idsItemsPlayer.add(19);
     }
 
     public class LevelData implements Serializable
@@ -57,12 +62,6 @@ public class DataSavableProgress extends ADataSavable
                 levelsUnlocked[i][j] = true;
     }
 
-    private void setItems()
-    {
-        credits = 100;
-        idsItemsPlayer.add(ItemManager.ItemNames.TELEPORT.ordinal());
-        idsItemsPlayer.add(ItemManager.ItemNames.BREAK.ordinal());
-    }
 
     /**
      * getter for ids of skins

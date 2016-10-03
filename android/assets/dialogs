@@ -55,6 +55,7 @@ R: But if you blow up the ship again, ill find me an other master.
 Dialog Planet 5:
 Karl Krowbar( Smuggler, black market )
 Pre:
+*ring ring*
 K: Hello Jason its me Karl, long time no see. What brings you to the __ system?
 	I just saw you on the scanners.
 J: Yeah, its been a while, what do you got for me? 
@@ -128,7 +129,7 @@ R: Beep boop.
 
 
 
-######################################################################## Read at your own risk
+########################################################################
 Dialog Planet 11
 Pre:
 *ring ring* 
@@ -141,15 +142,56 @@ R: I assume the cage is included?
 J: No Problem, Harry. I'll get right to it, and just call me Jason.
 Post:
 J: Harry ? The Tiger has landed. 
-H: Nicely done Jason. By the way i found some really well paid jobs for you by GenCorp.
+H: Nicely done Mr Thirst. By the way i found some really well paid jobs for you by GenCorp.
 ########################################################################
 Dialog Planet 12
 Pre:
+*ring ring*
+H: Mr Thirst, about the shipments we were talking about. There is a rather important one you have
+to deliver. Be professional.
+J: As always Harry.
+*click*
+R: I thought you told him to call you Jason.
+J: ...
 
 Post:
+R: Jason! You hit that asteroid. You idiot! Now i have to clean that all up.
+J: Damn. Spencer, check for the package, if everyting's fine.
+R: Just a second
+...
+R: Jason, the package got shaken up really hard. Now there's a big hole on the bottom.
+R: Do you see the papers flying out of it?
+J: Put them back, we are not supposed to see them.
+R: But look, its a receipt, addressed to that Crane guy. A really big payment from Gen Corp.
+J: Professor Dr. Crane ? Isn't he the guy who claimed that the destruction of our home Galaxy was caused
+by a natural disaster? What's his deal with Gen Corp?
+*ring ring*
+H: Mr Thirst, we got the information that your ship got hit by an asteroid.
+J: ...
+H: Also the safety lock of the package alarmed us of it being broken.
+J: I am sorry, after we hit that damn asteroid, the box just popped open.
+R: We didn't see anything, and i didn't even touch it.
+H: Mr Thirst we will get an escort to your location. We want to examine the shipment.
+H: ...
+H: Jason, don't be there when they arrive.
+   Please.
+*click*
 
 ########################################################################
 Dialog Planet 13
 Pre:
+R: Let's dump that tracked package and get out of here.
+    Harry seemed really concerned
+J: Where should we head to?
+J: We are not safe here, not safe anywhere from Gen Corp.
 
 Post:
+J: Alright we got quiet some distance to them. They shouldn't be able to find us.
+R: For now.
+R: But what about now. Should be flee to an other galaxy?
+J: No way. Gen Corp is dirtier than most believe.
+J: We need to find Prof. Crane and find out what happened for real.
+R: What about his ties to Gen Corp?
+J: We should take the chance and meet him.
+
+To be continued...

@@ -45,17 +45,17 @@ public class DialogManager {
         avatarArray.add(2);
         Dialog dialog2 = new Dialog(textArray, avatarArray);
         textArray = new Array<String>();
-        textArray.addAll("*ring ring*", "Hello Mr. Thirst, to pick up your package pass through the __system straight north.", "Don't lose too much time on sidetracking.", "*click*", "Jason, Jason! Screw that delivery, I picked up signals on my Radar! There's a Pawn Shop East of this cluster and " +
-                "a Hahhngar somewhere west. Let's check that out!");
+        textArray.addAll("*ring ring*", "Hello Mr. Thirst, to pick up your package pass through the Topoga System straight north.", "Don't lose too much time on sidetracking.", "*click*", "Jason, Jason! Screw that delivery, I picked up signals on my Radar! There's a Pawn Shop East of this cluster and " +
+                "a Hangar somewhere west. Let's check that out!");
         avatarArray = new Array<Integer>();
         avatarArray.addAll(4, 3, 3, 4, 2);
         Dialog dialog3 = new Dialog(textArray, avatarArray);
         textArray = new Array<String>();
-        textArray.addAll("Hello Jason it's me Karl, long time no see. What brings you to the __ system?" +
+        textArray.addAll("*ring ring*","Hello Jason it's me Karl, long time no see. What brings you to the Meku system?" +
                 "I just saw you on the scanners.", "Yeah, it's been a while, what do you got for me?", "I have recently planned a heist, big money involved. If you want a share, help me out. " +
-                "I still need a getaway Pilot. First, you need to bring me to the x system and then help me disappear.", "I know you've always hated those kind of jobs, but this ship is falling apart.", "Let's get it over with.");
+                "I still need a getaway Pilot. First, you need to bring me to the Tairu Planet and then help me disappear.", "I know you've always hated those kind of jobs, but this ship is falling apart.", "Let's get it over with.");
         avatarArray = new Array<Integer>();
-        avatarArray.addAll(3, 1, 3, 2, 1);
+        avatarArray.addAll(4,3, 1, 3, 2, 1);
         Dialog dialog4 = new Dialog(textArray, avatarArray);
         textArray = new Array<String>();
         textArray.add("Start the engines! Go Go Go! We need to get out of here! NOW!");
@@ -63,18 +63,18 @@ public class DialogManager {
         avatarArray.add(4);
         Dialog dialog5 = new Dialog(textArray, avatarArray);
         textArray = new Array<String>();
-        textArray.addAll("A friend of mine told my the Hangar is right around this corner.", "Euh...you don't have any friends.", "Fine, I read it online.");
+        textArray.addAll("A friend of mine told me the Hangar is right around this corner.", "Euh...","you don't have any friends.", "Fine, I read it online.");
         avatarArray = new Array<Integer>();
-        avatarArray.addAll(2, 1, 2);
+        avatarArray.addAll(2, 1,1, 2);
         Dialog dialog6 = new Dialog(textArray, avatarArray);
         textArray = new Array<String>();
-        textArray.addAll("Jason, now you are quite the specialist in navigating. We got lost.", "*ring ring", "Hey guys, I hope I'm not disturbing but I kinda... crashed my ship. I got my supplies left with me on (Planet name). ", "Could you please help me out and deliver it to (an other planet name) including me. \n" +
+        textArray.addAll("Jason, now you are quite the specialist in navigating. We got lost.", "*ring ring*", "Hey guys, I hope I'm not disturbing but I kinda... crashed my ship. I got my supplies left with me on Mitaki. ", "Could you please help me out and deliver it to Tentui including me. \n" +
                 "There's not much payment since I lost all of my scraps during the crash.", "Finally a Woman on board.", "...");
         avatarArray = new Array<Integer>();
         avatarArray.addAll(2, 4, 3, 3, 2, 1);
         Dialog dialog7 = new Dialog(textArray, avatarArray);
         textArray = new Array<String>();
-        textArray.addAll("So here's the deal. I need to get to (planet name). It's not far from here.", "If you manage to drop me off in one piece, You'll get a new casing for this ship.", "Don't worry. We will get you there safe.");
+        textArray.addAll("So here's the deal. I need to get to Tentui, as i've told you before. It's not far from here.", "If you manage to drop me off in one piece, You'll get a new casing for this ship.", "Don't worry. We will get you there safe.");
         avatarArray = new Array<Integer>();
         avatarArray.addAll(3, 3, 1);
         Dialog dialog8 = new Dialog(textArray, avatarArray);
@@ -94,6 +94,7 @@ public class DialogManager {
         textArray.addAll("*ring ring*", "Mr. Thirst, We have gathered some information on your last delivery. Our Client was unsatisfied with the condition in which you left the package. Please be more careful in the future. ");
         avatarArray = new Array<Integer>();
         avatarArray.addAll(4, 3);
+        Dialog dialog16= new Dialog(textArray, avatarArray);
         textArray = new Array<String>();
         textArray.addAll("Shiny stuff you got there! We can tinker around with it at the Hangar.", "But if you blow up the ship again, I'll find me another master.");
         avatarArray = new Array<Integer>();
@@ -111,8 +112,8 @@ public class DialogManager {
         avatarArray.addAll(3, 1, 2);
         Dialog dialog12 = new Dialog(textArray, avatarArray);
         textArray = new Array<String>();
-        textArray.addAll("*Radio plays*", "Welcome welcome welcome, this is Radio Nox News. Tonight we've got a very special guest with us.", "Professor Dr. Crane. a high profile Scientist will share his insight on the catastrophic event, when the Kerro Galaxy got completely wiped out.",
-                "His studies showed the definitive proof, that this horrible accident was cased by a natural anomaly.", "Turned that down, I don't want to be reminded that everything and everyone I knew ceased to exist.", "Strange how there's only one view on the matter. It's always the same with that damn radio show.");
+        textArray.addAll("*Radio plays*", "Welcome welcome welcome, this is Radio Nox News. Tonight we've got a very special guest with us.", "Professor Dr. Crane, a high profile Scientist will share his insight on the catastrophic event, when the Kerro Galaxy got completely wiped out.",
+                "His studies showed the definitive proof, that this horrible accident was caused by a natural anomaly.", "Turn that down, I don't want to be reminded that everything and everyone I knew ceased to exist.", "Strange how there's only one view on the matter. It's always the same with that damn radio show.");
         avatarArray = new Array<Integer>();
         avatarArray.addAll(4, 4, 4, 4, 1, 2);
         Dialog dialog13 = new Dialog(textArray, avatarArray);
@@ -127,7 +128,7 @@ public class DialogManager {
         avatarArray.addAll(3, 1, 3, 3, 2);
         Dialog dialog15 = new Dialog(textArray, avatarArray);
         postDialogArray = new Array<Dialog>();
-        postDialogArray.addAll(dialog9, dialog10, dialog11, dialog12, dialog13, dialog14, dialog15);
+        postDialogArray.addAll(dialog9,dialog16, dialog10, dialog11, dialog12, dialog13, dialog14, dialog15);
     }
 
 

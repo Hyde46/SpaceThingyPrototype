@@ -39,7 +39,7 @@ public class Teleport extends Item
         teleportMaxRadius = 190;
         player = ItemManager.get.getPlayer();
         spaceShipPosition = player.getPosition();
-        teleportRangeDetector.initialize(false,teleportMaxRadius,spaceShipPosition,"orbit2_"+(int)(teleportMaxRadius*2)+ "x" + (int) (teleportMaxRadius * 2) + ".png");
+        teleportRangeDetector.initialize(false,teleportMaxRadius,spaceShipPosition,"orbit_moon_"+(int)(teleportMaxRadius*2)+ "x" + (int) (teleportMaxRadius * 2) + ".png");
         name = "Teleport";
         uses = 3;
         ItemManager.get.addUnitToManager(teleportRangeDetector);

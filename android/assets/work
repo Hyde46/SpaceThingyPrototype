@@ -1,20 +1,34 @@
 TODO:
--Shop:
-    item namen in listen
-    shop banner
--item description screen
-    alles....
--overworld
-    diesen bug mit dem dialog
+Denis:
 -sprites
     character sprites für dialog
--levels
+-level
     teleport pickup item in level stecken
     restlichen skins in leveln verteilen
     2 letzten level erstellen
-    letzten  3 dialog ( 10, 11, 12) schreiben / eintragen
--webseite + trailer
+    eintragen letzte dialoge.
+-die tuss die ein skin verspricht -> skin geben
+-Shop banner
+-main screen banner
+###################################################################
+Vali:
+-item desc screen
+    descriptions logik
+-Shop:
+    item namen in listen
+    shop banner
+    design ändern
+-item preise in item screen einbauen
+-Hangar
+    particles weg
+    wenn popup offen, ist, die anderen deaktivieren
 
 
+-webseite + trailer am we
+##############################################################
 Done:
 -dialoge richtig gesetzt
+-letzten 3 dialoge
+-overworld
+    diesen bug mit dem dialog
+-item description screen

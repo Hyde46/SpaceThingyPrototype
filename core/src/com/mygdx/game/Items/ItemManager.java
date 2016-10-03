@@ -126,52 +126,6 @@ public class ItemManager
 
         return true;
     }
-//
-//    public ShopItem extractDataShop(ItemNames itemName)
-//    {
-//        int posItem = 0;
-//        int sideToAdd = 0;
-//
-//        Item itemWanted = null;
-//
-//        switch (itemName) {
-//            case ITEM_PICKER_RANGE:
-//                itemWanted = new ItemPickerRadius(posItem, sideToAdd);
-//                break;
-//            case SPEED_BOOSTER:
-//                itemWanted = new SpeedBooser(posItem, sideToAdd, this);
-//                break;
-//            case ITEM_PICKER_TARGET:
-//                itemWanted = new ItemPickTarget(posItem, sideToAdd);
-//                break;
-//            case BREAK:
-//                itemWanted = new Break(posItem, sideToAdd, this);
-//                break;
-//            case ARTIFICIAL_PLANET:
-//                itemWanted = new ArtificialPlanet(posItem, sideToAdd, this, gs);
-//                break;
-//            case DESTROY_TARGET:
-//                itemWanted = new DestroyTarget(posItem, sideToAdd, gs);
-//                break;
-//            case PHASE_OUT:
-//                itemWanted = new PhaseOut(posItem, sideToAdd, this);
-//                break;
-//            case TELEPORT_RANDOM:
-//                itemWanted = new TeleportRandom(posItem, sideToAdd);
-//                break;
-//            case TELEPORT:
-//                itemWanted = new Teleport(posItem, sideToAdd);
-//                break;
-//            default:
-//                break;
-//        }
-//
-//
-//        if(itemWanted != null)
-//            return itemWanted.getDataShop();
-//        else
-//            return new ShopItem();
-//    }
 
     public boolean removeItemSlot(int sideToRemove) {
         return true;
@@ -268,7 +222,7 @@ public class ItemManager
             case 14:
                 return "teleportrandom_200x200.png";
             case 15:
-                return "artifial-planet-icon-256.png";
+                return "artificial-planet-icon-256.png";
             case 17:
                 return "phaseOut_200x200.png";
             case 19:
@@ -283,25 +237,51 @@ public class ItemManager
             case 0:
                 return "";
             case 1:
-                return "Pick an item";
+                return "Creates a radius around the ship which allows the player to pick up items by touching them.";
             case 2:
-                return "Pick an item radius";
+                return "Creates a radius around the ship which automatically Picks up items";
             case 3:
-                return "Boost your ship";
+                return "Gives your ship a small boost";
             case 7:
-                return "Pull the breaks";
+                return "Slows down the ship";
             case 8:
                 return "Destroy stuff";
             case 14:
-                return "Teleport randomly";
+                return "Teleports the ship to a given destination with a small random offset";
             case 15:
                 return "Create an artificial planet";
             case 17:
-                return "Phase out...";
+                return "Phase out the ship rendering it invincible for a short time.";
             case 19:
-                return "Teleport not randomly";
+                return "Teleports the ship to a given location";
             default:
                 return "";
+        }
+    }
+    public static int getItemPrice(int idItem){
+        switch(idItem){
+            case 0:
+                return 0;
+            case 1:
+                return 30;
+            case 2:
+                return 50;
+            case 3:
+                return 50;
+            case 7:
+                return 80;
+            case 8:
+                return 0;
+            case 14:
+                return 200;
+            case 15:
+                return 300;
+            case 17:
+                return 350;
+            case 19:
+                return 400;
+            default:
+                return 0;
         }
     }
 

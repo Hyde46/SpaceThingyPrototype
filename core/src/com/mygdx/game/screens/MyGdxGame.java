@@ -66,12 +66,13 @@ public class MyGdxGame extends Game
 		DataPers.dataP().addToSkins(0);
 		DataPers.dataP().addToSkins(1);
 		DataPers.dataP().addToSkins(2);
-
 		// TODO this resets saves every start
 //		DataPers.resetP();
 //		DataPers.resetS();
 
 		DataPers.dataH().setCurrentSkin(1);
+		DataPers.dataH().setSlot1(17);
+		DataPers.dataH().setSlot1(19);
 		DataPers.saveH();
 		openScreen(new MainMenuScreen());
 

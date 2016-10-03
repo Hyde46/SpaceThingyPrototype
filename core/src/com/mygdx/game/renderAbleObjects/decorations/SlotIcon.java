@@ -21,11 +21,12 @@ public class SlotIcon extends Decoration implements IInputHandler{
     public void initialize(Vector2 position, int width, int height, String pathToTexture, int slotId)
     {
         initializePositions(position);
-        this.touchHitbox = new Rectangle(position.x, position.y, width, height);
+        this.touchHitbox = new Rectangle(position.x, MyGdxGame.game.screenHeight-position.y-height, width, height);
         this.spriteDimension = new Vector2(width, height);
         initializeTexture(spriteDimension, 0, pathToTexture);
         itemId = 0;
         this.slotId = slotId;
+        isUI = true;
     }
 
     @Override
