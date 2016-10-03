@@ -1,12 +1,9 @@
 package com.mygdx.game.managers;
 
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.managers.levels.Level;
 import com.mygdx.game.overworldObjects.LevelBeacon;
 import com.mygdx.game.overworldObjects.LevelGraph;
 import com.mygdx.game.overworldObjects.Ship;
-
-import org.w3c.dom.ls.LSProgressEvent;
 
 /**
  * Created by Vali on 18.05.2016.
@@ -36,7 +33,7 @@ public class PathNavigationManager {
         path = computeRoute(levelBeacon);
         if(path != null){
             //set the current level to the new one
-            System.out.println("Touched beacon: " + levelBeacon.getLevelId());
+            System.out.println("Touched beacon: " + levelBeacon.getIdLevel());
             levelGraph.setCurrentLevel(levelBeacon);
             ship.setCurrentLevel(levelBeacon);
             ship.setInOrbit(false);
@@ -69,22 +66,22 @@ public class PathNavigationManager {
         //add the first node to the queue (which is the current level)
         queue.add(currentLevel);
         //and mark it as visited
-        visited.set(currentLevel.getLevelId() - 1, true);
+        visited.set(currentLevel.getIdLevel(), true);
         //search quickest route through breadth first search
         while (queue.size != 0){
             node = queue.pop();
             //if the popped node is the goal level return
-            if(node.getLevelId() == goalBeacon.getLevelId()){
+            if(node.getIdLevel() == goalBeacon.getIdLevel()){
                 return backtrack(previousNode, currentLevel, goalBeacon);
             }
             //add the connected beacons (if they are not yet visited) to the queue
             for(LevelBeacon connectedNode : node.getConnectedBeacons()){
                 //only process node if it has not been visited by algorithm and beacon is already activated!
-                if(!visited.get(connectedNode.getLevelId() - 1) && connectedNode.getActivated()){
+                if(!visited.get(connectedNode.getIdLevel()) && connectedNode.getActivated()){
                     queue.add(connectedNode);
-                    visited.set(connectedNode.getLevelId() - 1, true);
+                    visited.set(connectedNode.getIdLevel(), true);
                     //set the previous node for this one
-                    previousNode.set(connectedNode.getLevelId() - 1, node);
+                    previousNode.set(connectedNode.getIdLevel(), node);
                 }
             }
         }
@@ -102,10 +99,10 @@ public class PathNavigationManager {
         Array<LevelBeacon> path = new Array<LevelBeacon>();
         LevelBeacon currentBeacon = goalBeacon;
         //backtrack through the previousNode array and add the beacons to the path until the starting beacon is found
-        while(currentBeacon.getLevelId() != startBeacon.getLevelId()){
+        while(currentBeacon.getIdLevel() != startBeacon.getIdLevel()){
             path.add(currentBeacon);
             //set the new current beacon as the previous one (parent node)
-            currentBeacon = previousNode.get(currentBeacon.getLevelId() - 1);
+            currentBeacon = previousNode.get(currentBeacon.getIdLevel());
         }
         return path;
     }

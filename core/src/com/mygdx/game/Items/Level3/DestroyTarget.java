@@ -16,7 +16,7 @@ import com.mygdx.game.utils.SpaceMath;
  */
 public class DestroyTarget extends Item implements IInputAnywhere
 {
-    public DestroyTarget(int itemPos, int sideToAdd, ItemManager itemManager, GameScreen gs)
+    public DestroyTarget(int itemPos, int sideToAdd, GameScreen gs)
     {
         super();
         this.level = 3;
@@ -132,7 +132,7 @@ public class DestroyTarget extends Item implements IInputAnywhere
         sprite.draw(sB);
 
         //Debug
-        MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown), (sideInHud*400)+350, 1750);
-        MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (sideInHud*400)+350, 1700);
+//        MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown), (sideInHud*400)+350, 1750);
+//        MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (sideInHud*400)+350, 1700);
     }
 }

@@ -123,10 +123,10 @@ public class PhaseOut extends Item
         sprite.draw(sB);
 
         //Debug
-        MyGdxGame.game.debugFont.draw(sB,"Phase out Time: "+(int)phaseOutTime, (sideInHud *400)+350, 1800);
-        MyGdxGame.game.debugFont.draw(sB,"Phased out: "+isPhasedOut, (sideInHud *400)+350, 1750);
-        MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown/100), (sideInHud *400)+350, 1700);
-        MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (sideInHud *400)+350, 1650);
+//        MyGdxGame.game.debugFont.draw(sB,"Phase out Time: "+(int)phaseOutTime, (sideInHud *400)+350, 1800);
+//        MyGdxGame.game.debugFont.draw(sB,"Phased out: "+isPhasedOut, (sideInHud *400)+350, 1750);
+//        MyGdxGame.game.debugFont.draw(sB,"Cooldown: "+(int)(timeCooldown/100), (sideInHud *400)+350, 1700);
+//        MyGdxGame.game.debugFont.draw(sB,"Uses: "+uses, (sideInHud *400)+350, 1650);
 
 
 

@@ -6,7 +6,7 @@
 package com.mygdx.game.dataPersistence;
 
 import com.badlogic.gdx.Gdx;
-import com.mygdx.game.dataPersistence.saveClasses.DataSavable;
+import com.mygdx.game.dataPersistence.saveClasses.ADataSavable;
 import com.mygdx.game.dataPersistence.saveClasses.DataSavableHangar;
 import com.mygdx.game.dataPersistence.saveClasses.DataSavableMisc;
 import com.mygdx.game.dataPersistence.saveClasses.DataSavableProgress;
@@ -24,9 +24,9 @@ import java.io.ObjectOutputStream;
 public class DataPers
 {
     // save names need to be changed every time variables are added or removed to a save class
-    private static final String[] NAME_SAFE = new String[]{ "save0-12", "save1-12", "save2-12", "save3-12" };
+    private static final String[] NAME_SAFE = new String[]{ "save0-2", "save1-2", "save2-2", "save3-2" };
     private static File file[] = new File[4];
-    private static DataSavable data[] = new DataSavable[4];
+    private static ADataSavable data[] = new ADataSavable[4];
     private static final String PATH = Gdx.files.getLocalStoragePath();
 
     public static DataSavableProgress dataP(){ return (DataSavableProgress)data(0); }
@@ -39,8 +39,13 @@ public class DataPers
     public static void saveH(){ save(2); }
     public static void saveM(){ save(3); }
 
+    public static void resetP(){ reset(0); }
+    public static void resetS(){ reset(1); }
+    public static void resetH(){ reset(2); }
+    public static void resetM(){ reset(3); }
+
     // local
-    private static DataSavable data(int idSaveSlot)
+    private static ADataSavable data(int idSaveSlot)
     {
         if(data[idSaveSlot] == null)
         {
@@ -64,6 +69,16 @@ public class DataPers
         return data[idSaveSlot];
     }
 
+    private static void reset(int idSaveSlot)
+    {
+        data[0] = new DataSavableProgress();
+        data[1] = new DataSavableShop();
+        data[2] = new DataSavableHangar();
+        data[3] = new DataSavableMisc();
+
+        for(int i = 0; i < 4; i++) save(i);
+    }
+
     private static void save(int idSaveSlot)
     {
         try
@@ -83,7 +98,7 @@ public class DataPers
         try
         {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file[idSaveSlot]));
-            data[idSaveSlot] = (DataSavable) ois.readObject();
+            data[idSaveSlot] = (ADataSavable) ois.readObject();
             ois.close();
         }
         catch(Exception e)

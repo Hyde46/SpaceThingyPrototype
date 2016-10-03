@@ -5,12 +5,16 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.InputManager.InputListener;
 import com.mygdx.game.InputManager.InputManager;
+import com.mygdx.game.InputManager.TouchData;
+import com.mygdx.game.Items.ItemManager;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.prototypeUtils.CameraHelper;
 import com.mygdx.game.renderAbleObjects.decorations.uiItemDisplay.ItemDisplayImage;
 import com.mygdx.game.renderAbleObjects.decorations.uiItemDisplay.ItemDisplayButtonReturn;
+import com.mygdx.game.screens.shop.ScreenShop;
 
 /**
  * Created by Vali on 22.07.2016.
@@ -29,12 +33,17 @@ public class ItemScreen implements Screen
     private ItemDisplayButtonReturn returnButton;
 
     private int idItem;
+    private String descriptionItem;
 
     private int levelidreturn;
 
-    public ItemScreen(int itemId, int idReturn, int levelidreturn)
+    public ItemScreen(int itemId, int idReturn, int idLevelReturn, boolean isModeShopReturnBuy)
     {
-        this.levelidreturn = levelidreturn;
+        final int idReturnTemp = idReturn;
+        final int idLevelReturnTemp = idLevelReturn;
+        final boolean isModeShopReturnBuyTemp = isModeShopReturnBuy;
+
+        this.levelidreturn = idLevelReturn;
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080,1920);
         InputManager.setup(cam);
@@ -46,16 +55,26 @@ public class ItemScreen implements Screen
         backgroundManager.setLayers(2,false);
 
         this.idItem = itemId;
+        this.descriptionItem = ItemManager.getItemDescription(itemId);
         //icon of the item
         itemImage = new ItemDisplayImage();
         //center it horizontally
-        itemImage.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 400, MyGdxGame.game.screenHeight - 1000), 800, 800, "item_image.png");
+        String pathToIcon = ItemManager.getItemTexturePath(itemId) != "" ? ItemManager.getItemTexturePath(itemId) : "item_icon.png";
+        itemImage.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 100, MyGdxGame.game.screenHeight - 800), 200, 200, pathToIcon);
         //description of the item
         itemDescription = new ItemDisplayImage();
         itemDescription.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 400, MyGdxGame.game.screenHeight - 1600), 800, 500, "item_description.png");
 
         returnButton = new ItemDisplayButtonReturn();
-        returnButton.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 200, 100), 400, 200, "return_button.png", idReturn,levelidreturn);
+        returnButton.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 200, 100), 400, 200, "return_button.png");
+        returnButton.setListener(new InputListener()
+        {
+            @Override
+            public void OnTouch(TouchData td) {
+                if(idReturnTemp == 1 || idReturnTemp == 2 ||idReturnTemp == 3) MyGdxGame.game.openScreen(new ScreenShop(idReturnTemp,idLevelReturnTemp,isModeShopReturnBuyTemp));
+                else if(idReturnTemp == 4) MyGdxGame.game.openScreen(new HangarScreen(idReturnTemp));
+            }
+        });
         InputManager.get.register(returnButton);
 
         cameraManager = new CameraManager();
@@ -82,6 +101,7 @@ public class ItemScreen implements Screen
         game.batch.begin();
             itemImage.render(game.batch);
             itemDescription.render(game.batch);
+            MyGdxGame.game.dialogFont.draw(game.batch, descriptionItem, itemDescription.getPosition().x + 20, itemDescription.getPosition().y + 450);
             returnButton.render(game.batch);
         game.batch.end();
 

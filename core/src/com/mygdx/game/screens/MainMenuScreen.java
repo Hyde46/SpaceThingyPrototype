@@ -14,7 +14,6 @@ import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.overworldObjects.Dialog.DialogManager;
 import com.mygdx.game.overworldObjects.LevelGraph;
 import com.mygdx.game.overworldObjects.Overlay;
-import com.mygdx.game.overworldObjects.OverlayOverworldHUD;
 import com.mygdx.game.overworldObjects.Ship;
 import com.mygdx.game.prototypeUtils.CameraHelper;
 import com.mygdx.game.utils.JukeBox;
@@ -31,7 +30,6 @@ public class MainMenuScreen implements Screen {
     public static OrthographicCamera camFixed;
 
     CameraHelper cameraHelper;
-
     CameraManager cameraManager;
 
     public LevelGraph getLevelGraph() {
@@ -54,9 +52,7 @@ public class MainMenuScreen implements Screen {
 
     private Overlay overlay;
 
-    OverlayOverworldHUD overlayHUD;
-
-    //ButtonOptions boTest;
+//    OverlayOverworldHUD overlayHUD;
 
     private int finishedLevel;
 
@@ -68,8 +64,8 @@ public class MainMenuScreen implements Screen {
         finishedLevel = 0;      //is beginning
         setupScreen(false);
         setupDialogs(true);
+        dialogManager.startPreDialog(0);
         cameraHelper.setCameraManager(cameraManager, dialogManager, 2);
-
     }
 
     /**
@@ -79,18 +75,23 @@ public class MainMenuScreen implements Screen {
      */
     public MainMenuScreen(int level, boolean success){
         finishedLevel = level;
+        System.out.println("Finished Level: " + finishedLevel);
+
         setupScreen(success);
         //depending on success the boolean showDialog will be set to true of false
         setupDialogs(success);
+        //show the dialog
+        if(success){
+            dialogManager.startPostDialog(finishedLevel);
+        }
         cameraHelper.setCameraManager(cameraManager, dialogManager, 2);
-
     }
 
     /**
      * method to set up everything needed for main menu screen, called in both constructors
      */
     private void setupScreen(boolean hasFinishedLevel){
-        JukeBox.startBGM(0);
+        JukeBox.startBGM(-2);
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 1080,1920);
         camFixed = new OrthographicCamera();
@@ -140,8 +141,6 @@ public class MainMenuScreen implements Screen {
         //create the dialog manager and initialize the dialogs
         dialogManager = new DialogManager();
         dialogManager.createDialogs();
-        //show the dialog
-        dialogManager.initializeDialog(finishedLevel, success);
     }
 
     @Override
@@ -155,14 +154,13 @@ public class MainMenuScreen implements Screen {
 
         //render static (fixed) elements such as background and option buttons
         game.batch.setProjectionMatrix(camFixed.combined);
+
         game.batch.begin();
+
         backgroundManager.render(game.batch);
-//        overlayHUD.render(game.batch);
-       // boTest.render(game.batch);
-        game.font.draw(game.batch, game.currentVersion, 10 , 50);
 
-
-        game.font.draw(game.batch, "nth start " + DataPers.dataP().nthGame, 600 , 50);
+//        game.font.draw(game.batch, game.currentVersion, 10 , 50);
+//        game.font.draw(game.batch, "nth start " + DataPers.dataP().nthGame, 600 , 50);
 
         game.batch.end();
 

@@ -9,6 +9,8 @@ public class Dialog {
     private Array<String> textArray;
     private Array<Integer> avatarArray;
 
+
+
     public Dialog(Array<String> textArray, Array<Integer> avatarArray){
         this.textArray = textArray;
         this.avatarArray = avatarArray;
@@ -29,4 +31,9 @@ public class Dialog {
     public Array<Integer> getAvatarArray(){
         return avatarArray;
     }
+
+
+
+
+
 }

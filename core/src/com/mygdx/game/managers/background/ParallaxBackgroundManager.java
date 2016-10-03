@@ -47,7 +47,8 @@ public class ParallaxBackgroundManager {
 
     public void noticeTranslation(Vector2 translation){
         for(int i = 0; i < layerSize; ++i){
-            layers.get(i).getSprite().translate(translation.x*layerDamp[i],translation.y*layerDamp[i]);
+            if(layers.get(i).getSprite() != null)
+                layers.get(i).getSprite().translate(translation.x*layerDamp[i],translation.y*layerDamp[i]);
         }
         /*
         layers.get(0).getSprite().translate(translation.x*layerDamp[0],translation.y*layerDamp[0]);

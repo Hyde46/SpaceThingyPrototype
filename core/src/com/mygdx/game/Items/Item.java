@@ -10,8 +10,7 @@ import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.renderAbleObjects.decorations.Decoration;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.screens.GameScreen;
-import com.mygdx.game.utils.SpaceMath;
-import com.mygdx.game.utils.SpacePhysiX;
+import com.mygdx.game.screens.shop.ShopItem;
 
 /**
  * Created by Mechandrius on 19.06.2016.
@@ -20,12 +19,7 @@ import com.mygdx.game.utils.SpacePhysiX;
 public abstract class Item extends Decoration implements IInputHandler
 {
     protected String name;
-
-    // shop relevant
-//    protected String desc;
-
-    protected boolean isTradeable;
-    protected int price;
+    protected int idItem;
 
     public enum StateItem {READY, ACTIVATED, EFFECT, COOLDOWN}
 
@@ -47,10 +41,9 @@ public abstract class Item extends Decoration implements IInputHandler
 
     protected SpaceShip player;
 
-    public Item() {
+    public Item()
+    {
         stateItem = StateItem.READY;
-        //name = "None";
-        //this.gs = gs;
     }
 
     public float timeCooldown;
@@ -139,4 +132,5 @@ public abstract class Item extends Decoration implements IInputHandler
         return stateItem;
     }
     public String getName() { return name; }
+    public int getUses(){return uses;};
 }

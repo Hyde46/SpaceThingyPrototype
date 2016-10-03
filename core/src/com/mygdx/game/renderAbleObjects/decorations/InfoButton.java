@@ -43,7 +43,7 @@ public class InfoButton extends Decoration implements IInputHandler
     {
         HangarScreen screen = (HangarScreen) MyGdxGame.game.current;
         if(!screen.getShowPopUp()) {
-            MyGdxGame.game.openScreen(new ItemScreen(itemId, idReturn,levelidReturn));
+            MyGdxGame.game.openScreen(new ItemScreen(itemId, idReturn,levelidReturn,true));
         }
     }
 
