@@ -40,7 +40,7 @@ public class TeleportRandom extends Item
         teleportMaxRadius = 320;
         player = ItemManager.get.getPlayer();
         spaceShipPosition = player.getPosition();
-        teleportRangeDetector.initialize(true,teleportMaxRadius,spaceShipPosition,"orbit2_"+(int)(teleportMaxRadius*2)+ "x" + (int) (teleportMaxRadius * 2) + ".png");
+        teleportRangeDetector.initialize(true,teleportMaxRadius,spaceShipPosition,"orbit_moon_"+(int)(teleportMaxRadius*2)+ "x" + (int) (teleportMaxRadius * 2) + ".png");
         name = "Teleport Random";
         uses = 3;
         ItemManager.get.addUnitToManager(teleportRangeDetector);

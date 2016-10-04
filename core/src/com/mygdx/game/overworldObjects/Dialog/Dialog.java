@@ -7,11 +7,11 @@ import com.badlogic.gdx.utils.Array;
  */
 public class Dialog {
     private Array<String> textArray;
-    private Array<Integer> avatarArray;
+    private Array<DialogManager.Avatar> avatarArray;
 
 
 
-    public Dialog(Array<String> textArray, Array<Integer> avatarArray){
+    public Dialog(Array<String> textArray, Array<DialogManager.Avatar> avatarArray){
         this.textArray = textArray;
         this.avatarArray = avatarArray;
     }
@@ -28,7 +28,7 @@ public class Dialog {
      * getter for avatarArray
      * @return the array that contains the ints which reference the characters
      */
-    public Array<Integer> getAvatarArray(){
+    public Array<DialogManager.Avatar> getAvatarArray(){
         return avatarArray;
     }
 

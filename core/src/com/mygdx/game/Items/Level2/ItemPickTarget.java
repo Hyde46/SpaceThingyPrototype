@@ -46,7 +46,7 @@ public class ItemPickTarget extends Item
         pickerMaxRadius = 240;
         player = ItemManager.get.getPlayer();
         spaceShipPosition = player.getPosition();
-        itemPickerOrbit.initialize(1,pickerMaxRadius,spaceShipPosition,"orbit2_"+(int)(pickerMaxRadius*2)+ "x" + (int) (pickerMaxRadius * 2) + ".png");
+        itemPickerOrbit.initialize(1,pickerMaxRadius,spaceShipPosition,"orbit_moon_"+(int)(pickerMaxRadius*2)+ "x" + (int) (pickerMaxRadius * 2) + ".png");
         name = "Picker Target";
         uses = 3;
         ItemManager.get.addUnitToManager(itemPickerOrbit);
