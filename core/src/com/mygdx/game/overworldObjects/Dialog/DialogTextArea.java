@@ -52,6 +52,9 @@ public class DialogTextArea extends Decoration implements IInputHandler
 
         isUI = true;
 
+        System.out.println("hitbox: " + touchHitbox);
+
+
     }
 
     @Override
@@ -87,6 +90,7 @@ public class DialogTextArea extends Decoration implements IInputHandler
 
     @Override
     public void OnTouch(TouchData td) {
+        System.out.println("Box touched");
         //if the textposition is smaller than the dialog text that means, that not all of the text is shown
         //therefore we want to show the whole text in this case -> set textposition to length of string
         //ask if currentText is already set, because it can happen that the newly rendered dialog box gets the touch and the text is not set yet

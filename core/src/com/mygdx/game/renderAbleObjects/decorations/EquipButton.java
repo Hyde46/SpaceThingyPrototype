@@ -63,7 +63,7 @@ public class EquipButton extends Decoration implements IInputHandler{
                     itemSlots.get(currentId).initialize(itemSlots.get(currentId).getPosition(), (int) itemSlots.get(currentId).getSpriteDimensions().x, (int) itemSlots.get(currentId).getSpriteDimensions().y, "item_slot.png");
                 }
                 //initialize the object again with a different texture path
-                itemSlots.get(orderId).initialize(itemSlots.get(orderId).getPosition(), (int) itemSlots.get(orderId).getSpriteDimensions().x, (int) itemSlots.get(orderId).getSpriteDimensions().y, "item_slot_activated.png");
+           //     itemSlots.get(orderId).initialize(itemSlots.get(orderId).getPosition(), (int) itemSlots.get(orderId).getSpriteDimensions().x, (int) itemSlots.get(orderId).getSpriteDimensions().y, "item_slot_activated.png");
                 screen.setCurrentOrderId(orderId);
                 screen.setCurrentItemId(itemId);
                 screen.setShowPopUp(true);

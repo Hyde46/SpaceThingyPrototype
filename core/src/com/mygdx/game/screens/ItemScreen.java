@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.InputManager.InputListener;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.InputManager.TouchData;
@@ -34,6 +35,7 @@ public class ItemScreen implements Screen
 
     private int idItem;
     private String descriptionItem;
+    private int valueItem;
 
     private int levelidreturn;
 
@@ -100,8 +102,9 @@ public class ItemScreen implements Screen
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
             itemImage.render(game.batch);
+            MyGdxGame.game.font.draw(game.batch, "Value: " + valueItem , itemImage.getPosition().x, itemImage.getPosition().y - 20);
             itemDescription.render(game.batch);
-            MyGdxGame.game.dialogFont.draw(game.batch, descriptionItem, itemDescription.getPosition().x + 20, itemDescription.getPosition().y + 450);
+            MyGdxGame.game.dialogFont.draw(game.batch, descriptionItem, itemDescription.getPosition().x + 30, itemDescription.getPosition().y + 450, 800, Align.topLeft, true);
             returnButton.render(game.batch);
         game.batch.end();
 

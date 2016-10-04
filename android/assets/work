@@ -12,16 +12,10 @@ Denis:
 -main screen banner
 ###################################################################
 Vali:
--item desc screen
-    descriptions logik
+
 -Shop:
     item namen in listen
-    shop banner
     design ändern
--item preise in item screen einbauen
--Hangar
-    particles weg
-    wenn popup offen, ist, die anderen deaktivieren
 
 
 -webseite + trailer am we
@@ -32,3 +26,9 @@ Done:
 -overworld
     diesen bug mit dem dialog
 -item description screen
+-item desc screen
+    descriptions logik
+-item preise in item screen einbauen
+-Hangar
+        particles weg
+        wenn popup offen, ist, die anderen deaktivieren

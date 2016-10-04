@@ -38,9 +38,7 @@ public class HangarScreen implements Screen {
     private Array<SkinSlot> skinSlots;
     private ArrowButton skinArrowUp;
     private ArrowButton skinArrowDown;
-    private Array<Slot> particleSlots;
-    private ArrowButton particlesArrowUp;
-    private ArrowButton particlesArrowDown;
+
     private ItemDisplayImage popUp;
     private ItemDisplayImage selectedSlot1;
     private ItemDisplayImage selectedSlot2;
@@ -56,6 +54,8 @@ public class HangarScreen implements Screen {
     private int currentParticles;
     public static OrthographicCamera camFixed;
     CameraHelper cameraHelper;
+
+
 
     CameraManager cameraManager;
 
@@ -97,24 +97,20 @@ public class HangarScreen implements Screen {
         skinSlots = new Array<SkinSlot>();
         for(Integer skinId : skinsInPossession){
             SkinSlot skinSlot = new SkinSlot();
-            if(skinId == 0|| skinId == 1 || skinId == 2 || skinId == 3){
-                skinSlot.initialize(new Vector2(100, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_skin" + skinId + ".png", skinId);
-            }else{
-                skinSlot.initialize(new Vector2(100, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_skin.png", skinId);
-            }
+            skinSlot.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 200, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_skin" + skinId + ".png", skinId);
             skinSlots.add(skinSlot);
         }
 
 
         currentSkin = 0;
         skinArrowUp = new ArrowButton();
-        skinArrowUp.initialize(new Vector2(200, MyGdxGame.game.screenHeight - 200), 200, 200, "arrow_up.png", true, true);    //true for up, true for skin
+        skinArrowUp.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 100, MyGdxGame.game.screenHeight - 200), 200, 200, "arrow_up.png", true, true);    //true for up, true for skin
         skinArrowDown = new ArrowButton();
-        skinArrowDown.initialize(new Vector2(200, MyGdxGame.game.screenHeight - 800), 200, 200, "arrow_down.png", false, true);
+        skinArrowDown.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 100, MyGdxGame.game.screenHeight - 800), 200, 200, "arrow_down.png", false, true);
         InputManager.get.register(skinArrowUp);
         InputManager.get.register(skinArrowDown);
 
-        //create particle functionality
+   /*     //create particle functionality
         Slot particleSlot1 = new Slot();
         particleSlot1.initialize(new Vector2(MyGdxGame.game.screenWidth - 500, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_particles1.png");
 
@@ -124,16 +120,7 @@ public class HangarScreen implements Screen {
         Slot particleSlot3 = new Slot();
         particleSlot3.initialize(new Vector2(MyGdxGame.game.screenWidth - 500, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_particles3.png");
 
-        particleSlots = new Array<Slot>();
-        particleSlots.addAll(particleSlot1, particleSlot2, particleSlot3);
-        currentParticles = 0;
-        particlesArrowUp = new ArrowButton();
-        particlesArrowUp.initialize(new Vector2(MyGdxGame.game.screenWidth - 400, MyGdxGame.game.screenHeight - 200), 200, 200, "arrow_up.png", true, false);    //true for up, false for particles
-        particlesArrowDown = new ArrowButton();
-        particlesArrowDown.initialize(new Vector2(MyGdxGame.game.screenWidth - 400, MyGdxGame.game.screenHeight - 800), 200, 200, "arrow_down.png", false, false);
-        InputManager.get.register(particlesArrowUp);
-        InputManager.get.register(particlesArrowDown);
-
+*/
 
         //show the selected items
         selectedSlot1 = new ItemDisplayImage();
@@ -232,9 +219,6 @@ public class HangarScreen implements Screen {
         skinArrowDown.render(game.batch);
         skinArrowUp.render(game.batch);
         skinSlots.get(currentSkin).render(game.batch);
-        particleSlots.get(currentParticles).render(game.batch);
-        particlesArrowUp.render(game.batch);
-        particlesArrowDown.render(game.batch);
         selectedSlot1.render(game.batch);
         selectedSlot2.render(game.batch);
         returnButton.render(game.batch);
@@ -354,13 +338,6 @@ public class HangarScreen implements Screen {
         this.currentParticles = particles;
     }
 
-    /**
-     * getter for the number of activated particles, needed in arrow button class
-     * @return number of particles
-     */
-    public int getNumberParticles(){
-        return particleSlots.size;
-    }
 
 
     /**
@@ -423,11 +400,6 @@ public class HangarScreen implements Screen {
         skinArrowUp = null;
         skinArrowDown.dispose();
         skinArrowDown = null;
-        particleSlots.clear();
-        particlesArrowDown.dispose();
-        particlesArrowDown = null;
-        particlesArrowUp.dispose();
-        particlesArrowUp = null;
         popUp.dispose();
         popUp = null;
         slot1.dispose();
