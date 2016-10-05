@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.InputListener;
 import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.InputManager.TouchData;
+import com.mygdx.game.Items.ItemManager;
 import com.mygdx.game.managers.background.ParallaxBackgroundManager;
 import com.mygdx.game.managers.camera.CameraManager;
 import com.mygdx.game.prototypeUtils.CameraHelper;
@@ -70,8 +71,8 @@ public class ScreenShop implements Screen
 
     int yBannerTop = h - marginTop - hBanner;
 
-    int wTab = 225;
-    int hTab = 150;
+    int wTab = 250;
+    int hTab = 200;
 
     int yTabs = yBannerTop - marginTabsH - hTab;
     int marginTabsW = 87;
@@ -81,8 +82,8 @@ public class ScreenShop implements Screen
 
     int yBannerMiddle = yTabs - marginTabsH - hBannerMiddle;
 
-    int wPanel = wBanner - 2 * marginTabsH;
-    int hPanel = 150;
+    int wPanel = 880;
+    int hPanel = 200;
 
     int yPanelFirst = yBannerMiddle - 25 - hPanel;
 
@@ -92,14 +93,14 @@ public class ScreenShop implements Screen
 
     int offsetWScreenRed = wOffsetScreen + marginTabsH;
 
-    int wButton = 207;
-    int hButton = 100;
+    int wButton = 250;
+    int hButton = 200;
     int marginButtonsX = 57;
-    int marginButtonsY = 25;
+    int marginButtonsY = 0;
 
     int offsetButton0 = wOffsetScreen + marginButtonsX; // used for item icon
-    int offsetButton1 = wOffsetScreen + 2 * marginButtonsX + wButton;
-    int offsetButton2 = wOffsetScreen + 3 * marginButtonsX + 2 * wButton;
+    int offsetButton1 = MyGdxGame.game.screenWidth - 700;
+    int offsetButton2 = MyGdxGame.game.screenWidth - 400;
 
     private ShopLogic shopLogic;
 
@@ -164,11 +165,12 @@ public class ScreenShop implements Screen
         panelsBuy = new Array<GenericElement>();
         panelsSell = new Array<GenericElement>();
 
+
         bannerTop = new GenericElement();
         bannerTop.initialize(new Vector2(wOffsetScreen, yBannerTop), 900, 400, "shop-banner-900-400.png");
 
         tabBuy = new GenericElement();
-        tabBuy.initialize(new Vector2(offsetWScreenRed, yTabs), wTab, hTab, "shop-tab-buy-225-150.png");
+        tabBuy.initialize(new Vector2(offsetWScreenRed, yTabs), wTab, hTab, "buy_button.png");
         tabBuy.setListener(new InputListener(){
             public void OnTouch(TouchData td){
                 setBuyMode(true);
@@ -177,7 +179,7 @@ public class ScreenShop implements Screen
         InputManager.get.register(nameDynamic, tabBuy);
 
         tabSell = new GenericElement();
-        tabSell.initialize(new Vector2(offsetWScreenRed + wTab + marginTabsW, yTabs), wTab, hTab, "shop-tab-sell-225-150.png");
+        tabSell.initialize(new Vector2(offsetWScreenRed + wTab + marginTabsW, yTabs), wTab, hTab, "sell_button.png");
         tabSell.setListener(new InputListener(){
             public void OnTouch(TouchData td){
                 setBuyMode(false);
@@ -185,23 +187,16 @@ public class ScreenShop implements Screen
         });
         InputManager.get.register(nameDynamic, tabSell);
 
-        tabBack = new GenericElement();
-        tabBack.initialize(new Vector2(offsetWScreenRed + 2 * wTab + 2 * marginTabsW, yTabs), wTab, hTab, "shop-tab-back-225-150.png");
-        tabBack.setListener(new InputListener(){
-            public void OnTouch(TouchData td){
-                MyGdxGame.game.openScreen(new MainMenuScreen(shopLogic.getLevelId(),true));
-            }
-        });
-        InputManager.get.register(nameDynamic, tabBack);
+
+        int posPanel = 0;
 
         if(shopLogic.isBuyMode())
         {
             bannerMiddleShop = new GenericElement();
             bannerMiddleShop.initialize(new Vector2(wOffsetScreen, yBannerMiddle), wBannerMiddle, hBannerMiddle, "shop-banner-shop-900-200.png");
-
             for (int i = 0; i < shopLogic.getIdsItemShop().size(); i++)
             {
-                int posPanel = yPanelFirst - (i * offsetWPanels);
+                posPanel = yPanelFirst - (i * offsetWPanels);
                 addSlot(posPanel, shopLogic.getIdsItemShop().get(i));
             }
         }
@@ -212,11 +207,19 @@ public class ScreenShop implements Screen
 
             for (int i = 0; i < shopLogic.getIdsItemPlayer().size(); i++)
             {
-                int posPanel = yPanelFirst - (i * offsetWPanels);
+                posPanel = yPanelFirst - (i * offsetWPanels);
                 addSlot(posPanel, shopLogic.getIdsItemPlayer().get(i));
             }
         }
 
+        tabBack = new GenericElement();
+        tabBack.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 200, posPanel - 300), 400, hButton, "return_button.png");
+        tabBack.setListener(new InputListener(){
+            public void OnTouch(TouchData td){
+                MyGdxGame.game.openScreen(new MainMenuScreen(shopLogic.getLevelId(),true));
+            }
+        });
+        InputManager.get.register(nameDynamic, tabBack);
         shopLogic.saveDataShop();
     }
 
@@ -226,16 +229,16 @@ public class ScreenShop implements Screen
         final int idItemTemp = idItem;
 
         GenericElement panel = new GenericElement();
-        panel.initialize(new Vector2(offsetWScreenRed, yOfPanel), wPanel, hPanel, "shop-panel-850-150.png");
+        panel.initialize(new Vector2(offsetWScreenRed, yOfPanel), wPanel, hPanel, "item_slot.png");
         panels.add(panel);
 
         // here comes the icon
         GenericElement imgItem = new GenericElement();
-        imgItem.initialize(new Vector2(offsetButton0, yOfPanel + marginButtonsY), wButton, hButton, "shop-panel-info-207-100.png");
+        imgItem.initialize(new Vector2(offsetButton0, yOfPanel + marginButtonsY), 200, 200, ItemManager.getItemTexturePath(idItem));
         panelsImage.add(imgItem);
 
         GenericElement btnInfo = new GenericElement();
-        btnInfo.initialize(new Vector2(offsetButton1, yOfPanel + marginButtonsY), wButton, hButton, "shop-panel-info-207-100.png");
+        btnInfo.initialize(new Vector2(offsetButton1, yOfPanel + marginButtonsY), wButton, hButton, "info_button.png");
         panelsInfo.add(btnInfo);
         btnInfo.setListener(new InputListener(){
             public void OnTouch(TouchData td){
@@ -247,7 +250,7 @@ public class ScreenShop implements Screen
         if(shopLogic.isBuyMode())
         {
             GenericElement btnBuy = new GenericElement();
-            btnBuy.initialize(new Vector2(offsetButton2, yOfPanel + marginButtonsY), wButton, hButton, "shop-panel-buy-207-100.png");
+            btnBuy.initialize(new Vector2(offsetButton2, yOfPanel + marginButtonsY), wButton, hButton, "buy_button.png");
             InputManager.get.register(nameDynamic, btnBuy);
             panelsBuy.add(btnBuy);
             btnBuy.setListener(new InputListener(){
@@ -260,7 +263,7 @@ public class ScreenShop implements Screen
         else
         {
             GenericElement btnSell = new GenericElement();
-            btnSell.initialize(new Vector2(offsetButton2, yOfPanel + marginButtonsY), wButton, hButton, "shop-panel-sell-207-100.png");
+            btnSell.initialize(new Vector2(offsetButton2, yOfPanel + marginButtonsY), wButton, hButton, "sell_button.png");
             InputManager.get.register(nameDynamic, btnSell);
             panelsSell.add(btnSell);
             btnSell.setListener(new InputListener(){
@@ -282,6 +285,12 @@ public class ScreenShop implements Screen
         Gdx.gl.glClearColor(0, 0.2f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        game.uiBatch.begin();
+
+        backgroundManager.render(game.uiBatch);
+
+        game.uiBatch.end();
+
         game.batch.setProjectionMatrix(cam.combined);
 
         game.batch.begin();
@@ -301,6 +310,7 @@ public class ScreenShop implements Screen
                 panels.get(i).render(game.batch);
                 panelsInfo.get(i).render(game.batch);
                 panelsBuy.get(i).render(game.batch);
+                panelsImage.get(i).render(game.batch);
             }
         }
         else
@@ -312,6 +322,8 @@ public class ScreenShop implements Screen
                 panels.get(i).render(game.batch);
                 panelsInfo.get(i).render(game.batch);
                 panelsSell.get(i).render(game.batch);
+                panelsImage.get(i).render(game.batch);
+
             }
         }
 
@@ -319,11 +331,6 @@ public class ScreenShop implements Screen
 
         game.batch.end();
 
-        game.uiBatch.begin();
-
-        backgroundManager.render(game.uiBatch);
-
-        game.uiBatch.end();
 
         JukeBox.update(delta);
     }

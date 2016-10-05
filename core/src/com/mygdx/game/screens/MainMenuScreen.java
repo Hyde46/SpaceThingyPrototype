@@ -97,6 +97,14 @@ public class MainMenuScreen implements Screen {
         camFixed = new OrthographicCamera();
         camFixed.setToOrtho(false, 1080, 1920);
         InputManager.get.setup(cam);
+        //add the backgrounds (hex pattern and stars)
+        backgroundManager = new ParallaxBackgroundManager();
+        backgroundManager.setLayers(2,true);
+
+        cameraManager = new CameraManager();
+        cameraHelper = new CameraHelper();
+        cameraManager.setCam(cam);
+        cameraManager.addPBM(backgroundManager);
         //create LevelGraph object and initialize it (creating beacons etc)
         this.levelGraph = new LevelGraph();
         levelGraph.initializeGraph(finishedLevel);
@@ -120,14 +128,7 @@ public class MainMenuScreen implements Screen {
         boTest.initialize(new Vector2(200,200), 250, 250);
         */
 
-        //add the backgrounds (hex pattern and stars)
-        backgroundManager = new ParallaxBackgroundManager();
-        backgroundManager.setLayers(2,true);
 
-        cameraManager = new CameraManager();
-        cameraHelper = new CameraHelper();
-        cameraManager.setCam(cam);
-        cameraManager.addPBM(backgroundManager);
         //cameraManager.initializeCamera(ship,ship.getPosition());
         //register overlay and cameraHelper to InputManager
         InputManager.get.register(overlay);
@@ -227,6 +228,10 @@ public class MainMenuScreen implements Screen {
         dialogManager = null;
         backgroundManager.dispose();
         backgroundManager = null;
+    }
+
+    public CameraManager getCameraManager() {
+        return cameraManager;
     }
     @Override
     public void show()    {

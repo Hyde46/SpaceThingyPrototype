@@ -55,24 +55,6 @@ public class ArrowButton extends Decoration implements IInputHandler{
                         screen.setCurrentSkin(screen.getCurrentSkin() + 1);
                     }
                 }
-            } else {      //Particles
-                if (isUp) {
-                    if (screen.getCurrentParticles() == 0) {
-                        //in this case we set the last skin
-                        screen.setCurrentParticles(screen.getNumberParticles() - 1);
-                    } else {
-                        //otherwise the skin before
-                        screen.setCurrentParticles(screen.getCurrentParticles() - 1);
-                    }
-                } else {
-                    if (screen.getCurrentParticles() == screen.getNumberParticles() - 1) {
-                        //it was the last skin, now we set the first
-                        screen.setCurrentParticles(0);
-                    } else {
-                        //otherwise the skin after
-                        screen.setCurrentParticles(screen.getCurrentParticles() + 1);
-                    }
-                }
             }
             screen.saveSettings();
         }

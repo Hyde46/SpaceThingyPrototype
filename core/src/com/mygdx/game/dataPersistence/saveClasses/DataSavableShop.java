@@ -37,19 +37,19 @@ public class DataSavableShop extends ADataSavable
 //            idsItemsAvailable[i].add(14);
 //            idsItemsAvailable[i].add(17);
 
-            idsItemsShopOfLevel[i].add(0);
             idsItemsShopOfLevel[i].add(1);
             idsItemsShopOfLevel[i].add(2);
             idsItemsShopOfLevel[i].add(3);
-            idsItemsShopOfLevel[i].add(4);
-            idsItemsShopOfLevel[i].add(5);
+            idsItemsShopOfLevel[i].add(7);
+            idsItemsShopOfLevel[i].add(14);
+            idsItemsShopOfLevel[i].add(17);
 
-            idsItemsAvailable[i].add(0);
             idsItemsAvailable[i].add(1);
             idsItemsAvailable[i].add(2);
             idsItemsAvailable[i].add(3);
-            idsItemsAvailable[i].add(4);
-            idsItemsAvailable[i].add(5);
+            idsItemsAvailable[i].add(7);
+            idsItemsAvailable[i].add(14);
+            idsItemsAvailable[i].add(17);
         }
     }
 }
