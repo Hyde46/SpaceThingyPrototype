@@ -80,8 +80,30 @@ public class DialogManager {
         avatarArray = new Array<DialogManager.Avatar>();
         avatarArray.addAll(Avatar.GIRL_NORMAL, Avatar.GIRL_HAPPY, Avatar.JASON_NORMAL);
         Dialog dialog8 = new Dialog(textArray, avatarArray);
+
+        textArray = new Array<String>();
+        textArray.addAll("*ring ring*","Mr. Thirst finally you made it. I've been waiting for you. There are plenty of shipments to be made, but first i want to ask you something.","What is it? ",
+                "It's a small favor. Gen Corp got me a cloned Tiger as a bonus reward. Could you deliver it to my personal Storage on my homeplanet?","A Tiger?","In stasis of course.","I assume the cage is included?",
+                "No Problem, Harry. I'll get right to it, and just call me Jason.");
+        avatarArray = new Array<DialogManager.Avatar>();
+        avatarArray.addAll(Avatar.PHONE,Avatar.HARRY_NORMAL, Avatar.JASON_NORMAL,Avatar.HARRY_NORMAL,Avatar.JASON_NORMAL,Avatar.HARRY_NORMAL,Avatar.SPENCER,Avatar.JASON_NORMAL);
+        Dialog dialog17 = new Dialog(textArray, avatarArray);
+
+        textArray = new Array<String>();
+        textArray.addAll("*ring ring*","Mr Thirst, about the shipments we were talking about. There is a rather important one you have " +
+                "to deliver. Be professional.","As always Harry","*click*","I thought you told him to call you Jason","...");
+        avatarArray = new Array<DialogManager.Avatar>();
+        avatarArray.addAll(Avatar.PHONE,Avatar.HARRY_NORMAL,Avatar.JASON_NORMAL,Avatar.PHONE,Avatar.SPENCER,Avatar.JASON_NORMAL);
+        Dialog dialog18 = new Dialog(textArray, avatarArray);
+
+        textArray = new Array<String>();
+        textArray.addAll("Let's dump that tracked package and get out of here. Harry seemed really concerned.","Where should we head to?","We are not safe here, not safe anywhere from Gen Corp.");
+        avatarArray = new Array<DialogManager.Avatar>();
+        avatarArray.addAll(Avatar.GIRL_NORMAL, Avatar.GIRL_HAPPY, Avatar.JASON_NORMAL);
+        Dialog dialog19 = new Dialog(textArray, avatarArray);
+
         preDialogArray = new Array<Dialog>();
-        preDialogArray.addAll(dialog1, dialog2, dialog3, dialog4, dialog5, dialog6, dialog7, dialog8);
+        preDialogArray.addAll(dialog1, dialog2, dialog3, dialog4, dialog5, dialog6, dialog7, dialog8,dialog17,dialog18,dialog19);
 
 
         //define post level dialogs
@@ -129,8 +151,53 @@ public class DialogManager {
         avatarArray = new Array<DialogManager.Avatar>();
         avatarArray.addAll(Avatar.GIRL_NORMAL, Avatar.JASON_HAPPY, Avatar.GIRL_ANGRY, Avatar.GIRL_HAPPY);
         Dialog dialog15 = new Dialog(textArray, avatarArray);
+
+        textArray = new Array<String>();
+        textArray.addAll("Harry? The Tiger has landed","Nicely done Mr Thirst. By the way i found some really well paid jobs for you by Gen Corp");
+        avatarArray = new Array<DialogManager.Avatar>();
+        avatarArray.addAll(Avatar.GIRL_NORMAL, Avatar.JASON_HAPPY, Avatar.GIRL_ANGRY, Avatar.GIRL_HAPPY);
+        Dialog dialog20 = new Dialog(textArray, avatarArray);
+
+        textArray = new Array<String>();
+        textArray.addAll("Jason! You hit that asteroid. You idiot! Now i have to clean that all up.",
+                "Damn. Spencer, check for the package, if everyting's fine.",
+                "Just a second",
+                "Jason, the package got shaken up really hard. Now there's a big hole on the bottom.",
+                "Do you see the papers flying out of it?",
+                "Put them back, we are not supposed to see them.",
+                "But look, its a receipt, addressed to that Crane guy. A really big payment from Gen Corp.",
+                "Professor Dr. Crane ? Isn't he the guy who claimed that the destruction of our home Galaxy was caused" +
+                        "by a natural disaster? What's his deal with Gen Corp?",
+                "*ring ring*",
+                "Mr Thirst, we got the information that your ship got hit by an asteroid.",
+                "...",
+                "Also the safety lock of the package alarmed us of it being broken.",
+                "I am sorry, after we hit that damn asteroid, the box just popped open.",
+                "We didn't see anything, and i didn't even touch it.",
+                "Mr Thirst we will get an escort to your location. We want to examine the shipment.",
+                "...",
+                "Jason, don't be there when they arrive.",
+                "Please",
+                "*click*");
+        avatarArray = new Array<DialogManager.Avatar>();
+        avatarArray.addAll(Avatar.SPENCER,Avatar.JASON_NORMAL,Avatar.SPENCER,Avatar.SPENCER,Avatar.SPENCER,Avatar.JASON_ANGRY,
+                Avatar.SPENCER,Avatar.JASON_NORMAL,Avatar.PHONE,Avatar.HARRY_ANGRY,Avatar.JASON_NORMAL,Avatar.HARRY_SCREAMING,Avatar.JASON_NORMAL,Avatar.SPENCER,Avatar.HARRY_NORMAL,Avatar.HARRY_NORMAL,Avatar.HARRY_NORMAL,Avatar.HARRY_NORMAL,Avatar.PHONE);
+        Dialog dialog21 = new Dialog(textArray, avatarArray);
+
+        textArray = new Array<String>();
+        textArray.addAll("Alright we got quiet some distance to them. They shouldn't be able to find us.",
+                "For now.",
+                "But what about now. Should be flee to an other galaxy?",
+                "No way. Gen Corp is dirtier than most believe.",
+                "We need to find Prof. Crane and find out what happened for real.",
+                "What about his ties to Gen Corp?",
+                "We should take the chance and meet him",
+        "To be continued...");
+        avatarArray = new Array<DialogManager.Avatar>();
+        avatarArray.addAll(Avatar.JASON_NORMAL,Avatar.SPENCER,Avatar.SPENCER,Avatar.JASON_ANGRY,Avatar.JASON_NORMAL,Avatar.SPENCER,Avatar.JASON_NORMAL);
+        Dialog dialog22 = new Dialog(textArray, avatarArray);
         postDialogArray = new Array<Dialog>();
-        postDialogArray.addAll(dialog9,dialog16, dialog10, dialog11, dialog12, dialog13, dialog14, dialog15);
+        postDialogArray.addAll(dialog9,dialog16, dialog10, dialog11, dialog12, dialog13, dialog14, dialog15,dialog20,dialog21,dialog22);
     }
 
 

@@ -206,6 +206,9 @@ public class GameScreen implements Screen{
                 Planet p = levelContainer.unitManager.getPlanetConnectedToPlayer();
                 Lev2TheDecision.lastFinishedSide = p.getDecisionPlanetID();
             }
+            if(levelState.getCurrentLevel() == 7 && hasWonLevel){ //rescued the woman
+                addNewSkinToPlayer();
+            }
             if(hasWonLevel)
                 levelState.safeState();
             levelContainer.unitManager.resetUnits();
@@ -292,5 +295,12 @@ public class GameScreen implements Screen{
     }
     public boolean isLevelFinished(){
         return hasFinishedLevel;
+    }
+
+    private void addNewSkinToPlayer() {
+        if(DataPers.dataP().hopsPerLevel[7] <= 0) {
+            DataPers.dataP().addToSkins(4);
+            DataPers.saveP();
+        }
     }
 }
