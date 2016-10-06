@@ -327,7 +327,7 @@ public class ScreenShop implements Screen
             }
         }
 
-        game.font.draw(game.batch, "Credits " + shopLogic.getCreditsPlayer(), 600, 1200);
+        game.font.draw(game.batch, "Credits " + shopLogic.getCreditsPlayer(), 550, 1150);
 
         game.batch.end();
 
