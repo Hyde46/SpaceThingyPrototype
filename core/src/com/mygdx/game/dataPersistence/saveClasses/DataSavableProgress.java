@@ -40,12 +40,6 @@ public class DataSavableProgress extends ADataSavable
 
         //TODO remove later
         unlockLevels();
-        idsItemsPlayer.add(1);
-        idsItemsPlayer.add(2);
-        idsItemsPlayer.add(3);
-        idsItemsPlayer.add(14);
-        idsItemsPlayer.add(17);
-        idsItemsPlayer.add(19);
     }
 
     public class LevelData implements Serializable

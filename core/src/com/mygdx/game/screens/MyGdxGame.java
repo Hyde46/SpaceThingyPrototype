@@ -56,26 +56,33 @@ public class MyGdxGame extends Game
 		//font.getData().scale(1.0f);
 		shapeRenderer = new ShapeRenderer();
 		fpsLimit = new FPSLimiter(60);
-		currentVersion = "Prototype v0.8.0";
+		currentVersion = "Prototype v0.9.0";
 
 		font.setColor(Color.WHITE);
 		debugFont.setColor(Color.WHITE);
 		dialogFont.setColor(Color.BLACK);
 		showOverlay = true;
 
-		DataPers.dataP().addToSkins(0);
-		DataPers.dataP().addToSkins(1);
-		DataPers.dataP().addToSkins(2);
-		// TODO this resets saves every start
-//		DataPers.resetP();
-//		DataPers.resetS();
 
-		DataPers.dataH().setCurrentSkin(1);
-		DataPers.dataH().setSlot1(17);
-		DataPers.dataH().setSlot1(19);
-		DataPers.saveH();
+		if(!DataPers.dataM().startedGameOnce){
+			prepareData();
+		}
+
 		openScreen(new MainMenuScreen());
 
+	}
+
+	private void prepareData(){
+		DataPers.dataP().idsItemsPlayer.add(2); // add item picker
+		DataPers.dataP().addToSkins(0); // add orange default skin
+		DataPers.dataP().addToSkins(1); // add pink default skin
+		DataPers.dataH().setCurrentSkin(0); // set orange skin
+		DataPers.dataM().startedGameOnce = true;
+		DataPers.saveH();
+		DataPers.saveP();
+		DataPers.saveM();
+
+		DataPers.dataP().credits = 10000;
 	}
 
 	public void openScreen(Screen screen)

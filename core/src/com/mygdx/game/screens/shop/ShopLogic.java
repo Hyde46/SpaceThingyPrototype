@@ -1,5 +1,6 @@
 package com.mygdx.game.screens.shop;
 
+import com.mygdx.game.Items.ItemManager;
 import com.mygdx.game.dataPersistence.DataPers;
 import java.util.ArrayList;
 
@@ -80,7 +81,7 @@ public class ShopLogic
     public void buyItem(int idItem)
     {
         ShopItem item = ManagerShopItem.getShopItem(idItem);
-        int price = item.getPrice();
+        int price = ItemManager.getItemPrice(idItem);
 
         if(creditsPlayer >= price)
         if(idsItemShop.contains(new Integer(idItem)))
@@ -101,9 +102,16 @@ public class ShopLogic
         {
             ShopItem item = ManagerShopItem.getShopItem(idItem);
 
-            creditsPlayer += (int)((double)item.getPrice()/2.0);
+            creditsPlayer += (int)((double) ItemManager.getItemPrice(idItem)/2.0);
             idsItemPlayer.remove(new Integer(idItem));
             idsItemShop.add(idItem);
+            if(DataPers.dataH().getSlot1() == idItem){
+                DataPers.dataH().setSlot1(-1);
+            }
+            if(DataPers.dataH().getSlot2() == idItem){
+                DataPers.dataH().setSlot2(-1);
+            }
+            DataPers.saveH();
         }
     }
 }
