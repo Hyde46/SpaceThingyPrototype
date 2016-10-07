@@ -353,6 +353,12 @@ public class DialogManager {
                 return 3;
             case 9:
                 return 4;
+            case 10:
+                return 8;
+            case 11:
+                return 9;
+            case 12:
+                return 10;
             default:
                 return -1;
         }
@@ -382,6 +388,12 @@ public class DialogManager {
                 return 3;
             case 9:
                 return 4;
+            case 10:
+                return 8;
+            case 11:
+                return 9;
+            case 12:
+                return 10;
             default:
                 return -1;
         }
