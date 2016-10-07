@@ -43,7 +43,7 @@ public class Overlay extends ARenderableObject implements IInputHandler {
         this.touchHitbox = new Rectangle(0, 0, game.screenWidth, game.screenHeight);
         textureLogo =  new Texture(Gdx.files.internal(PATH_TO_LOGO));
         spriteLogo = new Sprite(textureLogo, textureLogo.getWidth(), textureLogo.getHeight());
-        float logoPosY = game.screenHeight - textureLogo.getHeight() - 100;
+        float logoPosY = game.screenHeight/2+100;// - textureLogo.getHeight() - 100;
         //position it 100 pixels under top
         spriteLogo.setY(logoPosY);
         //center it horizontally
@@ -62,7 +62,8 @@ public class Overlay extends ARenderableObject implements IInputHandler {
         Gdx.graphics.getGL20().glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        game.shapeRenderer.setColor(1, 1, 1, 0.7f);
+//        game.shapeRenderer.setColor(1, 1, 1, 0.7f);
+        game.shapeRenderer.setColor(33.0f/255.0f, 49f/255f, 41f/255f, 0.7f);
         game.shapeRenderer.rect(0, 0, game.screenWidth, game.screenHeight);
         game.shapeRenderer.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);

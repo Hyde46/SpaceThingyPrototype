@@ -1,18 +1,15 @@
 TODO:
 Denis:
--sprites
-    character sprites für dialog
+-sprites   die frau -> rike?
+-skin sprites für hangar
 -level
     teleport pickup item in level stecken
     restlichen skins in leveln verteilen
     2 letzten level erstellen
-    eintragen letzte dialoge.
--die tuss die ein skin verspricht -> skin geben
 -Shop banner
--main screen banner
 ###################################################################
 Vali:
-
+- Im hangar: bug beim unequippen, wenn man das item anklickt bei der vorschau direkt unter dem skin
 -Shop:
     item namen in listen
     design ändern
@@ -32,3 +29,7 @@ Done:
 -Hangar
         particles weg
         wenn popup offen, ist, die anderen deaktivieren
+-die tuss die ein skin verspricht -> skin geben
+-eintragen letzte dialoge.
+- henri -> bounty hunter
+-main screen banner

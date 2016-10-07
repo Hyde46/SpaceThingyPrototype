@@ -36,6 +36,7 @@ public class ItemScreen implements Screen
     private int idItem;
     private String descriptionItem;
     private int valueItem;
+    private String itemName;
 
     private int levelidreturn;
 
@@ -84,6 +85,8 @@ public class ItemScreen implements Screen
         cameraManager.setCam(cam);
         cameraManager.addPBM(backgroundManager);
         cameraHelper.setCameraManager(cameraManager, null, 4);
+        valueItem = ItemManager.getItemPrice(itemId);
+        itemName = ItemManager.getItemDisplayName(itemId);
         //InputManager.get.register(cameraHelper);
     }
 
@@ -102,15 +105,16 @@ public class ItemScreen implements Screen
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
             itemImage.render(game.batch);
-            MyGdxGame.game.font.draw(game.batch, "Value: " + valueItem , itemImage.getPosition().x, itemImage.getPosition().y - 20);
+            MyGdxGame.game.font.draw(game.batch, "Value: " + valueItem , itemImage.getPosition().x - 30, itemImage.getPosition().y - 20);
+        MyGdxGame.game.font.draw(game.batch, itemName , itemImage.getPosition().x - 30, itemImage.getPosition().y + itemImage.getSprite().getHeight() + 75);
             itemDescription.render(game.batch);
             MyGdxGame.game.dialogFont.draw(game.batch, descriptionItem, itemDescription.getPosition().x + 30, itemDescription.getPosition().y + 450, 800, Align.topLeft, true);
             returnButton.render(game.batch);
         game.batch.end();
 
-        game.uiBatch.begin();
-            game.debugFont.draw(game.uiBatch, "IM ITEM of ID: " + idItem, 30, 30);
-        game.uiBatch.end();
+//        game.uiBatch.begin();
+//            game.debugFont.draw(game.uiBatch, "IM ITEM of ID: " + idItem, 30, 30);
+//        game.uiBatch.end();
     }
 
     @Override

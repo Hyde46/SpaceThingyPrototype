@@ -258,6 +258,34 @@ public class ItemManager
                 return "";
         }
     }
+
+    public static String getItemDisplayName(int idItem){
+        switch(idItem){
+            case 0:
+                return "";
+            case 1:
+                return "Target Picker";
+            case 2:
+                return "Item Picker";
+            case 3:
+                return "Booster";
+            case 7:
+                return "Break";
+            case 8:
+                return "Destroy stuff";
+            case 14:
+                return "R-Teleport";
+            case 15:
+                return "Create an artificial planet";
+            case 17:
+                return "Phaseout";
+            case 19:
+                return "Teleporter";
+            default:
+                return "";
+        }
+    }
+
     public static int getItemPrice(int idItem){
         switch(idItem){
             case 0:

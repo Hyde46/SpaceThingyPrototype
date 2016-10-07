@@ -422,6 +422,10 @@ public class DialogManager {
                 return "spencer.png";
             case NEWS_ANCHOR:
                 return "newsanchor.png";
+            case BOUNTY_NORMAL:
+                return "bounty_normal.png";
+            case BOUNTY_ANGRY:
+                return "bounty_angry.png";
             default:
                 return "jason_normal.png";
         }
