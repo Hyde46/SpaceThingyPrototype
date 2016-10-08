@@ -1,20 +1,20 @@
 TODO:
 Denis:
 -sprites   die frau -> rike?
--skin sprites für hangar
 -level
     teleport pickup item in level stecken
     restlichen skins in leveln verteilen
     2 letzten level erstellen
--Shop banner
 ###################################################################
 Vali:
 - Im hangar: bug beim unequippen, wenn man das item anklickt bei der vorschau direkt unter dem skin
 -Shop:
     item namen in listen
     design ändern
+- die 7 möglichen skins im hangar funktionstüchtig machen
+    png's sind alle da :)
 
-
+############################################################
 -webseite + trailer am we
 ##############################################################
 Done:
@@ -33,3 +33,18 @@ Done:
 -eintragen letzte dialoge.
 - henri -> bounty hunter
 -main screen banner
+-Shop banner
+-skin sprites für hangar
+
+Levels tested:
+Level 0
+Level 1
+Level 4
+Level 5
+Level 6
+Level 7
+Level 8
+Level 9
+Level 10
+Level 11
+Level 12

@@ -6,6 +6,7 @@ package com.mygdx.game.screens.shop;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
@@ -112,12 +113,12 @@ public class ScreenShop implements Screen
 
         panels = new Array<GenericElement>();
         panelsImage = new Array<GenericElement>();
-        panelsInfo = new Array<GenericElement>();
         panelsBuy = new Array<GenericElement>();
         panelsSell = new Array<GenericElement>();
 
         setShopStatics();
         drawDynamicElements();
+        MyGdxGame.game.font.setColor(Color.BLACK);
 
         JukeBox.startBGM(-1);
     }
@@ -295,7 +296,7 @@ public class ScreenShop implements Screen
 
         game.batch.begin();
 
-        bannerTop.render(game.batch);
+        //bannerTop.render(game.batch);
 
         tabBuy.render(game.batch);
         tabSell.render(game.batch);
@@ -327,7 +328,7 @@ public class ScreenShop implements Screen
             }
         }
 
-        game.font.draw(game.batch, "Credits " + shopLogic.getCreditsPlayer(), 550, 1150);
+        game.font.draw(game.batch, "Credits: " + shopLogic.getCreditsPlayer(), 550, 1120);
 
         game.batch.end();
 
