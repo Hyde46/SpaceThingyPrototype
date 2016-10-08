@@ -37,6 +37,6 @@ public class Lev0TheBeginning extends Level
 
         setPlayer(planet1);
 
-        setCamera(gs, planet3, new Rectangle(-1090, -320, 1500, 2900));
+        setCamera(gs, planet3, new Rectangle(-1090, -320, 1800, 2900));
     }
 }

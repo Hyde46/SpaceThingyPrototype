@@ -190,4 +190,8 @@ public class SpacePhysiX {
         playerShip = null;
     }
 
+    public Rectangle getWorldBound(){
+        return worldBound;
+    }
+
 }
