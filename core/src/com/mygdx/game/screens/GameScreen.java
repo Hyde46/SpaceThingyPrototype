@@ -113,7 +113,7 @@ public class GameScreen implements Screen{
         game.uiBatch.begin();
         game.uiBatch.setProjectionMatrix(camFixed.combined);
 
-//        game.debugFont.draw(game.uiBatch, game.currentVersion, 5 , 1900);
+        game.debugFont.draw(game.uiBatch, "Scraps: "+levelState.getCurrency(), 5 , 1900);
 //        game.debugFont.draw(game.uiBatch, "X: "+(int)(getPlayerShip().getPosition().x / 10),5,1850);
 //        game.debugFont.draw(game.uiBatch, "Y: "+(int)(getPlayerShip().getPosition().y / 10),5,1800);
 //        game.debugFont.draw(game.uiBatch, "vel: "+(int)(getPlayerShip().getDeltaMovement().len()),5,1750);
@@ -143,11 +143,11 @@ public class GameScreen implements Screen{
             }else if(!isOutOfBounds) {
 
                 game.font.draw(game.uiBatch, "You crashed your ship!", 280, 1000);
-
+                levelState.setCurrencyToZero();
             }else {
 
                 game.font.draw(game.uiBatch, "Your ship got lost!", 280, 1000);
-
+                levelState.setCurrencyToZero();
             }
         }
     }
