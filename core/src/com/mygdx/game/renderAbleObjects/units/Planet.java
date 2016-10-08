@@ -72,6 +72,8 @@ public class Planet extends Unit implements IInputHandler
         this.gravity = gravity;
         isDecisionPlanet = false;
         decisionPlanetID = -1;
+        if (typeOrbit == TypeOrbit.G190 || typeOrbit == TypeOrbit.G240 || typeOrbit == TypeOrbit.G320)
+            this.gravity = 1;
     }
 
     private void initializeOrbitTex(TypeOrbit typeOrbit)

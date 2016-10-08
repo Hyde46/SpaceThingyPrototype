@@ -30,11 +30,13 @@ public class Lev0TheBeginning extends Level
         Planet planet2 = setPlanet(-50, 900, Planet.TypeOrbit.B480);
         setMoon(planet2, 480, 20);
 
+        setPlanet(-750, 1450, Planet.TypeOrbit.B320);
+
         setPlanet(200, 1800, Planet.TypeOrbit.B320);
         Planet planet3 = setPlanet(-350, 2200, Planet.TypeOrbit.G320);
 
         setPlayer(planet1);
 
-        setCamera(gs, planet3, new Rectangle(-400, -200, 1000, 2600));
+        setCamera(gs, planet3, new Rectangle(-1090, -320, 1300, 2900));
     }
 }

@@ -163,7 +163,6 @@ public class GameScreen implements Screen{
 
         if(hasFinishedLevel)
             finishCounter--;
-        finishLevel(true,false);
 
     }
 
