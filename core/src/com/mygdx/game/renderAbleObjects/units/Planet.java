@@ -1,5 +1,7 @@
 package com.mygdx.game.renderAbleObjects.units;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -41,6 +43,11 @@ public class Planet extends Unit implements IInputHandler
 
     private float gravity;
 
+    private boolean isDragged;
+
+    Sound ejectSound;
+    Sound goalSound;
+
     public Planet() {
         super();
     }
@@ -74,6 +81,10 @@ public class Planet extends Unit implements IInputHandler
         decisionPlanetID = -1;
         if (typeOrbit == TypeOrbit.G190 || typeOrbit == TypeOrbit.G240 || typeOrbit == TypeOrbit.G320)
             this.gravity = 1;
+
+        isDragged = false;
+        //ejectSound = Gdx.audio.newSound(Gdx.files.internal("mysound.mp3"));
+        goalSound = Gdx.audio.newSound(Gdx.files.internal("finish.mp3"));
     }
 
     private void initializeOrbitTex(TypeOrbit typeOrbit)
@@ -162,8 +173,10 @@ public class Planet extends Unit implements IInputHandler
     public void connectSpaceShip(SpaceShip ss)
     {
         this.connectedSpaceShip = ss;
-        if (typeOrbit == TypeOrbit.G190 || typeOrbit == TypeOrbit.G240 || typeOrbit == TypeOrbit.G320)
+        if (typeOrbit == TypeOrbit.G190 || typeOrbit == TypeOrbit.G240 || typeOrbit == TypeOrbit.G320) {
             connectedSpaceShip.reachGoal();
+            goalSound.play();
+        }
     }
 
     private void launchSpaceShip() {
@@ -175,9 +188,11 @@ public class Planet extends Unit implements IInputHandler
         if (connectedSpaceShip != null && !GameScreen.hasFinishedLevel) {
             launchSpaceShip();
         }
+
     }
 
     public void OnRelease(TouchData td) {
+
     }
 
     public void OnDrag(TouchData td) {
@@ -189,6 +204,8 @@ public class Planet extends Unit implements IInputHandler
 
     public void OnSwipe(TouchData td) {
         //System.out.println("planet " + getUnitID() + " swiped to dir: " + td.getDirSwipePrev().toString());
+        isDragged = true;
+
     }
 
     public float getGravity(){

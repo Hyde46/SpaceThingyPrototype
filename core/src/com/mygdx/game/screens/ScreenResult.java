@@ -2,6 +2,7 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -62,6 +63,8 @@ public class ScreenResult implements Screen
 
     int offsetHMiddleAvail = offsetFrameH + hInfoResult + (hMiddle - hMiddleAvail) / 2;
 
+    public static Sound menuClick;
+
     private int getOffsetHElementMiddle(int line, int hSpace, int nElement, int offsetTextSize)
     {
         int partSpace = hSpace / nElement;
@@ -81,6 +84,7 @@ public class ScreenResult implements Screen
 
     public ScreenResult(final LevelState levelState)
     {
+        menuClick =  Gdx.audio.newSound(Gdx.files.internal("menu_select.wav"));
         setBase();
         this.levelState = levelState;
         result = true;
@@ -102,6 +106,7 @@ public class ScreenResult implements Screen
         btnBack.setListener(new InputListener(){
             public void OnTouch(TouchData td){
                 MyGdxGame.game.openScreen(new MainMenuScreen(levelState.getCurrentLevel(),levelState.getHasWon()));
+                menuClick.play();
             }
         });
         InputManager.get.register(btnBack);
@@ -153,7 +158,7 @@ public class ScreenResult implements Screen
         game.font.draw(game.batch, "Scraps:", offsetText0 , offsetHMiddleAvail + getOffsetHElementMiddle(1, hMiddleAvail, 3, 5));
         game.font.draw(game.batch, ""+currency, offsetText1 , offsetHMiddleAvail + getOffsetHElementMiddle(1, hMiddleAvail, 3, 5));
 
-        game.font.draw(game.batch, "Steps:", offsetText0 , offsetHMiddleAvail + getOffsetHElementMiddle(0, hMiddleAvail, 3, 5));
+        game.font.draw(game.batch, "Hops:", offsetText0 , offsetHMiddleAvail + getOffsetHElementMiddle(0, hMiddleAvail, 3, 5));
         game.font.draw(game.batch, steps + "", offsetText1 , offsetHMiddleAvail + getOffsetHElementMiddle(0, hMiddleAvail, 3, 5));
 
         game.batch.end();

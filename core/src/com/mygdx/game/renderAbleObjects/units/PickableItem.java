@@ -1,5 +1,7 @@
 package com.mygdx.game.renderAbleObjects.units;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
@@ -27,6 +29,7 @@ abstract public class PickableItem extends Unit{
      */
     private int pickableType;
 
+    Sound pickupSound;
 
     public PickableItem(){
         super();
@@ -46,9 +49,12 @@ abstract public class PickableItem extends Unit{
         this.pickableType = pickableType;
 
         touchableHitbox = new Circle(pos.x, pos.y,2.5f*PICKABLE_ITEM_RADIUS);
+        pickupSound = Gdx.audio.newSound(Gdx.files.internal("coin_pickup.wav"));
     }
 
     public void pickUpItem(LevelState levelState) {
+        pickupSound.stop();
+        pickupSound.play();
         hasBeenPickedUp = true;
         isActive = !hasBeenPickedUp;
         updateLevelState(levelState);

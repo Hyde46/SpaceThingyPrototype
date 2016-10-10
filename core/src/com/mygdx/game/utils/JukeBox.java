@@ -80,10 +80,10 @@ public class JukeBox {
                 pathToBGM += "level5";
                 break;
             case 6:
-                pathToBGM += "level5";
+                pathToBGM += "level7_1";
                 break;
             case 7:
-                pathToBGM += "level5";
+                pathToBGM += "level7_2";
                 break;
             case 8:
                 pathToBGM += "level1_1";

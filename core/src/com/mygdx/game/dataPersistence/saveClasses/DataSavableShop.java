@@ -43,6 +43,7 @@ public class DataSavableShop extends ADataSavable
             idsItemsShopOfLevel[i].add(7);
             idsItemsShopOfLevel[i].add(14);
             idsItemsShopOfLevel[i].add(17);
+            idsItemsShopOfLevel[i].add(19);
 
             idsItemsAvailable[i].add(1);
 //            idsItemsAvailable[i].add(2);
@@ -50,6 +51,7 @@ public class DataSavableShop extends ADataSavable
             idsItemsAvailable[i].add(7);
             idsItemsAvailable[i].add(14);
             idsItemsAvailable[i].add(17);
+            idsItemsAvailable[i].add(19);
         }
     }
 }

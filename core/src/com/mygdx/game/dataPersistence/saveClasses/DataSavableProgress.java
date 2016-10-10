@@ -70,6 +70,13 @@ public class DataSavableProgress extends ADataSavable
      * @param id
      */
     public void addToSkins(int id){
-        idsSkinsPlayer.add(id);
+        boolean foundSkin = false;
+        for(Integer i : idsSkinsPlayer){
+            if(i == id){
+                foundSkin = true;
+            }
+        }
+        if(!foundSkin)
+            idsSkinsPlayer.add(id);
     }
 }

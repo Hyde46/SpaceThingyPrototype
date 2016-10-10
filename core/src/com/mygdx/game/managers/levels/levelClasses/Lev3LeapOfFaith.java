@@ -31,7 +31,7 @@ public class Lev3LeapOfFaith extends Level
         setPlanet(-350, 700, Planet.TypeOrbit.B240);
         setPlanet(520, 900, Planet.TypeOrbit.B240);
 
-        setCurrencyVolley(-50, 2050, 100);
+        setCurrencyVolley(-50, 2050, 12);
 
         setPlanet(-300, 3200, Planet.TypeOrbit.B320);
         setPlanet(310, 2800, Planet.TypeOrbit.B320);

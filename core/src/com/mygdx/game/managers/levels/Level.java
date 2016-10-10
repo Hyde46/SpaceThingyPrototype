@@ -11,6 +11,7 @@ import com.mygdx.game.renderAbleObjects.units.MovingObstacle;
 import com.mygdx.game.renderAbleObjects.units.Planet;
 import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.UpgradePickable;
+import com.mygdx.game.renderAbleObjects.units.VisualPickable;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.utils.SpacePhysiX;
 import java.util.Random;
@@ -44,6 +45,14 @@ public class Level
     protected UpgradePickable setItemUpdate(int x, int y, int idItem)
     {
         UpgradePickable item = new UpgradePickable();
+        item.initialize(idItem, new Vector2(x,y));
+        unitManager.addUnit(item);
+        return item;
+    }
+
+    protected VisualPickable setVisualUpdate(int x, int y, int idItem)
+    {
+        VisualPickable item = new VisualPickable();
         item.initialize(idItem, new Vector2(x,y));
         unitManager.addUnit(item);
         return item;

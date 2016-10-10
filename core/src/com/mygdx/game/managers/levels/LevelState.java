@@ -16,6 +16,8 @@ public class LevelState {
 
     private Array<Integer> itemIdsCollected = new Array<Integer>();
 
+    private int collectedVisualItem;
+
     private int hops;
 
     private int currentLevel;
@@ -28,6 +30,7 @@ public class LevelState {
         currencyCollected = 0;
         hops = 0;
         itemIdsCollected.clear();
+        collectedVisualItem = -1;
     }
 
     public void setCurrentLevel(int level){
@@ -52,6 +55,10 @@ public class LevelState {
 
     public int getCurrentLevel(){ return currentLevel; }
 
+    public void setCollectedVisualItem(int i){
+        collectedVisualItem = i;
+    }
+
     public void addCollectedItemId(int itemId){
         itemIdsCollected.add(itemId);
     }
@@ -67,9 +74,10 @@ public class LevelState {
                 DataPers.dataP().idsItemsPlayer.add(i);
             }
         }
-        if(DataPers.dataP().hopsPerLevel[currentLevel] > hops ){
+        if(DataPers.dataP().hopsPerLevel[currentLevel] < hops ){
             DataPers.dataP().hopsPerLevel[currentLevel] = hops;
         }
+        DataPers.dataP().addToSkins(collectedVisualItem);
         DataPers.saveP();
     }
 
