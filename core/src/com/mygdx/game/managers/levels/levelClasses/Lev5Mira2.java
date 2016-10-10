@@ -33,8 +33,8 @@ public class Lev5Mira2 extends Level
         setCluster(2000, 2200, 2);
         setCluster(-2200, 1900, 3);
 
-        setCurrencyVolley(-600, 700, 100);
-        setCurrencyVolley(-2200, 2700, 100);
+        setCurrencyVolley(-600, 700, 14);
+        setCurrencyVolley(-2200, 2700, 14);
 
         setObstacleMoving(-1000, 500, 1, 1, 2);
         setObstacleMoving(0, 2000, -1, -1, 2);

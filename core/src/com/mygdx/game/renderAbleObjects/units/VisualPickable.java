@@ -18,6 +18,6 @@ public class VisualPickable extends PickableItem{
     }
 
     protected void updateLevelState(LevelState levelState){
-
+        levelState.setCollectedVisualItem(itemID);
     }
 }

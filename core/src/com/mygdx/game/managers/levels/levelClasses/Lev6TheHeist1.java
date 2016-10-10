@@ -23,7 +23,7 @@ public class Lev6TheHeist1 extends Level
 {
     public Lev6TheHeist1(GameScreen gs)
     {
-        nameLevel = "Deal with the devil";
+        nameLevel = "The devil";
         nameSystem = "Meku";
 
         Planet planet1 = setPlanet(0,0, Planet.TypeOrbit.B320);
@@ -31,10 +31,13 @@ public class Lev6TheHeist1 extends Level
         setCluster(100, 1000, 2);
         setCluster(1900, 900, 3);
 
+        setCurrencyVolley(100, 2400, 14);
+
         setCluster(2000, 2200, 2);
+
         setCluster(2800, 1900, 3);
 
-        setCurrencyVolley(600, 700, 100);
+        setCurrencyVolley(600, 700, 10);
 //        setCurrencyVolley(2200, 3400, 100);
 
         setObstacleMoving(1000, 500, 0, 1000, 2);
@@ -47,6 +50,7 @@ public class Lev6TheHeist1 extends Level
         setCluster(100, 2200, 2);
         setCluster(3000, 2800, 2);
 
+        setVisualUpdate(3300,3100,3);
         Planet planetGoal = setPlanet(3500, 3500, Planet.TypeOrbit.G240);
 
         setPlayer(planet1);

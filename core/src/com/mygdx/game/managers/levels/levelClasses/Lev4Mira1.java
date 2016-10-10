@@ -30,13 +30,16 @@ public class Lev4Mira1 extends Level
         setCluster(100, 1200, 2);
         setCluster(-900, 900, 3);
 
-        setCurrencyVolley(-1400, 1550, 100);
-        setCurrencyVolley(-1900, 1950, 100);
+        setCurrencyVolley(-1400, 1550, 10);
+        setVisualUpdate(-1650,1750,5);
+        setCurrencyVolley(-1900, 1950, 10);
 
         setCluster(-100, 2200, 2);
 
+        setCluster(-1500, 2700, 3);
+
         setCluster(-3000, 2800, 2);
-        Planet planetGoal = setPlanet(-3500, 3500, Planet.TypeOrbit.G240);
+        Planet planetGoal = setPlanet(-3500, 3500, Planet.TypeOrbit.G320);
 
         setPlayer(planet1);
 

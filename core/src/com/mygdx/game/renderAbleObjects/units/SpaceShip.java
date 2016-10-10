@@ -1,5 +1,7 @@
 package com.mygdx.game.renderAbleObjects.units;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
@@ -38,6 +40,8 @@ public class SpaceShip extends Unit {
 
     private int skinID;
 
+    private Sound crashSound;
+
     public SpaceShip(){
         super();
         deltaMovement = new Vector2();
@@ -69,6 +73,7 @@ public class SpaceShip extends Unit {
         initializePositions(position,deltaMovement);
 
         isItemPickerActive = false;
+        crashSound =  Gdx.audio.newSound(Gdx.files.internal("explosion.wav"));
 
     }
     public void setSkin(int skinId){
@@ -213,7 +218,11 @@ public class SpaceShip extends Unit {
     }
 
     public void collide(){
+        if(isCollided)
+            return;
         this.isCollided = true;
+        crashSound.stop();
+        crashSound.play();
     }
 
     public boolean isCollided(){
