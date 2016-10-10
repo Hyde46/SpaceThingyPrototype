@@ -314,6 +314,10 @@ public class DialogManager {
                 dialogBox1.setActive(true);
                 dialogBox2.setActive(false);
             } else {
+                Avatar secondCharacter = currentDialog.getAvatarArray().get(1);
+                if(currentDialog.getAvatarArray().get(currentDialogStep) != secondCharacter){
+                    dialogAvatar2.changeTexture(getAvatarPath(currentDialog.getAvatarArray().get(currentDialogStep)));
+                }
                 dialogBox2.render(game.uiBatch);
                 dialogBox2.renderText(game.uiBatch, currentDialog.getTextArray().get(currentDialogStep));
                 //render avatar sprite

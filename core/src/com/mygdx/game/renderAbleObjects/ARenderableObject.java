@@ -31,8 +31,7 @@ public abstract class ARenderableObject
     protected Sprite sprite;
 
     protected ARenderableObject()
-    {
-        position = new Vector2();
+    {position = new Vector2();
         spriteDimension  = new Vector2();
         tex = null;
         isActive = false;

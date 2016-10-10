@@ -53,22 +53,25 @@ public class SlotIcon extends Decoration implements IInputHandler{
     @Override
     public void OnTouch(TouchData td){
         HangarScreen screen = (HangarScreen) MyGdxGame.game.current;
-        int previousItemId = itemId;
-        itemId = screen.getCurrentItemId();
-        if(slotId == 1){
-            screen.getSelectedSlot1().changeTexture(ItemManager.getItemTexturePath(itemId));
-            //if the slot was previously occupied by another item we need to find that item and change the Unequip button
-            for(EquipButton button : screen.getEquipButtons()){
-                if(button.getItemId() == previousItemId){
-                    button.changeTexture("equip_button.png");
-                    break;
+        if(screen.getShowPopUp()){
+            int previousItemId = itemId;
+            itemId = screen.getCurrentItemId();
+            if(slotId == 1){
+                screen.getSelectedSlot1().changeTexture(ItemManager.getItemTexturePath(itemId));
+                //if the slot was previously occupied by another item we need to find that item and change the Unequip button
+                for(EquipButton button : screen.getEquipButtons()){
+                    if(button.getItemId() == previousItemId){
+                        button.changeTexture("equip_button.png");
+                        break;
+                    }
                 }
+            }else{
+                screen.getSelectedSlot2().changeTexture(ItemManager.getItemTexturePath(itemId));
             }
-        }else{
-            screen.getSelectedSlot2().changeTexture(ItemManager.getItemTexturePath(itemId));
+            screen.setShowPopUp(false);
+            screen.saveSettings();
+
         }
-        screen.setShowPopUp(false);
-        screen.saveSettings();
     }
 
     @Override

@@ -26,6 +26,10 @@ public class DialogAvatar extends Decoration implements IInputHandler
         initializeTexture(spriteDimension, 0, pathToTexture);
     }
 
+    public void changeTexture(String pathToTexture){
+        initializeTexture(spriteDimension, 0, pathToTexture);
+    }
+
     @Override
     public void renderHitboxes(ShapeRenderer d) {
 
