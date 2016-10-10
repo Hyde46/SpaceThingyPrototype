@@ -154,7 +154,7 @@ public class DialogManager {
         Dialog dialog15 = new Dialog(textArray, avatarArray);
 
         textArray = new Array<String>();
-        textArray.addAll("Harry? The Tiger has landed","Nicely done Mr Thirst. By the way i found some really well paid jobs for you by Gen Corp");
+        textArray.addAll("Harry? The Tiger has landed","Nicely done Mr Thirst. By the way I found some really well paid jobs for you by Gen Corp");
         avatarArray = new Array<DialogManager.Avatar>();
         avatarArray.addAll(Avatar.GIRL_NORMAL, Avatar.JASON_HAPPY, Avatar.GIRL_ANGRY, Avatar.GIRL_HAPPY);
         Dialog dialog20 = new Dialog(textArray, avatarArray);
