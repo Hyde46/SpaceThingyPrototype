@@ -74,7 +74,7 @@ public class LevelState {
                 DataPers.dataP().idsItemsPlayer.add(i);
             }
         }
-        if(DataPers.dataP().hopsPerLevel[currentLevel] > hops ){
+        if(DataPers.dataP().hopsPerLevel[currentLevel] < hops ){
             DataPers.dataP().hopsPerLevel[currentLevel] = hops;
         }
         DataPers.dataP().addToSkins(collectedVisualItem);

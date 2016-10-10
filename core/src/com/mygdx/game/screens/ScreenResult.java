@@ -158,7 +158,7 @@ public class ScreenResult implements Screen
         game.font.draw(game.batch, "Scraps:", offsetText0 , offsetHMiddleAvail + getOffsetHElementMiddle(1, hMiddleAvail, 3, 5));
         game.font.draw(game.batch, ""+currency, offsetText1 , offsetHMiddleAvail + getOffsetHElementMiddle(1, hMiddleAvail, 3, 5));
 
-        game.font.draw(game.batch, "Steps:", offsetText0 , offsetHMiddleAvail + getOffsetHElementMiddle(0, hMiddleAvail, 3, 5));
+        game.font.draw(game.batch, "Hops:", offsetText0 , offsetHMiddleAvail + getOffsetHElementMiddle(0, hMiddleAvail, 3, 5));
         game.font.draw(game.batch, steps + "", offsetText1 , offsetHMiddleAvail + getOffsetHElementMiddle(0, hMiddleAvail, 3, 5));
 
         game.batch.end();
