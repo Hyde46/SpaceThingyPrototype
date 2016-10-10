@@ -5,19 +5,22 @@ Denis:
     teleport pickup item in level stecken
     restlichen skins in leveln verteilen
     2 letzten level erstellen
-###################################################################
+- Screenmanager
+
 Vali:
-- Im hangar: bug beim unequippen, wenn man das item anklickt bei der vorschau direkt unter dem skin
--Shop:
-    item namen in listen
-    design ändern
-- die 7 möglichen skins im hangar funktionstüchtig machen
-    png's sind alle da :)
+
+- Dialog-> mehrere Avatare
 
 ############################################################
 -webseite + trailer am we
 ##############################################################
 Done:
+- 7 möglichen skins im hangar funktionstüchtig machen
+    png's sind alle da :)
+- Im hangar: bug beim unequippen, wenn man das item anklickt bei der vorschau direkt unter dem skin
+-Shop:
+    item namen in listen
+    design ändern
 -dialoge richtig gesetzt
 -letzten 3 dialoge
 -overworld

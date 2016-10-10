@@ -24,7 +24,7 @@ import java.io.ObjectOutputStream;
 public class DataPers
 {
     // save names need to be changed every time variables are added or removed to a save class
-    private static final String[] NAME_SAFE = new String[]{ "save0-3", "save1-3", "save2-3", "save3-3" };
+    private static final String[] NAME_SAFE = new String[]{ "save0-4", "save1-4", "save2-4", "save3-4" };
     private static File file[] = new File[4];
     private static ADataSavable data[] = new ADataSavable[4];
     private static final String PATH = Gdx.files.getLocalStoragePath();
