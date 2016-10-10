@@ -72,7 +72,7 @@ public class ScreenShop implements Screen
 
     int yBannerTop = h - marginTop - hBanner;
 
-    int wTab = 250;
+    int wTab = 440;
     int hTab = 200;
 
     int yTabs = yBannerTop - marginTabsH - hTab;
@@ -171,18 +171,31 @@ public class ScreenShop implements Screen
         bannerTop.initialize(new Vector2(wOffsetScreen, yBannerTop), 900, 400, "shop-banner-900-400.png");
 
         tabBuy = new GenericElement();
-        tabBuy.initialize(new Vector2(offsetWScreenRed, yTabs), wTab, hTab, "buy_button.png");
+        if(shopLogic.isBuyMode()){
+            tabBuy.initialize(new Vector2(offsetWScreenRed, yTabs), wTab, hTab, "buy_tab_active.png");
+        }else{
+            tabBuy.initialize(new Vector2(offsetWScreenRed, yTabs), wTab, hTab, "buy_tab.png");
+        }
         tabBuy.setListener(new InputListener(){
             public void OnTouch(TouchData td){
+       //         tabSell.changeTexture("sell_tab.png");
+       //         tabBuy.changeTexture("buy_tab_active.png");
                 setBuyMode(true);
             }
         });
         InputManager.get.register(nameDynamic, tabBuy);
 
         tabSell = new GenericElement();
-        tabSell.initialize(new Vector2(offsetWScreenRed + wTab + marginTabsW, yTabs), wTab, hTab, "sell_button.png");
+        if(shopLogic.isBuyMode()){
+            tabSell.initialize(new Vector2(offsetWScreenRed + wTab, yTabs), wTab, hTab, "sell_tab.png");
+        }else{
+            tabSell.initialize(new Vector2(offsetWScreenRed + wTab, yTabs), wTab, hTab, "sell_tab_active.png");
+
+        }
         tabSell.setListener(new InputListener(){
             public void OnTouch(TouchData td){
+     //           tabSell.changeTexture("sell_tab_active.png");
+      //          tabBuy.changeTexture("buy_tab.png");
                 setBuyMode(false);
             }
         });

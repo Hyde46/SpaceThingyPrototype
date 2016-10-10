@@ -24,4 +24,8 @@ public class GenericElement extends ARenderableObject
     {
 
     }
+
+    public void changeTexture(String path){
+        initializeTexture(spriteDimension, 0, path);
+    }
 }

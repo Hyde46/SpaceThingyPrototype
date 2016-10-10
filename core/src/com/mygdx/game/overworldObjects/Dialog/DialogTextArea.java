@@ -32,7 +32,10 @@ public class DialogTextArea extends Decoration implements IInputHandler
     {
         this.position = position.cpy();
 
-        this.touchHitbox = new Rectangle(position.x, MyGdxGame.game.screenHeight-position.y-height, width, height);
+ //       this.touchHitbox = new Rectangle(position.x, position.y, width, height);
+       this.touchHitbox = new Rectangle(position.x, MyGdxGame.game.screenHeight-position.y-height, width, height);
+
+
 
         this.spriteDimension = new Vector2(width, height);
 
