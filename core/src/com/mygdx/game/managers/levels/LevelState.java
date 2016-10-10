@@ -83,4 +83,8 @@ public class LevelState {
 
     public void setWon(boolean b){ this.hasWon = b;}
     public boolean getHasWon(){ return hasWon;}
+
+    public void setCurrencyToZero(){
+        currencyCollected = 0;
+    }
 }

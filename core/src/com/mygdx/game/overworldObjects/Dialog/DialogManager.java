@@ -411,13 +411,13 @@ public class DialogManager {
     public String getAvatarPath(Avatar avatar){
         switch (avatar){
             case JASON_NORMAL:
-                return "jason_normal.png";         //Jason
+                return "jason_normal.png";
             case JASON_HAPPY:
-                return "jason_happy.png";         //Robot
+                return "jason_happy.png";
             case JASON_ANGRY:
-                return "jason_serious.png";         //Harry
+                return "jason_serious.png";
             case HARRY_ANGRY:
-                return "harry_serious.jpg";          //phone
+                return "harry_serious.jpg";
             case HARRY_NORMAL:
                 return "harry_normal.png";
             case HARRY_SCREAMING:
@@ -430,6 +430,8 @@ public class DialogManager {
                 return "bounty_normal.png";
             case BOUNTY_ANGRY:
                 return "bounty_angry.png";
+            case PHONE:
+                return "phone.png";
             default:
                 return "jason_normal.png";
         }

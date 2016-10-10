@@ -13,6 +13,7 @@ import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.UpgradePickable;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.utils.SpacePhysiX;
+import java.util.Random;
 
 /**
  * Created by denis on 5/18/16.
@@ -29,6 +30,7 @@ public class Level
 
     protected SpaceShip playerShip;
 
+    static Random rnd;
     public Level()
     {
         unitManager = new UnitManager();
@@ -36,6 +38,7 @@ public class Level
         parallaxBackgroundManager = new ParallaxBackgroundManager();
         nameLevel = "";
         nameSystem = "";
+        rnd = new Random();
     }
 
     protected UpgradePickable setItemUpdate(int x, int y, int idItem)
@@ -70,10 +73,11 @@ public class Level
 
     protected Planet setPlanet(int x, int y, Planet.TypeOrbit typeOrbit)
     {
-        int idSpriteRandom = (int)(Math.random() * 9);
+        //int idSpriteRandom = (int)(Math.random() * 9);
+        int idSpriteRandom = rnd.nextInt((24-0)+1)+0;
         Planet.TypePlanet typePlanet = Planet.TypePlanet.values()[idSpriteRandom];
         float rotationRandom = (float)Math.random() * 360;
-        float gravityRandom = 0.8f + (float)(Math.random() * 0.4);
+        float gravityRandom = rnd.nextFloat() * (12f-1f)+1f;
 
         Planet planet = new Planet();
         planet.initialize(new Vector2(x,y), typePlanet, typeOrbit, rotationRandom, gravityRandom);
@@ -86,14 +90,15 @@ public class Level
 
     protected Planet setMoon(Planet parent, float radius, float speedRot)
     {
-        int idxSprite = 9 + (int)(Math.random() * 3);
+        //int idxSprite = 9 + (int)(Math.random() * 3);
+        int idxSprite = rnd.nextInt((29-25)+1)+25;
         Planet.TypePlanet typePlanet = Planet.TypePlanet.values()[ idxSprite ];
 
         int idxTypeOrbit = 6 + (int)(Math.random() * 2);
         Planet.TypeOrbit typeOrbit = Planet.TypeOrbit.values()[idxTypeOrbit];
 
         float rotationRandom = (float)Math.random() * 360;
-        float gravityRandom = 0.8f + (float)(Math.random() * 0.4);
+        float gravityRandom = rnd.nextFloat() * (5f-1f)+1f;
 
         int dir = (Math.random() < 0.5)? -1 : 1;
 
@@ -179,7 +184,7 @@ public class Level
         playerShip.initialize(new Vector2(posParent.x + 160, 0), new Vector2(0, 400), parent, 160, new Vector2(40,40));
         unitManager.addUnit(playerShip);
         this.playerShip = playerShip;
-
+        parent.setGravityToZero();
         return playerShip;
     }
 

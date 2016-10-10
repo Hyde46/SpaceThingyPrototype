@@ -8,6 +8,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.InputManager;
@@ -113,7 +115,7 @@ public class GameScreen implements Screen{
         game.uiBatch.begin();
         game.uiBatch.setProjectionMatrix(camFixed.combined);
 
-//        game.debugFont.draw(game.uiBatch, game.currentVersion, 5 , 1900);
+        game.debugFont.draw(game.uiBatch, "Scraps: "+levelState.getCurrency(), 5 , 1900);
 //        game.debugFont.draw(game.uiBatch, "X: "+(int)(getPlayerShip().getPosition().x / 10),5,1850);
 //        game.debugFont.draw(game.uiBatch, "Y: "+(int)(getPlayerShip().getPosition().y / 10),5,1800);
 //        game.debugFont.draw(game.uiBatch, "vel: "+(int)(getPlayerShip().getDeltaMovement().len()),5,1750);
@@ -124,6 +126,12 @@ public class GameScreen implements Screen{
         renderFinishedGameState(game);
 
         game.uiBatch.end();
+
+        game.shapeRenderer.setProjectionMatrix(cM.getCam().combined);
+        game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        Rectangle r = levelContainer.spacePhysiX.getWorldBound();
+        game.shapeRenderer.rect(r.x,r.y,r.width,r.height);
+        game.shapeRenderer.end();
 
         camFixed.update();
 
@@ -143,11 +151,11 @@ public class GameScreen implements Screen{
             }else if(!isOutOfBounds) {
 
                 game.font.draw(game.uiBatch, "You crashed your ship!", 280, 1000);
-
+                levelState.setCurrencyToZero();
             }else {
 
                 game.font.draw(game.uiBatch, "Your ship got lost!", 280, 1000);
-
+                levelState.setCurrencyToZero();
             }
         }
     }
@@ -163,7 +171,6 @@ public class GameScreen implements Screen{
 
         if(hasFinishedLevel)
             finishCounter--;
-        finishLevel(true,false);
 
     }
 

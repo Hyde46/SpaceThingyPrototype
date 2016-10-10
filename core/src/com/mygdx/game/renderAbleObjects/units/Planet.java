@@ -18,7 +18,7 @@ import static com.mygdx.game.renderAbleObjects.units.Planet.TypeOrbit.B240;
  */
 public class Planet extends Unit implements IInputHandler
 {
-    public enum TypePlanet { P0, P1, P2, P3, P4, P5, P6, P7, P8, M0, M1, M2 }
+    public enum TypePlanet { SP0,SP1,SP2, MP0,MP1,MP2, P0, P1, P2, P3, P4, P5, P6, P7, P8,P9,P10,P11,P12,P13,P14,P15,P16,P17,P18, M0, M1, M2 ,M3,M4}
     public enum TypeOrbit { B240, B320, B480, G190, G240, G320, M120, M190}
 
     private TypePlanet typePlanet;
@@ -72,6 +72,8 @@ public class Planet extends Unit implements IInputHandler
         this.gravity = gravity;
         isDecisionPlanet = false;
         decisionPlanetID = -1;
+        if (typeOrbit == TypeOrbit.G190 || typeOrbit == TypeOrbit.G240 || typeOrbit == TypeOrbit.G320)
+            this.gravity = 1;
     }
 
     private void initializeOrbitTex(TypeOrbit typeOrbit)
@@ -219,6 +221,12 @@ public class Planet extends Unit implements IInputHandler
     {
         switch(typePlanet)
         {
+            case SP0: return "planet_72x72_0.png";
+            case SP1: return "planet_72x72_1.png";
+            case SP2: return "planet_72x72_2.png";
+            case MP0: return "planet_90x90_0.png";
+            case MP1: return "planet_90x90_1.png";
+            case MP2: return "planet_90x90_2.png";
             case P0: return "planet_100x100_0.png";
             case P1: return "planet_100x100_1.png";
             case P2: return "planet_100x100_2.png";
@@ -228,19 +236,43 @@ public class Planet extends Unit implements IInputHandler
             case P6: return "planet_100x100_6.png";
             case P7: return "planet_100x100_7.png";
             case P8: return "planet_100x100_8.png";
+            case P9: return "planet_110x110_0.png";
+            case P10: return "planet_110x110_1.png";
+            case P11: return "planet_110x110_2.png";
+            case P12: return "planet_120x120_0.png";
+            case P13: return "planet_120x120_1.png";
+            case P14: return "planet_120x120_2.png";
+            case P15: return "planet_130x130_0.png";
+            case P16: return "planet_130x130_1.png";
+            case P17: return "planet_130x130_2.png";
+            case P18: return "planet_130x130_3.png";
             case M0: return "moon_36x36_0.png";
             case M1: return "moon_36x36_1.png";
             case M2: return "moon_36x36_2.png";
+            case M3: return "moon4_40x40.png";
+            case M4: return "moon5_40x40.png";
             default: return "";
         }
     }
 
     private float typePlanetToRadius(TypePlanet typePlanet)
     {
-        if(typePlanet.ordinal() >= 0 && typePlanet.ordinal() <= 8)
+        if(typePlanet.ordinal() >= 0 && typePlanet.ordinal() <= 2)
+            return 36f;
+        else if(typePlanet.ordinal() >= 3 && typePlanet.ordinal() <= 5)
+            return 45f;
+        else if(typePlanet.ordinal() >= 6 && typePlanet.ordinal() <= 14)
             return 50f;
-        else if(typePlanet.ordinal() >= 9 && typePlanet.ordinal() <= 11)
+        else if(typePlanet.ordinal() >= 15 && typePlanet.ordinal() <= 17)
+            return 55f;
+        else if(typePlanet.ordinal() >= 18 && typePlanet.ordinal() <= 20)
+            return 60f;
+        else if(typePlanet.ordinal() >= 21 && typePlanet.ordinal() <= 24)
+            return 65f;
+        else if(typePlanet.ordinal() >= 25 && typePlanet.ordinal() <= 27)
             return 18f;
+        else if(typePlanet.ordinal() >= 28 && typePlanet.ordinal() <= 29)
+            return 20f;
 
             return 0f;
     }
@@ -269,5 +301,9 @@ public class Planet extends Unit implements IInputHandler
     private float typeOrbitToDiameter(TypeOrbit typeOrbit)
     {
         return Integer.parseInt(typeOrbit.toString().substring(1));
+    }
+
+    public void setGravityToZero(){
+        this.gravity = 1f;
     }
 }

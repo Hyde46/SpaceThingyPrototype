@@ -1,9 +1,6 @@
 package com.mygdx.game.overworldObjects.Dialog;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -27,6 +24,9 @@ public class DialogTextArea extends Decoration implements IInputHandler
     private DialogManager dialogManager;
     private boolean isPressed;
     private boolean isActive;
+
+    private final int maxDialogPressDelay = 20;
+    private int pressDelayCounter;
 
     public void initialize(Vector2 position, int width, int height, String texturePath, DialogManager dialogManager, boolean isActive)
     {
@@ -52,8 +52,7 @@ public class DialogTextArea extends Decoration implements IInputHandler
 
         isUI = true;
 
-        System.out.println("hitbox: " + touchHitbox);
-
+        pressDelayCounter = 0;
 
     }
 
@@ -68,6 +67,8 @@ public class DialogTextArea extends Decoration implements IInputHandler
      * @param batch
      */
     public void renderText(SpriteBatch batch, String text){
+        if(pressDelayCounter > 0)
+            pressDelayCounter --;
         currentText = text;
         //if the text position is greater or equal than the text length, it means that we already want to show the whole text
         if(textPosition >= text.length()){
@@ -90,18 +91,22 @@ public class DialogTextArea extends Decoration implements IInputHandler
 
     @Override
     public void OnTouch(TouchData td) {
-        System.out.println("Box touched");
         //if the textposition is smaller than the dialog text that means, that not all of the text is shown
         //therefore we want to show the whole text in this case -> set textposition to length of string
         //ask if currentText is already set, because it can happen that the newly rendered dialog box gets the touch and the text is not set yet
         //Because of the same problem we have a boolean which checks, if this method was just called, isPressed is set to false in onRelease
+        if(pressDelayCounter > 0) {
+            return;
+        }else{
+            pressDelayCounter = maxDialogPressDelay;
+        }
         if(currentText != null && !isPressed && isActive){
             if(textPosition < currentText.length()){
                 textPosition = currentText.length();
             }else{
                 //otherwise the text is already displayed, therefore we want to increment the step of the dialog so that the next text will be rendered
                 dialogManager.incrementCurrentDialogStep();
-                System.out.println("Box wird getouched und step wird inkrementiert");
+                textPosition = 1;
             }
             isPressed = true;
         }
@@ -110,8 +115,6 @@ public class DialogTextArea extends Decoration implements IInputHandler
     @Override
     public void OnRelease(TouchData td) {
         isPressed = false;
-        System.out.println("Box wird released");
-
     }
 
     @Override
