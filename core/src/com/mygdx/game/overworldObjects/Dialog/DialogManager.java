@@ -20,6 +20,7 @@ public class DialogManager {
     private DialogTextArea dialogBox2;
     private DialogAvatar dialogAvatar1;
     private DialogAvatar dialogAvatar2;
+    private Array<DialogAvatar> dialogAvatars;
     private SkipButton skipButton;
     private int currentDialogStep;
     private boolean showDialog;
@@ -274,6 +275,16 @@ public class DialogManager {
                     dialogAvatar2.initialize(new Vector2(MyGdxGame.game.screenWidth - 300, 400), 300, 400, getAvatarPath(currentDialog.getAvatarArray().get(1)));
                 }
 
+                dialogAvatars = new Array<DialogAvatar>();
+                for(int i = 0; i < currentDialog.getAvatarArray().size; i++){
+                    DialogAvatar dialogAvatar = new DialogAvatar();
+                    if(currentDialog.getAvatarArray().get(i) == currentDialog.getAvatarArray().get(0)){
+                        dialogAvatar.initialize(new Vector2(0, 400), 300, 400, getAvatarPath(currentDialog.getAvatarArray().get(i)));
+                    }else{
+                        dialogAvatar.initialize(new Vector2(MyGdxGame.game.screenWidth - 300, 400), 300, 400, getAvatarPath(currentDialog.getAvatarArray().get(i)));
+                    }
+                    dialogAvatars.add(dialogAvatar);
+                }
                 skipButton = new SkipButton();
                 skipButton.initialize(new Vector2(MyGdxGame.game.screenWidth / 2 - 200, 10), 400, 200, "skip_button.png", this);
 
@@ -310,21 +321,21 @@ public class DialogManager {
                 dialogBox1.render(game.uiBatch);
                 dialogBox1.renderText(game.uiBatch, currentDialog.getTextArray().get(currentDialogStep));
                 //render avatar sprite
-                dialogAvatar1.render(game.uiBatch);
                 dialogBox1.setActive(true);
                 dialogBox2.setActive(false);
             } else {
-                Avatar secondCharacter = currentDialog.getAvatarArray().get(1);
-                if(currentDialog.getAvatarArray().get(currentDialogStep) != secondCharacter){
-                    dialogAvatar2.changeTexture(getAvatarPath(currentDialog.getAvatarArray().get(currentDialogStep)));
-                }
+//                Avatar secondCharacter = currentDialog.getAvatarArray().get(1);
+ //               if(currentDialog.getAvatarArray().get(currentDialogStep) != secondCharacter){
+   //                 dialogAvatar2.changeTexture(getAvatarPath(currentDialog.getAvatarArray().get(currentDialogStep)));
+    //            }
                 dialogBox2.render(game.uiBatch);
                 dialogBox2.renderText(game.uiBatch, currentDialog.getTextArray().get(currentDialogStep));
                 //render avatar sprite
-                dialogAvatar2.render(game.uiBatch);
                 dialogBox2.setActive(true);
                 dialogBox1.setActive(false);
             }
+            dialogAvatars.get(currentDialogStep).render(game.uiBatch);
+
 
             skipButton.render(game.uiBatch);
             game.uiBatch.end();
