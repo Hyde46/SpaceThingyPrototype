@@ -113,6 +113,9 @@ public class HangarScreen implements Screen {
         InputManager.get.register(skinArrowUp);
         InputManager.get.register(skinArrowDown);
 
+        EquipButton.maxTouchCounter = 20;
+        EquipButton.currentTouchCounter = 0;
+
    /*     //create particle functionality
         Slot particleSlot1 = new Slot();
         particleSlot1.initialize(new Vector2(MyGdxGame.game.screenWidth - 500, MyGdxGame.game.screenHeight - 600), 400, 400, "ship_particles1.png");
@@ -244,6 +247,7 @@ public class HangarScreen implements Screen {
      * @param delta
      */
     private void update(float delta){
+
         InputManager.get.update(delta);
         JukeBox.update(delta);
     }
@@ -259,7 +263,6 @@ public class HangarScreen implements Screen {
         //get the skin id of the skin that is currently showing
         DataPers.dataH().setCurrentSkin(skinSlots.get(currentSkin).getSkinId());
         DataPers.saveH();
-        System.out.println("Settings saved... current skin: " + DataPers.dataH().getCurrentSkin());
     }
     /**
      * getter for item slots

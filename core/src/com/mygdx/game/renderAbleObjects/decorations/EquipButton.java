@@ -20,6 +20,7 @@ public class EquipButton extends Decoration implements IInputHandler{
     private int itemId;
     private boolean isEquipped;
 
+
     public void initialize(Vector2 position, int width, int height, String pathToTexture, int orderId, int itemId, boolean isEquipped){
         initializePositions(position);
         this.touchHitbox = new Rectangle(position.x, position.y, width, height);
@@ -53,6 +54,7 @@ public class EquipButton extends Decoration implements IInputHandler{
 
     @Override
     public void OnTouch(TouchData td) {
+
         HangarScreen screen = (HangarScreen) MyGdxGame.game.current;
         if(!screen.getShowPopUp()) {
             if (!isEquipped) {
@@ -84,6 +86,19 @@ public class EquipButton extends Decoration implements IInputHandler{
         }
     }
 
+    public void unEquip(){
+        HangarScreen screen = (HangarScreen) MyGdxGame.game.current;
+        if (DataPers.dataH().getSlot1() == itemId) {
+            screen.getSelectedSlot1().changeTexture("item_icon.png");
+            screen.getSlot1().setItemId(-1);
+        } else {
+            screen.getSelectedSlot2().changeTexture("item_icon.png");
+            screen.getSlot2().setItemId(-1);
+        }
+        screen.saveSettings();
+        changeTexture("equip_button.png");
+        isEquipped = false;
+    }
     @Override
     public void OnRelease(TouchData td) {
 
