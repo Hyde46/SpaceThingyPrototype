@@ -79,13 +79,7 @@ public class EquipButton extends Decoration implements IInputHandler{
                 changeTexture("unequip_button.png");
                 isEquipped = true;
             } else {
-                if (DataPers.dataH().getSlot1() == itemId) {
-                    screen.getSelectedSlot1().changeTexture("item_icon.png");
-                    screen.getSlot1().setItemId(-1);
-                } else {
-                    screen.getSelectedSlot2().changeTexture("item_icon.png");
-                    screen.getSlot2().setItemId(-1);
-                }
+                unEquip();
                 screen.saveSettings();
                 changeTexture("equip_button.png");
                 isEquipped = false;
