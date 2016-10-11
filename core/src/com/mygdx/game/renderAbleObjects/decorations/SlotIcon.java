@@ -67,6 +67,7 @@ public class SlotIcon extends Decoration implements IInputHandler{
                 for(EquipButton button : screen.getEquipButtons()){
                     if(button.getItemId() == previousItemId){
                         button.changeTexture("equip_button.png");
+                        button.unEquip();
                         break;
                     }
                 }
