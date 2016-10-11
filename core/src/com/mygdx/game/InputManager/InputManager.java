@@ -35,7 +35,7 @@ public class InputManager implements InputProcessor
     private final String nameGroupGeneral = "g";
     private final String nameGroupTouchEverywhere = "e";
 
-    // setup
+    // setupFunctions
     InputManager()
     {
         Gdx.input.setInputProcessor(this); // this is an input processor that gets registered at the main input

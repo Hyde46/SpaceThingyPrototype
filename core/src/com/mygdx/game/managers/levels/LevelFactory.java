@@ -11,6 +11,7 @@ import com.mygdx.game.managers.levels.levelClasses.Lev6TheHeist1;
 import com.mygdx.game.managers.levels.levelClasses.Lev7TheHeist2;
 import com.mygdx.game.managers.levels.levelClasses.Lev8MainPath1;
 import com.mygdx.game.managers.levels.levelClasses.Lev9MainPath2;
+import com.mygdx.game.managers.levels.levelClasses.LevelXTreasureIsle;
 import com.mygdx.game.screens.GameScreen;
 
 /**
@@ -25,7 +26,8 @@ public class LevelFactory
         switch(levelId)
         {
             case 0:
-                return new Lev0TheBeginning(gs);
+                return new LevelXTreasureIsle(gs);
+                //return new Lev0TheBeginning(gs);
             case 1:
                 return new Lev1TheDelivery(gs);
             case 4:

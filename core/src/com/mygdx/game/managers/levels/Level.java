@@ -13,6 +13,7 @@ import com.mygdx.game.renderAbleObjects.units.SpaceShip;
 import com.mygdx.game.renderAbleObjects.units.UpgradePickable;
 import com.mygdx.game.renderAbleObjects.units.VisualPickable;
 import com.mygdx.game.screens.GameScreen;
+import com.mygdx.game.utils.GenRandomSeed;
 import com.mygdx.game.utils.SpacePhysiX;
 import java.util.Random;
 
@@ -20,7 +21,7 @@ import java.util.Random;
  * Created by denis on 5/18/16.
  */
 
-public class Level
+public abstract class Level
 {
     public UnitManager unitManager;
     public SpacePhysiX spacePhysiX;
@@ -31,15 +32,14 @@ public class Level
 
     protected SpaceShip playerShip;
 
-    static Random rnd;
-    public Level()
+    private GenRandomSeed genRand;
+
+    protected void setupFunctions(long seed)
     {
+        genRand = new GenRandomSeed(seed);
         unitManager = new UnitManager();
         spacePhysiX = new SpacePhysiX();
         parallaxBackgroundManager = new ParallaxBackgroundManager();
-        nameLevel = "";
-        nameSystem = "";
-        rnd = new Random();
     }
 
     protected UpgradePickable setItemUpdate(int x, int y, int idItem)
@@ -83,10 +83,10 @@ public class Level
     protected Planet setPlanet(int x, int y, Planet.TypeOrbit typeOrbit)
     {
         //int idSpriteRandom = (int)(Math.random() * 9);
-        int idSpriteRandom = rnd.nextInt((24-0)+1)+0;
+        int idSpriteRandom = genRand.getInt((24-0)+1)+0;
         Planet.TypePlanet typePlanet = Planet.TypePlanet.values()[idSpriteRandom];
         float rotationRandom = (float)Math.random() * 360;
-        float gravityRandom = rnd.nextFloat() * (12f-1f)+1f;
+        float gravityRandom = genRand.getFloat() * (12f-1f)+1f;
 
         Planet planet = new Planet();
         planet.initialize(new Vector2(x,y), typePlanet, typeOrbit, rotationRandom, gravityRandom);
@@ -100,14 +100,14 @@ public class Level
     protected Planet setMoon(Planet parent, float radius, float speedRot)
     {
         //int idxSprite = 9 + (int)(Math.random() * 3);
-        int idxSprite = rnd.nextInt((29-25)+1)+25;
+        int idxSprite = genRand.getInt((29-25)+1)+25;
         Planet.TypePlanet typePlanet = Planet.TypePlanet.values()[ idxSprite ];
 
         int idxTypeOrbit = 6 + (int)(Math.random() * 2);
         Planet.TypeOrbit typeOrbit = Planet.TypeOrbit.values()[idxTypeOrbit];
 
         float rotationRandom = (float)Math.random() * 360;
-        float gravityRandom = rnd.nextFloat() * (5f-1f)+1f;
+        float gravityRandom = genRand.getFloat() * (5f-1f)+1f;
 
         int dir = (Math.random() < 0.5)? -1 : 1;
 
@@ -143,8 +143,8 @@ public class Level
 
     protected MovingObstacle setObstacleMoving(int xStart, int yStart, int xEnd, int yEnd, float speed)
     {
-        String pathTexture = "asteroid_80x80_" + (int)(Math.random() * 2) + ".png";
-        float rotationRandom = (float)Math.random() * 360;
+        String pathTexture = "asteroid_80x80_" + genRand.getInt(2) + ".png";
+        float rotationRandom = genRand.getFloat() * 360;
 
         float distance = Vector2.dst(xStart, yStart, xEnd, yEnd);
 
@@ -163,8 +163,8 @@ public class Level
     {
         for(int i = 0; i < amount; i++)
         {
-            float xDeviation = (float)Math.random() * deviation;
-            float yDeviation = (float)Math.random() * deviation;
+            float xDeviation = deviation - genRand.getFloat() * deviation;
+            float yDeviation = deviation - genRand.getFloat() * deviation;
 
             Vector2 posStart;
             Vector2 posEnd;
@@ -180,7 +180,7 @@ public class Level
                 posEnd = new Vector2(xEnd + xDeviation, yEnd + yDeviation);
             }
 
-            float speed = 1 + (float)(Math.random() * 3.5);
+            float speed = 1 + genRand.getFloat() * 3.5f;
 
             setObstacleMoving((int)posStart.x, (int)posStart.y, (int)posEnd.y, (int)posEnd.y, speed);
         }
@@ -199,13 +199,13 @@ public class Level
 
     protected Planet setCluster(int x, int y, int nOrbiting)
     {
-        Planet.TypeOrbit typeOrbit = (Math.random() < 0.5)? Planet.TypeOrbit.B320 : Planet.TypeOrbit.B480;
+        Planet.TypeOrbit typeOrbit = (genRand.getFloat() < 0.5)? Planet.TypeOrbit.B320 : Planet.TypeOrbit.B480;
         Planet parent = setPlanet(x, y, typeOrbit);
 
         for(int i = 0; i < nOrbiting; i++)
         {
-            float radiusOrbiter = (float)(280 + i * 240 + Math.random() * 260);
-            float speedOrbiter = (float)(5 + Math.random() * 20);
+            float radiusOrbiter = 280 + i * 240 + genRand.getFloat() * 260;
+            float speedOrbiter = 5 + genRand.getFloat() * 20;
             setMoon(parent, radiusOrbiter, speedOrbiter);
         }
 

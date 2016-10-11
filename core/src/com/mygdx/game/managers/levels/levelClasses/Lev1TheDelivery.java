@@ -16,6 +16,8 @@ public class Lev1TheDelivery extends Level
         nameLevel = "Delivery";
         nameSystem = "Bera";
 
+        setupFunctions(1);
+
         Planet planet1 = setPlanet(0,0, Planet.TypeOrbit.B320);
         setPlanet(550, 200, Planet.TypeOrbit.B240);
         setPlanet(-350, 900, Planet.TypeOrbit.B320);

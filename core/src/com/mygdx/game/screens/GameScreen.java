@@ -64,7 +64,7 @@ public class GameScreen implements Screen{
         //camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         /* Main and Game have different cams,
-        main camera needs to be created in gdxgame and Inputmanger setup there */
+        main camera needs to be created in gdxgame and Inputmanger setupFunctions there */
         InputManager.get.setup(camera);
         cM = new CameraManager();
         cH = new CameraHelper();
