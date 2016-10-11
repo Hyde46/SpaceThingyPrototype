@@ -11,6 +11,8 @@ import com.mygdx.game.dataPersistence.DataPers;
 import com.mygdx.game.screens.HangarScreen;
 import com.mygdx.game.screens.MyGdxGame;
 
+import javax.xml.crypto.Data;
+
 /**
  * Created by Vali on 17.08.2016.
  */
@@ -55,21 +57,30 @@ public class SlotIcon extends Decoration implements IInputHandler{
     public void OnTouch(TouchData td){
         HangarScreen screen = (HangarScreen) MyGdxGame.game.current;
         if(screen.getShowPopUp()){
-            int previousItemId = itemId;
+
+            int previousItemIdInSlot;
+            if(slotId == 1){
+                previousItemIdInSlot = DataPers.dataH().getSlot1();
+            }else{
+                previousItemIdInSlot = DataPers.dataH().getSlot2();
+            }
+
+            if(previousItemIdInSlot != 0){
+                for(EquipButton button : screen.getEquipButtons()){
+                    if(button.getItemId() == previousItemIdInSlot){
+                        button.unEquip();
+                        break;
+                    }
+                }
+            }
+
             itemId = screen.getCurrentItemId();
+
             if(slotId == 1){
                 screen.getSelectedSlot1().changeTexture(ItemManager.getItemTexturePath(itemId));
                 //if the slot was previously occupied by another item we need to find that item and change the Unequip button
             }else{
                 screen.getSelectedSlot2().changeTexture(ItemManager.getItemTexturePath(itemId));
-            }
-            if(previousItemId != 0){
-                for(EquipButton button : screen.getEquipButtons()){
-                    if(button.getItemId() == previousItemId){
-                        button.changeTexture("equip_button.png");
-                        break;
-                    }
-                }
             }
             screen.setShowPopUp(false);
             screen.saveSettings();
