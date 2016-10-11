@@ -53,11 +53,6 @@ public class SlotIcon extends Decoration implements IInputHandler{
 
     @Override
     public void OnTouch(TouchData td){
-
-    }
-
-    @Override
-    public void OnRelease(TouchData td) {
         HangarScreen screen = (HangarScreen) MyGdxGame.game.current;
         if(screen.getShowPopUp()){
             int previousItemId = itemId;
@@ -83,6 +78,11 @@ public class SlotIcon extends Decoration implements IInputHandler{
                 InputManager.get.register(button);
             }
         }
+    }
+
+    @Override
+    public void OnRelease(TouchData td) {
+
     }
 
     @Override
