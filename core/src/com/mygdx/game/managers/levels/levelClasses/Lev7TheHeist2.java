@@ -27,9 +27,11 @@ public class Lev7TheHeist2 extends Level
 
         Planet planet1 = setPlanet(0,0, Planet.TypeOrbit.B320);
 
+        setObstacleMoving(200, 300, 600, 600, 3);
+
         setPlanet(1000,1000, Planet.TypeOrbit.B240);
 
-        setObstacleMoving(1000, 1400, 1000, 1400, 2);
+        setObstacleMoving(1000, 1000, 1400, 1400, 2);
 
         setCurrencyVolley(1500, 1500, 10);
 
@@ -37,8 +39,7 @@ public class Lev7TheHeist2 extends Level
 
         setCluster(1700, 3000, 3);
 
-        setCluster(300, 2600, 2);
-        Planet goalPlanet =  setPlanet(200,4000, Planet.TypeOrbit.G240);
+        setCluster(300, 2600, 2);     Planet goalPlanet =  setPlanet(200,4000, Planet.TypeOrbit.G240);
 
         setPlayer(planet1);
 

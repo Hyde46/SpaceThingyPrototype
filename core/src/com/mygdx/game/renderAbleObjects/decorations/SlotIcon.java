@@ -52,7 +52,6 @@ public class SlotIcon extends Decoration implements IInputHandler{
 
     @Override
     public void OnTouch(TouchData td){
-
         HangarScreen screen = (HangarScreen) MyGdxGame.game.current;
         if(screen.getShowPopUp()){
             int previousItemId = itemId;
@@ -68,10 +67,17 @@ public class SlotIcon extends Decoration implements IInputHandler{
                     button.changeTexture("equip_button.png");
                     break;
                 }
+            }else{
+                screen.getSelectedSlot2().changeTexture(ItemManager.getItemTexturePath(itemId));
             }
             screen.setShowPopUp(false);
             screen.saveSettings();
-
+            for(EquipButton button : screen.getEquipButtons()){
+                InputManager.get.register(button);
+            }
+            for(InfoButton button : screen.getInfoButtons()){
+                InputManager.get.register(button);
+            }
         }
     }
 

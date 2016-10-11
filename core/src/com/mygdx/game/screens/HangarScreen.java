@@ -25,6 +25,8 @@ import com.mygdx.game.utils.JukeBox;
 
 import java.util.ArrayList;
 
+import javax.sound.midi.MidiDevice;
+
 /**
  * Created by Vali on 10.07.2016.
  */
@@ -379,6 +381,13 @@ public class HangarScreen implements Screen {
         return equipButtons;
     }
 
+    /**
+     * getter for infobuttons
+     * @return
+     */
+    public Array<InfoButton> getInfoButtons(){
+        return infoButtons;
+    }
     /**
      * setter for boolean, if pop up should be shown -> used in equip button class
      * @param show

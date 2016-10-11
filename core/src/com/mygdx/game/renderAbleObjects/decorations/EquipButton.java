@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.InputManager.IInputHandler;
+import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.dataPersistence.DataPers;
 import com.mygdx.game.screens.HangarScreen;
@@ -58,6 +59,12 @@ public class EquipButton extends Decoration implements IInputHandler{
         HangarScreen screen = (HangarScreen) MyGdxGame.game.current;
         if(!screen.getShowPopUp()) {
             if (!isEquipped) {
+                for(EquipButton button : screen.getEquipButtons()){
+                    InputManager.get.unRegister(button);
+                }
+                for(InfoButton button : screen.getInfoButtons()){
+                    InputManager.get.unRegister(button);
+                }
                 Array<Slot> itemSlots = screen.getItemSlots();
                 int currentId = screen.getCurrentOrderId();
                 //reinitialize the last item slot, so that it is now deactivated again
