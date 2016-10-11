@@ -428,7 +428,7 @@ public class DialogManager {
             case JASON_ANGRY:
                 return "jason_serious.png";
             case HARRY_ANGRY:
-                return "harry_serious.jpg";
+                return "harry_serious.png";
             case HARRY_NORMAL:
                 return "harry_normal.png";
             case HARRY_SCREAMING:
