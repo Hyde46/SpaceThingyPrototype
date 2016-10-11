@@ -115,8 +115,7 @@ public class HangarScreen implements Screen {
         InputManager.get.register(skinArrowUp);
         InputManager.get.register(skinArrowDown);
 
-        EquipButton.maxTouchCounter = 20;
-        EquipButton.currentTouchCounter = 0;
+
 
    /*     //create particle functionality
         Slot particleSlot1 = new Slot();

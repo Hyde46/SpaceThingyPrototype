@@ -63,10 +63,12 @@ public class SlotIcon extends Decoration implements IInputHandler{
             }else{
                 screen.getSelectedSlot2().changeTexture(ItemManager.getItemTexturePath(itemId));
             }
-            for(EquipButton button : screen.getEquipButtons()){
-                if(button.getItemId() == previousItemId){
-                    button.changeTexture("equip_button.png");
-                    break;
+            if(previousItemId != 0){
+                for(EquipButton button : screen.getEquipButtons()){
+                    if(button.getItemId() == previousItemId){
+                        button.changeTexture("equip_button.png");
+                        break;
+                    }
                 }
             }
             screen.setShowPopUp(false);
