@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputManager.IInputHandler;
+import com.mygdx.game.InputManager.InputManager;
 import com.mygdx.game.InputManager.TouchData;
 import com.mygdx.game.Items.ItemManager;
 import com.mygdx.game.dataPersistence.DataPers;
@@ -67,8 +68,6 @@ public class SlotIcon extends Decoration implements IInputHandler{
                     button.changeTexture("equip_button.png");
                     break;
                 }
-            }else{
-                screen.getSelectedSlot2().changeTexture(ItemManager.getItemTexturePath(itemId));
             }
             screen.setShowPopUp(false);
             screen.saveSettings();
