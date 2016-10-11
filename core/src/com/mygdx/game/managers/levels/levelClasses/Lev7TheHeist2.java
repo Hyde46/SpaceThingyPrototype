@@ -47,8 +47,5 @@ public class Lev7TheHeist2 extends Level
         setPlayer(planet1);
 
         setCamera(gs, goalPlanet, new Rectangle(-400, -400, 4000, 5000));
-
-
-
     }
 }

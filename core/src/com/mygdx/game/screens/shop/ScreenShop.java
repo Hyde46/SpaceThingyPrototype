@@ -103,6 +103,8 @@ public class ScreenShop implements Screen
     int offsetButton1 = MyGdxGame.game.screenWidth - 700;
     int offsetButton2 = MyGdxGame.game.screenWidth - 400;
 
+    int wOffsetBanner = ((MyGdxGame.game.screenWidth - 870) / 2); // something wrong with width of the pic
+
     private ShopLogic shopLogic;
 
     public ScreenShop(int levelShop, int levelId, boolean isBuyMove)
@@ -190,7 +192,6 @@ public class ScreenShop implements Screen
             tabSell.initialize(new Vector2(offsetWScreenRed + wTab, yTabs), wTab, hTab, "sell_tab.png");
         }else{
             tabSell.initialize(new Vector2(offsetWScreenRed + wTab, yTabs), wTab, hTab, "sell_tab_active.png");
-
         }
         tabSell.setListener(new InputListener(){
             public void OnTouch(TouchData td){
@@ -201,13 +202,12 @@ public class ScreenShop implements Screen
         });
         InputManager.get.register(nameDynamic, tabSell);
 
-
         int posPanel = 0;
 
         if(shopLogic.isBuyMode())
         {
             bannerMiddleShop = new GenericElement();
-            bannerMiddleShop.initialize(new Vector2(wOffsetScreen, yBannerMiddle), wBannerMiddle, hBannerMiddle, "shop-banner-shop-900-200.png");
+            bannerMiddleShop.initialize(new Vector2(wOffsetBanner, yBannerMiddle), wBannerMiddle, hBannerMiddle, "shop-banner-shop-900-200.png");
             for (int i = 0; i < shopLogic.getIdsItemShop().size(); i++)
             {
                 posPanel = yPanelFirst - (i * offsetWPanels);
@@ -217,7 +217,7 @@ public class ScreenShop implements Screen
         else
         {
             bannerMiddleInv = new GenericElement();
-            bannerMiddleInv.initialize(new Vector2(wOffsetScreen, yBannerMiddle), wBannerMiddle, hBannerMiddle, "shop-banner-inventory-900-200.png");
+            bannerMiddleInv.initialize(new Vector2(wOffsetBanner, yBannerMiddle), wBannerMiddle, hBannerMiddle, "shop-banner-inventory-900-200.png");
 
             for (int i = 0; i < shopLogic.getIdsItemPlayer().size(); i++)
             {
