@@ -188,7 +188,7 @@ public class GameScreen implements Screen{
         ItemManager.getItemNameOfId(DataPers.dataH().getSlot2()));
         JukeBox.startBGM(levelId);
         levelState.setCurrentLevel(levelId);
-        levelState.setLevelName(levelContainer.nameLevel);
+        levelState.setLevelName(levelContainer.nameSystem);
     }
 
     private int prepareLevelFields(int levelId) {

@@ -110,7 +110,7 @@ public class DialogManager {
         //define post level dialogs
 
         textArray = new Array<String>();
-        textArray.addAll("Finally done! You wanted to go to the arcade, right?", "Nice, maybe I'll let you win for once.", "*ring ring*", "Mr. Thirst, we have a new delivery specified for you.", "We, Gen.Corp. want you to go to the ___ system and drop off the package. We will load the cargo at our Gen Corp facility on your route.",
+        textArray.addAll("Finally done! You wanted to go to the arcade, right?", "Nice, maybe I'll let you win for once.", "*ring ring*", "Mr. Thirst, we have a new delivery specified for you.", "We, Gen.Corp. want you to go to the Bera system and drop off a package. We will load the cargo at our Gen Corp facility on your route.",
                 "*click*", "Harry, always bugging me, when we want to relax.");
         avatarArray = new Array<DialogManager.Avatar>();
         avatarArray.addAll(Avatar.JASON_NORMAL, Avatar.SPENCER, Avatar.PHONE, Avatar.HARRY_NORMAL, Avatar.HARRY_NORMAL, Avatar.PHONE, Avatar.JASON_ANGRY);

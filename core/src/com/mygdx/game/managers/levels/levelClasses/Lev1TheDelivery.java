@@ -13,7 +13,7 @@ public class Lev1TheDelivery extends Level
 {
     public Lev1TheDelivery(GameScreen gs)
     {
-        nameLevel = "The Delivery";
+        nameLevel = "Delivery";
         nameSystem = "Bera";
 
         Planet planet1 = setPlanet(0,0, Planet.TypeOrbit.B320);
