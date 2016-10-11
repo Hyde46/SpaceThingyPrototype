@@ -25,6 +25,26 @@ public class Lev7TheHeist2 extends Level
         nameLevel = "The Heist";
         nameSystem = "Loki";
 
+        Planet planet1 = setPlanet(0,0, Planet.TypeOrbit.B320);
+
+        setPlanet(1000,1000, Planet.TypeOrbit.B240);
+
+        setObstacleMoving(1000, 1400, 1000, 1400, 2);
+
+        setCurrencyVolley(1500, 1500, 10);
+
+        setPlanet(1700,1900, Planet.TypeOrbit.B320);
+
+        setCluster(1700, 3000, 3);
+
+        setCluster(300, 2600, 2);
+        Planet goalPlanet =  setPlanet(200,4000, Planet.TypeOrbit.G240);
+
+        setPlayer(planet1);
+
+        setCamera(gs, goalPlanet, new Rectangle(-400, -400, 4000, 5000));
+
+
 
     }
 }
