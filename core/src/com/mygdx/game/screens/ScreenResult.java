@@ -50,7 +50,7 @@ public class ScreenResult implements Screen
 
     int marginVert = 50;
 
-    int marginTextBegin = 50;
+    int marginTextBegin = 10;
 
     int offsetFrameW = ((w-wFrame) / 2);
     int offsetFrameH = ((h-hFrame) / 2);
@@ -152,7 +152,7 @@ public class ScreenResult implements Screen
         infoResult.render(game.batch);
         btnBack.render(game.batch);
 
-        game.font.draw(game.batch, "Level:", offsetText0 , offsetHMiddleAvail + getOffsetHElementMiddle(2, hMiddleAvail, 3, 5));
+        game.font.draw(game.batch, "System", offsetText0 , offsetHMiddleAvail + getOffsetHElementMiddle(2, hMiddleAvail, 3, 5));
         game.font.draw(game.batch, name, offsetText1 , offsetHMiddleAvail + getOffsetHElementMiddle(2, hMiddleAvail, 3, 5));
 
         game.font.draw(game.batch, "Scraps:", offsetText0 , offsetHMiddleAvail + getOffsetHElementMiddle(1, hMiddleAvail, 3, 5));

@@ -30,7 +30,7 @@ public class Lev2TheDecision extends Level
 
     public Lev2TheDecision(GameScreen gs)
     {
-        nameLevel = "The Decision";
+        nameLevel = "Decision";
         nameSystem = "Topoga";
 
         Planet planet1 = setPlanet(0,0, Planet.TypeOrbit.B320);
