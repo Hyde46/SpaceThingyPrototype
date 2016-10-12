@@ -9,9 +9,9 @@ import com.mygdx.game.screens.GameScreen;
  * Created by ilost on 18.09.2016.
  */
 
-public class Lev10MainPath3 extends Level
+public class Lev8Main1TheCurve extends Level
 {
-    public Lev10MainPath3(GameScreen gs)
+    public Lev8Main1TheCurve(GameScreen gs)
     {
         nameLevel = "Edge of an universe";
         nameSystem = "Indigo";
@@ -19,7 +19,6 @@ public class Lev10MainPath3 extends Level
         setupFunctions(10);
 
         Planet planet1 = setPlanet(-1000,0, Planet.TypeOrbit.B320);
-
 
         setVisualUpdate(0, 5000, 2);
         setCurrencyVolley(0, 5200, 100);
@@ -60,7 +59,7 @@ public class Lev10MainPath3 extends Level
         setPlanet(3200, 2700, Planet.TypeOrbit.B240);
         setPlanet(2000, 1600, Planet.TypeOrbit.B480);
 
-        setObstacleField(0, 400, 0, -400, 8, 600);
+        setObstacleField(0, 400, 0, -400, 6, 600);
 
         Planet planetGoal = setPlanet(1000, 0, Planet.TypeOrbit.G320);
 

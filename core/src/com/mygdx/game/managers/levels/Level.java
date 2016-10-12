@@ -163,8 +163,8 @@ public abstract class Level
     {
         for(int i = 0; i < amount; i++)
         {
-            float xDeviation = deviation - genRand.getFloat() * deviation;
-            float yDeviation = deviation - genRand.getFloat() * deviation;
+            float xDeviation = genRand.getFloat() * deviation - deviation;
+            float yDeviation = genRand.getFloat() * deviation - deviation;
 
             Vector2 posStart;
             Vector2 posEnd;

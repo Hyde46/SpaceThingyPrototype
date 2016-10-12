@@ -21,7 +21,7 @@ public class GenRandomSeed
     {
         rdm.setSeed(seed);
         int num = rdm.nextInt(limitUpper);
-        seed++;
+        seed += 1337;
         return num;
     }
 
@@ -29,7 +29,7 @@ public class GenRandomSeed
     {
         rdm.setSeed(seed);
         int num = rdm.nextInt();
-        seed++;
+        seed += 1337;
         return num;
     }
 
@@ -37,7 +37,7 @@ public class GenRandomSeed
     {
         rdm.setSeed(seed);
         float num = rdm.nextFloat();
-        seed++;
+        seed += 1337;
         return num;
     }
 }

@@ -9,9 +9,9 @@ import com.mygdx.game.screens.GameScreen;
  * Created by ilost on 18.09.2016.
  */
 
-public class Lev8MainPath1 extends Level
+public class Lev10Main3Unknown extends Level
 {
-    public Lev8MainPath1(GameScreen gs)
+    public Lev10Main3Unknown(GameScreen gs)
     {
         nameLevel = "Endless skies";
         nameSystem = "Tau";

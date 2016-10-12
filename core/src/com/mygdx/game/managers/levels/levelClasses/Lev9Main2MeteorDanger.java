@@ -9,9 +9,9 @@ import com.mygdx.game.screens.GameScreen;
  * Created by ilost on 23.09.2016.
  */
 
-public class LevelXTreasureIsle extends Level
+public class Lev9Main2MeteorDanger extends Level
 {
-    public LevelXTreasureIsle(GameScreen gs)
+    public Lev9Main2MeteorDanger(GameScreen gs)
     {
         nameLevel = "Treasure Island";
         nameSystem = "Iroga";
@@ -24,9 +24,13 @@ public class LevelXTreasureIsle extends Level
 
         setCluster(-1700, 1500, 2);
 
+        setObstacleField(-850, 2000, -850, 2000, 3, 1000);
+
         setCluster(0, 2500, 4);
 
-        setVisualUpdate(850, 3000, 3);
+        setVisualUpdate(850, 3000, 1);
+
+        setObstacleField(850, 3000, 850, 3000, 3, 1000);
 
         setCluster(1700, 3500, 2);
 
