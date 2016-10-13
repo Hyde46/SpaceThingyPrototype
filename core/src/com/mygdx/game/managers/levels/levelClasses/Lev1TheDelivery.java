@@ -19,9 +19,13 @@ public class Lev1TheDelivery extends Level
         setupFunctions(1);
 
         Planet planet1 = setPlanet(0,0, Planet.TypeOrbit.B320);
-        setPlanet(550, 200, Planet.TypeOrbit.B240);
+//        setPlanet(550, 200, Planet.TypeOrbit.B240);
+        setCluster(850,200,1);
         setPlanet(-350, 900, Planet.TypeOrbit.B320);
-        setPlanet(520, 1250, Planet.TypeOrbit.B320);
+
+//        setPlanet(520, 1250, Planet.TypeOrbit.B320);
+        setCluster(720,1250,1);
+
         setPlanet(-300, 1600, Planet.TypeOrbit.B320);
         setPlanet(-650, 2100, Planet.TypeOrbit.B240);
 
@@ -31,11 +35,11 @@ public class Lev1TheDelivery extends Level
 
         setItemCurrency(-790, 2200, 12);
 
+        setItemCurrency(920, 1250, 5);
         setItemCurrency(820, 1250, 5);
-        setItemCurrency(720, 1250, 5);
 
         setPlayer(planet1);
 
-        setCamera(gs, planet3, new Rectangle(-1000, -900, 1900, 3700));
+        setCamera(gs, planet3, new Rectangle(-1000, -900, 2400, 3700));
     }
 }
