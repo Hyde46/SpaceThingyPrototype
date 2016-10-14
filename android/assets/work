@@ -48,3 +48,20 @@ Features:
     Story: 2 typen plaudern, 2 speech bubbles mit (...) (vali)
     OrbitEngine: planet von tenpager + cubicore: OrbitEngine ( denis)
     Art: MusicalNote + 2-3 planete übereinander gestack  ( vali) 
+    
+Trailer: 
+    /Querformat
+    Planet mit Mond (Nahaufnahme) -> Schiff fliegt von außen in den Orbit und daraufhin weiter
+    A game by the SpaceCorporation 
+    Dialog öffnet sich (Harry hat neuen Auftrag) 
+    /Hochformat -> Spielszene
+    Jason navigiert in schönem Stile zum Endplaneten 
+    "Upgrade your ship": Szene, in der Items benutzt werden (Teleport, Phase out)
+    "Explore": Navigierung durch World map, Starten eines Dialogs
+    /Querformat
+    Szene: Planeten mit Monden ohne Schiff:
+        oben einblenden: "Powered by the Orbit Engine" -> ausblenden
+        unten einblenden: "Unique soundtrack and artwork" ->ausblenden
+        mitte einblenden: Logo einblenden
+        ganz unten kurz danach einblenden: Android Logo 
+    
