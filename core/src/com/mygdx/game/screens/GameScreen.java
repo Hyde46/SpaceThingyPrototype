@@ -128,10 +128,10 @@ public class GameScreen implements Screen{
         game.uiBatch.end();
 
         game.shapeRenderer.setProjectionMatrix(cM.getCam().combined);
-        game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        Rectangle r = levelContainer.spacePhysiX.getWorldBound();
-        game.shapeRenderer.rect(r.x,r.y,r.width,r.height);
-        game.shapeRenderer.end();
+//        game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+//        Rectangle r = levelContainer.spacePhysiX.getWorldBound();
+//        game.shapeRenderer.rect(r.x,r.y,r.width,r.height);
+//        game.shapeRenderer.end();
 
         camFixed.update();
 
