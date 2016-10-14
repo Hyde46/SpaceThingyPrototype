@@ -84,21 +84,21 @@ public class DialogManager {
 
         textArray = new Array<String>();
         textArray.addAll("*ring ring*","Mr. Thirst, you made it, finally. I've been waiting for you. There are plenty of jobs for you. But first, I want to ask you something.","What is it? ",
-                "It's a small favor. GenCorp got me a cloned tiger as a bonus reward. Could you deliver it to my personal storage on my homeplanet?","A tiger?","In stasis, of course.","I assume the cage is included?",
+                "It's a small favor. GenCorp got me a cloned tiger as a bonus reward. Could you deliver it to my personal storage on my home planet?","A tiger?","In stasis, of course.","I assume the cage is included?",
                 "No Problem, Harry. I'll get right to it, and just call me Jason.");
         avatarArray = new Array<DialogManager.Avatar>();
         avatarArray.addAll(Avatar.PHONE,Avatar.HARRY_NORMAL, Avatar.JASON_NORMAL,Avatar.HARRY_NORMAL,Avatar.JASON_NORMAL,Avatar.HARRY_NORMAL,Avatar.SPENCER,Avatar.JASON_NORMAL);
         Dialog dialog17 = new Dialog(textArray, avatarArray);
 
         textArray = new Array<String>();
-        textArray.addAll("*ring ring*","Mr.Thirst, about the shipments i had for you. There is a rather urgent one" +
-                ". Be professional!","As always, Harry","*click*","I thought you told him to call you Jason.","...");
+        textArray.addAll("*ring ring*","Mr.Thirst, about the shipments I had for you. There is a rather urgent one" +
+                ". Be professional!","As usual, Harry!","*click*","I thought you told him to call you Jason.","...");
         avatarArray = new Array<DialogManager.Avatar>();
         avatarArray.addAll(Avatar.PHONE,Avatar.HARRY_NORMAL,Avatar.JASON_NORMAL,Avatar.PHONE,Avatar.SPENCER,Avatar.JASON_NORMAL);
         Dialog dialog18 = new Dialog(textArray, avatarArray);
 
         textArray = new Array<String>();
-        textArray.addAll("Let's dump that tracked package and get out of here. Harry seemed really concerned.","Where should we head to?","We are not safe here, not safe anywhere from Gen Corp.");
+        textArray.addAll("Let's dump that tracked package and get out of here. Harry seemed really concerned.","Where should we head to next?","We are not safe here, not safe anywhere from GenCorp.");
         avatarArray = new Array<DialogManager.Avatar>();
         avatarArray.addAll(Avatar.JASON_NORMAL, Avatar.SPENCER, Avatar.JASON_NORMAL);
         Dialog dialog19 = new Dialog(textArray, avatarArray);
@@ -154,31 +154,31 @@ public class DialogManager {
         Dialog dialog15 = new Dialog(textArray, avatarArray);
 
         textArray = new Array<String>();
-        textArray.addAll("Harry? 'The tiger' has landed","Good job Mr.Thirst. By the way I've got some well paying jobs for you at GenCorp");
+        textArray.addAll("Harry? 'The tiger' has landed.","Good job, Mr.Thirst. By the way I've got some well paying jobs for you at GenCorp.");
         avatarArray = new Array<DialogManager.Avatar>();
         avatarArray.addAll(Avatar.JASON_HAPPY, Avatar.HARRY_NORMAL);
         Dialog dialog20 = new Dialog(textArray, avatarArray);
 
         textArray = new Array<String>();
-        textArray.addAll("Jason! You hit that asteroid. You idiot! Now i have to clean that all up.",
-                "Damn. Spencer, check for the package, if everyting's fine.",
-                "Just a second",
-                "Jason, the package got shaken up really hard. Now there's a big hole on the bottom.",
-                "Do you see the papers flying out of it?",
-                "Put them back, we are not supposed to see them.",
-                "But look, its a receipt, addressed to that Crane guy. A really big payment from Gen Corp.",
-                "Professor Dr. Crane ? Isn't he the guy who claimed that the destruction of our home Galaxy was caused" +
-                        "by a natural disaster? What's his deal with Gen Corp?",
+        textArray.addAll("Jason! How could you hit that asteroid, you idiot?! Now I have to clean up everything.",
+                "Damn. Spencer go! Check if the package is fine!",
+                "Just a sec.",
+                "Jason, the package got shaken up really badly. Now there's a big hole in the bottom.",
+                "Do you see the papers falling out of it?",
+                "Put them back, we are not supposed to see them!",
+                "But look, it's a receipt, addressed to that Crane guy. It shows a really big payment from GenCorp.",
+                "Professor Dr. Crane? Isn't he the guy who claimed that the destruction of our home galaxy was caused " +
+                        "by a natural disaster? What's his deal with GenCorp?",
                 "*ring ring*",
-                "Mr Thirst, we got the information that your ship got hit by an asteroid.",
+                "Mr. Thirst, we got the information that your ship got hit by an asteroid.",
                 "...",
                 "Also the safety lock of the package alarmed us of it being broken.",
                 "I am sorry, after we hit that damn asteroid, the box just popped open.",
-                "We didn't see anything, and i didn't even touch it.",
-                "Mr Thirst we will get an escort to your location. We want to examine the shipment.",
+                "We didn't see anything, and I didn't even touch it.",
+                "Mr. Thirst, we will send a supervisor to your location. We want to examine the package.",
                 "...",
-                "Jason, don't be there when they arrive.",
-                "Please",
+                "Actually Jason, better don't be there when they arrive.",
+                "Please...",
                 "*click*");
         avatarArray = new Array<DialogManager.Avatar>();
         avatarArray.addAll(Avatar.SPENCER,Avatar.JASON_NORMAL,Avatar.SPENCER,Avatar.SPENCER,Avatar.SPENCER,Avatar.JASON_ANGRY,
@@ -186,16 +186,16 @@ public class DialogManager {
         Dialog dialog21 = new Dialog(textArray, avatarArray);
 
         textArray = new Array<String>();
-        textArray.addAll("Alright we got quiet some distance to them. They shouldn't be able to find us.",
-                "For now.",
-                "But what about now. Should be flee to an other galaxy?",
-                "No way. Gen Corp is dirtier than most believe.",
-                "We need to find Prof. Crane and find out what happened for real.",
-                "What about his ties to Gen Corp?",
-                "We should take the chance and meet him",
+        textArray.addAll("Alright we put quiet some distance between us and them. They shouldn't be able to find us.",
+                "For now...",
+                "But what about now? Should we take off to another galaxy?",
+                "No way! GenCorp is dirtier than most assume.",
+                "We need to find Prof. Crane and find out what really happened.",
+                "What about his ties to GenCorp?",
+                "We should risk it and meet up with him.",
         "To be continued...");
         avatarArray = new Array<DialogManager.Avatar>();
-        avatarArray.addAll(Avatar.JASON_NORMAL,Avatar.SPENCER,Avatar.SPENCER,Avatar.JASON_ANGRY,Avatar.JASON_NORMAL,Avatar.SPENCER,Avatar.JASON_NORMAL);
+        avatarArray.addAll(Avatar.JASON_NORMAL,Avatar.SPENCER,Avatar.SPENCER,Avatar.JASON_ANGRY,Avatar.JASON_NORMAL,Avatar.SPENCER,Avatar.JASON_NORMAL,Avatar.PHONE);
         Dialog dialog22 = new Dialog(textArray, avatarArray);
         postDialogArray = new Array<Dialog>();
         postDialogArray.addAll(dialog9,dialog16, dialog10, dialog11, dialog12, dialog13, dialog14, dialog15,dialog20,dialog21,dialog22);

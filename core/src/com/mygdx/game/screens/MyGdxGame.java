@@ -56,7 +56,7 @@ public class MyGdxGame extends Game
 		//font.getData().scale(1.0f);
 		shapeRenderer = new ShapeRenderer();
 		fpsLimit = new FPSLimiter(60);
-		currentVersion = "Prototype v0.9.0";
+		currentVersion = "v1.0.0";
 
 		font.setColor(Color.WHITE);
 		debugFont.setColor(Color.WHITE);

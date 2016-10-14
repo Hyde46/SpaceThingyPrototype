@@ -134,7 +134,7 @@ public class GameScreen implements Screen{
 //        game.shapeRenderer.end();
 
         camFixed.update();
-        finishLevel(true,false);
+//        finishLevel(true,false);
         update(delta);
     }
 
