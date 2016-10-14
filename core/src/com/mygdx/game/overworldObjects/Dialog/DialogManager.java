@@ -37,62 +37,62 @@ public class DialogManager {
         //define pre level dialogs
 
         Array<String> textArray = new Array<String>();
-        textArray.addAll("Hey Jason!", "...", "Listen to me!", "Can we finally take a break after this delivery so I can waste all of my money at the arcade?", "First of all you're not doing anything I'm the one flying the ship and second you're not getting paid, Spencer, that's me.", "Just because I'm a robot, right?",
-                "Quit playing around. Lets get it done.");
+        textArray.addAll("Hey Jason!", "...", "Listen to me!", "Can we finally take a break after this delivery so I can waste all of my money at the arcades?", "First of all, you're not doing anything. I'm the one,who is flying the ship and secondly, you're not getting paid, Spencer, I am.", "Is it because I am a robot? Great.",
+                "Quit playing around. Let's get the job done.");
         Array<DialogManager.Avatar> avatarArray = new Array<DialogManager.Avatar>();
         avatarArray.addAll(Avatar.SPENCER, Avatar.JASON_NORMAL, Avatar.SPENCER, Avatar.SPENCER, Avatar.JASON_NORMAL, Avatar.SPENCER, Avatar.JASON_ANGRY);
         Dialog dialog1 = new Dialog(textArray, avatarArray);
         textArray = new Array<String>();
-        textArray.addAll("Jason, we arrived at that stinky facility. Should we grab some coffee while they load our ship?");
+        textArray.addAll("Jason, we arrived at that stinky facility. Should we grab some coffee while they are load our ship?");
         avatarArray = new Array<DialogManager.Avatar>();
         avatarArray.add(Avatar.SPENCER);
         Dialog dialog2 = new Dialog(textArray, avatarArray);
         textArray = new Array<String>();
-        textArray.addAll("*ring ring*", "Hello Mr. Thirst, to pick up your package pass through the Topoga System straight north.", "Don't lose too much time on sidetracking.", "*click*", "Jason, Jason! Screw that delivery, I picked up signals on my Radar! There's a Pawn Shop East of this cluster and " +
-                "a Hangar somewhere west. Let's check that out!");
+        textArray.addAll("*ring ring*", "Hello Mr. Thirst, to pick up your package pass through the Topoga System in the north.", "Don't lose too much time sidetracking.", "*click*", "Jason, Jason! Screw that delivery, I picked up signals on my Radar! There's a Pawn Shop east of this cluster and " +
+                "a hangar somewhere to the west. Let's check that out!");
         avatarArray = new Array<DialogManager.Avatar>();
         avatarArray.addAll(Avatar.PHONE, Avatar.HARRY_NORMAL, Avatar.HARRY_NORMAL, Avatar.PHONE, Avatar.SPENCER);
         Dialog dialog3 = new Dialog(textArray, avatarArray);
         textArray = new Array<String>();
-        textArray.addAll("*ring ring*","Hello Jason it's me Karl, long time no see. What brings you to the Meku system?" +
-                "I just saw you on the scanners.", "Yeah, it's been a while, what do you got for me?", "I have recently planned a heist, big money involved. If you want a share, help me out. " +
-                "I still need a getaway Pilot. First, you need to bring me to the Tairu Planet and then help me disappear.", "I know you've always hated those kind of jobs, but this ship is falling apart.", "Let's get it over with.");
+        textArray.addAll("*ring ring*","Hello Jason, it's me, Karl. Long time, no see. What brings you to the Meku system? " +
+                "I just saw you on the radar.", "Yeah, it's been a while. What do you got for me?", "I have recently planned a heist, big money involved. If you want a share, help me out. " ,
+                "I still need a getaway pilot. Are you in?","Go on..."," I need you to bring me to the Tairu Planet and then help me disappear.", "I know, you've always hated those kind of jobs. This ship is falling apart. We need the money ", "Alright, let's get it over with.");
         avatarArray = new Array<DialogManager.Avatar>();
-        avatarArray.addAll(Avatar.PHONE,Avatar.BOUNTY_NORMAL, Avatar.JASON_NORMAL, Avatar.BOUNTY_NORMAL, Avatar.SPENCER, Avatar.JASON_ANGRY);
+        avatarArray.addAll(Avatar.PHONE,Avatar.BOUNTY_NORMAL, Avatar.JASON_NORMAL, Avatar.BOUNTY_NORMAL,Avatar.BOUNTY_NORMAL,Avatar.JASON_ANGRY,Avatar.BOUNTY_NORMAL, Avatar.SPENCER, Avatar.JASON_ANGRY);
         Dialog dialog4 = new Dialog(textArray, avatarArray);
         textArray = new Array<String>();
-        textArray.add("Start the engines! Go Go Go! We need to get out of here! NOW!");
+        textArray.addAll("Start the engines! Go Go Go! We need to get out of here!"," NOW!");
         avatarArray = new Array<DialogManager.Avatar>();
-        avatarArray.add(Avatar.BOUNTY_ANGRY);
+        avatarArray.addAll(Avatar.BOUNTY_ANGRY,Avatar.BOUNTY_ANGRY);
         Dialog dialog5 = new Dialog(textArray, avatarArray);
         textArray = new Array<String>();
-        textArray.addAll("A friend of mine told me the Hangar is right around this corner.", "Euh...","you don't have any friends.", "Fine, I read it online.");
+        textArray.addAll("A friend of mine told me the hangar is right around the corner.", "Euh...","How would you know, you don't have any friends.", "Fine, I read it online.");
         avatarArray = new Array<DialogManager.Avatar>();
         avatarArray.addAll(Avatar.SPENCER, Avatar.JASON_NORMAL, Avatar.JASON_HAPPY, Avatar.SPENCER);
         Dialog dialog6 = new Dialog(textArray, avatarArray);
         textArray = new Array<String>();
-        textArray.addAll("Jason, now you are quite the specialist in navigating. We got lost.", "*ring ring*", "Hey guys, I hope I'm not disturbing but I kinda... crashed my ship. I got my supplies left with me on Mitaki. ", "Could you please help me out and deliver it to Tentui including me. \n" +
-                "There's not much payment since I lost all of my scraps during the crash.", "Finally a Woman on board.", "...");
+        textArray.addAll("Jason, now you are quite the specialist in navigating. We got lost.", "*ring ring*", "Hey guys, I hope I'm not disturbing you but I kinda... crashed my ship. I'm stuck on Mitaki with all my supplies. ", "Would you mind delivering them to Tentui and take me with you. \n" +
+                "I can't pay you much since I lost all of my Scraps during the crash.", "Finally a woman on board.", "...");
         avatarArray = new Array<DialogManager.Avatar>();
         avatarArray.addAll(Avatar.SPENCER, Avatar.PHONE, Avatar.GIRL_NORMAL, Avatar.GIRL_NORMAL, Avatar.SPENCER, Avatar.JASON_ANGRY);
         Dialog dialog7 = new Dialog(textArray, avatarArray);
         textArray = new Array<String>();
-        textArray.addAll("So here's the deal. I need to get to Tentui, as i've told you before. It's not far from here.", "If you manage to drop me off in one piece, You'll get a new casing for this ship.", "Don't worry. We will get you there safe.");
+        textArray.addAll("So here's the deal: I need to get to Tentui, as I've told you before. It's not far from here.", "If you manage to drop me off in one piece, You'll get a new casing for this ship.", "Don't worry. We will get you there safely.");
         avatarArray = new Array<DialogManager.Avatar>();
         avatarArray.addAll(Avatar.GIRL_NORMAL, Avatar.GIRL_HAPPY, Avatar.JASON_NORMAL);
         Dialog dialog8 = new Dialog(textArray, avatarArray);
 
         textArray = new Array<String>();
-        textArray.addAll("*ring ring*","Mr. Thirst finally you made it. I've been waiting for you. There are plenty of shipments to be made, but first i want to ask you something.","What is it? ",
-                "It's a small favor. Gen Corp got me a cloned Tiger as a bonus reward. Could you deliver it to my personal Storage on my homeplanet?","A Tiger?","In stasis of course.","I assume the cage is included?",
+        textArray.addAll("*ring ring*","Mr. Thirst, you made it, finally. I've been waiting for you. There are plenty of jobs for you. But first, I want to ask you something.","What is it? ",
+                "It's a small favor. GenCorp got me a cloned tiger as a bonus reward. Could you deliver it to my personal storage on my homeplanet?","A tiger?","In stasis, of course.","I assume the cage is included?",
                 "No Problem, Harry. I'll get right to it, and just call me Jason.");
         avatarArray = new Array<DialogManager.Avatar>();
         avatarArray.addAll(Avatar.PHONE,Avatar.HARRY_NORMAL, Avatar.JASON_NORMAL,Avatar.HARRY_NORMAL,Avatar.JASON_NORMAL,Avatar.HARRY_NORMAL,Avatar.SPENCER,Avatar.JASON_NORMAL);
         Dialog dialog17 = new Dialog(textArray, avatarArray);
 
         textArray = new Array<String>();
-        textArray.addAll("*ring ring*","Mr Thirst, about the shipments we were talking about. There is a rather important one you have " +
-                "to deliver. Be professional.","As always Harry","*click*","I thought you told him to call you Jason","...");
+        textArray.addAll("*ring ring*","Mr.Thirst, about the shipments i had for you. There is a rather urgent one" +
+                ". Be professional!","As always, Harry","*click*","I thought you told him to call you Jason.","...");
         avatarArray = new Array<DialogManager.Avatar>();
         avatarArray.addAll(Avatar.PHONE,Avatar.HARRY_NORMAL,Avatar.JASON_NORMAL,Avatar.PHONE,Avatar.SPENCER,Avatar.JASON_NORMAL);
         Dialog dialog18 = new Dialog(textArray, avatarArray);
@@ -100,7 +100,7 @@ public class DialogManager {
         textArray = new Array<String>();
         textArray.addAll("Let's dump that tracked package and get out of here. Harry seemed really concerned.","Where should we head to?","We are not safe here, not safe anywhere from Gen Corp.");
         avatarArray = new Array<DialogManager.Avatar>();
-        avatarArray.addAll(Avatar.GIRL_NORMAL, Avatar.GIRL_HAPPY, Avatar.JASON_NORMAL);
+        avatarArray.addAll(Avatar.JASON_NORMAL, Avatar.SPENCER, Avatar.JASON_NORMAL);
         Dialog dialog19 = new Dialog(textArray, avatarArray);
 
         preDialogArray = new Array<Dialog>();
@@ -110,18 +110,18 @@ public class DialogManager {
         //define post level dialogs
 
         textArray = new Array<String>();
-        textArray.addAll("Finally done! You wanted to go to the arcade, right?", "Nice, maybe I'll let you win for once.", "*ring ring*", "Mr. Thirst, we have a new delivery specified for you.", "We, Gen.Corp. want you to go to the Bera system and drop off a package. We will load the cargo at our Gen Corp facility on your route.",
+        textArray.addAll("It's over, finally! You wanted to go to the arcades, right?", "Nice, maybe I'll let you win for once.", "*ring ring*", "Mr. Thirst, we have a new job for you.", "We, GenCorp, want you to go to the Bera system and drop off a package. We will load the cargo at our GenCorp facility on your route.",
                 "*click*", "Harry, always bugging me, when we want to relax.");
         avatarArray = new Array<DialogManager.Avatar>();
         avatarArray.addAll(Avatar.JASON_NORMAL, Avatar.SPENCER, Avatar.PHONE, Avatar.HARRY_NORMAL, Avatar.HARRY_NORMAL, Avatar.PHONE, Avatar.JASON_ANGRY);
         Dialog dialog9 = new Dialog(textArray, avatarArray);
         textArray = new Array<String>();
-        textArray.addAll("*ring ring*", "Mr. Thirst, We have gathered some information on your last delivery. Our Client was unsatisfied with the condition in which you left the package. Please be more careful in the future. ");
+        textArray.addAll("*ring ring*", "Mr. Thirst, We have gathered some information on your last delivery."," Our Client was unsatisfied with the condition in which you left the package. Please be more careful in the future. ");
         avatarArray = new Array<DialogManager.Avatar>();
-        avatarArray.addAll(Avatar.PHONE, Avatar.HARRY_ANGRY);
+        avatarArray.addAll(Avatar.PHONE, Avatar.HARRY_NORMAL,Avatar.BOUNTY_ANGRY);
         Dialog dialog16= new Dialog(textArray, avatarArray);
         textArray = new Array<String>();
-        textArray.addAll("Shiny stuff you got there! We can tinker around with it at the Hangar.", "But if you blow up the ship again, I'll find me another master.");
+        textArray.addAll("Shiny new things you got there! We can tinker around with it at the hangar.", "But if you blow up the ship again, I'll find me another master.");
         avatarArray = new Array<DialogManager.Avatar>();
         avatarArray.addAll(Avatar.SPENCER, Avatar.SPENCER);
         Dialog dialog10 = new Dialog(textArray, avatarArray);
@@ -131,16 +131,16 @@ public class DialogManager {
         avatarArray.addAll(Avatar.BOUNTY_NORMAL);
         Dialog dialog11 = new Dialog(textArray, avatarArray);
         textArray = new Array<String>();
-        textArray.addAll("I Know I always can count on you, when its about simple jobs. Here is your share. " +
-                " You won't hear from me anytime soon.", "I don't even want to know what you just did. My conscience is always bugging me after those kind of jobs.", "Don't beat yourself up, everyone has to look out for themselves.");
+        textArray.addAll("I know I can always count on you, for simple jobs. Here is your share. " +
+                " You won't hear from me anytime soon.", "Don't give me any details. My conscience is always bothering me after those kind of jobs.", "Don't beat yourself up, everyone has to look out for themselves.");
         avatarArray = new Array<DialogManager.Avatar>();
         avatarArray.addAll(Avatar.BOUNTY_NORMAL, Avatar.JASON_ANGRY, Avatar.SPENCER);
         Dialog dialog12 = new Dialog(textArray, avatarArray);
         textArray = new Array<String>();
-        textArray.addAll("*Radio plays*", "Welcome welcome welcome, this is Radio Nox News. Tonight we've got a very special guest with us.", "Professor Dr. Crane, a high profile Scientist will share his insight on the catastrophic event, when the Kerro Galaxy got completely wiped out.",
-                "His studies showed the definitive proof, that this horrible accident was caused by a natural anomaly.", "Turn that down, I don't want to be reminded that everything and everyone I knew ceased to exist.", "Strange how there's only one view on the matter. It's always the same with that damn radio show.");
+        textArray.addAll("*Radio plays*", "Welcome, Welcome, Welcome, this is Radio Nox News!"," Tonight we've got a very special guest with us.", "Professor Dr. Crane, a high profile scientist will share his insights on the catastrophic event of the Kerro Galaxy wipe-out.",
+                "His studies provide the definitive proof, that this horrible accident was a natural disaster.", "Turn that off, I don't want to be reminded that everything and everyone I knew ceased to exist.", "Strange how they only report one point of view on the matter. It's always the same with that damn radio chanel.");
         avatarArray = new Array<DialogManager.Avatar>();
-        avatarArray.addAll(Avatar.PHONE, Avatar.NEWS_ANCHOR, Avatar.NEWS_ANCHOR, Avatar.NEWS_ANCHOR, Avatar.JASON_ANGRY, Avatar.SPENCER);
+        avatarArray.addAll(Avatar.PHONE, Avatar.NEWS_ANCHOR,Avatar.NEWS_ANCHOR, Avatar.NEWS_ANCHOR, Avatar.NEWS_ANCHOR, Avatar.JASON_ANGRY, Avatar.SPENCER);
         Dialog dialog13 = new Dialog(textArray, avatarArray);
         textArray = new Array<String>();
         textArray.addAll("Thanks for picking me up.", "Beep Boop.");
@@ -148,13 +148,13 @@ public class DialogManager {
         avatarArray.addAll(Avatar.GIRL_HAPPY, Avatar.SPENCER);
         Dialog dialog14 = new Dialog(textArray, avatarArray);
         textArray = new Array<String>();
-        textArray.addAll("I guess I'm in your debt.", "How about we figure that out over dinner tonight, I know a nice restaurant two clusters away.", "..." , "You wish!");
+        textArray.addAll("I guess, I owe you.", "How about you take me out for dinner tonight. I know a nice restaurant two clusters away.", "..." , "You wish!");
         avatarArray = new Array<DialogManager.Avatar>();
         avatarArray.addAll(Avatar.GIRL_NORMAL, Avatar.JASON_HAPPY, Avatar.GIRL_ANGRY, Avatar.GIRL_HAPPY);
         Dialog dialog15 = new Dialog(textArray, avatarArray);
 
         textArray = new Array<String>();
-        textArray.addAll("Harry? The Tiger has landed","Nicely done Mr Thirst. By the way I found some really well paid jobs for you by Gen Corp");
+        textArray.addAll("Harry? 'The tiger' has landed","Good job Mr.Thirst. By the way I've got some well paying jobs for you at GenCorp");
         avatarArray = new Array<DialogManager.Avatar>();
         avatarArray.addAll(Avatar.JASON_HAPPY, Avatar.HARRY_NORMAL);
         Dialog dialog20 = new Dialog(textArray, avatarArray);
@@ -443,6 +443,12 @@ public class DialogManager {
                 return "bounty_angry.png";
             case PHONE:
                 return "phone.png";
+            case GIRL_ANGRY:
+                return "girl_angry.png";
+            case GIRL_HAPPY:
+                return "girl_happy.png";
+            case GIRL_NORMAL:
+                return "girl_normal.png";
             default:
                 return "jason_normal.png";
         }

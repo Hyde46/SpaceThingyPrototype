@@ -88,7 +88,7 @@ public class MyGdxGame extends Game
 		DataPers.saveP();
 		DataPers.saveM();
 
-		DataPers.dataP().credits = 10000;
+//		DataPers.dataP().credits = 10000;
 	}
 
 	public void openScreen(Screen screen)

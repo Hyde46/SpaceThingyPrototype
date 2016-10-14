@@ -39,7 +39,9 @@ public class DataSavableProgress extends ADataSavable
         credits = 0;
 
         //TODO remove later
-        unlockLevels();
+//        unlockLevels();
+
+//        levelsUnlocked[0][0]=true;
     }
 
     public class LevelData implements Serializable
@@ -53,7 +55,7 @@ public class DataSavableProgress extends ADataSavable
     {
         for(int i = 0; i < levelsUnlocked.length; i++)
             for (int j = 0; j < levelsUnlocked[0].length; j++)
-                levelsUnlocked[i][j] = true;
+                levelsUnlocked[i][j] = false;
     }
 
 
