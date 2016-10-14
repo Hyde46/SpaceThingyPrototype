@@ -10,8 +10,8 @@ import com.mygdx.game.renderAbleObjects.AUpdateableObject;
 /**
  * Created by denis on 5/13/16.
  */
-public abstract class Unit extends AUpdateableObject {
-
+public abstract class Unit extends AUpdateableObject
+{
     private static int UID = 0;
 
     protected Unit.UnitType unitType;

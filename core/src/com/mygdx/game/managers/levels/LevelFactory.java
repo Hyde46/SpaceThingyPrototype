@@ -1,7 +1,7 @@
 package com.mygdx.game.managers.levels;
 
 import com.mygdx.game.managers.levels.levelClasses.Lev0TheBeginning;
-import com.mygdx.game.managers.levels.levelClasses.Lev10MainPath3;
+import com.mygdx.game.managers.levels.levelClasses.Lev8Main1TheCurve;
 import com.mygdx.game.managers.levels.levelClasses.Lev1TheDelivery;
 import com.mygdx.game.managers.levels.levelClasses.Lev2TheDecision;
 import com.mygdx.game.managers.levels.levelClasses.Lev3LeapOfFaith;
@@ -9,8 +9,8 @@ import com.mygdx.game.managers.levels.levelClasses.Lev4Mira1;
 import com.mygdx.game.managers.levels.levelClasses.Lev5Mira2;
 import com.mygdx.game.managers.levels.levelClasses.Lev6TheHeist1;
 import com.mygdx.game.managers.levels.levelClasses.Lev7TheHeist2;
-import com.mygdx.game.managers.levels.levelClasses.Lev8MainPath1;
-import com.mygdx.game.managers.levels.levelClasses.Lev9MainPath2;
+import com.mygdx.game.managers.levels.levelClasses.Lev10Main3Unknown;
+import com.mygdx.game.managers.levels.levelClasses.Lev9Main2MeteorDanger;
 import com.mygdx.game.screens.GameScreen;
 
 /**
@@ -41,11 +41,11 @@ public class LevelFactory
             case 9:
                 return new Lev7TheHeist2(gs);
             case 10:
-                return new Lev8MainPath1(gs);
+                return new Lev8Main1TheCurve(gs);
             case 11:
-                return new Lev9MainPath2(gs);
+                return new Lev9Main2MeteorDanger(gs);
             case 12:
-                return new Lev10MainPath3(gs);
+                return new Lev10Main3Unknown(gs);
             default:
                 return null;
         }

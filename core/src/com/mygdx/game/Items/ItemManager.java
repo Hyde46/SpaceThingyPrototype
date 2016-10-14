@@ -293,21 +293,21 @@ public class ItemManager
             case 1:
                 return 30;
             case 2:
-                return 50;
+                return 40;
             case 3:
-                return 50;
+                return 40;
             case 7:
                 return 80;
             case 8:
                 return 0;
             case 14:
-                return 200;
+                return 90;
             case 15:
-                return 300;
+                return 100;
             case 17:
-                return 350;
+                return 120;
             case 19:
-                return 400;
+                return 150;
             default:
                 return 0;
         }
