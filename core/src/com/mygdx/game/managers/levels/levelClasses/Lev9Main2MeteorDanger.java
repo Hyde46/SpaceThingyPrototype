@@ -14,7 +14,7 @@ public class Lev9Main2MeteorDanger extends Level
     public Lev9Main2MeteorDanger(GameScreen gs)
     {
         nameLevel = "Treasure Island";
-        nameSystem = "Iroga";
+        nameSystem = "Cjebriev";
 
         setupFunctions(11);
 

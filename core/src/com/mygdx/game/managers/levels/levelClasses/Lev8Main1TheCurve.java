@@ -14,7 +14,7 @@ public class Lev8Main1TheCurve extends Level
     public Lev8Main1TheCurve(GameScreen gs)
     {
         nameLevel = "Edge of an universe";
-        nameSystem = "Indigo";
+        nameSystem = "Tau";
 
         setupFunctions(10);
 

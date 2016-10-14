@@ -14,7 +14,7 @@ public class Lev10Main3Unknown extends Level
     public Lev10Main3Unknown(GameScreen gs)
     {
         nameLevel = "Endless skies";
-        nameSystem = "Tau";
+        nameSystem = "Indigo";
 
         setupFunctions(8);
 
