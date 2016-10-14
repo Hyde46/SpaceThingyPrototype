@@ -30,44 +30,21 @@ Henri:
 ############################################################
 -webseite + trailer
 ##############################################################
-Done:
-- 7 möglichen skins im hangar funktionstüchtig machen
-    png's sind alle da :)
-- Im hangar: bug beim unequippen, wenn man das item anklickt bei der vorschau direkt unter dem skin
--Shop:
-    item namen in listen
-    design ändern
--dialoge richtig gesetzt
--letzten 3 dialoge
--overworld
-    diesen bug mit dem dialog
--item description screen
--item desc screen
-    descriptions logik
--item preise in item screen einbauen
--Hangar
-        particles weg
-        wenn popup offen, ist, die anderen deaktivieren
--die tuss die ein skin verspricht -> skin geben
--eintragen letzte dialoge.
-- henri -> bounty hunter
--main screen banner
--Shop banner
--skin sprites für hangar
--board phone sprite?
-- Dialog-> mehrere Avatare
 
+Webseite:
 
-Levels reworked|tested:
+beschreibung:
+Dive into the story of Jason, a delivery pilot for GenCorp. Control his ship and navigate through many different solar systems. You have to be careful though: Skills are imperative to avoid obstacles, not get lost and find the perfect trajectory to reach your next destination. 
 
-Level 0 tested | reworked
-Level 1 tested | reworked
-Level 4(vor hangar) tested | reworked
-Level 5(hub) tested | reworked
-Level 6(frau1) passt
-Level 7(frau2) passt
-Level 8(bounty1) passsst
-Level 9(bounty2) passt würde ich sagen
-Level 10(end1) kürzen
-Level 11(end2) (fehlt)
-Level 12(end3) (fehlt)
+Features:
+
+    Collect: Upgrade your ship with many different modifications.
+    Story: Dive into a suspenseful story with original characters. Be immersed into the story of Jason unraveling the galaxy wide conspiracy of GenCorp.
+    OrbitEngine: Experience a well rounded Space Adventure in our very own <i>OrbitEngine</i>  
+    Art: Be accompanied by our original <i>out of this world</i> soundtrack. Many men hours went into creating the handcrafted artwork.
+    
+    Grafiken:
+    Collect: schiff, das geld einsammelt (denis)
+    Story: 2 typen plaudern, 2 speech bubbles mit (...) (vali)
+    OrbitEngine: planet von tenpager + cubicore: OrbitEngine ( denis)
+    Art: MusicalNote + 2-3 planete übereinander gestack  ( vali) 
