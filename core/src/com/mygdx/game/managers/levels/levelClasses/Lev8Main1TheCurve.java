@@ -59,6 +59,6 @@ public class Lev8Main1TheCurve extends Level
 
         setPlayer(planet1);
 
-        setLevel(gs, planetGoal, new Rectangle(-4500, -500, 9000, 6500));
+        setLevel(gs, planetGoal, new Rectangle(-4500, -500, 8000, 6000));
     }
 }

@@ -51,6 +51,6 @@ public class Lev7TheHeist2 extends Level
         Planet goalPlanet =  setPlanet(200,4000, Planet.TypeOrbit.G240);
 
         setPlayer(planet1);
-        setCamera(gs, goalPlanet, new Rectangle(-400, -400, 4000, 5000));
+        setLevel(gs, goalPlanet, new Rectangle(-400, -400, 4000, 5000));
     }
 }
