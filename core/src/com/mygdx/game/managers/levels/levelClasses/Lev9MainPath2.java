@@ -37,6 +37,6 @@ public class Lev9MainPath2 extends Level
 
         setPlayer(planet1);
 
-        setCamera(gs, planetGoal, new Rectangle(-4000, -500, 5000, 10000));
+        setLevel(gs, planetGoal, new Rectangle(-4000, -500, 5000, 10000));
     }
 }

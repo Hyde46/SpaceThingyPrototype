@@ -36,6 +36,6 @@ public class Lev4Mira1 extends Level
 
         setPlayer(planet1);
 
-        setCamera(gs, planetGoal, new Rectangle(-4000, -500, 6000, 4500));
+        setLevel(gs, planetGoal, new Rectangle(-4000, -500, 6000, 4500));
     }
 }

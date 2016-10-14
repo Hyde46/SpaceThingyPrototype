@@ -32,6 +32,6 @@ public class Lev3LeapOfFaith extends Level
 
         setPlayer(planet1);
 
-        setCamera(gs, planetGoal, new Rectangle(-800, -400, 1600, 4500));
+        setLevel(gs, planetGoal, new Rectangle(-800, -400, 1600, 4500));
     }
 }

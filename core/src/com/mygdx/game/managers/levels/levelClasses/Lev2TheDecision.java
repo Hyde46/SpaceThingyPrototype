@@ -64,6 +64,6 @@ public class Lev2TheDecision extends Level
         setMoon(planet13, 320, 30);
         setMoon(planet13, 520, 20);
 
-        setCamera(gs, planet16, new Rectangle(-3100,-400,6300,4500));
+        setLevel(gs, planet16, new Rectangle(-3100,-400,6300,4500));
     }
 }

@@ -60,6 +60,6 @@ public class Lev10Main3Unknown extends Level
 
         setPlayer(planet1);
 
-        setCamera(gs, planetGoal, new Rectangle(-2500, -500, 5000, 20000));
+        setLevel(gs, planetGoal, new Rectangle(-2500, -500, 5000, 20000));
     }
 }

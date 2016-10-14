@@ -18,53 +18,47 @@ public class Lev8Main1TheCurve extends Level
 
         setupFunctions(10);
 
-        Planet planet1 = setPlanet(-1000,0, Planet.TypeOrbit.B320);
+        Planet planet1 = setPlanet(-1100,0, Planet.TypeOrbit.B320);
 
-        setVisualUpdate(0, 5000, 2);
-        setCurrencyVolley(0, 5200, 100);
-        setCurrencyVolley(0, 4800, 100);
-        setCurrencyVolley(-200, 5000, 100);
-        setCurrencyVolley(200, 5000, 100);
+        setVisualUpdate(0, 1300, 2);
+        setCurrencyVolley(0, 1500, 100);
+        setCurrencyVolley(0, 1100, 100);
+        //setCurrencyVolley(-200, 1300, 100);
+        //setCurrencyVolley(200, 1300, 100);
 
-        setPlanet(-1400, 1000, Planet.TypeOrbit.B240);
-        setPlanet(-1500, 1900, Planet.TypeOrbit.B320);
+        setPlanet(-1400, 650, Planet.TypeOrbit.B240);
+        setPlanet(-2150, 850, Planet.TypeOrbit.B320);
 
-        setCluster(-2200, 2900, 2);
+        setCluster(-2300, 1600, 2);
+        setCurrencyVolley(-3050, 1650, 20);
+        setPlanet(-3800, 1700, Planet.TypeOrbit.B320); // planet outside of circle
 
-        setPlanet(-3400, 3500, Planet.TypeOrbit.B320);
-        setPlanet(-4500, 5000, Planet.TypeOrbit.B480);
+        //setPlanet(-2100, 2400, Planet.TypeOrbit.B320);
 
-        setCluster(-3500, 6000, 2);
+        setCluster(-1300, 3000, 2);
+        setCurrencyVolley(-1325, 3850, 20);
+        setPlanet(-1350, 4700, Planet.TypeOrbit.B320); // pl outside
+        setObstacleField(-760, 2600, -760, 2600, 2, 200);
 
-        setObstacleField(-2000, 6555, -2100, 6255, 2, 300);
+        setPlanet(-200, 2400, Planet.TypeOrbit.B480);
+        setPlanet(500, 3100, Planet.TypeOrbit.B240);
+        setObstacleField(500, 3100, 500, 3100, 2, 1650);
 
-        setPlanet(-2400, 7000, Planet.TypeOrbit.B240);
-        setPlanet(-3500, 8000, Planet.TypeOrbit.B480);
+        setCluster(1300, 2500, 2);
+        setCurrencyVolley(2100, 2450, 20);
+        setPlanet(2900, 2400, Planet.TypeOrbit.B320);
+        setObstacleField(2900, 2400, 2900, 2400, 2, 1650);
 
-        setCluster(-1500, 8300, 2);
+        setObstacleField(1900, 1300, 1900, 1300, 2, 2650);
+        setPlanet(1900, 1300, Planet.TypeOrbit.B320);
+        setPlanet(1400, 750, Planet.TypeOrbit.B240);
 
-        setCluster(500, 9000, 2);
-
-        setPlanet(1200, 8100, Planet.TypeOrbit.B240);
-
-        setPlanet(2200, 7700, Planet.TypeOrbit.B240);
-        setPlanet(3000, 6600, Planet.TypeOrbit.B320);
-
-        setCluster(4500, 4800, 2);
-
-        setObstacleField(3200, 4400, 3000, 4500, 2, 300);
-
-        setPlanet(2200, 3700, Planet.TypeOrbit.B480);
-
-        setPlanet(3200, 2700, Planet.TypeOrbit.B240);
-        setPlanet(2000, 1600, Planet.TypeOrbit.B480);
-
-        setObstacleField(0, 400, 0, -400, 6, 600);
-
-        Planet planetGoal = setPlanet(1000, 0, Planet.TypeOrbit.G320);
+        setObstacleField(0, 450, 0, -100, 6, 650);
+        setPlanet(0, 75, Planet.TypeOrbit.B240);
+        Planet planetGoal = setPlanet(1100, 0, Planet.TypeOrbit.G320);
 
         setPlayer(planet1);
 
-        setCamera(gs, planetGoal, new Rectangle(-4500, -500, 10000, 12000));
+        setLevel(gs, planetGoal, new Rectangle(-4500, -500, 10000, 6500));
     }
 }

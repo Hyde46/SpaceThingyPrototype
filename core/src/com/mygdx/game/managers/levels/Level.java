@@ -212,7 +212,7 @@ public abstract class Level
         return parent;
     }
 
-    protected void setCamera(GameScreen gs, Planet goal, Rectangle bounds)
+    protected void setLevel(GameScreen gs, Planet goal, Rectangle bounds)
     {
         spacePhysiX = new SpacePhysiX();
         spacePhysiX.initializePhysics(unitManager.getUnits(),gs);

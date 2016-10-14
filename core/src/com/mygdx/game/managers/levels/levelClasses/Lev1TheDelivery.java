@@ -40,6 +40,6 @@ public class Lev1TheDelivery extends Level
 
         setPlayer(planet1);
 
-        setCamera(gs, planet3, new Rectangle(-1000, -900, 2400, 3700));
+        setLevel(gs, planet3, new Rectangle(-1000, -900, 2400, 3700));
     }
 }
