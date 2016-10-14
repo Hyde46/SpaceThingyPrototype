@@ -13,12 +13,12 @@ public class Lev9Main2MeteorDanger extends Level
 {
     public Lev9Main2MeteorDanger(GameScreen gs)
     {
-        nameLevel = "Treasure Island";
+        nameLevel = "Meteor Danger";
         nameSystem = "Cjebriev";
 
         setupFunctions(11);
 
-        Planet planet1 = setPlanet(-1500,0, Planet.TypeOrbit.B320);
+        Planet planet1 = setPlanet(-1500,0, Planet.TypeOrbit.B240);
 
         setCurrencyVolley(-1600, 750, 100);
 
@@ -36,7 +36,7 @@ public class Lev9Main2MeteorDanger extends Level
 
         setCurrencyVolley(1600, 4250, 100);
 
-        Planet planet2 = setPlanet(1500,5000, Planet.TypeOrbit.G320);
+        Planet planet2 = setPlanet(1500,5000, Planet.TypeOrbit.G240);
 
         setPlayer(planet1);
 
