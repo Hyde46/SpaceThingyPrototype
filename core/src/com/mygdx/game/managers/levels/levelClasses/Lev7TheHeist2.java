@@ -45,14 +45,19 @@ public class Lev7TheHeist2 extends Level
 
         setCurrencyVolley(300, 3400, 10);
 
-        setObstacleMoving(1500, 00, 200, 300, 3);
+        setObstacleMoving(1500, 3000, 200, 300, 3);
 
         setObstacleMoving(600, 5000, 300, 3000, 1);
+
+        setObstacleField(3000, 6000, -2000, -2000, 4, 3);
+
+        setObstacleField(2000, -1000, 0, 6000, 7, 3);
+
+        setObstacleMoving(-1000, 2000, 4000, 1600, 4);
 
         Planet goalPlanet =  setPlanet(200,4000, Planet.TypeOrbit.G240);
 
         setPlayer(planet1);
-
         setCamera(gs, goalPlanet, new Rectangle(-400, -400, 4000, 5000));
 
 
