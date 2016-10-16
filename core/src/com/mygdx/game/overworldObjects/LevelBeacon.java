@@ -229,7 +229,9 @@ public class LevelBeacon extends ARenderableObject implements IInputHandler
         if(!activated)
         {
             activated = true;
-            DataPers.dataP().levelsUnlocked[typeLevel.ordinal()][idLevel] = true;
+            DataPers.dataP().levelsUnlocked[0][idLevel] = activated;
+            DataPers.dataP().levelsUnlocked[1][idLevel] = activated;
+            DataPers.dataP().levelsUnlocked[2][idLevel] = activated;
             DataPers.saveP();
 
             if(this.typeLevel == TypeLevel.SHOP)

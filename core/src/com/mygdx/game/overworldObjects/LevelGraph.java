@@ -75,17 +75,17 @@ public class LevelGraph {
 
         levelBeacon1.initialize(new Vector2(300, 300), 300, 300, array1, LevelBeacon.TypeLevel.LEVEL, 0, true);
         levelBeacon2.initialize(new Vector2(300, 900), 300, 300, array2, LevelBeacon.TypeLevel.LEVEL, 1, DataPers.dataP().levelsUnlocked[0][1]);
-        levelBeacon3.initialize(new Vector2(1100, 1950), 300, 300, array3, LevelBeacon.TypeLevel.SHOP, 2, DataPers.dataP().levelsUnlocked[0][3]);
-        levelBeacon4.initialize(new Vector2(-450, 1050), 300, 300, array4, LevelBeacon.TypeLevel.HANGAR, 3, DataPers.dataP().levelsUnlocked[0][4]);
-        levelBeacon5.initialize(new Vector2(500, 1500), 300, 300, array5, LevelBeacon.TypeLevel.LEVEL, 4, DataPers.dataP().levelsUnlocked[0][5]);
-        levelBeacon6.initialize(new Vector2(-50, 1350), 300, 300, array6, LevelBeacon.TypeLevel.LEVEL, 5, DataPers.dataP().levelsUnlocked[0][6]);
-        levelBeacon7.initialize(new Vector2(1050, 1400), 300, 300, array7, LevelBeacon.TypeLevel.LEVEL, 6, DataPers.dataP().levelsUnlocked[0][7]);
-        levelBeacon8.initialize(new Vector2(1550, 1275), 300, 300, array8, LevelBeacon.TypeLevel.LEVEL, 7, DataPers.dataP().levelsUnlocked[0][8]);
-        levelBeacon9.initialize(new Vector2(0, 2000), 300, 300, array9, LevelBeacon.TypeLevel.LEVEL, 8, DataPers.dataP().levelsUnlocked[0][9]);
-        levelBeacon10.initialize(new Vector2(-350, 2250), 300, 300, array10, LevelBeacon.TypeLevel.LEVEL, 9, DataPers.dataP().levelsUnlocked[0][10]);
-        levelBeacon11.initialize(new Vector2(600, 1950), 300, 300, array11, LevelBeacon.TypeLevel.LEVEL, 10, DataPers.dataP().levelsUnlocked[0][11]);
-        levelBeacon12.initialize(new Vector2(750, 2300), 300, 300, array12, LevelBeacon.TypeLevel.LEVEL, 11, DataPers.dataP().levelsUnlocked[0][12]);
-        levelBeacon13.initialize(new Vector2(0, 2550), 300, 300, array13, LevelBeacon.TypeLevel.LEVEL, 12, DataPers.dataP().levelsUnlocked[0][13]);
+        levelBeacon3.initialize(new Vector2(1100, 1950), 300, 300, array3, LevelBeacon.TypeLevel.SHOP, 2, DataPers.dataP().levelsUnlocked[0][2]);
+        levelBeacon4.initialize(new Vector2(-450, 1050), 300, 300, array4, LevelBeacon.TypeLevel.HANGAR, 3, DataPers.dataP().levelsUnlocked[0][3]);
+        levelBeacon5.initialize(new Vector2(500, 1500), 300, 300, array5, LevelBeacon.TypeLevel.LEVEL, 4, DataPers.dataP().levelsUnlocked[0][4]);
+        levelBeacon6.initialize(new Vector2(-50, 1350), 300, 300, array6, LevelBeacon.TypeLevel.LEVEL, 5, DataPers.dataP().levelsUnlocked[0][5]);
+        levelBeacon7.initialize(new Vector2(1050, 1400), 300, 300, array7, LevelBeacon.TypeLevel.LEVEL, 6, DataPers.dataP().levelsUnlocked[0][6]);
+        levelBeacon8.initialize(new Vector2(1550, 1275), 300, 300, array8, LevelBeacon.TypeLevel.LEVEL, 7, DataPers.dataP().levelsUnlocked[0][7]);
+        levelBeacon9.initialize(new Vector2(0, 2000), 300, 300, array9, LevelBeacon.TypeLevel.LEVEL, 8, DataPers.dataP().levelsUnlocked[0][8]);
+        levelBeacon10.initialize(new Vector2(-350, 2250), 300, 300, array10, LevelBeacon.TypeLevel.LEVEL, 9, DataPers.dataP().levelsUnlocked[0][9]);
+        levelBeacon11.initialize(new Vector2(600, 1950), 300, 300, array11, LevelBeacon.TypeLevel.LEVEL, 10, DataPers.dataP().levelsUnlocked[0][10]);
+        levelBeacon12.initialize(new Vector2(750, 2300), 300, 300, array12, LevelBeacon.TypeLevel.LEVEL, 11, DataPers.dataP().levelsUnlocked[0][11]);
+        levelBeacon13.initialize(new Vector2(0, 2550), 300, 300, array13, LevelBeacon.TypeLevel.LEVEL, 12, DataPers.dataP().levelsUnlocked[0][12]);
 
         //add beacons to array of this LevelGraph object
         addBeacon(levelBeacon1);
@@ -248,15 +248,15 @@ public class LevelGraph {
     }
 
     public void unlockNewBeacons(int finishedLevel){
-        if(finishedLevel == 5){
+        if(finishedLevel == 4){
             for(LevelBeacon lB: levelBeacons){
-                if((lB.getIdLevel() == 9 || lB.getIdLevel() == 6 ) && Lev2TheDecision.lastFinishedSide == 0){
+                if((lB.getIdLevel() == 8 || lB.getIdLevel() == 5 ) && Lev2TheDecision.lastFinishedSide == 0){
                     lB.activate();
                 }
-                if((lB.getIdLevel() == 7|| lB.getIdLevel() == 3 ) && Lev2TheDecision.lastFinishedSide == 2){
+                if((lB.getIdLevel() == 6|| lB.getIdLevel() == 2 ) && Lev2TheDecision.lastFinishedSide == 2){
                     lB.activate();
                 }
-                if((lB.getIdLevel() == 11 ) && Lev2TheDecision.lastFinishedSide == 1 ){
+                if((lB.getIdLevel() == 10 ) && Lev2TheDecision.lastFinishedSide == 1 ){
                     lB.activate();
                 }
             }

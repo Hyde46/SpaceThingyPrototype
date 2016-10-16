@@ -16,6 +16,7 @@ public class DataSavableProgress extends ADataSavable
     private ArrayList<Integer> idsSkinsPlayer = new ArrayList<Integer>();
     public ArrayList<Integer> preDialogsPlayed;
     public ArrayList<Integer> postDialogsPlayed;
+    public boolean startedGameOnce;
     public int[] hopsPerLevel;
  //   public boolean[] levelsUnlocked;
     public int credits;
@@ -37,6 +38,7 @@ public class DataSavableProgress extends ADataSavable
         levelsUnlocked = new boolean[3][100];
 
         credits = 0;
+        startedGameOnce = false;
 
         //TODO remove later
 //        unlockLevels();

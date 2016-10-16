@@ -3,6 +3,8 @@ package com.mygdx.game.managers.levels;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.dataPersistence.DataPers;
 
+import javax.xml.crypto.Data;
+
 /**
  * Created by denis on 8/12/16.
  *

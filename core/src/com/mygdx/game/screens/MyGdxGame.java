@@ -76,17 +76,12 @@ public class MyGdxGame extends Game
 		DataPers.dataP().idsItemsPlayer.add(2); // add item picker
 		DataPers.dataP().addToSkins(0); // add orange default skin
 		DataPers.dataP().addToSkins(1); // add pink default skin
-		DataPers.dataP().addToSkins(2);
-		DataPers.dataP().addToSkins(3);
-		DataPers.dataP().addToSkins(4);
-		DataPers.dataP().addToSkins(5);
-		DataPers.dataP().addToSkins(6);
 
 		DataPers.dataH().setCurrentSkin(0); // set orange skin
-		DataPers.dataM().startedGameOnce = true;
+		DataPers.dataP().startedGameOnce = true;
+
 		DataPers.saveH();
 		DataPers.saveP();
-		DataPers.saveM();
 
 //		DataPers.dataP().credits = 10000;
 	}
