@@ -63,7 +63,10 @@ public class MyGdxGame extends Game
 		dialogFont.setColor(Color.BLACK);
 		showOverlay = true;
 
-
+		DataPers.dataP();
+		DataPers.dataH();
+		DataPers.dataM();
+		DataPers.dataS();
 		if(!DataPers.dataM().startedGameOnce){
 			prepareData();
 		}
